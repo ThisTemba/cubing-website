@@ -9,5 +9,10 @@ export default function Timer() {
   //     setInterval(setTime(time + 10), 10);
   //   }, [timerState]);
 
-  return <h1>{time}</h1>;
+  return (
+    <div>
+      <h1 style={{ fontFamily: "monospace" }}>{time}</h1>
+      <h2>{timerState}</h2>
+    </div>
+  );
 }
