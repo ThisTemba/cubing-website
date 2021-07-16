@@ -4,10 +4,22 @@ export default function Timer() {
   const [time, setTime] = useState(0);
   const [timerState, setTimerState] = useState("ready");
 
-  //   useEffect(() => {
-  //       if()
-  //     setInterval(setTime(time + 10), 10);
-  //   }, [timerState]);
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
+
+  const handleKeyDown = (e) => {
+    console.log(e);
+  };
+
+  const handleKeyUp = (e) => {
+    console.log(e);
+  };
 
   return (
     <div>
