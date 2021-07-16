@@ -1,5 +1,11 @@
 import React from "react";
+import Timer from "./common/timer";
 
 export default function TimePage() {
-  return <h1>Time Page</h1>;
+  return (
+    <div>
+      <h1>Time Page</h1>
+      <Timer />
+    </div>
+  );
 }
