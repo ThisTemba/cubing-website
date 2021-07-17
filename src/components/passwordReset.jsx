@@ -3,6 +3,7 @@ import { auth } from "../fire";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import CenterCard from "./common/centerCard";
 import Input from "./common/input";
 
@@ -41,6 +42,12 @@ export default function PasswordReset() {
     </>
   );
 
+  const forgotPasswordComp = (
+    <p>
+      Don't have an account? <Link to="/signup">Sign up</Link>
+    </p>
+  );
+
   const content = (
     <>
       {message && <Alert variant="success">{message}</Alert>}
@@ -48,6 +55,11 @@ export default function PasswordReset() {
     </>
   );
   return (
-    <CenterCard title="Reset your password" content={content} error={error} />
+    <CenterCard
+      title="Reset your password"
+      content={content}
+      error={error}
+      belowCard={forgotPasswordComp}
+    />
   );
 }
