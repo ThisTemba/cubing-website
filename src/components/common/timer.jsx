@@ -1,42 +1,109 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import React, { Component } from "react";
+import TimeDisplay from "./timeDisplay";
+import ScrambleDisplay from "./scrambleDisplay";
+import getTimeString from "../../../utils/getTimeString";
 
-export default function Timer() {
-  const [time, setTime] = useState(0);
-  const [timerState, setTimerState] = useState("ready");
+//this.props.onNewSolve
+//this.props.armingTime
+//this.props.currentScramble
+class Timer extends Component {
+  state = {
+    time: 0, // time in ms
+    timerState: "ready",
+  };
 
-  useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyUp);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (timerState === "on") {
-      var interval = setInterval(() => setTime((t) => t + 10), 10);
-    } else {
-      clearInterval(interval);
+  componentDidUpdate(_, prevState) {
+    const { timerState } = this.state;
+    if (timerState !== prevState.timerState) {
+      timerState === "on" ? this.startTimer() : this.stopTimer();
+      console.log(timerState);
     }
-    return () => clearInterval(interval);
-  }, [timerState]);
+  }
 
-  const handleKeyDown = (e) => {
-    console.log(e);
+  componentDidMount() {
+    document.addEventListener("keyup", this.handleKeyUp);
+    document.addEventListener("keydown", this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keyup", this.handleKeyUp);
+    document.addEventListener("keydown", this.handleKeyDown);
+  }
+
+  startTimer = () => {
+    this.interval = setInterval(() => {
+      this.setState((state) => ({ time: state.time + 10 }));
+    }, 10);
   };
 
-  const handleKeyUp = (e) => {
-    console.log(e);
+  stopTimer = () => {
+    clearInterval(this.interval);
   };
 
-  return (
-    <div>
-      <h1 style={{ fontFamily: "monospace" }}>{time}</h1>
-      <h2>{timerState}</h2>
-      <Button onClick={() => setTimerState("on")}>Start</Button>
-      <Button onClick={() => setTimerState("off")}>Stop</Button>
-    </div>
-  );
+  getNewSolve = () => {
+    const { time: timeRaw } = this.state;
+    const { currentScramble } = this.props;
+    const solve = {
+      dateTime: new Date(),
+      solveTime: {
+        timeString: getTimeString(timeRaw),
+        timeSeconds: timeRaw / 1000,
+        timeRaw: timeRaw,
+      },
+      scramble: currentScramble,
+    };
+    return solve;
+  };
+
+  handleKeyUp = ({ key }) => {
+    if (key === " ") {
+      const { timerState } = this.state;
+      switch (timerState) {
+        case "armed":
+          this.setState({ timerState: "on" });
+          break;
+        case "cooldown":
+          this.setState({ timerState: "ready" });
+          break;
+        case "arming":
+          clearTimeout(this.timeout);
+          this.setState({ timerState: "ready", time: 0 });
+          break;
+        default:
+      }
+    }
+  };
+
+  handleKeyDown = ({ key }) => {
+    const { timerState } = this.state;
+    const { armingTime } = this.props;
+    if (timerState === "on") {
+      this.setState({ timerState: "cooldown" }); // stop the timer first
+      this.props.onNewSolve(this.getNewSolve());
+    }
+    if (key === " " && timerState === "ready") {
+      this.timeout = setTimeout(() => {
+        this.setState({ timerState: "armed", time: 0 });
+      }, armingTime);
+      this.setState({ timerState: "arming" });
+    }
+  };
+
+  render() {
+    const { timerState, time } = this.state;
+    return (
+      <div>
+        <ScrambleDisplay scramble={this.props.currentScramble} />
+        <TimeDisplay timeString={getTimeString(time)} timerState={timerState} />
+      </div>
+    );
+  }
 }
+
+Timer.defaultProps = {
+  armingTime: 300,
+  currentScramble: "R U R' U'(test scramble)",
+  onNewSolve: () => {},
+};
+
+export default Timer;
