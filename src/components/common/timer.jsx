@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TimeDisplay from "./timeDisplay";
 import ScrambleDisplay from "./scrambleDisplay";
-import getTimeString from "../../../utils/getTimeString";
+// import getTimeString from "../../../utils/getTimeString";
 
 //this.props.onNewSolve
 //this.props.armingTime
