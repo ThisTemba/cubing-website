@@ -45,14 +45,10 @@ export default function LoginSignUpTemplate({
     </>
   );
 
-  const belowCard = (
-    <div className="w-100 text-center mt-2">{textBelowCard}</div>
-  );
-
   return (
     <CenterCard
       content={cardContent}
-      belowCard={belowCard}
+      textBelowCard={textBelowCard}
       title={title}
       error={error}
     />

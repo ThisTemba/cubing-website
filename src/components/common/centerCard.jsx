@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
 
-export default function CenterCard({ title, content, belowCard, error }) {
+export default function CenterCard({ title, content, textBelowCard, error }) {
   const renderErrorAlert = (error) => {
     return (
       error && (
@@ -25,7 +25,7 @@ export default function CenterCard({ title, content, belowCard, error }) {
           </Card.Body>
         </Card>
         {renderErrorAlert(error)}
-        {belowCard}
+        <div className="w-100 text-center mt-2">{textBelowCard}</div>
       </div>
     </Container>
   );

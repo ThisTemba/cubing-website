@@ -59,7 +59,7 @@ export default function PasswordReset() {
       title="Reset your password"
       content={content}
       error={error}
-      belowCard={forgotPasswordComp}
+      textBelowCard={forgotPasswordComp}
     />
   );
 }
