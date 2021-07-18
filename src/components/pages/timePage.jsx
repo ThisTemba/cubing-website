@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import paginate from "../utils/paginate";
-import getTimeString from "../utils/getTimeString";
-import Timer from "./common/timer";
-import SolveList from "./common/solveList";
-import Pagination from "./common/pagination";
+import paginate from "../../utils/paginate";
+import getTimeString from "../../utils/getTimeString";
+import Timer from "../common/cubing/timer";
+import SolveList from "../common/cubing/solveList";
+import Pagination from "../common/pagination";
 
 export default function TimePage() {
   const [session, setSession] = useState();
