@@ -6,7 +6,7 @@ import { auth, useAuthState } from "../fire";
 export default function Navbar() {
   const user = useAuthState();
   return (
-    <NavbarRB bg="dark" variant="dark" expand="md">
+    <NavbarRB bg="light" expand="md">
       <NavbarRB.Brand as={Link} to="/">
         GCW
       </NavbarRB.Brand>
@@ -19,10 +19,6 @@ export default function Navbar() {
           <Nav.Link as={NavLink} to="/train">
             Train
           </Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item to="#action/3.1">Account</NavDropdown.Item>
-            <NavDropdown.Item to="#action/3.3">Log Out</NavDropdown.Item>
-          </NavDropdown>
         </Nav>
         <Nav>
           {user && (
