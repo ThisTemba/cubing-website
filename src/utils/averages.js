@@ -1,5 +1,10 @@
 import _ from "lodash";
 
+export const aolastN = (solves, N) => {
+  const Nsolves = _.takeRight(solves, N);
+  return aoN(Nsolves, N);
+};
+
 export const aoN = (Nsolves, N) => {
   if (Nsolves.length !== N) {
     throw "Nsolves.length !== N in aoN calculation";
