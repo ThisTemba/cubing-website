@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Timer from "./common/timer";
 import { Button } from "react-bootstrap";
+import paginate from "../utils/paginate";
+import Timer from "./common/timer";
+import SolveList from "./common/solveList";
+import Pagination from "./common/pagination";
 
 export default function TimePage() {
   const [session, setSession] = useState();
+  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
 
   const puzzle = "333";
 
@@ -28,15 +33,34 @@ export default function TimePage() {
     // because if you don't do this, pressing space afterwards triggers the button
   };
 
+  const getSolves = (session) => {
+    if (session) {
+      const orderedSolves = [...session.solves].reverse();
+      const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
+      return paginatedSolves;
+    } else {
+      return [];
+    }
+  };
+
   return (
-    <div>
-      <h1>Time Page</h1>
+    <div className="container">
+      <Button onClick={handleNewSession}>New Session</Button>
       <Timer
         onNewSolve={(solve) => {
-          session.solves.push(solve);
+          setSession({ ...session, solves: [...session.solves, solve] });
         }}
+        armingTime={100}
       />
-      <Button onClick={handleNewSession}>New Session</Button>
+      <SolveList solves={getSolves(session)} />
+      {session && (
+        <Pagination
+          itemsCount={session.solves.length}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChange={(p) => setCurrentPage(p)}
+        />
+      )}
     </div>
   );
 }
