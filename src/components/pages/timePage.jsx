@@ -6,6 +6,7 @@ import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
 import useLocalStorage from "../../utils/useLocalStorage";
+import { aoN } from "../../utils/averages";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", null);
@@ -18,9 +19,16 @@ export default function TimePage() {
     if (!session) handleNewSession();
   }, []);
 
+  const getSessionStats = (session) => {
+    const times = session.solves.map((s) => s.solveTime.timeSeconds);
+    const numSolves = times.length;
+    const res = { ...session, numSolves };
+    console.log(aoN(session.solves, 23));
+    return res;
+  };
+
   const handleNewSession = () => {
-    // save current session to cloud
-    console.log(session);
+    console.log(getSessionStats(session));
 
     const dateTime = new Date();
     setSession({
@@ -93,6 +101,7 @@ export default function TimePage() {
   return (
     <div className="container">
       <Button onClick={handleNewSession}>New Session</Button>
+      <Button onClick={() => getSessionStats(session)}>Session Stats</Button>
       <Timer onNewSolve={handleNewSolve} armingTime={100} />
       <h3>{"Session: " + session.name}</h3>
       <SolveList
