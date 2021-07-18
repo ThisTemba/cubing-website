@@ -52,11 +52,22 @@ export default function TimePage() {
     setSession({ ...session, solves: [...session.solves, newSolve] });
   };
 
+  const handleDeleteSolve = (solveDateTime) => {
+    let newSolves = session.solves.filter((s) => s.dateTime !== solveDateTime);
+    newSolves = newSolves.map((s, i) => {
+      return { ...s, solveNumber: i + 1 };
+    });
+    setSession({ ...session, solves: newSolves });
+  };
+
   return (
     <div className="container">
       <Button onClick={handleNewSession}>New Session</Button>
       <Timer onNewSolve={handleNewSolve} armingTime={100} />
-      <SolveList solves={getSolves(session)} />
+      <SolveList
+        solves={getSolves(session)}
+        onDeleteSolve={handleDeleteSolve}
+      />
       {session && (
         <Pagination
           itemsCount={session.solves.length}
