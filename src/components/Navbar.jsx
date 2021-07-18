@@ -6,7 +6,7 @@ import { auth, useAuthState } from "../fire";
 export default function Navbar() {
   const user = useAuthState();
   return (
-    <NavbarRB bg="light" expand="md">
+    <NavbarRB bg="light" expand="md" className="mb-2">
       <NavbarRB.Brand as={Link} to="/">
         GCW
       </NavbarRB.Brand>
