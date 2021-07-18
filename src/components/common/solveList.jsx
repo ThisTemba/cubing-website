@@ -26,7 +26,7 @@ export default function SolveList(props) {
                 <button
                   className="btn btn-sm btn-link"
                   onClick={() => {
-                    props.onPenalize(dateTime, button.penalty);
+                    props.onPenalty(dateTime, button.penalty);
                   }}
                 >
                   {button.label}

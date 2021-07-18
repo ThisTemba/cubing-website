@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import paginate from "../utils/paginate";
+import getTimeString from "../utils/getTimeString";
 import Timer from "./common/timer";
 import SolveList from "./common/solveList";
 import Pagination from "./common/pagination";
@@ -60,6 +61,34 @@ export default function TimePage() {
     setSession({ ...session, solves: newSolves });
   };
 
+  const handlePenalty = (solveDateTime, newPenalty) => {
+    let newSolves = [...session.solves];
+    const index = newSolves.findIndex((s) => s.dateTime === solveDateTime);
+    let oldPenalty = newSolves[index].penalty;
+    if (oldPenalty !== newPenalty) {
+      let newSolveTime = newSolves[index].solveTime; // init newSolveTime
+      let timeRaw = newSolveTime.timeRaw; // get timeRaw
+      switch (newPenalty) {
+        case "DNF":
+          newSolveTime.timeString = "DNF";
+          newSolveTime.timeSeconds = timeRaw / 1000;
+          break;
+        case "+2":
+          newSolveTime.timeString = getTimeString(timeRaw + 2000) + "+";
+          newSolveTime.timeSeconds = (timeRaw + 2000) / 1000;
+          break;
+        case "":
+          newSolveTime.timeString = getTimeString(timeRaw);
+          newSolveTime.timeSeconds = timeRaw / 1000;
+          break;
+        default:
+      }
+      newSolves[index].solveTime = newSolveTime;
+      newSolves[index].penalty = newPenalty;
+      setSession({ ...session, solves: newSolves });
+    }
+  };
+
   return (
     <div className="container">
       <Button onClick={handleNewSession}>New Session</Button>
@@ -67,6 +96,7 @@ export default function TimePage() {
       <SolveList
         solves={getSolves(session)}
         onDeleteSolve={handleDeleteSolve}
+        onPenalty={handlePenalty}
       />
       {session && (
         <Pagination
