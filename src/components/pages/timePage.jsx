@@ -5,9 +5,10 @@ import getTimeString from "../../utils/getTimeString";
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
+import useLocalStorage from "../../utils/useLocalStorage";
 
 export default function TimePage() {
-  const [session, setSession] = useState();
+  const [session, setSession] = useLocalStorage("session", null);
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
