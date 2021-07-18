@@ -15,7 +15,7 @@ export default function TimePage() {
   const puzzle = "333";
 
   useEffect(() => {
-    handleNewSession();
+    if (!session) handleNewSession();
   }, []);
 
   const handleNewSession = () => {
