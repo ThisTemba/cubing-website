@@ -43,15 +43,19 @@ export default function TimePage() {
     }
   };
 
+  const handleNewSolve = (solve) => {
+    const newSolve = {
+      ...solve,
+      penalty: "",
+      solveNumber: session.solves.length + 1,
+    };
+    setSession({ ...session, solves: [...session.solves, newSolve] });
+  };
+
   return (
     <div className="container">
       <Button onClick={handleNewSession}>New Session</Button>
-      <Timer
-        onNewSolve={(solve) => {
-          setSession({ ...session, solves: [...session.solves, solve] });
-        }}
-        armingTime={100}
-      />
+      <Timer onNewSolve={handleNewSolve} armingTime={100} />
       <SolveList solves={getSolves(session)} />
       {session && (
         <Pagination
