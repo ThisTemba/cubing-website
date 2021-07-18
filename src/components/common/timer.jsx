@@ -16,7 +16,6 @@ class Timer extends Component {
     const { timerState } = this.state;
     if (timerState !== prevState.timerState) {
       timerState === "on" ? this.startTimer() : this.stopTimer();
-      console.log(timerState);
     }
   }
 
