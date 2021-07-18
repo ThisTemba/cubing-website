@@ -94,6 +94,7 @@ export default function TimePage() {
     <div className="container">
       <Button onClick={handleNewSession}>New Session</Button>
       <Timer onNewSolve={handleNewSolve} armingTime={100} />
+      <h3>{"Session: " + session.name}</h3>
       <SolveList
         solves={getSolves(session)}
         onDeleteSolve={handleDeleteSolve}
