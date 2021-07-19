@@ -19,6 +19,9 @@ export default function Navbar() {
           <Nav.Link as={NavLink} to="/train">
             Train
           </Nav.Link>
+          <Nav.Link as={NavLink} to="/stats">
+            Stats
+          </Nav.Link>
         </Nav>
         <Nav>
           {user && (
