@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import TrainPage from "./components/pages/trainPage";
@@ -11,11 +11,14 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Route path="/time" component={TimePage} />
-      <Route path="/train" component={TrainPage} />
-      <Route path="/signup" component={SignUp} />
-      <Route path="/login" component={LogIn} />
-      <Route path="/password_reset" component={PasswordReset} />
+      <Switch>
+        <Route path="/time" component={TimePage} />
+        <Route path="/train" component={TrainPage} />
+        <Route path="/signup" component={SignUp} />
+        <Route path="/login" component={LogIn} />
+        <Route path="/password_reset" component={PasswordReset} />
+        <Redirect path="/" to="/time" />
+      </Switch>
     </div>
   );
 }
