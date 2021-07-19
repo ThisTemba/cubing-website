@@ -6,7 +6,7 @@ import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
 import useLocalStorage from "../../utils/useLocalStorage";
-import { aoN } from "../../utils/averages";
+import { aolastN, bestAoN } from "../../utils/averages";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", null);
@@ -23,7 +23,7 @@ export default function TimePage() {
     const times = session.solves.map((s) => s.solveTime.timeSeconds);
     const numSolves = times.length;
     const res = { ...session, numSolves };
-    console.log(aoN(session.solves, 23));
+    console.log("Result from timePage:", bestAoN(session.solves, 5));
     return res;
   };
 
