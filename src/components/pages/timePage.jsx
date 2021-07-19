@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
+import { db } from "../../fire";
 import paginate from "../../utils/paginate";
 import getTimeString from "../../utils/getTimeString";
 import Timer from "../common/cubing/timer";
@@ -34,13 +35,26 @@ export default function TimePage() {
       stats = { ...stats, bestAo12 };
     }
     stats = { ...stats, numSolves, bestSingle };
-    const res = { ...session, stats };
-    console.log(res);
-    return res;
+    const sessionWithStats = { ...session, stats };
+    return sessionWithStats;
+  };
+
+  const saveCurrentSession = (session) => {
+    db.collection("sessions")
+      .add(session)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   };
 
   const handleNewSession = () => {
-    if (session.length > 0) getSessionStats(session);
+    if (session.solves.length > 0) {
+      const currentSession = getSessionStats(session);
+      saveCurrentSession(currentSession);
+    }
 
     const dateTime = new Date();
     setSession({
