@@ -6,7 +6,7 @@ import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
 import useLocalStorage from "../../utils/useLocalStorage";
-import { aolastN, bestAoN } from "../../utils/averages";
+import { bestAoN, getbestSingle } from "../../utils/averages";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", null);
@@ -20,15 +20,27 @@ export default function TimePage() {
   }, []);
 
   const getSessionStats = (session) => {
-    const times = session.solves.map((s) => s.solveTime.timeSeconds);
-    const numSolves = times.length;
-    const res = { ...session, numSolves };
-    console.log("Result from timePage:", bestAoN(session.solves, 5));
+    if (session.solves.length < 1) return;
+    let stats = {};
+    const numSolves = session.solves.length;
+    const bestSingle = getbestSingle(session.solves);
+    if (session.solves.length >= 5) {
+      // yes, duplicated code, but izokay!
+      const bestAo5 = bestAoN(session.solves, 5);
+      stats = { ...stats, bestAo5 };
+    }
+    if (session.solves.length >= 12) {
+      const bestAo12 = bestAoN(session.solves, 12);
+      stats = { ...stats, bestAo12 };
+    }
+    stats = { ...stats, numSolves, bestSingle };
+    const res = { ...session, stats };
+    console.log(res);
     return res;
   };
 
   const handleNewSession = () => {
-    console.log(getSessionStats(session));
+    if (session.length > 0) getSessionStats(session);
 
     const dateTime = new Date();
     setSession({

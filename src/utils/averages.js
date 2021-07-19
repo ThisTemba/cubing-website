@@ -1,5 +1,14 @@
 import _ from "lodash";
 
+export const getbestSingle = (solves) => {
+  const bestSingle = Math.min(
+    ...solves
+      .filter((s) => s.penalty !== "DNF")
+      .map((s) => s.solveTime.timeSeconds)
+  );
+  return bestSingle;
+};
+
 export const bestAoN = (solves, n) => {
   if (solves.length < n)
     throw `Can't get best Ao${n} from ${solves.length} solves`;
