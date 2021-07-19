@@ -12,7 +12,12 @@ var firebaseConfig = {
   measurementId: "G-BYLSDMPCQ0",
 };
 // Initialize Firebase
-export default firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+// EXPORTS
+export default firebase;
+
+export const db = firebase.firestore();
 
 export const auth = firebase.auth();
 
