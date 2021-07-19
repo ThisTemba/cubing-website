@@ -5,25 +5,20 @@ export const aolastN = (solves, N) => {
   return aoN(Nsolves, N);
 };
 
-export const aoN = (Nsolves, N) => {
-  if (Nsolves.length !== N) {
-    throw "Nsolves.length !== N in aoN calculation";
-  }
-  let sortedSolves = DNFsort(Nsolves);
-  const excludeNum = Math.ceil(N * 0.05);
-  console.log(excludeNum);
+export const aolastN = (solves, n) => {
+  return aoAll(_.takeRight(solves, n));
+};
 
-  let trimmedSolves = _.slice(
-    sortedSolves,
-    excludeNum,
-    sortedSolves.length - excludeNum
+const aoAll = (solves) => {
+  let sorted = DNFsort(solves);
+  let trimmed = _.slice(
+    sorted,
+    Math.ceil(solves.length * 0.05),
+    sorted.length - Math.ceil(solves.length * 0.05)
   );
 
-  if (_.some(trimmedSolves, ["penalty", "DNF"])) {
-    return "DNF";
-  } else {
-    return _.mean(trimmedSolves.map((s) => s.solveTime.timeSeconds));
-  }
+  if (_.some(trimmed, ["penalty", "DNF"])) return "DNF";
+  else return _.mean(trimmed.map((s) => s.solveTime.timeSeconds));
 };
 
 export const DNFsort = (solves) => {
