@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { db } from "../../fire";
+
 import paginate from "../../utils/paginate";
 import getTimeString from "../../utils/getTimeString";
+import { bestAoN, getbestSingle } from "../../utils/averages";
+import useLocalStorage from "../../utils/useLocalStorage";
+
+import scrambles from "../../data/scrambles";
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
-import useLocalStorage from "../../utils/useLocalStorage";
-import { bestAoN, getbestSingle } from "../../utils/averages";
-import scrambles from "../../data/scrambles";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", null);
