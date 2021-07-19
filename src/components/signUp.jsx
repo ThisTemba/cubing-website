@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../fire";
+import { auth, db } from "../fire";
 import LoginSignUpTemplate from "./common/logInSignUpTemplate";
 
 export default function SignUp({ history }) {
@@ -9,8 +9,25 @@ export default function SignUp({ history }) {
   const handleSubmit = (email, password) => {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(() => history.push("/"))
+      .then((userCredential) => {
+        newUserDocument(userCredential.user.uid, email);
+        history.push("/");
+      })
       .catch((error) => setError(error));
+  };
+
+  const newUserDocument = (uid, email) => {
+    db.collection("users")
+      .doc(uid)
+      .set({
+        email,
+      })
+      .then(() => {
+        console.log("Document written with ID: ", uid);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   };
 
   return (
