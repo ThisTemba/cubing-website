@@ -8,11 +8,13 @@ import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
 import useLocalStorage from "../../utils/useLocalStorage";
 import { bestAoN, getbestSingle } from "../../utils/averages";
+import scrambles from "../../data/scrambles";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", null);
-  const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
+  const [scramble, nextScramble] = useScrambles();
+  const pageSize = 10;
 
   const puzzle = "333";
 
@@ -80,6 +82,7 @@ export default function TimePage() {
   };
 
   const handleNewSolve = (solve) => {
+    nextScramble();
     const newSolve = {
       ...solve,
       penalty: "",
@@ -128,7 +131,7 @@ export default function TimePage() {
     <div className="container">
       <Button onClick={handleNewSession}>New Session</Button>
       <Button onClick={() => getSessionStats(session)}>Session Stats</Button>
-      <Timer onNewSolve={handleNewSolve} armingTime={100} />
+      <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
       <h3>{"Session: " + session.name}</h3>
       <SolveList
         solves={getSolves(session)}
@@ -146,3 +149,14 @@ export default function TimePage() {
     </div>
   );
 }
+
+const useScrambles = () => {
+  const [index, setIndex] = useState(
+    Math.floor(Math.random() * scrambles.length)
+  );
+  const nextScramble = () => {
+    const newIndex = index + 1 < scrambles.length ? index + 1 : 0;
+    setIndex(newIndex);
+  };
+  return [scrambles[index], nextScramble];
+};
