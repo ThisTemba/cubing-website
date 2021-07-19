@@ -1,8 +1,19 @@
 import _ from "lodash";
 
-export const aolastN = (solves, N) => {
-  const Nsolves = _.takeRight(solves, N);
-  return aoN(Nsolves, N);
+export const bestAoN = (solves, n) => {
+  if (solves.length < n)
+    throw `Can't get best Ao${n} from ${solves.length} solves`;
+  let poppableSolves = [...solves];
+  let bestAvg = aolastN(solves, n);
+  while (poppableSolves.length >= n) {
+    let avg = aolastN(poppableSolves, n);
+    bestAvg =
+      (avg !== "DNF" && avg < bestAvg) || bestAvg === "DNF" ? avg : bestAvg;
+    poppableSolves.pop();
+    console.log(avg);
+  }
+  console.log("bestAvg:", bestAvg);
+  return bestAvg;
 };
 
 export const aolastN = (solves, n) => {
