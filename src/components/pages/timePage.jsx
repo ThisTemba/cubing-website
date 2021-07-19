@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { db } from "../../fire";
+import { db, useAuthState } from "../../fire";
 
 import paginate from "../../utils/paginate";
 import getTimeString from "../../utils/getTimeString";
@@ -16,6 +16,7 @@ export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", null);
   const [currentPage, setCurrentPage] = useState(1);
   const [scramble, nextScramble] = useScrambles();
+  const user = useAuthState();
   const pageSize = 10;
 
   const puzzle = "333";
@@ -44,7 +45,9 @@ export default function TimePage() {
   };
 
   const saveCurrentSession = (session) => {
-    db.collection("sessions")
+    db.collection("users")
+      .doc(user.uid)
+      .collection("sessions")
       .add(session)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
