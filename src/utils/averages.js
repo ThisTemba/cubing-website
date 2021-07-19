@@ -18,7 +18,10 @@ const aoAll = (solves) => {
   );
 
   if (_.some(trimmed, ["penalty", "DNF"])) return "DNF";
-  else return _.mean(trimmed.map((s) => s.solveTime.timeSeconds));
+  else {
+    const times = trimmed.map((s) => s.solveTime.timeSeconds);
+    return _.round(_.mean(times), 2);
+  }
 };
 
 export const DNFsort = (solves) => {
