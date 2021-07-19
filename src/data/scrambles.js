@@ -1,4 +1,4 @@
-[
+const scrambles = [
   "U2 L2 B R2 F' L2 D' U R' F' D' U2 B2 F2 R' D' U2",
   "B2 D' L2 R2 D' B2 R2 F2 U F' R' B2 U' B2 D' U2 R F2 U",
   "L2 F' R2 L2 B' D2 R' U F2 U2 D B2 U' F2 R2 U F D L2",
@@ -2182,5 +2182,6 @@
   "B D' R' B D' L U B2 D U2 L2 B' D2 R2 F D2 B2 D2 B",
   "D' F2 U B2 R2 U2 R2 B R' B2 F2 L' D' R' B2 D L B'",
   "B2 R B D2 L F' D2 L' B2 U L U2 F D2 F' B2 R2 D2 B2",
-  "D' F U L U B D' F U2 D F L2 U2 B2 U L2 U' F2"
-]
+  "D' F U L U B D' F U2 D F L2 U2 B2 U L2 U' F2",
+];
+export default scrambles;
