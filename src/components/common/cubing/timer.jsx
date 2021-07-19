@@ -5,7 +5,7 @@ import getTimeString from "../../../utils/getTimeString";
 
 //this.props.onNewSolve
 //this.props.armingTime
-//this.props.currentScramble
+//this.props.scramble
 class Timer extends Component {
   state = {
     time: 0, // time in ms
@@ -41,7 +41,7 @@ class Timer extends Component {
 
   getNewSolve = () => {
     const { time: timeRaw } = this.state;
-    const { currentScramble } = this.props;
+    const { scramble } = this.props;
     const solve = {
       dateTime: new Date(),
       solveTime: {
@@ -49,7 +49,7 @@ class Timer extends Component {
         timeSeconds: timeRaw / 1000,
         timeRaw: timeRaw,
       },
-      scramble: currentScramble,
+      scramble: scramble,
     };
     return solve;
   };
@@ -92,7 +92,7 @@ class Timer extends Component {
     const { timerState, time } = this.state;
     return (
       <div>
-        <ScrambleDisplay scramble={this.props.currentScramble} />
+        <ScrambleDisplay scramble={this.props.scramble} />
         <TimeDisplay timeString={getTimeString(time)} timerState={timerState} />
       </div>
     );
@@ -101,7 +101,7 @@ class Timer extends Component {
 
 Timer.defaultProps = {
   armingTime: 300,
-  currentScramble: "R U R' U'(test scramble)",
+  scramble: "R U R' U'(test scramble)",
   onNewSolve: () => {},
 };
 
