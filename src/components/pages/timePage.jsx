@@ -69,7 +69,7 @@ export default function TimePage() {
     return {
       name: dateTime.toLocaleDateString() + " " + dateTime.toLocaleTimeString(),
       date: dateTime.toLocaleDateString(),
-      dateTime: dateTime,
+      dateTime: dateTime.toString(),
       puzzle: puzzle,
       solves: solves,
     };
