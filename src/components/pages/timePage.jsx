@@ -22,7 +22,7 @@ export default function TimePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [scramble, nextScramble] = useStaticScrambles();
   const user = useAuthState();
-  const pageSize = 10;
+  const pageSize = 12;
   const puzzle = "333";
 
   useEffect(() => {
@@ -127,7 +127,7 @@ export default function TimePage() {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       {user && <Button onClick={handleNewSession}>New Session</Button>}
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
       {session && <h3>{"Session: " + session.name}</h3>}
