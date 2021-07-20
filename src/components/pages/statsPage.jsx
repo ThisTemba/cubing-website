@@ -62,9 +62,7 @@ export default function StatsPage() {
           //     ["USA", 78.09, 2.05, "North America", 307007000],
           //   ]}
           options={{
-            title:
-              "Correlation between life expectancy, fertility rate " +
-              "and population of some world countries (2010)",
+            title: "Session Best Single vs Session Date",
             vAxis: { title: "Solve Time" },
             hAxis: { title: "Date" },
             bubble: { textStyle: { fontSize: 11 } },
