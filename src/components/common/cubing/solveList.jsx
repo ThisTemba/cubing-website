@@ -25,6 +25,7 @@ export default function SolveList(props) {
             <td>
               {penaltyButtons.map((button) => (
                 <button
+                  key={button.penalty}
                   className="btn btn-sm btn-link"
                   onClick={() => {
                     props.onPenalty(dateTime, button.penalty);
