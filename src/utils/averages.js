@@ -9,6 +9,24 @@ export const getbestSingle = (solves) => {
   return bestSingle;
 };
 
+export const getworstSingle = (solves) => {
+  const worstSingle = Math.max(
+    ...solves
+      .filter((s) => s.penalty !== "DNF")
+      .map((s) => s.solveTime.timeSeconds)
+  );
+  return worstSingle;
+};
+
+export const getSessionAverage = (solves) => {
+  if (solves.length >= 5) return aoAll(solves);
+  else if (_.some(solves, ["penalty", "DNF"])) return "DNF";
+  else {
+    const times = solves.map((s) => s.solveTime.timeSeconds);
+    return _.round(_.mean(times), 2);
+  }
+};
+
 export const bestAoN = (solves, n) => {
   if (solves.length < n)
     throw `Can't get best Ao${n} from ${solves.length} solves`;
@@ -29,7 +47,8 @@ export const aolastN = (solves, n) => {
   return aoAll(_.takeRight(solves, n));
 };
 
-const aoAll = (solves) => {
+export const aoAll = (solves) => {
+  if (solves.length < 5) throw "Need at least 5 solves to calculate aoAll";
   let sorted = DNFsort(solves);
   let trimmed = _.slice(
     sorted,
