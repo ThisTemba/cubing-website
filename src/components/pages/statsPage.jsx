@@ -4,7 +4,6 @@ import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import { expressionStatement } from "@babel/types";
 import { getSessionAverage } from "../../utils/averages";
 
 export default function StatsPage() {
