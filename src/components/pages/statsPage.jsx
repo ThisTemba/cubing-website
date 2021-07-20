@@ -5,6 +5,7 @@ import { useAuthState, db } from "../../fire";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import ListGroup from "react-bootstrap/ListGroup";
 import { getSessionAverage } from "../../utils/averages";
 
 export default function StatsPage() {
@@ -81,13 +82,13 @@ export default function StatsPage() {
           </tbody>
         </Table>
         All stats:
-        <ul>
+        <ListGroup>
           {Object.keys(session.stats).map((k) => (
-            <li key={k}>
+            <ListGroup.Item>
               {k}: {session.stats[k]}
-            </li>
+            </ListGroup.Item>
           ))}
-        </ul>
+        </ListGroup>
       </div>
     );
   };
