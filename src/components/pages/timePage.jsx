@@ -6,8 +6,8 @@ import paginate from "../../utils/paginate";
 import getTimeString from "../../utils/getTimeString";
 import { bestAoN, getbestSingle } from "../../utils/averages";
 import useLocalStorage from "../../utils/useLocalStorage";
+import useStaticScrambles from "../../utils/useStaticScrambles";
 
-import scrambles from "../../data/scrambles";
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
@@ -18,7 +18,7 @@ export default function TimePage() {
     solves: [],
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [scramble, nextScramble] = useScrambles();
+  const [scramble, nextScramble] = useStaticScrambles();
   const user = useAuthState();
   const pageSize = 10;
 
@@ -156,14 +156,3 @@ export default function TimePage() {
     </div>
   );
 }
-
-const useScrambles = () => {
-  const [index, setIndex] = useState(
-    Math.floor(Math.random() * scrambles.length)
-  );
-  const nextScramble = () => {
-    const newIndex = index + 1 < scrambles.length ? index + 1 : 0;
-    setIndex(newIndex);
-  };
-  return [scrambles[index], nextScramble];
-};
