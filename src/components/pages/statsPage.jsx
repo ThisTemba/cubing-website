@@ -5,6 +5,7 @@ import { useAuthState, db } from "../../fire";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { expressionStatement } from "@babel/types";
+import { getSessionAverage } from "../../utils/averages";
 
 export default function StatsPage() {
   const [show, setShow] = useState(false);
@@ -60,6 +61,8 @@ export default function StatsPage() {
   };
 
   const renderModalBody = (session) => {
+    console.log("avg:", getSessionAverage(session.solves));
+
     return (
       <div>
         Stats:
@@ -86,7 +89,7 @@ export default function StatsPage() {
           data={chartData}
           options={{
             title: "Session Best Single vs Session Date",
-            vAxis: { title: "Solve Time" },
+            vAxis: { title: "Session Average" },
             hAxis: { title: "Date" },
             bubble: { textStyle: { color: "none" } },
             tooltip: {
