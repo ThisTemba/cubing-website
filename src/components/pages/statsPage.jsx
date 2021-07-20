@@ -88,7 +88,7 @@ export default function StatsPage() {
           loader={<div>Loading Chart</div>}
           data={chartData}
           options={{
-            title: "Session Best Single vs Session Date",
+            title: "Session Average vs Session Date",
             vAxis: { title: "Session Average" },
             hAxis: { title: "Date" },
             bubble: { textStyle: { color: "none" } },
