@@ -43,6 +43,19 @@ export const bestAoN = (solves, n) => {
   return bestAvg;
 };
 
+export const listAoNs = (solves, n) => {
+  let poppableSolves = [...solves];
+  let AoNlist = [];
+  let noValueValue = "-";
+  if (solves.length < n) return solves.map(() => noValueValue);
+  while (poppableSolves.length >= n) {
+    AoNlist.push(aolastN(poppableSolves, n));
+    poppableSolves.pop();
+  }
+  const end = Array(n - 1).fill(noValueValue);
+  return [...AoNlist, ...end].reverse();
+};
+
 export const aolastN = (solves, n) => {
   return aoAll(_.takeRight(solves, n));
 };
