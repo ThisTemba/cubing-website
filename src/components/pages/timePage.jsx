@@ -21,7 +21,6 @@ export default function TimePage() {
   const [scramble, nextScramble] = useStaticScrambles();
   const user = useAuthState();
   const pageSize = 10;
-
   const puzzle = "333";
 
   useEffect(() => {
@@ -60,6 +59,16 @@ export default function TimePage() {
       });
   };
 
+  const getSolves = (session) => {
+    if (session) {
+      const orderedSolves = [...session.solves].reverse();
+      const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
+      return paginatedSolves;
+    } else {
+      return [];
+    }
+  };
+
   const handleNewSession = () => {
     if (session.solves.length > 0) {
       const currentSession = getSessionStats(session);
@@ -77,16 +86,6 @@ export default function TimePage() {
 
     document.activeElement.blur(); // remove focus from new session button
     // because if you don't do this, pressing space afterwards triggers the button
-  };
-
-  const getSolves = (session) => {
-    if (session) {
-      const orderedSolves = [...session.solves].reverse();
-      const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
-      return paginatedSolves;
-    } else {
-      return [];
-    }
   };
 
   const handleNewSolve = (solve) => {
