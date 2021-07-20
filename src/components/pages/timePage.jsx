@@ -59,6 +59,17 @@ export default function TimePage() {
       });
   };
 
+  const getNewSession = () => {
+    const dateTime = new Date();
+    return {
+      name: dateTime.toLocaleDateString() + " " + dateTime.toLocaleTimeString(),
+      date: dateTime.toLocaleDateString(),
+      dateTime: dateTime,
+      puzzle: puzzle,
+      solves: [],
+    };
+  };
+
   const getSolves = (session) => {
     if (session) {
       const orderedSolves = [...session.solves].reverse();
@@ -90,16 +101,7 @@ export default function TimePage() {
       const currentSession = getSessionStats(session);
       saveCurrentSession(currentSession);
     }
-
-    const dateTime = new Date();
-    setSession({
-      name: dateTime.toLocaleDateString() + " " + dateTime.toLocaleTimeString(),
-      date: dateTime.toLocaleDateString(),
-      dateTime: dateTime,
-      puzzle: puzzle,
-      solves: [],
-    });
-
+    setSession(getNewSession());
     document.activeElement.blur(); // remove focus from new session button
     // because if you don't do this, pressing space afterwards triggers the button
   };
