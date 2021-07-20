@@ -13,7 +13,10 @@ import SolveList from "../common/cubing/solveList";
 import Pagination from "../common/pagination";
 
 export default function TimePage() {
-  const [session, setSession] = useLocalStorage("session", null);
+  const [session, setSession] = useLocalStorage("session", {
+    name: null,
+    solves: [],
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [scramble, nextScramble] = useScrambles();
   const user = useAuthState();
@@ -136,7 +139,7 @@ export default function TimePage() {
     <div className="container">
       {user && <Button onClick={handleNewSession}>New Session</Button>}
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
-      <h3>{"Session: " + session.name}</h3>
+      {session && <h3>{"Session: " + session.name}</h3>}
       <SolveList
         solves={getSolves(session)}
         onDeleteSolve={handleDeleteSolve}
