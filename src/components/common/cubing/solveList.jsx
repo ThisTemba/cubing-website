@@ -1,4 +1,5 @@
 import React from "react";
+import Table from "react-bootstrap/Table";
 
 export default function SolveList(props) {
   const solves = [...props.solves];
@@ -8,7 +9,7 @@ export default function SolveList(props) {
     { label: "Reset", penalty: "" },
   ];
   return (
-    <table class="table table-sm table-bordered">
+    <Table bordered hover size="sm">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -44,6 +45,6 @@ export default function SolveList(props) {
           </tr>
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 }
