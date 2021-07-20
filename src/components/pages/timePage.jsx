@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { db, useAuthState } from "../../fire";
 
-import paginate from "../../utils/paginate";
 import getTimeString from "../../utils/getTimeString";
 import {
   bestAoN,
@@ -14,7 +13,6 @@ import useStaticScrambles from "../../utils/useStaticScrambles";
 
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
-import Pagination from "../common/pagination";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", {
@@ -73,14 +71,6 @@ export default function TimePage() {
       puzzle: puzzle,
       solves: solves,
     };
-  };
-
-  const getFormattedSolves = (session) => {
-    if (session) {
-      const orderedSolves = [...session.solves].reverse();
-      const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
-      return paginatedSolves;
-    } else return [];
   };
 
   const penalizeSolve = (solve, penalty) => {
@@ -142,18 +132,13 @@ export default function TimePage() {
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
       {session && <h3>{"Session: " + session.name}</h3>}
       <SolveList
-        solves={getFormattedSolves(session)}
+        solves={session.solves}
         onDeleteSolve={handleDeleteSolve}
         onPenalty={handlePenalty}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={(p) => setCurrentPage(p)}
       />
-      {session && (
-        <Pagination
-          itemsCount={session.solves.length}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={(p) => setCurrentPage(p)}
-        />
-      )}
     </div>
   );
 }
