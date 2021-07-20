@@ -4,6 +4,7 @@ import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
 import { getSessionAverage } from "../../utils/averages";
 
 export default function StatsPage() {
@@ -61,10 +62,25 @@ export default function StatsPage() {
 
   const renderModalBody = (session) => {
     console.log("avg:", getSessionAverage(session.solves));
-
     return (
       <div>
-        Stats:
+        <Table striped bordered size="sm">
+          <tbody>
+            <tr>
+              <td>Total Solves</td>
+              <td>{session.stats.numSolves}</td>
+            </tr>
+            <tr>
+              <td>Session Average</td>
+              <td>{session.stats.sessionAverage}</td>
+            </tr>
+            <tr>
+              <td>Best Single</td>
+              <td>{session.stats.bestSingle}</td>
+            </tr>
+          </tbody>
+        </Table>
+        All stats:
         <ul>
           {Object.keys(session.stats).map((k) => (
             <li key={k}>
