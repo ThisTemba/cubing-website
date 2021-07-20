@@ -64,14 +64,14 @@ export default function TimePage() {
     return { ...session, stats };
   };
 
-  const getNewSession = () => {
+  const getNewSession = (solves = []) => {
     const dateTime = new Date();
     return {
       name: dateTime.toLocaleDateString() + " " + dateTime.toLocaleTimeString(),
       date: dateTime.toLocaleDateString(),
       dateTime: dateTime,
       puzzle: puzzle,
-      solves: [],
+      solves: solves,
     };
   };
 
@@ -108,13 +108,16 @@ export default function TimePage() {
   };
 
   const handleNewSolve = (solve) => {
+    const { solves } = session;
     nextScramble();
     const newSolve = {
       ...solve,
       penalty: "",
-      solveNumber: session.solves.length + 1,
+      solveNumber: solves.length + 1,
     };
-    setSession({ ...session, solves: [...session.solves, newSolve] });
+    if (solves.length === 0) {
+      setSession(getNewSession([...solves, newSolve]));
+    } else setSession({ ...session, solves: [...solves, newSolve] });
   };
 
   const handleDeleteSolve = (dateTime) => {
