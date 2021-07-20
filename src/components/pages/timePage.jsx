@@ -4,7 +4,11 @@ import { db, useAuthState } from "../../fire";
 
 import paginate from "../../utils/paginate";
 import getTimeString from "../../utils/getTimeString";
-import { bestAoN, getbestSingle } from "../../utils/averages";
+import {
+  bestAoN,
+  getbestSingle,
+  getSessionAverage,
+} from "../../utils/averages";
 import useLocalStorage from "../../utils/useLocalStorage";
 import useStaticScrambles from "../../utils/useStaticScrambles";
 
@@ -41,20 +45,22 @@ export default function TimePage() {
   };
 
   const getSessionWithStats = (session) => {
-    if (session.solves.length < 1) return;
+    const solves = session.solves;
+    if (solves.length < 1) return;
     let stats = {};
-    const numSolves = session.solves.length;
-    const bestSingle = getbestSingle(session.solves);
-    if (session.solves.length >= 5) {
+    const numSolves = solves.length;
+    const bestSingle = getbestSingle(solves);
+    const sessionAverage = getSessionAverage(solves);
+    if (solves.length >= 5) {
       // yes, duplicated code, but izokay!
-      const bestAo5 = bestAoN(session.solves, 5);
+      const bestAo5 = bestAoN(solves, 5);
       stats = { ...stats, bestAo5 };
     }
-    if (session.solves.length >= 12) {
-      const bestAo12 = bestAoN(session.solves, 12);
+    if (solves.length >= 12) {
+      const bestAo12 = bestAoN(solves, 12);
       stats = { ...stats, bestAo12 };
     }
-    stats = { ...stats, numSolves, bestSingle };
+    stats = { ...stats, numSolves, sessionAverage, bestSingle };
     return { ...session, stats };
   };
 
