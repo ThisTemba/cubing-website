@@ -127,10 +127,9 @@ export default function TimePage() {
   const handlePenalty = (solveDateTime, newPenalty) => {
     let solves = [...session.solves];
     const i = solves.findIndex((s) => s.dateTime === solveDateTime);
-    if (solves[i].penalty !== newPenalty) {
-      solves[i] = penalizeSolve(solves[i], newPenalty);
-      setSession({ ...session, solves });
-    }
+    if (solves[i].penalty === newPenalty) newPenalty = "";
+    solves[i] = penalizeSolve(solves[i], newPenalty);
+    setSession({ ...session, solves });
   };
 
   return (
