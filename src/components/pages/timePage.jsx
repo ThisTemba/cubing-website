@@ -69,6 +69,22 @@ export default function TimePage() {
     }
   };
 
+  const penalizeSolve = (solve, penalty) => {
+    let solveTime = solve.solveTime;
+    let t = solveTime.timeRaw; // get timeRaw
+    const map = {
+      DNF: { tStr: "DNF", tSec: t / 1000 },
+      "+2": { tStr: getTimeString(t + 2000) + "+", tSec: (t + 2000) / 1000 },
+      "": { tStr: getTimeString(t), tSec: t / 1000 },
+    };
+    solveTime = {
+      ...solveTime,
+      timeString: map[penalty].tStr,
+      timeSeconds: map[penalty].tSec,
+    };
+    return { ...solve, penalty, solveTime };
+  };
+
   const handleNewSession = () => {
     if (session.solves.length > 0) {
       const currentSession = getSessionStats(session);
@@ -107,30 +123,11 @@ export default function TimePage() {
   };
 
   const handlePenalty = (solveDateTime, newPenalty) => {
-    let newSolves = [...session.solves];
-    const index = newSolves.findIndex((s) => s.dateTime === solveDateTime);
-    let oldPenalty = newSolves[index].penalty;
-    if (oldPenalty !== newPenalty) {
-      let newSolveTime = newSolves[index].solveTime; // init newSolveTime
-      let timeRaw = newSolveTime.timeRaw; // get timeRaw
-      switch (newPenalty) {
-        case "DNF":
-          newSolveTime.timeString = "DNF";
-          newSolveTime.timeSeconds = timeRaw / 1000;
-          break;
-        case "+2":
-          newSolveTime.timeString = getTimeString(timeRaw + 2000) + "+";
-          newSolveTime.timeSeconds = (timeRaw + 2000) / 1000;
-          break;
-        case "":
-          newSolveTime.timeString = getTimeString(timeRaw);
-          newSolveTime.timeSeconds = timeRaw / 1000;
-          break;
-        default:
-      }
-      newSolves[index].solveTime = newSolveTime;
-      newSolves[index].penalty = newPenalty;
-      setSession({ ...session, solves: newSolves });
+    let solves = [...session.solves];
+    const i = solves.findIndex((s) => s.dateTime === solveDateTime);
+    if (solves[i].penalty !== newPenalty) {
+      solves[i] = penalizeSolve(solves[i], newPenalty);
+      setSession({ ...session, solves: solves });
     }
   };
 
