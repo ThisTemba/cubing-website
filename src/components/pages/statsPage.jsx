@@ -42,12 +42,12 @@ export default function StatsPage() {
     let data = docs.map((d) => [
       d.name,
       getDate(d.dateTime),
-      d.stats.bestSingle,
+      d.stats.sessionAverage, // sessions with an average of DNF will not appear
       d.puzzle,
       d.stats.numSolves,
     ]);
     data = [
-      ["name", "dateTime", "best single", "puzzle", "number of solves"],
+      ["name", "dateTime", "session average", "puzzle", "number of solves"],
       ...data,
     ];
     setChartData(data);
