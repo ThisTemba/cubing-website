@@ -27,6 +27,19 @@ export default function TimePage() {
     if (!session) handleNewSession();
   }, []);
 
+  const saveCurrentSession = (session) => {
+    db.collection("users")
+      .doc(user.uid)
+      .collection("sessions")
+      .add(session)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+  };
+
   const getSessionStats = (session) => {
     if (session.solves.length < 1) return;
     let stats = {};
@@ -46,19 +59,6 @@ export default function TimePage() {
     return sessionWithStats;
   };
 
-  const saveCurrentSession = (session) => {
-    db.collection("users")
-      .doc(user.uid)
-      .collection("sessions")
-      .add(session)
-      .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
-      });
-  };
-
   const getNewSession = () => {
     const dateTime = new Date();
     return {
@@ -70,7 +70,7 @@ export default function TimePage() {
     };
   };
 
-  const getSolves = (session) => {
+  const getFormattedSolves = (session) => {
     if (session) {
       const orderedSolves = [...session.solves].reverse();
       const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
@@ -117,11 +117,11 @@ export default function TimePage() {
   };
 
   const handleDeleteSolve = (dateTime) => {
-    let newSolves = session.solves.filter((s) => s.dateTime !== dateTime);
-    newSolves = newSolves.map((s, i) => {
+    let solves = session.solves.filter((s) => s.dateTime !== dateTime);
+    solves = solves.map((s, i) => {
       return { ...s, solveNumber: i + 1 };
     });
-    setSession({ ...session, solves: newSolves });
+    setSession({ ...session, solves });
   };
 
   const handlePenalty = (solveDateTime, newPenalty) => {
@@ -129,7 +129,7 @@ export default function TimePage() {
     const i = solves.findIndex((s) => s.dateTime === solveDateTime);
     if (solves[i].penalty !== newPenalty) {
       solves[i] = penalizeSolve(solves[i], newPenalty);
-      setSession({ ...session, solves: solves });
+      setSession({ ...session, solves });
     }
   };
 
@@ -139,7 +139,7 @@ export default function TimePage() {
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
       {session && <h3>{"Session: " + session.name}</h3>}
       <SolveList
-        solves={getSolves(session)}
+        solves={getFormattedSolves(session)}
         onDeleteSolve={handleDeleteSolve}
         onPenalty={handlePenalty}
       />
