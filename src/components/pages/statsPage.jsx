@@ -135,7 +135,7 @@ export default function StatsPage() {
         {docs && row !== null && (
           <Modal show={show} onHide={() => setShow(false)}>
             <Modal.Header closeButton>
-              <Modal.Title>{`Session Date: ${docs[row].date}`}</Modal.Title>
+              <Modal.Title>{`Session Date: ${docs[row].name}`}</Modal.Title>
             </Modal.Header>
             <Modal.Body>{renderModalBody(docs[row])}</Modal.Body>
             <Modal.Footer>
