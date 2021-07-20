@@ -9,7 +9,7 @@ const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pages = _.range(1, pagesCount + 1);
 
   return (
-    <PaginationRB>
+    <PaginationRB className="justify-content-center">
       {pages.map((page) => {
         return (
           <PaginationRB.Item
