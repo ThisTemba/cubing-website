@@ -40,7 +40,7 @@ export default function TimePage() {
       });
   };
 
-  const getSessionStats = (session) => {
+  const getSessionWithStats = (session) => {
     if (session.solves.length < 1) return;
     let stats = {};
     const numSolves = session.solves.length;
@@ -55,8 +55,7 @@ export default function TimePage() {
       stats = { ...stats, bestAo12 };
     }
     stats = { ...stats, numSolves, bestSingle };
-    const sessionWithStats = { ...session, stats };
-    return sessionWithStats;
+    return { ...session, stats };
   };
 
   const getNewSession = () => {
@@ -75,9 +74,7 @@ export default function TimePage() {
       const orderedSolves = [...session.solves].reverse();
       const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
       return paginatedSolves;
-    } else {
-      return [];
-    }
+    } else return [];
   };
 
   const penalizeSolve = (solve, penalty) => {
@@ -97,10 +94,8 @@ export default function TimePage() {
   };
 
   const handleNewSession = () => {
-    if (session.solves.length > 0) {
-      const currentSession = getSessionStats(session);
-      saveCurrentSession(currentSession);
-    }
+    const hasSolves = session.solves.length > 0;
+    if (hasSolves) saveCurrentSession(getSessionWithStats(session));
     setSession(getNewSession());
     document.activeElement.blur(); // remove focus from new session button
     // because if you don't do this, pressing space afterwards triggers the button
