@@ -7,6 +7,7 @@ export default function useModal() {
   const [content, setContent] = useState({
     title: "Modal Title",
     body: "Modal Body",
+    footer: "",
   });
   const showModal = (content) => {
     setContent(content);
@@ -20,6 +21,7 @@ export default function useModal() {
         </Modal.Header>
         <Modal.Body>{content.body}</Modal.Body>
         <Modal.Footer>
+          {content.footer}
           <Button variant="secondary" onClick={() => setShow(false)}>
             Close
           </Button>
