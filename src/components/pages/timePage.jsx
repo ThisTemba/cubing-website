@@ -65,7 +65,10 @@ export default function TimePage() {
   const getNewSession = (solves = []) => {
     const dateTime = new Date();
     return {
-      name: dateTime.toLocaleDateString() + " " + dateTime.toLocaleTimeString(),
+      name:
+        dateTime.toLocaleDateString() +
+        " " +
+        dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
       dateTime: dateTime.toString(),
       puzzle: puzzle,
