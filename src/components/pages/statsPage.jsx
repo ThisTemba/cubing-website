@@ -6,12 +6,13 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
 import useModal from "../../hooks/useModal";
+import { Button } from "react-bootstrap";
 
 export default function StatsPage() {
   const [docs, setDocs] = useState(null);
   const [row, setRow] = useState(null);
   const [chartData, setChartData] = useState([]);
-  const [ModalComponent, showModal] = useModal();
+  const [ModalComponent, showModal, hideModal] = useModal();
   const user = useAuthState();
   useEffect(() => {
     if (user) {
@@ -34,7 +35,10 @@ export default function StatsPage() {
       .get()
       .then((querySnapshot) => {
         let docs = querySnapshot.docs;
-        docs = docs.map((d) => d.data());
+        docs = docs.map((d) => {
+          const sessionWithId = { id: d.id, ...d.data() };
+          return sessionWithId;
+        });
         callback(docs);
       });
   };
@@ -92,6 +96,21 @@ export default function StatsPage() {
     );
   };
 
+  const deleteSession = (id) => {
+    db.collection("users")
+      .doc(user.uid)
+      .collection("sessions")
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+        hideModal();
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
+
   return (
     <div>
       <div>
@@ -124,8 +143,18 @@ export default function StatsPage() {
                   console.log(session);
                   setRow(row);
                   showModal({
-                    title: `Session Date: ${docs[row].name}`,
-                    body: renderModalBody(docs[row]),
+                    title: `Session Date: ${session.name}`,
+                    body: renderModalBody(session),
+                    footer: (
+                      <Button
+                        variant="danger"
+                        onClick={() => {
+                          deleteSession(session.id);
+                        }}
+                      >
+                        Delete Session
+                      </Button>
+                    ),
                   });
                 }
               },
