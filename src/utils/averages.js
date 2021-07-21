@@ -1,20 +1,20 @@
 import _ from "lodash";
 
-export const getbestSingle = (solves) => {
-  const bestSingle = Math.min(
-    ...solves
-      .filter((s) => s.penalty !== "DNF")
-      .map((s) => s.solveTime.timeSeconds)
-  );
+export const getBestSingle = (solves) => {
+  const bestSingle = _.chain(solves)
+    .filter((s) => s.penalty !== "DNF")
+    .map((s) => s.solveTime.timeSeconds)
+    .min()
+    .value();
   return bestSingle;
 };
 
-export const getworstSingle = (solves) => {
-  const worstSingle = Math.max(
-    ...solves
-      .filter((s) => s.penalty !== "DNF")
-      .map((s) => s.solveTime.timeSeconds)
-  );
+export const getWorstSingle = (solves) => {
+  const worstSingle = _.chain(solves)
+    .filter((s) => s.penalty !== "DNF")
+    .map((s) => s.solveTime.timeSeconds)
+    .max()
+    .value();
   return worstSingle;
 };
 
@@ -22,8 +22,10 @@ export const getSessionAverage = (solves) => {
   if (solves.length >= 5) return aoAll(solves);
   else if (_.some(solves, ["penalty", "DNF"])) return "DNF";
   else {
-    const times = solves.map((s) => s.solveTime.timeSeconds);
-    return _.round(_.mean(times), 2);
+    let times = solves.map((s) => s.solveTime.timeSeconds);
+    console.log(times);
+    const res = _.chain(times).mean().round(2).value();
+    return res;
   }
 };
 

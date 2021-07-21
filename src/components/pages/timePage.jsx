@@ -5,7 +5,8 @@ import { db, useAuthState } from "../../fire";
 import getTimeString from "../../utils/getTimeString";
 import {
   bestAoN,
-  getbestSingle,
+  getBestSingle,
+  getWorstSingle,
   getSessionAverage,
 } from "../../utils/averages";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -47,7 +48,8 @@ export default function TimePage() {
     if (solves.length < 1) return;
     let stats = {};
     const numSolves = solves.length;
-    const bestSingle = getbestSingle(solves);
+    const bestSingle = getBestSingle(solves);
+    const worstSingle = getWorstSingle(solves);
     const sessionAverage = getSessionAverage(solves);
     if (solves.length >= 5) {
       // yes, duplicated code, but izokay!
@@ -58,7 +60,7 @@ export default function TimePage() {
       const bestAo12 = bestAoN(solves, 12);
       stats = { ...stats, bestAo12 };
     }
-    stats = { ...stats, numSolves, sessionAverage, bestSingle };
+    stats = { ...stats, numSolves, sessionAverage, bestSingle, worstSingle };
     return { ...session, stats };
   };
 
