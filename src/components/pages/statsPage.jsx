@@ -7,12 +7,13 @@ import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import ListGroup from "react-bootstrap/ListGroup";
 import { getSessionAverage } from "../../utils/averages";
+import useModal from "../../hooks/useModal";
 
 export default function StatsPage() {
-  const [show, setShow] = useState(false);
   const [docs, setDocs] = useState(null);
   const [row, setRow] = useState(null);
   const [chartData, setChartData] = useState([]);
+  const [ModalComponent, showModal] = useModal();
   const user = useAuthState();
   useEffect(() => {
     if (user) {
@@ -124,26 +125,16 @@ export default function StatsPage() {
                   const session = docs[row];
                   console.log(session);
                   setRow(row);
-                  setShow(true);
+                  showModal({
+                    title: `Session Date: ${docs[row].name}`,
+                    body: renderModalBody(docs[row]),
+                  });
                 }
-                // console.log(selection);
               },
             },
           ]}
         />
-        {docs && row !== null && (
-          <Modal show={show} onHide={() => setShow(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title>{`Session Date: ${docs[row].name}`}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>{renderModalBody(docs[row])}</Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShow(false)}>
-                Close
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        )}
+        <ModalComponent />
       </div>
     </div>
   );
