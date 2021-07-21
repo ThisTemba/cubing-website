@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import Chart from "react-google-charts";
-import ListGroup from "react-bootstrap/ListGroup";
 import { useAuthState, db } from "../../fire";
+import Table from "react-bootstrap/Table";
+import ListGroup from "react-bootstrap/ListGroup";
 import { getSessionAverage } from "../../utils/averages";
 import useModal from "../../hooks/useModal";
 
