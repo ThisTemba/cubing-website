@@ -9,10 +9,16 @@ export default function useModal() {
     body: "Modal Body",
     footer: "",
   });
+
   const showModal = (content) => {
     setContent(content);
     setShow(true);
   };
+
+  const hideModal = () => {
+    setShow(false);
+  };
+
   const ModalComponent = () => {
     return (
       <Modal show={show} onHide={() => setShow(false)}>
@@ -29,5 +35,5 @@ export default function useModal() {
       </Modal>
     );
   };
-  return [ModalComponent, showModal];
+  return [ModalComponent, showModal, hideModal];
 }
