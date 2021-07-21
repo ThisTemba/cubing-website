@@ -98,7 +98,7 @@ export default function StatsPage() {
       <div>
         <Chart
           width={"100%"}
-          height={"80vh"}
+          height={"90vh"}
           chartType="BubbleChart"
           loader={<div>Loading Chart</div>}
           data={chartData}
