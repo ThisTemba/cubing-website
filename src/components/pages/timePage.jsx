@@ -10,7 +10,7 @@ import {
   getSessionAverage,
 } from "../../utils/averages";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import useStaticScrambles from "../../utils/useStaticScrambles";
+import useStaticScrambles from "../../hooks/useStaticScrambles";
 
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
