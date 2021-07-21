@@ -67,7 +67,10 @@ export default function TimePage() {
   const getNewSession = (solves = []) => {
     const dateTime = new Date();
     return {
-      name: dateTime.toLocaleDateString() + " " + dateTime.toLocaleTimeString(),
+      name:
+        dateTime.toLocaleDateString() +
+        " " +
+        dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
       dateTime: dateTime.toString(),
       puzzle: puzzle,
@@ -130,9 +133,15 @@ export default function TimePage() {
 
   return (
     <div className="container-fluid">
-      {user && <Button onClick={handleNewSession}>New Session</Button>}
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
-      {session && <h3>{"Session: " + session.name}</h3>}
+      {user && session && (
+        <h3>
+          {"Session: " + session.name + "  "}
+          <Button size="sm" onClick={handleNewSession}>
+            New Session
+          </Button>
+        </h3>
+      )}
       <SolveList
         solves={session.solves}
         onDeleteSolve={handleDeleteSolve}
