@@ -85,7 +85,7 @@ export default function StatsPage() {
         All stats:
         <ListGroup>
           {Object.keys(session.stats).map((k) => (
-            <ListGroup.Item>
+            <ListGroup.Item key={k}>
               {k}: {session.stats[k]}
             </ListGroup.Item>
           ))}
