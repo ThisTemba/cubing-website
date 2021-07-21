@@ -1,21 +1,18 @@
 import _ from "lodash";
 
 export const getBestSingle = (solves) => {
-  const bestSingle = _.chain(solves)
-    .filter((s) => s.penalty !== "DNF")
-    .map((s) => s.solveTime.timeSeconds)
-    .min()
-    .value();
-  return bestSingle;
+  return _.min(getNonDNFTimes(solves));
 };
 
 export const getWorstSingle = (solves) => {
-  const worstSingle = _.chain(solves)
+  return _.max(getNonDNFTimes(solves));
+};
+
+const getNonDNFTimes = (solves) => {
+  return _.chain(solves)
     .filter((s) => s.penalty !== "DNF")
     .map((s) => s.solveTime.timeSeconds)
-    .max()
     .value();
-  return worstSingle;
 };
 
 export const getSessionAverage = (solves) => {
