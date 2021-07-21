@@ -27,7 +27,6 @@ export default function SolveList({
       solves = solves.map((s, i) => {
         return { ...s, ao5: ao5s[i], ao12: ao12s[i] };
       });
-      console.log(solves);
       const orderedSolves = [...solves].reverse();
       const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
       return paginatedSolves;
