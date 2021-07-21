@@ -42,9 +42,9 @@ export default function SolveList({
       <div className="">
         {`Solve Time: ${s.solveTime.timeSeconds}s \n\n`} <br />
         {`Scramble: ${s.scramble}`} <br />
-        {`Penalties: ${s.penalty || "None"}`} <br />
         {`Date: ${dateTime.toLocaleDateString()}`} <br />
-        {`Time: ${dateTime.toLocaleTimeString([], options)}`}
+        {`Time: ${dateTime.toLocaleTimeString([], options)}`} <br />
+        {`Penalty: ${s.penalty || "None"}`}
       </div>
     );
   };
@@ -75,7 +75,7 @@ export default function SolveList({
   return (
     <div className="row justify-content-center">
       <div className="col" style={{ maxWidth: "800px" }}>
-        <Table bordered hover size="sm">
+        <Table bordered size="sm">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -90,6 +90,8 @@ export default function SolveList({
               <tr key={s.dateTime} className="align-middle">
                 <th scope="row">{s.solveNumber + ". "}</th>
                 <td
+                  className="hover-shadow"
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     showModal({
                       title: `Solve ${s.solveNumber}`,
