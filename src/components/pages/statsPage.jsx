@@ -13,6 +13,7 @@ export default function StatsPage() {
   const [row, setRow] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [ModalComponent, showModal, hideModal] = useModal();
+  const [ModalComponent1, showModal1, hideModal1] = useModal();
   const user = useAuthState();
   useEffect(() => {
     if (user) {
@@ -111,6 +112,38 @@ export default function StatsPage() {
       });
   };
 
+  const renderSessionModal = (session) => {
+    showModal({
+      title: `Session Date: ${session.name}`,
+      body: renderModalBody(session),
+      footer: (
+        <Button
+          variant="danger"
+          onClick={() => {
+            hideModal();
+            showModal1({
+              title: "Are you sure?",
+              body: "This will permanently delete this session (you may have to refresh the page to see changes)",
+              footer: (
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    hideModal1();
+                    deleteSession(session.id);
+                  }}
+                >
+                  Permanently Delete Session
+                </Button>
+              ),
+            });
+          }}
+        >
+          Delete Session
+        </Button>
+      ),
+    });
+  };
+
   return (
     <div>
       <div>
@@ -142,26 +175,14 @@ export default function StatsPage() {
                   const session = docs[row];
                   console.log(session);
                   setRow(row);
-                  showModal({
-                    title: `Session Date: ${session.name}`,
-                    body: renderModalBody(session),
-                    footer: (
-                      <Button
-                        variant="danger"
-                        onClick={() => {
-                          deleteSession(session.id);
-                        }}
-                      >
-                        Delete Session
-                      </Button>
-                    ),
-                  });
+                  renderSessionModal(session);
                 }
               },
             },
           ]}
         />
         <ModalComponent />
+        <ModalComponent1 />
       </div>
     </div>
   );
