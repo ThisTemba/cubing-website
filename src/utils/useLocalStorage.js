@@ -1,22 +1,6 @@
 // stolen completely from this source
 // Source: https://usehooks.com/useLocalStorage/
 import { useState } from "react";
-// Usage
-// function App() {
-//   // Similar to useState but first arg is key to the value in local storage.
-//   const [name, setName] = useLocalStorage("name", "Bob");
-//   return (
-//     <div>
-//       <input
-//         type="text"
-//         placeholder="Enter your name"
-//         value={name}
-//         onChange={(e) => setName(e.target.value)}
-//       />
-//     </div>
-//   );
-// }
-// Hook
 export default function useLocalStorage(key, initialValue) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
