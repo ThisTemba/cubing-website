@@ -11,7 +11,7 @@ export default function useModal() {
   });
 
   const showModal = (content) => {
-    setContent(content);
+    if (content) setContent(content);
     setShow(true);
   };
 
