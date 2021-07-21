@@ -8,7 +8,7 @@ import {
   getbestSingle,
   getSessionAverage,
 } from "../../utils/averages";
-import useLocalStorage from "../../utils/useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import useStaticScrambles from "../../utils/useStaticScrambles";
 
 import Timer from "../common/cubing/timer";
