@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import Pagination from "../pagination";
 import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
+import useModal from "../../../hooks/useModal";
 
 export default function SolveList({
   solves,
@@ -12,6 +13,7 @@ export default function SolveList({
   currentPage,
   onPageChange,
 }) {
+  const [ModalComponent, showModal] = useModal();
   const penaltyButtons = [
     { label: "+2", penalty: "+2" },
     { label: "DNF", penalty: "DNF" },
@@ -30,6 +32,21 @@ export default function SolveList({
       const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
       return paginatedSolves;
     } else return [];
+  };
+
+  const getModalBody = (s) => {
+    const dateTime = new Date(s.dateTime);
+    //Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString
+    const options = { hour: "2-digit", minute: "2-digit" };
+    return (
+      <div className="">
+        {`Solve Time: ${s.solveTime.timeSeconds}s \n\n`} <br />
+        {`Scramble: ${s.scramble}`} <br />
+        {`Penalties: ${s.penalty || "None"}`} <br />
+        {`Date: ${dateTime.toLocaleDateString()}`} <br />
+        {`Time: ${dateTime.toLocaleTimeString([], options)}`}
+      </div>
+    );
   };
 
   const renderPenaltyButtons = (dateTime) => {
@@ -69,17 +86,24 @@ export default function SolveList({
             </tr>
           </thead>
           <tbody>
-            {processedSolves.map(
-              ({ solveNumber, solveTime, dateTime, ao5, ao12 }) => (
-                <tr key={dateTime} className="align-middle">
-                  <th scope="row">{solveNumber + ". "}</th>
-                  <td>{solveTime.timeString}</td>
-                  <td>{ao5}</td>
-                  <td>{ao12}</td>
-                  <td>{renderPenaltyButtons(dateTime)}</td>
-                </tr>
-              )
-            )}
+            {processedSolves.map((s) => (
+              <tr key={s.dateTime} className="align-middle">
+                <th scope="row">{s.solveNumber + ". "}</th>
+                <td
+                  onClick={() => {
+                    showModal({
+                      title: `Solve ${s.solveNumber}`,
+                      body: getModalBody(s),
+                    });
+                  }}
+                >
+                  {s.solveTime.timeString}
+                </td>
+                <td>{s.ao5}</td>
+                <td>{s.ao12}</td>
+                <td>{renderPenaltyButtons(s.dateTime)}</td>
+              </tr>
+            ))}
           </tbody>
         </Table>
         <Pagination
@@ -88,6 +112,7 @@ export default function SolveList({
           currentPage={currentPage}
           onPageChange={onPageChange}
         />
+        <ModalComponent />
       </div>
     </div>
   );
