@@ -1,5 +1,4 @@
 import _ from "lodash";
-import getTimeString from "./getTimeString";
 
 export const getBestSingle = (solves) => {
   return _.min(getNonDNFTimes(solves));
@@ -72,7 +71,7 @@ export const aoAll = (solves) => {
   if (_.some(trimmed, ["penalty", "DNF"])) return "DNF";
   else {
     const times = trimmed.map((s) => s.solveTime.timeSeconds);
-    return getTimeString(_.round(_.mean(times), 2) * 1000);
+    return _.round(_.mean(times), 2);
   }
 };
 
