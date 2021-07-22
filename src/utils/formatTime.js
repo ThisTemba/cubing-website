@@ -13,4 +13,15 @@ const getTimeString = (timeMilliseconds) => {
   return timeString;
 };
 
+export const getSolveTime = (time, isSeconds = false) => {
+  if (typeof time !== "number") throw new Error("time must be a number");
+  if (typeof isSeconds !== "boolean")
+    throw new Error("isSeconds must be a boolean");
+  const timeRaw = Math.round(isSeconds ? time * 1000 : time); // ms
+  const timeSeconds = timeRaw / 1000;
+  const timeString = getTimeString(timeRaw);
+  const solveTime = { timeRaw, timeSeconds, timeString };
+  return solveTime;
+};
+
 export default getTimeString;
