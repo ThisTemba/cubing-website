@@ -80,18 +80,16 @@ export default function TimePage() {
 
   const penalizeSolve = (solve, penalty) => {
     let solveTime = solve.solveTime;
-    let t = solveTime.timeRaw; // get timeRaw
+    let timeRaw = solveTime.timeRaw; // get timeRaw
     const map = {
-      DNF: { tStr: "DNF", tSec: t / 1000 },
-      "+2": { tStr: getTimeString(t + 2000) + "+", tSec: (t + 2000) / 1000 },
-      "": { tStr: getTimeString(t), tSec: t / 1000 },
+      DNF: { timeString: "DNF", timeSeconds: timeRaw / 1000 },
+      "+2": {
+        timeString: getTimeString(timeRaw + 2000) + "+",
+        timeSeconds: (timeRaw + 2000) / 1000,
+      },
+      "": { timeString: getTimeString(timeRaw), timeSeconds: timeRaw / 1000 },
     };
-    solveTime = {
-      ...solveTime,
-      timeString: map[penalty].tStr,
-      timeSeconds: map[penalty].tSec,
-    };
-    return { ...solve, penalty, solveTime };
+    return { ...solve, penalty, solveTime: { ...map[penalty], timeRaw } };
   };
 
   const handleNewSession = () => {
