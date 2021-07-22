@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { db, useAuthState } from "../../fire";
-
 import getTimeString from "../../utils/getTimeString";
+
 import {
   bestAoN,
   getBestSingle,
@@ -54,11 +54,11 @@ export default function TimePage() {
     if (solves.length >= 5) {
       // yes, duplicated code, but izokay!
       const bestAo5 = bestAoN(solves, 5);
-      stats = { ...stats, bestAo5 };
+      stats = { ...stats, bestAo5: getTimeString(bestAo5 * 1000) };
     }
     if (solves.length >= 12) {
       const bestAo12 = bestAoN(solves, 12);
-      stats = { ...stats, bestAo12 };
+      stats = { ...stats, bestAo12: getTimeString(bestAo12 * 1000) };
     }
     stats = { ...stats, numSolves, sessionAverage, bestSingle, worstSingle };
     return { ...session, stats };
