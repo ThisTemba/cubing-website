@@ -28,7 +28,7 @@ export const getSessionAverage = (solves) => {
 
 export const bestAoN = (solves, n) => {
   if (solves.length < n)
-    throw `Can't get best Ao${n} from ${solves.length} solves`;
+    throw new Error(`Can't get best Ao${n} from ${solves.length} solves`);
   let poppableSolves = [...solves];
   let bestAvg = aolastN(solves, n);
   while (poppableSolves.length >= n) {
@@ -60,7 +60,8 @@ export const aolastN = (solves, n) => {
 };
 
 export const aoAll = (solves) => {
-  if (solves.length < 5) throw "Need at least 5 solves to calculate aoAll";
+  if (solves.length < 5)
+    throw new Error("Need at least 5 solves to calculate aoAll");
   let sorted = DNFsort(solves);
   let trimmed = _.slice(
     sorted,
