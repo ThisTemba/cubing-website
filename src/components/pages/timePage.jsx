@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { db, useAuthState } from "../../fire";
 
-import getTimeString from "../../utils/formatTime";
+import { getTimeString } from "../../utils/formatTime";
 import {
   bestAoN,
   getBestSingle,

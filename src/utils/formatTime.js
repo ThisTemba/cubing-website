@@ -1,4 +1,4 @@
-const getTimeString = (timeMilliseconds) => {
+export const getTimeString = (timeMilliseconds) => {
   let cs = Math.floor(timeMilliseconds / 10) % 100; // centiseconds
   let s = Math.floor(timeMilliseconds / 1000) % 60;
   let m = Math.floor(timeMilliseconds / 60000) % 60;
@@ -23,5 +23,3 @@ export const getSolveTime = (time, isSeconds = false) => {
   const solveTime = { timeRaw, timeSeconds, timeString };
   return solveTime;
 };
-
-export default getTimeString;
