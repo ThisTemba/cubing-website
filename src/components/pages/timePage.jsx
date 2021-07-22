@@ -23,7 +23,7 @@ export default function TimePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [scramble, nextScramble] = useStaticScrambles();
   const user = useAuthState();
-  const pageSize = 12;
+  const pageSize = 8;
   const puzzle = "333";
 
   useEffect(() => {
