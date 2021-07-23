@@ -14,6 +14,7 @@ export const getSessionAverage = (solves) => {
 };
 
 export const bestAoN = (solves, n) => {
+  if (n > solves.length) throw new Error("n must be <= solves.length");
   const AoNlist = listAoNs(solves, n);
   const bestAoN = Math.min(...AoNlist.filter((i) => typeof i === "number"));
   return bestAoN;
