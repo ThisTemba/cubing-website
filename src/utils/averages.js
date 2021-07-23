@@ -62,25 +62,16 @@ export const aolastN = (solves, n) => {
 export const aoAll = (solves) => {
   if (solves.length < 5)
     throw new Error("Need at least 5 solves to calculate aoAll");
-  let sorted = DNFsort(solves);
+  let sorted = _.sortBy(solves, "solveTime.timeSeconds"); // works because for DNF timeSeconds = Infinity
   let trimmed = _.slice(
     sorted,
     Math.ceil(solves.length * 0.05),
     sorted.length - Math.ceil(solves.length * 0.05)
   );
-
-  if (_.some(trimmed, ["penalty", "DNF"])) return "DNF";
-  else {
-    const times = trimmed.map((s) => s.solveTime.timeSeconds);
-    return _.round(_.mean(times), 2);
-  }
+  return getMeanTimeSeconds(trimmed);
 };
 
-export const DNFsort = (solves) => {
-  let DNFsolves = _.groupBy(solves, "penalty")["DNF"];
-  let nonDNFsolves = _.difference(solves, DNFsolves);
-  DNFsolves = _.sortBy(DNFsolves, "solveTime.timeSeconds"); // why not
-  nonDNFsolves = _.sortBy(nonDNFsolves, "solveTime.timeSeconds");
-  const sortedSolves = _.concat(nonDNFsolves, DNFsolves);
-  return sortedSolves;
+export const getMeanTimeSeconds = (solves) => {
+  const times = solves.map((s) => s.solveTime.timeSeconds);
+  return _.chain(times).mean().round(2).value();
 };
