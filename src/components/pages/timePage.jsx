@@ -80,14 +80,9 @@ export default function TimePage() {
   const handleNewSolve = (solve) => {
     const { solves } = session;
     nextScramble();
-    const newSolve = {
-      ...solve,
-      penalty: "",
-      solveNumber: solves.length + 1,
-    };
-    if (solves.length === 0) {
-      setSession(getNewSession([...solves, newSolve]));
-    } else setSession({ ...session, solves: [...solves, newSolve] });
+    const newSolve = { ...solve, penalty: "", solveNumber: solves.length + 1 };
+    if (solves.length === 0) setSession(getNewSession([newSolve]));
+    else setSession({ ...session, solves: [...solves, newSolve] });
   };
 
   const handleDeleteSolve = (dateTime) => {
