@@ -10,13 +10,7 @@ export const getWorstSingle = (solves) => {
 
 export const getSessionAverage = (solves) => {
   if (solves.length >= 5) return aoAll(solves);
-  else if (_.some(solves, ["penalty", "DNF"])) return "DNF";
-  else {
-    let times = solves.map((s) => s.solveTime.timeSeconds);
-    console.log(times);
-    const res = _.chain(times).mean().round(2).value();
-    return res;
-  }
+  else return getMeanTimeSeconds(solves);
 };
 
 export const bestAoN = (solves, n) => {
