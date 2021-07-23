@@ -99,6 +99,7 @@ export default function TimePage() {
     if (solves[i].penalty === newPenalty) newPenalty = "";
     solves[i] = penalizeSolve(solves[i], newPenalty);
     setSession({ ...session, solves });
+    document.activeElement.blur();
   };
 
   return (
