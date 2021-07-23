@@ -75,8 +75,10 @@ describe("bestAoN", () => {
 });
 
 describe("listAoNs", () => {
-  const solves = _.fill(Array(10), {
+  const solves = Array.from({ length: 10 }, () => {
+    return {
     solveTime: { timeSeconds: _.random(1, 10) },
+    };
   });
   it("returns an array", () => {
     expect(listAoNs(solves, 5)).toBeInstanceOf(Array);
@@ -97,8 +99,10 @@ describe("listAoNs", () => {
 
 describe("aolastN", () => {
   it("returns aoAll of last n items", () => {
-    const solves = _.fill(Array(10), {
+    const solves = Array.from({ length: 10 }, () => {
+      return {
       solveTime: { timeSeconds: _.random(1, 10) },
+      };
     });
     expect(aolastN(solves, 5)).toBe(aoAll(_.takeRight(solves, 5)));
   });
