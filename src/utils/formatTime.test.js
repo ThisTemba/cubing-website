@@ -45,7 +45,7 @@ describe("displayTimeSeconds", () => {
   it("returns 'DNF' if input is Infinity", () => {
     expect(displayTimeSeconds(Infinity)).toBe("DNF");
   });
-  it("throws error if input is NaN", () => {
-    expect(() => displayTimeSeconds("hello")).toThrowError();
+  it("returns the input if input is NaN", () => {
+    expect(displayTimeSeconds("hello")).toBe("hello");
   });
 });

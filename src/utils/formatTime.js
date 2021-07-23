@@ -25,8 +25,7 @@ export const getSolveTime = (time, isSeconds = false) => {
 };
 
 export const displayTimeSeconds = (timeSeconds) => {
-  if (typeof timeSeconds !== "number")
-    throw new Error("input must be a number");
+  if (typeof timeSeconds !== "number") return timeSeconds;
   const res =
     timeSeconds === Infinity ? "DNF" : getTimeString(timeSeconds * 1000);
   return res;
