@@ -7,6 +7,7 @@ import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
 import useModal from "../../hooks/useModal";
 import { Button } from "react-bootstrap";
+import { displayTimeSeconds } from "../../utils/formatTime";
 
 export default function StatsPage() {
   const [docs, setDocs] = useState(null);
@@ -77,11 +78,11 @@ export default function StatsPage() {
             </tr>
             <tr>
               <td>Session Average</td>
-              <td>{session.stats.sessionAverage}</td>
+              <td>{displayTimeSeconds(session.stats.sessionAverage)}</td>
             </tr>
             <tr>
               <td>Best Single</td>
-              <td>{session.stats.bestSingle}</td>
+              <td>{displayTimeSeconds(session.stats.bestSingle)}</td>
             </tr>
           </tbody>
         </Table>
