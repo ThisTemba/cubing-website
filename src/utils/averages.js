@@ -27,19 +27,9 @@ export const getSessionAverage = (solves) => {
 };
 
 export const bestAoN = (solves, n) => {
-  if (solves.length < n)
-    throw new Error(`Can't get best Ao${n} from ${solves.length} solves`);
-  let poppableSolves = [...solves];
-  let bestAvg = aolastN(solves, n);
-  while (poppableSolves.length >= n) {
-    let avg = aolastN(poppableSolves, n);
-    bestAvg =
-      (avg !== "DNF" && avg < bestAvg) || bestAvg === "DNF" ? avg : bestAvg;
-    poppableSolves.pop();
-    console.log(avg);
-  }
-  console.log("bestAvg:", bestAvg);
-  return bestAvg;
+  const AoNlist = listAoNs(solves, n);
+  const bestAoN = Math.min(...AoNlist.filter((i) => typeof i === "number"));
+  return bestAoN;
 };
 
 export const listAoNs = (solves, n) => {
