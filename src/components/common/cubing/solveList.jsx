@@ -4,6 +4,7 @@ import Pagination from "../pagination";
 import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
 import useModal from "../../../hooks/useModal";
+import { displayTimeSeconds } from "../../../utils/formatTime";
 
 export default function SolveList({
   solves,
@@ -25,7 +26,11 @@ export default function SolveList({
       const ao5s = listAoNs(solves, 5);
       const ao12s = listAoNs(solves, 12);
       solves = solves.map((s, i) => {
-        return { ...s, ao5: ao5s[i], ao12: ao12s[i] };
+        return {
+          ...s,
+          ao5: displayTimeSeconds(ao5s[i]),
+          ao12: displayTimeSeconds(ao12s[i]),
+        };
       });
       const orderedSolves = [...solves].reverse();
       const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
