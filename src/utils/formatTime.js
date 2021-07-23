@@ -23,3 +23,11 @@ export const getSolveTime = (time, isSeconds = false) => {
   const solveTime = { timeRaw, timeSeconds, timeString };
   return solveTime;
 };
+
+export const displayTimeSeconds = (timeSeconds) => {
+  if (typeof timeSeconds !== "number")
+    throw new Error("input must be a number");
+  const res =
+    timeSeconds === Infinity ? "DNF" : getTimeString(timeSeconds * 1000);
+  return res;
+};

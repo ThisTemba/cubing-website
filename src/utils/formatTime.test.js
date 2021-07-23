@@ -1,4 +1,4 @@
-import { getTimeString, getSolveTime } from "./formatTime";
+import { getTimeString, getSolveTime, displayTimeSeconds } from "./formatTime";
 
 describe("getTimeString", () => {
   it("returns a string", () => {
@@ -33,5 +33,19 @@ describe("getSolveTime", () => {
   it("throws error if input type is wrong", () => {
     expect(() => getSolveTime("60000")).toThrow();
     expect(() => getSolveTime(50, "asdf")).toThrow();
+  });
+});
+
+describe("displayTimeSeconds", () => {
+  describe("input is finite number", () => {
+    it("returns getTimeString(timeSeconds/1000)", () => {
+      expect(displayTimeSeconds(123456 / 1000)).toBe(getTimeString(123456));
+    });
+  });
+  it("returns 'DNF' if input is Infinity", () => {
+    expect(displayTimeSeconds(Infinity)).toBe("DNF");
+  });
+  it("throws error if input is NaN", () => {
+    expect(() => displayTimeSeconds("hello")).toThrowError();
   });
 });
