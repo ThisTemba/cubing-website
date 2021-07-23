@@ -62,12 +62,17 @@ describe("getSessionAverage", () => {
 });
 
 describe("bestAoN", () => {
-  const solves = Array.from({ length: 10 }, () => {
+  const len = 10;
+  const solves = Array.from({ length: len }, () => {
     return {
       solveTime: { timeSeconds: _.random(1, 10) },
     };
   });
   const AoNlist = listAoNs(solves, 5);
+  it("throws error if n > solves.length", () => {
+    expect(() => bestAoN(solves, len + 1)).toThrowError();
+  });
+
   it("returns the minimum value from AoNlist", () => {
     const minValue = Math.min(...AoNlist.filter((i) => typeof i === "number"));
     expect(bestAoN(solves, 5)).toBe(minValue);
@@ -77,7 +82,7 @@ describe("bestAoN", () => {
 describe("listAoNs", () => {
   const solves = Array.from({ length: 10 }, () => {
     return {
-    solveTime: { timeSeconds: _.random(1, 10) },
+      solveTime: { timeSeconds: _.random(1, 10) },
     };
   });
   it("returns an array", () => {
@@ -101,7 +106,7 @@ describe("aolastN", () => {
   it("returns aoAll of last n items", () => {
     const solves = Array.from({ length: 10 }, () => {
       return {
-      solveTime: { timeSeconds: _.random(1, 10) },
+        solveTime: { timeSeconds: _.random(1, 10) },
       };
     });
     expect(aolastN(solves, 5)).toBe(aoAll(_.takeRight(solves, 5)));
