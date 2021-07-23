@@ -82,7 +82,7 @@ export default function TimePage() {
     let solveTime = solve.solveTime;
     let timeRaw = solveTime.timeRaw; // get timeRaw
     const map = {
-      DNF: { timeString: "DNF", timeSeconds: timeRaw / 1000 },
+      DNF: { timeString: "DNF", timeSeconds: Infinity },
       "+2": {
         timeString: getTimeString(timeRaw + 2000) + "+",
         timeSeconds: (timeRaw + 2000) / 1000,
