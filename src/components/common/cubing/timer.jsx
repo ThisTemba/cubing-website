@@ -40,12 +40,10 @@ class Timer extends Component {
   };
 
   getNewSolve = () => {
-    const { time: timeRaw } = this.state;
-    const { scramble } = this.props;
     const solve = {
-      dateTime: new Date(),
-      solveTime: getSolveTime(timeRaw),
-      scramble: scramble,
+      dateTime: new Date().toString(),
+      solveTime: getSolveTime(this.state.time),
+      scramble: this.props.scramble,
     };
     return solve;
   };
