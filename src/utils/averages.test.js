@@ -171,4 +171,10 @@ describe("getMeanTimeSeconds", () => {
       expect(getMeanTimeSeconds(solves)).toBe(Infinity);
     });
   });
+  it("throws error if solves does not have solvetime", () => {
+    expect(() => getMeanTimeSeconds([1])).toThrow();
+  });
+  it("throws error if solveTimes do not have timeSeconds", () => {
+    expect(() => getMeanTimeSeconds([{ solveTime: {} }])).toThrow();
+  });
 });

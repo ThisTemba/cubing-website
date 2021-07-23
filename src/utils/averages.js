@@ -49,6 +49,10 @@ export const aoAll = (solves) => {
 };
 
 export const getMeanTimeSeconds = (solves) => {
+  if (solves[0].solveTime === undefined)
+    throw new Error("solves does not have solveTime");
+  if (solves[0].solveTime.timeSeconds === undefined)
+    throw new Error("solveTime does not have timeSeconds");
   const times = solves.map((s) => s.solveTime.timeSeconds);
   return _.chain(times).mean().round(2).value();
 };
