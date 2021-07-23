@@ -3,12 +3,7 @@ import { Button } from "react-bootstrap";
 import { db, useAuthState } from "../../fire";
 
 import { getTimeString } from "../../utils/formatTime";
-import {
-  bestAoN,
-  getBestSingle,
-  getWorstSingle,
-  getSessionAverage,
-} from "../../utils/averages";
+import { getSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useStaticScrambles from "../../hooks/useStaticScrambles";
 
@@ -43,27 +38,6 @@ export default function TimePage() {
       });
   };
 
-  const getSessionWithStats = (session) => {
-    const solves = session.solves;
-    if (solves.length < 1) return;
-    let stats = {};
-    const numSolves = solves.length;
-    const bestSingle = getBestSingle(solves);
-    const worstSingle = getWorstSingle(solves);
-    const sessionAverage = getSessionAverage(solves);
-    if (solves.length >= 5) {
-      // yes, duplicated code, but izokay!
-      const bestAo5 = bestAoN(solves, 5);
-      stats = { ...stats, bestAo5 };
-    }
-    if (solves.length >= 12) {
-      const bestAo12 = bestAoN(solves, 12);
-      stats = { ...stats, bestAo12 };
-    }
-    stats = { ...stats, numSolves, sessionAverage, bestSingle, worstSingle };
-    return { ...session, stats };
-  };
-
   const getNewSession = (solves = []) => {
     const dateTime = new Date();
     return {
@@ -94,7 +68,10 @@ export default function TimePage() {
 
   const handleNewSession = () => {
     const hasSolves = session.solves.length > 0;
-    if (hasSolves) saveCurrentSession(getSessionWithStats(session));
+    if (hasSolves) {
+      const stats = getSessionStats(session);
+      saveCurrentSession({ ...session, stats });
+    }
     setSession(getNewSession());
     document.activeElement.blur(); // remove focus from new session button
     // because if you don't do this, pressing space afterwards triggers the button
