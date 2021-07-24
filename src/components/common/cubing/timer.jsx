@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TimeDisplay from "./timeDisplay";
 import ScrambleDisplay from "./scrambleDisplay";
-import { getTimeString } from "../../../utils/formatTime";
 
 //this.props.onNewSolve
 //this.props.armingTime
@@ -88,7 +87,7 @@ class Timer extends Component {
     return (
       <div>
         <ScrambleDisplay scramble={this.props.scramble} />
-        <TimeDisplay timeString={getTimeString(time)} timerState={timerState} />
+        <TimeDisplay timeMilliseconds={time} timerState={timerState} />
       </div>
     );
   }
