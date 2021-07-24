@@ -3,6 +3,7 @@ import Table from "react-bootstrap/Table";
 import Pagination from "../pagination";
 import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
+import { displayDur } from "../../../utils/formatTime";
 import useModal from "../../../hooks/useModal";
 
 export default function SolveList({
@@ -22,10 +23,15 @@ export default function SolveList({
 
   const getProcessedSolves = (solves) => {
     if (solves) {
-      const ao5s = listAoNs(solves, 5);
-      const ao12s = listAoNs(solves, 12);
+      const durs = solves.map((s) => s.dur);
+      const ao5s = listAoNs(durs, 5);
+      const ao12s = listAoNs(durs, 12);
       solves = solves.map((s, i) => {
-        return { ...s, ao5: ao5s[i], ao12: ao12s[i] };
+        return {
+          ...s,
+          ao5: typeof ao5s[i] === "number" ? displayDur(ao5s[i]) : ao5s[i],
+          ao12: typeof ao12s[i] === "number" ? displayDur(ao12s[i]) : ao12s[i],
+        };
       });
       const orderedSolves = [...solves].reverse();
       const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
@@ -39,7 +45,7 @@ export default function SolveList({
     const options = { hour: "2-digit", minute: "2-digit" };
     return (
       <div className="">
-        {`Solve Time: ${s.solveTime.timeSeconds}s \n\n`} <br />
+        {`Solve Time: ${displayDur(s.dur)} \n\n`} <br />
         {`Scramble: ${s.scramble}`} <br />
         {`Date: ${dateTime.toLocaleDateString()}`} <br />
         {`Time: ${dateTime.toLocaleTimeString([], options)}`} <br />
@@ -98,7 +104,8 @@ export default function SolveList({
                     });
                   }}
                 >
-                  {s.solveTime.timeString}
+                  {displayDur(s.dur)}
+                  {s.penalty === "+2" ? "+" : ""}
                 </td>
                 <td>{s.ao5}</td>
                 <td>{s.ao12}</td>

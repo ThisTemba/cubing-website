@@ -1,85 +1,38 @@
 import _ from "lodash";
 
-export const getBestSingle = (solves) => {
-  return _.min(getNonDNFTimes(solves));
+export const aoAll = (durs) => {
+  if (durs.length < 5)
+    throw new Error("Need at least 5 times to calculate aoAll");
+  let sorted = _.sortBy(durs); // works because for DNF timeSeconds = Infinity
+  const trimSize = Math.ceil(durs.length * 0.05);
+  let trimmed = _.slice(sorted, trimSize, sorted.length - trimSize);
+  return _.mean(trimmed);
 };
 
-export const getWorstSingle = (solves) => {
-  return _.max(getNonDNFTimes(solves));
+export const aoLastN = (durs, n) => {
+  return aoAll(_.takeRight(durs, n));
 };
 
-const getNonDNFTimes = (solves) => {
-  return _.chain(solves)
-    .filter((s) => s.penalty !== "DNF")
-    .map((s) => s.solveTime.timeSeconds)
-    .value();
-};
-
-export const getSessionAverage = (solves) => {
-  if (solves.length >= 5) return aoAll(solves);
-  else if (_.some(solves, ["penalty", "DNF"])) return "DNF";
-  else {
-    let times = solves.map((s) => s.solveTime.timeSeconds);
-    console.log(times);
-    const res = _.chain(times).mean().round(2).value();
-    return res;
-  }
-};
-
-export const bestAoN = (solves, n) => {
-  if (solves.length < n)
-    throw `Can't get best Ao${n} from ${solves.length} solves`;
-  let poppableSolves = [...solves];
-  let bestAvg = aolastN(solves, n);
-  while (poppableSolves.length >= n) {
-    let avg = aolastN(poppableSolves, n);
-    bestAvg =
-      (avg !== "DNF" && avg < bestAvg) || bestAvg === "DNF" ? avg : bestAvg;
-    poppableSolves.pop();
-    console.log(avg);
-  }
-  console.log("bestAvg:", bestAvg);
-  return bestAvg;
-};
-
-export const listAoNs = (solves, n) => {
-  let poppableSolves = [...solves];
+export const listAoNs = (durs, n) => {
+  let dursCopy = [...durs];
   let AoNlist = [];
   let noValueValue = "-";
-  if (solves.length < n) return solves.map(() => noValueValue);
-  while (poppableSolves.length >= n) {
-    AoNlist.push(aolastN(poppableSolves, n));
-    poppableSolves.pop();
+  if (durs.length < n) return durs.map(() => noValueValue);
+  while (dursCopy.length >= n) {
+    AoNlist.push(aoLastN(dursCopy, n));
+    dursCopy.pop();
   }
   const end = Array(n - 1).fill(noValueValue);
   return [...AoNlist, ...end].reverse();
 };
 
-export const aolastN = (solves, n) => {
-  return aoAll(_.takeRight(solves, n));
+export const bestAoN = (durs, n) => {
+  if (n > durs.length) throw new Error("n must be <= durs.length");
+  const AoNlist = listAoNs(durs, n);
+  const bestAoN = Math.min(...AoNlist.filter((i) => typeof i === "number"));
+  return bestAoN;
 };
 
-export const aoAll = (solves) => {
-  if (solves.length < 5) throw "Need at least 5 solves to calculate aoAll";
-  let sorted = DNFsort(solves);
-  let trimmed = _.slice(
-    sorted,
-    Math.ceil(solves.length * 0.05),
-    sorted.length - Math.ceil(solves.length * 0.05)
-  );
-
-  if (_.some(trimmed, ["penalty", "DNF"])) return "DNF";
-  else {
-    const times = trimmed.map((s) => s.solveTime.timeSeconds);
-    return _.round(_.mean(times), 2);
-  }
-};
-
-export const DNFsort = (solves) => {
-  let DNFsolves = _.groupBy(solves, "penalty")["DNF"];
-  let nonDNFsolves = _.difference(solves, DNFsolves);
-  DNFsolves = _.sortBy(DNFsolves, "solveTime.timeSeconds"); // why not
-  nonDNFsolves = _.sortBy(nonDNFsolves, "solveTime.timeSeconds");
-  const sortedSolves = _.concat(nonDNFsolves, DNFsolves);
-  return sortedSolves;
+export const getSessionAverage = (durs) => {
+  return durs.length >= 5 ? aoAll(durs) : _.mean(durs);
 };

@@ -1,6 +1,7 @@
 import React from "react";
+import { getTimeString } from "../../../utils/formatTime";
 const TimeDisplay = (props) => {
-  let { timeString } = props;
+  let { timeMilliseconds } = props;
   const displayStyle = {
     fontFamily: "Monospace",
     textAlign: "center",
@@ -13,7 +14,7 @@ const TimeDisplay = (props) => {
         : "",
   };
 
-  return <h1 style={displayStyle}>{timeString}</h1>;
+  return <h1 style={displayStyle}>{getTimeString(timeMilliseconds)}</h1>;
 };
 
 export default TimeDisplay;

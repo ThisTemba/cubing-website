@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TimeDisplay from "./timeDisplay";
 import ScrambleDisplay from "./scrambleDisplay";
-import { getSolveTime, getTimeString } from "../../../utils/formatTime";
 
 //this.props.onNewSolve
 //this.props.armingTime
@@ -40,12 +39,11 @@ class Timer extends Component {
   };
 
   getNewSolve = () => {
-    const { time: timeRaw } = this.state;
-    const { scramble } = this.props;
     const solve = {
-      dateTime: new Date(),
-      solveTime: getSolveTime(timeRaw),
-      scramble: scramble,
+      dateTime: new Date().toString(),
+      scramble: this.props.scramble,
+      dur: this.state.time / 1000,
+      durStatic: this.state.time / 1000,
     };
     return solve;
   };
@@ -89,7 +87,7 @@ class Timer extends Component {
     return (
       <div>
         <ScrambleDisplay scramble={this.props.scramble} />
-        <TimeDisplay timeString={getTimeString(time)} timerState={timerState} />
+        <TimeDisplay timeMilliseconds={time} timerState={timerState} />
       </div>
     );
   }

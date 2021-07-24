@@ -1,12 +1,12 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import Chart from "react-google-charts";
+import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
+import { displayDur } from "../../utils/formatTime";
 import useModal from "../../hooks/useModal";
-import { Button } from "react-bootstrap";
 
 export default function StatsPage() {
   const [docs, setDocs] = useState(null);
@@ -77,11 +77,11 @@ export default function StatsPage() {
             </tr>
             <tr>
               <td>Session Average</td>
-              <td>{session.stats.sessionAverage}</td>
+              <td>{displayDur(session.stats.sessionAverage)}</td>
             </tr>
             <tr>
               <td>Best Single</td>
-              <td>{session.stats.bestSingle}</td>
+              <td>{displayDur(session.stats.bestSingle)}</td>
             </tr>
           </tbody>
         </Table>
