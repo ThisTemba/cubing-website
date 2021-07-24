@@ -53,28 +53,9 @@ export default function TimePage() {
   };
 
   const penalizeSolve = (solve, penalty) => {
-    let solveTime = solve.solveTime;
-    let timeRaw = solveTime.timeRaw; // get timeRaw
-    const map = {
-      DNF: { timeString: "DNF", timeSeconds: Infinity },
-      "+2": {
-        timeString: getTimeString(timeRaw + 2000) + "+",
-        timeSeconds: (timeRaw + 2000) / 1000,
-      },
-      "": { timeString: getTimeString(timeRaw), timeSeconds: timeRaw / 1000 },
-    };
     let { durStatic } = solve;
-    const map1 = {
-      DNF: Infinity,
-      "+2": durStatic + 2,
-      "": durStatic,
-    };
-    return {
-      ...solve,
-      penalty,
-      solveTime: { ...map[penalty], timeRaw },
-      dur: map1[penalty],
-    };
+    const map = { DNF: Infinity, "+2": durStatic + 2, "": durStatic };
+    return { ...solve, penalty, dur: map[penalty] };
   };
 
   const handleNewSession = () => {
