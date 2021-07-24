@@ -44,6 +44,8 @@ class Timer extends Component {
       dateTime: new Date().toString(),
       solveTime: getSolveTime(this.state.time),
       scramble: this.props.scramble,
+      dur: this.state.time / 1000,
+      durStatic: this.state.time / 1000,
     };
     return solve;
   };
