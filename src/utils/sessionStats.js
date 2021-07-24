@@ -7,6 +7,8 @@ import {
 
 export const getSessionStats = ({ solves }) => {
   if (!solves.length) throw new Error("session has no solves");
+  if (solves[0].dur === undefined)
+    throw new Error("some solves don't have durs");
   const durs = solves.map((s) => s.dur);
 
   // Always
