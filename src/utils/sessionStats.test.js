@@ -4,22 +4,26 @@ import _ from "lodash";
 
 describe("getSessionStats", () => {
   it("returns an object", () => {
-    const session = { solves: [{ solveTime: { timeSeconds: 1 } }] };
+    const session = { solves: [{ dur: 1 }] };
     expect(typeof getSessionStats(session)).toBe("object");
   });
-  test("object has sessionAverage and numSolves keys", () => {
-    const session = { solves: [{ solveTime: { timeSeconds: 1 } }] };
-    expect(getSessionStats(session).sessionAverage).toBeDefined();
-    expect(getSessionStats(session).numSolves).toBeDefined();
-  });
+
   it("throws error if session has no solves", () => {
     expect(() => getSessionStats({ solves: [] })).toThrow();
   });
+  it("throws error if first solve has no dur", () => {
+    const session = { solves: [{ solveTime: { timeSeconds: 1 } }] };
+    expect(() => getSessionStats(session)).toThrow();
+  });
+  test("object has sessionAverage and numSolves keys", () => {
+    const session = { solves: [{ dur: 1 }] };
+    expect(getSessionStats(session).sessionAverage).toBeDefined();
+    expect(getSessionStats(session).numSolves).toBeDefined();
+    expect(typeof getSessionStats(session).numSolves).toBe("number");
+  });
   describe("given twelve or more solves", () => {
     const session = {
-      solves: _.fill(Array(12), {
-        solveTime: { timeSeconds: _.random(1, 10) },
-      }),
+      solves: _.fill(Array(12), { dur: _.random(1, 10) }),
     };
     it("returns object with bestAo5", () => {
       expect(getSessionStats(session).bestAo5).toBeDefined();
@@ -36,9 +40,7 @@ describe("getSessionStats", () => {
   });
   describe("given 100+ solves", () => {
     const session = {
-      solves: _.fill(Array(100), {
-        solveTime: { timeSeconds: _.random(1, 10) },
-      }),
+      solves: _.fill(Array(100), { dur: _.random(1, 10) }),
     };
     it("returns object with bestAo50 defined", () => {
       expect(getSessionStats(session).bestAo50).toBeDefined();
