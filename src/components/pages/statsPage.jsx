@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
-import { displayTimeSeconds } from "../../utils/formatTime";
+import { displayDur } from "../../utils/formatTime";
 import useModal from "../../hooks/useModal";
 
 export default function StatsPage() {
@@ -77,11 +77,11 @@ export default function StatsPage() {
             </tr>
             <tr>
               <td>Session Average</td>
-              <td>{displayTimeSeconds(session.stats.sessionAverage)}</td>
+              <td>{displayDur(session.stats.sessionAverage)}</td>
             </tr>
             <tr>
               <td>Best Single</td>
-              <td>{displayTimeSeconds(session.stats.bestSingle)}</td>
+              <td>{displayDur(session.stats.bestSingle)}</td>
             </tr>
           </tbody>
         </Table>
