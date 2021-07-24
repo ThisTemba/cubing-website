@@ -29,8 +29,8 @@ export default function SolveList({
       solves = solves.map((s, i) => {
         return {
           ...s,
-          ao5: typeof ao5s[i] === number ? displayDur(ao5s[i]) : ao5s[i],
-          ao12: typeof ao12s[i] === number ? displayDur(ao12s[i]) : ao12s[i],
+          ao5: typeof ao5s[i] === "number" ? displayDur(ao5s[i]) : ao5s[i],
+          ao12: typeof ao12s[i] === "number" ? displayDur(ao12s[i]) : ao12s[i],
         };
       });
       const orderedSolves = [...solves].reverse();
