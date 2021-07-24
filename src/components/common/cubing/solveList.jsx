@@ -23,8 +23,9 @@ export default function SolveList({
 
   const getProcessedSolves = (solves) => {
     if (solves) {
-      const ao5s = listAoNs(solves, 5);
-      const ao12s = listAoNs(solves, 12);
+      const durs = solves.map((s) => s.dur);
+      const ao5s = listAoNs(durs, 5);
+      const ao12s = listAoNs(durs, 12);
       solves = solves.map((s, i) => {
         return {
           ...s,
