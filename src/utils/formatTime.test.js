@@ -1,4 +1,4 @@
-import { getTimeString, displayTimeSeconds } from "./formatTime";
+import { getTimeString, displayDur } from "./formatTime";
 
 describe("getTimeString", () => {
   it("returns a string", () => {
@@ -15,16 +15,13 @@ describe("getTimeString", () => {
   });
 });
 
-describe("displayTimeSeconds", () => {
+describe("displayDur", () => {
   describe("input is finite number", () => {
     it("returns getTimeString(timeSeconds/1000)", () => {
-      expect(displayTimeSeconds(123456 / 1000)).toBe(getTimeString(123456));
+      expect(displayDur(123456 / 1000)).toBe(getTimeString(123456));
     });
   });
   it("returns 'DNF' if input is Infinity", () => {
-    expect(displayTimeSeconds(Infinity)).toBe("DNF");
-  });
-  it("returns the input if input is NaN", () => {
-    expect(displayTimeSeconds("hello")).toBe("hello");
+    expect(displayDur(Infinity)).toBe("DNF");
   });
 });

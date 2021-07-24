@@ -13,9 +13,6 @@ export const getTimeString = (timeMilliseconds) => {
   return timeString;
 };
 
-export const displayTimeSeconds = (timeSeconds) => {
-  if (typeof timeSeconds !== "number") return timeSeconds;
-  const res =
-    timeSeconds === Infinity ? "DNF" : getTimeString(timeSeconds * 1000);
-  return res;
+export const displayDur = (dur) => {
+  return dur === Infinity ? "DNF" : getTimeString(dur * 1000);
 };

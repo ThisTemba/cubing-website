@@ -4,7 +4,7 @@ import Pagination from "../pagination";
 import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
 import useModal from "../../../hooks/useModal";
-import { displayTimeSeconds } from "../../../utils/formatTime";
+import { displayDur } from "../../../utils/formatTime";
 
 export default function SolveList({
   solves,
@@ -29,8 +29,8 @@ export default function SolveList({
       solves = solves.map((s, i) => {
         return {
           ...s,
-          ao5: displayTimeSeconds(ao5s[i]),
-          ao12: displayTimeSeconds(ao12s[i]),
+          ao5: typeof ao5s[i] === number ? displayDur(ao5s[i]) : ao5s[i],
+          ao12: typeof ao12s[i] === number ? displayDur(ao12s[i]) : ao12s[i],
         };
       });
       const orderedSolves = [...solves].reverse();
@@ -45,7 +45,7 @@ export default function SolveList({
     const options = { hour: "2-digit", minute: "2-digit" };
     return (
       <div className="">
-        {`Solve Time: ${displayTimeSeconds(s.dur)} \n\n`} <br />
+        {`Solve Time: ${displayDur(s.dur)} \n\n`} <br />
         {`Scramble: ${s.scramble}`} <br />
         {`Date: ${dateTime.toLocaleDateString()}`} <br />
         {`Time: ${dateTime.toLocaleTimeString([], options)}`} <br />
@@ -104,7 +104,7 @@ export default function SolveList({
                     });
                   }}
                 >
-                  {displayTimeSeconds(s.dur)}
+                  {displayDur(s.dur)}
                   {s.penalty === "+2" ? "+" : ""}
                 </td>
                 <td>{s.ao5}</td>
