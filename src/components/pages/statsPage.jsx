@@ -1,13 +1,12 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import Chart from "react-google-charts";
+import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
-import useModal from "../../hooks/useModal";
-import { Button } from "react-bootstrap";
 import { displayTimeSeconds } from "../../utils/formatTime";
+import useModal from "../../hooks/useModal";
 
 export default function StatsPage() {
   const [docs, setDocs] = useState(null);

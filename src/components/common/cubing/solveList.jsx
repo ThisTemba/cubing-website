@@ -3,8 +3,8 @@ import Table from "react-bootstrap/Table";
 import Pagination from "../pagination";
 import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
-import useModal from "../../../hooks/useModal";
 import { displayDur } from "../../../utils/formatTime";
+import useModal from "../../../hooks/useModal";
 
 export default function SolveList({
   solves,

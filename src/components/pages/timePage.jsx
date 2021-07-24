@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import { db, useAuthState } from "../../fire";
 
-import { getTimeString } from "../../utils/formatTime";
 import { getSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useStaticScrambles from "../../hooks/useStaticScrambles";
