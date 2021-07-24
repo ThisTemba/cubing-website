@@ -7,19 +7,20 @@ import {
 
 export const getSessionStats = ({ solves }) => {
   if (!solves.length) throw new Error("session has no solves");
+  const durs = solves.map((s) => s.dur);
 
   // Always
-  const numSolves = solves.length;
-  const bestSingle = getBestSingle(solves);
-  const worstSingle = getWorstSingle(solves);
-  const sessionAverage = getSessionAverage(solves);
+  const numSolves = durs.length;
+  const bestSingle = Math.min(durs);
+  const worstSingle = Math.max(durs);
+  const sessionAverage = getSessionAverage(durs);
 
   let stats = { sessionAverage, numSolves, bestSingle, worstSingle };
 
   // Conditionally
   let averagesToGet = [5, 12, 50, 100];
   averagesToGet = averagesToGet.filter((n) => n <= solves.length);
-  averagesToGet.forEach((n) => (stats[`bestAo${n}`] = bestAoN(solves, n)));
+  averagesToGet.forEach((n) => (stats[`bestAo${n}`] = bestAoN(durs, n)));
 
   // TODO: add quartiles if there is enough data
   return stats;
