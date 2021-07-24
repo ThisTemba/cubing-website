@@ -1,4 +1,4 @@
-import { getTimeString, getSolveTime, displayTimeSeconds } from "./formatTime";
+import { getTimeString, displayTimeSeconds } from "./formatTime";
 
 describe("getTimeString", () => {
   it("returns a string", () => {
@@ -12,27 +12,6 @@ describe("getTimeString", () => {
   });
   it("resets on the hour", () => {
     expect(getTimeString(3600000)).toMatch("0.00");
-  });
-});
-
-describe("getSolveTime", () => {
-  it("retuns solveTime", () => {
-    expect(getSolveTime(1000)).toStrictEqual({
-      timeString: "1.00",
-      timeSeconds: 1,
-      timeRaw: 1000,
-    });
-  });
-  it("works with seconds and milliseconds", () => {
-    expect(getSolveTime(1, true)).toStrictEqual({
-      timeString: "1.00",
-      timeSeconds: 1,
-      timeRaw: 1000,
-    });
-  });
-  it("throws error if input type is wrong", () => {
-    expect(() => getSolveTime("60000")).toThrow();
-    expect(() => getSolveTime(50, "asdf")).toThrow();
   });
 });
 
