@@ -13,8 +13,8 @@ export const getSessionStats = ({ solves }) => {
 
   // Always
   const numSolves = durs.length;
-  const bestSingle = Math.min(durs);
-  const worstSingle = Math.max(durs);
+  const bestSingle = Math.min(...durs);
+  const worstSingle = Math.max(...durs);
   const sessionAverage = getSessionAverage(durs);
 
   let stats = { sessionAverage, numSolves, bestSingle, worstSingle };
