@@ -44,7 +44,7 @@ export default function SolveList({
     const options = { hour: "2-digit", minute: "2-digit" };
     return (
       <div className="">
-        {`Solve Time: ${s.solveTime.timeSeconds}s \n\n`} <br />
+        {`Solve Time: ${displayTimeSeconds(s.dur)} \n\n`} <br />
         {`Scramble: ${s.scramble}`} <br />
         {`Date: ${dateTime.toLocaleDateString()}`} <br />
         {`Time: ${dateTime.toLocaleTimeString([], options)}`} <br />
@@ -103,7 +103,8 @@ export default function SolveList({
                     });
                   }}
                 >
-                  {s.solveTime.timeString}
+                  {displayTimeSeconds(s.dur)}
+                  {s.penalty === "+2" ? "+" : ""}
                 </td>
                 <td>{s.ao5}</td>
                 <td>{s.ao12}</td>
