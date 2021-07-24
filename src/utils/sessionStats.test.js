@@ -1,4 +1,3 @@
-import { getSessionAverage } from "./averages";
 import { getSessionStats } from "./sessionStats";
 import _ from "lodash";
 
