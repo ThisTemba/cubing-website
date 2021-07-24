@@ -1,189 +1,82 @@
 import {
-  getMeanTimeSeconds,
   aoAll,
-  aolastN,
+  aoLastN,
   listAoNs,
   bestAoN,
   getSessionAverage,
-  getWorstSingle,
-  getBestSingle,
 } from "./averages";
 import _ from "lodash";
 
-describe("getBestSingle", () => {
-  let solves = [
-    { solveTime: { timeSeconds: 4 } },
-    { solveTime: { timeSeconds: 7 } },
-  ];
-  it("returns a time from solves", () => {
-    expect(solves.map((s) => s.solveTime.timeSeconds)).toContain(
-      getBestSingle(solves)
-    );
+describe("aoAll: ao5", () => {
+  it("calculates average correctly", () => {
+    let durs = [10, 1, 12, 11, 30];
+    expect(aoAll(durs)).toBe(11);
   });
-  it("returns the minimum time", () => {
-    expect(getBestSingle(solves)).toBe(4);
+  it("excludes infinity correctly", () => {
+    let durs = [10, 1, 11, 12, Infinity];
+    expect(aoAll(durs)).toBe(11);
   });
-});
-
-describe("getWorstSingle", () => {
-  let solves = [
-    { solveTime: { timeSeconds: 4 } },
-    { solveTime: { timeSeconds: 7 } },
-  ];
-  it("returns a time from solves", () => {
-    expect(solves.map((s) => s.solveTime.timeSeconds)).toContain(
-      getWorstSingle(solves)
-    );
+  it("includes infinity correctly", () => {
+    let durs = [10, 1, 12, Infinity, Infinity];
+    expect(aoAll(durs)).toBe(Infinity);
   });
-  it("returns the minimum time", () => {
-    expect(getWorstSingle(solves)).toBe(7);
+  it("throws error is durs.length < 5", () => {
+    let durs = [10, 1, 12, Infinity];
+    expect(() => aoAll(durs)).toThrowError();
   });
 });
 
-describe("getSessionAverage", () => {
-  const solves = Array.from({ length: 7 }, () => {
-    return {
-      solveTime: { timeSeconds: _.random(1, 10) },
-    };
-  });
-  it("gets aoAll if solves.length is >= 5", () => {
-    const fiveSolves = _.take(solves, 5);
-    const received = getSessionAverage(fiveSolves);
-    const expected = aoAll(fiveSolves);
-    expect(received).toEqual(expected);
-  });
-  it("gets the mean if solves.length < 5", () => {
-    const fourSolves = _.take(solves, 4);
-    const received = getSessionAverage(fourSolves);
-    const expected = getMeanTimeSeconds(fourSolves);
-    expect(received).toEqual(expected);
-  });
-  test;
-});
-
-describe("bestAoN", () => {
-  const len = 10;
-  const solves = Array.from({ length: len }, () => {
-    return {
-      solveTime: { timeSeconds: _.random(1, 10) },
-    };
-  });
-  const AoNlist = listAoNs(solves, 5);
-  it("throws error if n > solves.length", () => {
-    expect(() => bestAoN(solves, len + 1)).toThrowError();
-  });
-
-  it("returns the minimum value from AoNlist", () => {
-    const minValue = Math.min(...AoNlist.filter((i) => typeof i === "number"));
-    expect(bestAoN(solves, 5)).toBe(minValue);
+describe("aoLastN", () => {
+  it("returns aoAll of last n items", () => {
+    const durs = [3, 6, 4, 6, 3, 3, 7, 8, 2, 2];
+    expect(aoLastN(durs, 5)).toBe(aoAll(_.takeRight(durs, 5)));
   });
 });
 
 describe("listAoNs", () => {
-  const solves = Array.from({ length: 10 }, () => {
-    return {
-      solveTime: { timeSeconds: _.random(1, 10) },
-    };
-  });
+  const durs = [8, 4, 4, 2, 2, 2, 4, 3, 3, 7];
   it("returns an array", () => {
-    expect(listAoNs(solves, 5)).toBeInstanceOf(Array);
+    expect(listAoNs(durs, 5)).toBeInstanceOf(Array);
   });
   test("first n - 1 items are '-'", () => {
-    const result = _(listAoNs(solves, 6)).take(5).value();
+    const n = 6;
+    const result = _(listAoNs(durs, n))
+      .take(n - 1)
+      .value();
     expect(result).toEqual(["-", "-", "-", "-", "-"]);
   });
   test("last item is aolastN", () => {
-    expect(_.last(listAoNs(solves, 5))).toBe(aolastN(solves, 5));
+    expect(_.last(listAoNs(durs, 5))).toBe(aoLastN(durs, 5));
   });
-  it("returns all dashes if solves.length < n", () => {
+  it("returns all dashes if durs.length < n", () => {
     const n = 7;
-    const newSolves = _.take(solves, n - 1);
-    expect(listAoNs(newSolves, n)).toEqual(_.fill(Array(n - 1), "-"));
+    const newDurs = _.take(durs, n - 1);
+    expect(listAoNs(newDurs, n)).toEqual(_.fill(Array(n - 1), "-"));
   });
 });
 
-describe("aolastN", () => {
-  it("returns aoAll of last n items", () => {
-    const solves = Array.from({ length: 10 }, () => {
-      return {
-        solveTime: { timeSeconds: _.random(1, 10) },
-      };
-    });
-    expect(aolastN(solves, 5)).toBe(aoAll(_.takeRight(solves, 5)));
+describe("bestAoN", () => {
+  const durs = [10, 6, 5, 3, 8, 7, 6, 6, 7, 4];
+  const AoNlist = listAoNs(durs, 5);
+  it("throws error if n > durs.length", () => {
+    expect(() => bestAoN(durs, durs.length + 1)).toThrowError();
+  });
+
+  it("returns the minimum value from AoNlist", () => {
+    const minValue = Math.min(...AoNlist.filter((i) => typeof i === "number"));
+    expect(bestAoN(durs, 5)).toBe(minValue);
   });
 });
 
-describe("aoAll: ao5", () => {
-  it("calculates average correctly", () => {
-    let solves = [
-      { solveTime: { timeSeconds: 10 } },
-      { solveTime: { timeSeconds: 1 } },
-      { solveTime: { timeSeconds: 12 } },
-      { solveTime: { timeSeconds: 11 } },
-      { solveTime: { timeSeconds: 30 } },
-    ];
-    expect(aoAll(solves)).toBe(11);
+describe("getSessionAverage", () => {
+  const durs = [7, 10, 2, 6, 8, 10, 6];
+  it("gets aoAll if durs.length is >= 5", () => {
+    const fiveDurs = _.take(durs, 5);
+    expect(getSessionAverage(fiveDurs)).toEqual(aoAll(fiveDurs));
   });
-  it("excludes infinity correctly", () => {
-    let solves = [
-      { solveTime: { timeSeconds: 10 } },
-      { solveTime: { timeSeconds: 1 } },
-      { solveTime: { timeSeconds: 12 } },
-      { solveTime: { timeSeconds: 11 } },
-      { solveTime: { timeSeconds: Infinity } },
-    ];
-    expect(aoAll(solves)).toBe(11);
+  it("gets the mean if durs.length < 5", () => {
+    const fourDurs = _.take(durs, 4);
+    expect(getSessionAverage(fourDurs)).toEqual(_.mean(fourDurs));
   });
-  it("includes infinity correctly", () => {
-    let solves = [
-      { solveTime: { timeSeconds: 10 } },
-      { solveTime: { timeSeconds: 1 } },
-      { solveTime: { timeSeconds: 12 } },
-      { solveTime: { timeSeconds: Infinity } },
-      { solveTime: { timeSeconds: Infinity } },
-    ];
-    expect(aoAll(solves)).toBe(Infinity);
-  });
-  it("requires at least 5 solves", () => {
-    let solves = [
-      { solveTime: { timeSeconds: 10 } },
-      { solveTime: { timeSeconds: 1 } },
-      { solveTime: { timeSeconds: 12 } },
-      { solveTime: { timeSeconds: Infinity } },
-    ];
-    expect(() => aoAll(solves)).toThrowError();
-  });
-});
-
-describe("getMeanTimeSeconds", () => {
-  it("calculates the mean", () => {
-    let solves = [
-      { solveTime: { timeSeconds: 1 } },
-      { solveTime: { timeSeconds: 2 } },
-    ];
-    expect(getMeanTimeSeconds(solves)).toBe(1.5);
-  });
-  it("rounds to two decimal places", () => {
-    let solves = [
-      { solveTime: { timeSeconds: 1 } },
-      { solveTime: { timeSeconds: 1 } },
-      { solveTime: { timeSeconds: 2 } },
-    ];
-    expect(getMeanTimeSeconds(solves)).toBe(1.33);
-  });
-  describe("infinity is included", () => {
-    it("returns infinity", () => {
-      let solves = [
-        { solveTime: { timeSeconds: 1 } },
-        { solveTime: { timeSeconds: Infinity } },
-      ];
-      expect(getMeanTimeSeconds(solves)).toBe(Infinity);
-    });
-  });
-  it("throws error if solves does not have solvetime", () => {
-    expect(() => getMeanTimeSeconds([1])).toThrow();
-  });
-  it("throws error if solveTimes do not have timeSeconds", () => {
-    expect(() => getMeanTimeSeconds([{ solveTime: {} }])).toThrow();
-  });
+  test;
 });
