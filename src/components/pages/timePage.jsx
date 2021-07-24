@@ -63,7 +63,18 @@ export default function TimePage() {
       },
       "": { timeString: getTimeString(timeRaw), timeSeconds: timeRaw / 1000 },
     };
-    return { ...solve, penalty, solveTime: { ...map[penalty], timeRaw } };
+    let { durStatic } = solve;
+    const map1 = {
+      DNF: Infinity,
+      "+2": durStatic + 2,
+      "": durStatic,
+    };
+    return {
+      ...solve,
+      penalty,
+      solveTime: { ...map[penalty], timeRaw },
+      dur: map1[penalty],
+    };
   };
 
   const handleNewSession = () => {
