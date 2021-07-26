@@ -6,19 +6,11 @@ import _ from "lodash";
 const CubeImageInternal = (props) => {
   const imageRef = useRef(null);
 
-  const getParamsString = (params) => {
-    let keys = Object.keys(params);
-    const subStrings = keys.map((key) => `${key}=${params[key]}&`);
-    let paramsString = subStrings.join("");
-    // paramsString = paramsString.slice(0, -1); // remove last '&'
-    return paramsString;
-  };
-
   useEffect(() => {
-    let params = getParamsString(props);
     let element = imageRef.current;
-    SRVisualizer.cubeSVG(element, params);
+    SRVisualizer.cubeSVG(element, props);
   }, []);
+
   return <div ref={imageRef}></div>;
 };
 
