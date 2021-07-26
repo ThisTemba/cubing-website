@@ -6,10 +6,7 @@ import _ from "lodash";
 const CubeImageInternal = (props) => {
   const imageRef = useRef(null);
 
-  useEffect(() => {
-    let element = imageRef.current;
-    SRVisualizer.cubeSVG(element, props);
-  }, []);
+  useEffect(() => SRVisualizer.cubeSVG(imageRef.current, props), []);
 
   return <div ref={imageRef}></div>;
 };
