@@ -1,5 +1,11 @@
 import React from "react";
+import Container from "react-bootstrap/Container";
+import CaseSetDashboard from "../caseSetDashboard";
 
 export default function TrainPage() {
-  return <h1>Train Page</h1>;
+  return (
+    <Container>
+      <CaseSetDashboard />
+    </Container>
+  );
 }
