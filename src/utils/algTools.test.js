@@ -1,5 +1,23 @@
-import { validMoves, modifiers, isValidMove } from "./algTools";
+import { validMoves, modifiers, isValidMove, isValidAlg } from "./algTools";
 import _, { curry } from "lodash";
+
+describe("isValidAlg", () => {
+  it("returns a boolean", () => {
+    expect(typeof isValidAlg()).toBe("boolean");
+  });
+  it("returns false if input is not a string", () => {
+    expect(isValidAlg(true)).toBeFalsy();
+    expect(isValidAlg(4)).toBeFalsy();
+    expect(isValidAlg({})).toBeFalsy();
+  });
+  it("correctly validates these algs", () => {
+    expect(isValidAlg("R U R' U'")).toBeTruthy();
+    expect(isValidAlg("R U R' U' x S2")).toBeTruthy();
+    expect(isValidAlg("R U r U' x M'")).toBeTruthy();
+    expect(isValidAlg("RU R' U' x S2")).toBeFalsy();
+    expect(isValidAlg("R U R' U' x Y")).toBeFalsy();
+  });
+});
 
 describe("isValidMove", () => {
   it("returns a boolean", () => {

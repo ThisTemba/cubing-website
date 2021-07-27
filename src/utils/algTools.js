@@ -12,6 +12,16 @@ export const validMoves = [].concat(
 );
 export const modifiers = ["'", "2"];
 
+export const isValidAlg = (alg) => {
+  if (typeof alg !== "string") return false;
+  const moves = alg.split(" ");
+  let isValid = true;
+  moves.forEach((m) => {
+    if (isValidMove(m) === false) isValid = false;
+  });
+  return isValid;
+};
+
 export const isValidMove = (move) => {
   if (move.length > 2) return false;
   if (!validMoves.includes(move[0])) return false;
