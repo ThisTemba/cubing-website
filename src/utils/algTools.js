@@ -12,6 +12,26 @@ export const validMoves = [].concat(
 );
 export const modifiers = ["'", "2"];
 
+export const invertAlg = (alg) => {
+  if (!isValidAlg(alg)) throw new Error("input is not a valid algorithm");
+  const invertedAlg = _(alg)
+    .split(" ")
+    .reverse()
+    .map((m) => invertMove(m))
+    .join(" ");
+  return invertedAlg;
+};
+
+const invertMove = (move) => {
+  let result = "";
+  _.endsWith(move, "2")
+    ? (result = move)
+    : _.endsWith(move, "'")
+    ? (result = move.slice(0, -1))
+    : (result = move + "'");
+  return result;
+};
+
 export const isValidAlg = (alg) => {
   if (typeof alg !== "string") return false;
   const moves = alg.split(" ");

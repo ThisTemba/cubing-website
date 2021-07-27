@@ -1,5 +1,30 @@
-import { validMoves, modifiers, isValidMove, isValidAlg } from "./algTools";
+import {
+  validMoves,
+  modifiers,
+  isValidMove,
+  isValidAlg,
+  invertAlg,
+} from "./algTools";
 import _, { curry } from "lodash";
+
+describe("invertAlg", () => {
+  it("throws error is alg is not valid", () => {
+    expect(() => invertAlg("RU")).toThrowError();
+  });
+  it("returns an alg with the same number of moves", () => {
+    const alg = "R U R' U'";
+    const inLen = alg.split(" ").length;
+    const outLen = invertAlg(alg).split(" ").length;
+    expect(inLen).toBe(outLen);
+  });
+  it("works with some examples", () => {
+    expect(invertAlg("R U R' U'")).toBe("U R U' R'");
+    expect(invertAlg("R U R' U' x S2")).toBe("S2 x' U R U' R'");
+  });
+  it("returns a valid alg if input is valid", () => {
+    expect(isValidAlg(invertAlg("R U R' U'"))).toBeTruthy();
+  });
+});
 
 describe("isValidAlg", () => {
   it("returns a boolean", () => {
