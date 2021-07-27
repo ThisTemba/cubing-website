@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import { db, useAuthState } from "../../fire";
 
 import { getSessionStats } from "../../utils/sessionStats";
@@ -94,7 +95,7 @@ export default function TimePage() {
   };
 
   return (
-    <div className="container-fluid">
+    <Container fluid>
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
       {user && session && (
         <h3>
@@ -112,6 +113,6 @@ export default function TimePage() {
         currentPage={currentPage}
         onPageChange={(p) => setCurrentPage(p)}
       />
-    </div>
+    </Container>
   );
 }
