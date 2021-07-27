@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
@@ -145,45 +146,43 @@ export default function StatsPage() {
   };
 
   return (
-    <div>
-      <div>
-        <Chart
-          width={"100%"}
-          height={"90vh"}
-          chartType="BubbleChart"
-          loader={<div>Loading Chart</div>}
-          data={chartData}
-          options={{
-            title: "Session Average vs Session Date",
-            vAxis: { title: "Session Average" },
-            hAxis: { title: "Date" },
-            bubble: { textStyle: { color: "none" } },
-            tooltip: {
-              trigger: "none",
+    <Container fluid>
+      <Chart
+        width={"100%"}
+        height={"90vh"}
+        chartType="BubbleChart"
+        loader={<div>Loading Chart</div>}
+        data={chartData}
+        options={{
+          title: "Session Average vs Session Date",
+          vAxis: { title: "Session Average" },
+          hAxis: { title: "Date" },
+          bubble: { textStyle: { color: "none" } },
+          tooltip: {
+            trigger: "none",
+          },
+        }}
+        rootProps={{ "data-testid": "1" }}
+        chartEvents={[
+          {
+            eventName: "select",
+            callback: ({ chartWrapper }) => {
+              const chart = chartWrapper.getChart();
+              const selection = chart.getSelection();
+              if (selection.length === 1) {
+                const [selectedItem] = selection;
+                const row = selectedItem.row;
+                const session = docs[row];
+                console.log(session);
+                setRow(row);
+                renderSessionModal(session);
+              }
             },
-          }}
-          rootProps={{ "data-testid": "1" }}
-          chartEvents={[
-            {
-              eventName: "select",
-              callback: ({ chartWrapper }) => {
-                const chart = chartWrapper.getChart();
-                const selection = chart.getSelection();
-                if (selection.length === 1) {
-                  const [selectedItem] = selection;
-                  const row = selectedItem.row;
-                  const session = docs[row];
-                  console.log(session);
-                  setRow(row);
-                  renderSessionModal(session);
-                }
-              },
-            },
-          ]}
-        />
-        <ModalComponent />
-        <ModalComponent1 />
-      </div>
-    </div>
+          },
+        ]}
+      />
+      <ModalComponent />
+      <ModalComponent1 />
+    </Container>
   );
 }
