@@ -4,8 +4,30 @@ import {
   isValidMove,
   isValidAlg,
   invertAlg,
+  toFaceMoves,
 } from "./algTools";
 import _, { curry } from "lodash";
+
+describe("toFaceMoves", () => {
+  it("does not affect non wide/slice moves", () => {
+    expect(toFaceMoves("R U R' U' x")).toBe("R U R' U' x");
+  });
+  it("works with normal wide moves", () => {
+    expect(toFaceMoves("r")).toBe("x L");
+    expect(toFaceMoves("f")).toBe("z B");
+  });
+  it("works with normal slice moves", () => {
+    expect(toFaceMoves("M")).toBe("x' R L'");
+    expect(toFaceMoves("S")).toBe("z F' B");
+  });
+  it("works with inverted wide moves", () => {
+    expect(toFaceMoves("r'")).toBe("x' L'");
+  });
+  it("works with inverted slice moves", () => {
+    expect(toFaceMoves("M'")).toBe("x R' L");
+    expect(toFaceMoves("S'")).toBe("z' F B'");
+  });
+});
 
 describe("invertAlg", () => {
   it("throws error is alg is not valid", () => {

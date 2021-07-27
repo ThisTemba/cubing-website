@@ -11,6 +11,38 @@ export const validMoves = [].concat(
   cubeRotations
 );
 export const modifiers = ["'", "2"];
+const wideToFaceMap = {
+  r: "x L",
+  u: "y D",
+  f: "z B",
+  l: "x' R",
+  d: "y' U",
+  b: "z' F",
+  "r'": "x' L'",
+  "u'": "y' D'",
+  "f'": "z' B'",
+  "l'": "x R'",
+  "d'": "y U'",
+  "b'": "z F'",
+};
+const sliceToFaceMap = {
+  M: "x' R L'",
+  E: "y' U D'",
+  S: "z F' B",
+  "M'": "x R' L",
+  "E'": "y U' D",
+  "S'": "z' F B'",
+};
+
+export const toFaceMoves = (alg) => {
+  let moves = alg.split(" ");
+  moves = moves.map((m) => {
+    if (sliceMoves.includes(m[0])) return sliceToFaceMap[m];
+    if (wideMoves.includes(m[0])) return wideToFaceMap[m];
+    return m;
+  });
+  return moves.join(" ");
+};
 
 export const invertAlg = (alg) => {
   if (!isValidAlg(alg)) throw new Error("input is not a valid algorithm");
