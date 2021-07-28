@@ -12,7 +12,7 @@
     "avgTime": 3.75,
     "tps": 4.0,
     "numSolves": 30,
-    "learned": true
+    "status": 2
   },
   {
     "id": "1b730f56-333a-4c70-8996-300ba86d0a27",
@@ -27,7 +27,7 @@
     "avgTime": 2.27,
     "tps": 3.08,
     "numSolves": 32,
-    "learned": false
+    "status": 0
   },
   {
     "id": "1476890e-9025-4164-9171-085acc16ed3f",
@@ -42,7 +42,7 @@
     "avgTime": 3.25,
     "tps": 2.77,
     "numSolves": 4,
-    "learned": false
+    "status": 0
   },
   {
     "id": "e397505a-ead0-48d3-8d77-91e4d28dcb4b",
@@ -57,7 +57,7 @@
     "avgTime": 2.73,
     "tps": 4.4,
     "numSolves": 23,
-    "learned": true
+    "status": 2
   },
   {
     "id": "e3147676-ea67-4548-bbbc-afb57468af5e",
@@ -72,7 +72,7 @@
     "avgTime": 1.78,
     "tps": 5.06,
     "numSolves": 37,
-    "learned": true
+    "status": 2
   },
   {
     "id": "8e5a9f2f-eed2-4035-b91e-72a3a870a900",
@@ -87,7 +87,7 @@
     "avgTime": 2.63,
     "tps": 5.7,
     "numSolves": 31,
-    "learned": true
+    "status": 2
   },
   {
     "id": "974c8fc1-8d3a-4a87-941a-dbdf50924367",
@@ -102,7 +102,7 @@
     "avgTime": 2.66,
     "tps": 2.63,
     "numSolves": 33,
-    "learned": false
+    "status": 0
   },
   {
     "id": "024e805a-4edb-4cd6-879d-dc2f5080e551",
@@ -117,7 +117,7 @@
     "avgTime": 3.33,
     "tps": 4.2,
     "numSolves": 38,
-    "learned": true
+    "status": 2
   },
   {
     "id": "7ada4c46-6408-4f6e-94e9-95950072ae44",
@@ -132,7 +132,7 @@
     "avgTime": 3.81,
     "tps": 3.94,
     "numSolves": 36,
-    "learned": true
+    "status": 2
   },
   {
     "id": "97095b08-8c76-4b07-9d98-c09a733f6574",
@@ -147,7 +147,7 @@
     "avgTime": 2.35,
     "tps": 2.98,
     "numSolves": 30,
-    "learned": false
+    "status": 0
   },
   {
     "id": "2c782e67-4bc1-4393-b024-1745249989d0",
@@ -162,7 +162,7 @@
     "avgTime": 3.82,
     "tps": 3.4,
     "numSolves": 19,
-    "learned": true
+    "status": 2
   },
   {
     "id": "2f3dba63-0ae6-47bb-a665-dbd8ad648956",
@@ -177,7 +177,7 @@
     "avgTime": 1.73,
     "tps": 5.2,
     "numSolves": 4,
-    "learned": false
+    "status": 0
   },
   {
     "id": "7741dac1-4d6e-45fd-bfea-e7fdb1e21428",
@@ -192,7 +192,7 @@
     "avgTime": 3.48,
     "tps": 3.45,
     "numSolves": 17,
-    "learned": true
+    "status": 2
   },
   {
     "id": "4d61ad13-7446-4139-b729-1d984d32bc7d",
@@ -207,7 +207,7 @@
     "avgTime": 1.97,
     "tps": 4.06,
     "numSolves": 4,
-    "learned": false
+    "status": 0
   },
   {
     "id": "3ca1de6b-f79b-4918-9247-29b499d7421a",
@@ -222,7 +222,7 @@
     "avgTime": 3.33,
     "tps": 2.1,
     "numSolves": 11,
-    "learned": false
+    "status": 0
   },
   {
     "id": "e9371a2e-f1fa-4fe5-9f5f-2f4465e022bd",
@@ -237,7 +237,7 @@
     "avgTime": 2.8,
     "tps": 3.57,
     "numSolves": 13,
-    "learned": false
+    "status": 0
   },
   {
     "id": "b62a91e9-04be-43eb-a7f2-384b65728500",
@@ -252,7 +252,7 @@
     "avgTime": 2.39,
     "tps": 3.35,
     "numSolves": 1,
-    "learned": false
+    "status": 0
   },
   {
     "id": "ea5c7c89-310a-43c8-8ff8-6acb1bab7bf9",
@@ -267,7 +267,7 @@
     "avgTime": 2.32,
     "tps": 3.02,
     "numSolves": 20,
-    "learned": true
+    "status": 2
   },
   {
     "id": "ffc8f258-a188-4aca-b800-06b7ef325bbc",
@@ -282,7 +282,7 @@
     "avgTime": 2.78,
     "tps": 2.88,
     "numSolves": 7,
-    "learned": false
+    "status": 0
   },
   {
     "id": "fc7ccda1-4ea9-4f23-b4a6-3a8d952c0fb5",
@@ -297,7 +297,7 @@
     "avgTime": 3.67,
     "tps": 2.45,
     "numSolves": 15,
-    "learned": false
+    "status": 0
   },
   {
     "id": "d6f5c1c9-842c-44c5-a2e6-893f0c92c2cc",
@@ -312,7 +312,7 @@
     "avgTime": 3.11,
     "tps": 1.93,
     "numSolves": 23,
-    "learned": false
+    "status": 0
   },
   {
     "id": "d31ad6a8-0579-47f4-b25e-7af1acb000f1",
@@ -327,7 +327,7 @@
     "avgTime": 3.35,
     "tps": 2.09,
     "numSolves": 1,
-    "learned": false
+    "status": 0
   },
   {
     "id": "62da0343-e8e8-4fca-8c81-2fbed04ee05e",
@@ -342,7 +342,7 @@
     "avgTime": 2.99,
     "tps": 4.01,
     "numSolves": 3,
-    "learned": false
+    "status": 2
   },
   {
     "id": "9ad235fd-d1df-4bef-aa53-9c2b1744166a",
@@ -357,7 +357,7 @@
     "avgTime": 2.89,
     "tps": 4.15,
     "numSolves": 26,
-    "learned": true
+    "status": 2
   },
   {
     "id": "7b83d75c-e29f-4a8f-b6b6-5ef527f4c040",
@@ -372,7 +372,7 @@
     "avgTime": 2.44,
     "tps": 4.51,
     "numSolves": 22,
-    "learned": false
+    "status": 0
   },
   {
     "id": "59963520-a059-49bc-9422-693408f5d42b",
@@ -387,7 +387,7 @@
     "avgTime": 2.35,
     "tps": 5.96,
     "numSolves": 23,
-    "learned": true
+    "status": 2
   },
   {
     "id": "2754805f-c9dc-49fc-bf7e-81ce6351f37a",
@@ -402,7 +402,7 @@
     "avgTime": 2.45,
     "tps": 3.67,
     "numSolves": 36,
-    "learned": true
+    "status": 2
   },
   {
     "id": "824dd896-b91b-4e6b-b363-6b92f395eb56",
@@ -417,7 +417,7 @@
     "avgTime": 3.56,
     "tps": 3.09,
     "numSolves": 26,
-    "learned": false
+    "status": 0
   },
   {
     "id": "4f4bb87f-68f8-4403-a699-24995f299f26",
@@ -432,7 +432,7 @@
     "avgTime": 3.85,
     "tps": 3.12,
     "numSolves": 29,
-    "learned": true
+    "status": 2
   },
   {
     "id": "ffa6ae3e-f7b7-4ff8-9684-3e67c31b56f5",
@@ -447,7 +447,7 @@
     "avgTime": 1.58,
     "tps": 5.06,
     "numSolves": 31,
-    "learned": true
+    "status": 2
   },
   {
     "id": "f7bf1755-ea98-499e-b0fb-e9053add4e90",
@@ -462,7 +462,7 @@
     "avgTime": 2.6,
     "tps": 4.23,
     "numSolves": 8,
-    "learned": false
+    "status": 2
   },
   {
     "id": "c9f67e46-409f-4cd1-8176-67b78ffa06ce",
@@ -477,7 +477,7 @@
     "avgTime": 3.62,
     "tps": 3.31,
     "numSolves": 24,
-    "learned": false
+    "status": 0
   },
   {
     "id": "785cd077-69da-42f3-8de9-83313f22b2c8",
@@ -492,7 +492,7 @@
     "avgTime": 2.56,
     "tps": 5.47,
     "numSolves": 17,
-    "learned": true
+    "status": 2
   },
   {
     "id": "d1b78916-b42a-456f-8e3c-91cbb8919b05",
@@ -507,7 +507,7 @@
     "avgTime": 3.65,
     "tps": 4.11,
     "numSolves": 34,
-    "learned": false
+    "status": 0
   },
   {
     "id": "2e9193f0-6abe-4ae5-8101-bfc5c2a41e0f",
@@ -522,7 +522,7 @@
     "avgTime": 3.73,
     "tps": 3.75,
     "numSolves": 27,
-    "learned": true
+    "status": 2
   },
   {
     "id": "8ddcefae-c9ea-4c51-b028-159336ee342c",
@@ -537,7 +537,7 @@
     "avgTime": 2.53,
     "tps": 3.95,
     "numSolves": 23,
-    "learned": false
+    "status": 1
   },
   {
     "id": "a1232126-4810-4d4a-99ae-eeb82a9151ef",
@@ -552,7 +552,7 @@
     "avgTime": 2.9,
     "tps": 2.41,
     "numSolves": 17,
-    "learned": false
+    "status": 1
   },
   {
     "id": "1dd51d2d-88ef-4cc2-8544-ffe8dea3373a",
@@ -567,7 +567,7 @@
     "avgTime": 2.66,
     "tps": 5.64,
     "numSolves": 5,
-    "learned": false
+    "status": 0
   },
   {
     "id": "a96fc6d3-7dee-412b-a9c6-3d4cfdfc96eb",
@@ -582,7 +582,7 @@
     "avgTime": 1.99,
     "tps": 7.54,
     "numSolves": 3,
-    "learned": false
+    "status": 2
   },
   {
     "id": "a464fe37-7dce-48c0-b1d1-78f57ca841de",
@@ -597,7 +597,7 @@
     "avgTime": 2.67,
     "tps": 5.24,
     "numSolves": 35,
-    "learned": true
+    "status": 2
   },
   {
     "id": "f8c0e243-0aec-442c-b17b-3dd92195fef6",
@@ -612,7 +612,7 @@
     "avgTime": 3.59,
     "tps": 2.23,
     "numSolves": 0,
-    "learned": false
+    "status": 1
   },
   {
     "id": "876c0d0b-20df-483d-bff4-497d2dcd94d0",
@@ -627,7 +627,7 @@
     "avgTime": 2.39,
     "tps": 5.02,
     "numSolves": 36,
-    "learned": false
+    "status": 0
   },
   {
     "id": "a03053ef-ba0b-45c5-9f1e-d902deed0fc7",
@@ -642,7 +642,7 @@
     "avgTime": 3.84,
     "tps": 2.08,
     "numSolves": 15,
-    "learned": false
+    "status": 1
   },
   {
     "id": "5027375c-cfe9-4cdd-ba18-ddfedc1e2703",
@@ -657,7 +657,7 @@
     "avgTime": 1.98,
     "tps": 5.56,
     "numSolves": 35,
-    "learned": true
+    "status": 2
   },
   {
     "id": "82270a26-8a75-432d-96a2-e68f61416c38",
@@ -672,7 +672,7 @@
     "avgTime": 2.13,
     "tps": 4.69,
     "numSolves": 10,
-    "learned": false
+    "status": 1
   },
   {
     "id": "a39d8a77-9e1f-45a6-a066-5207cf14a762",
@@ -687,7 +687,7 @@
     "avgTime": 1.64,
     "tps": 6.1,
     "numSolves": 34,
-    "learned": true
+    "status": 0
   },
   {
     "id": "c51584c0-bbfd-4c64-bdf9-aa9610289b7c",
@@ -702,7 +702,7 @@
     "avgTime": 3.69,
     "tps": 3.25,
     "numSolves": 5,
-    "learned": false
+    "status": 1
   },
   {
     "id": "ac36e615-7e52-470b-a086-d0945f5809c6",
@@ -717,7 +717,7 @@
     "avgTime": 3.13,
     "tps": 3.19,
     "numSolves": 29,
-    "learned": true
+    "status": 2
   },
   {
     "id": "2cafd023-edec-46d4-9525-f214954c3e0a",
@@ -732,7 +732,7 @@
     "avgTime": 3.69,
     "tps": 4.07,
     "numSolves": 15,
-    "learned": true
+    "status": 2
   },
   {
     "id": "9f5b22ec-0b20-4556-b6a2-1592dd5200c8",
@@ -747,7 +747,7 @@
     "avgTime": 3.38,
     "tps": 2.37,
     "numSolves": 29,
-    "learned": false
+    "status": 0
   },
   {
     "id": "dc98d9dc-5e68-4d41-8d2b-76894bf8f3a0",
@@ -762,7 +762,7 @@
     "avgTime": 2.92,
     "tps": 3.77,
     "numSolves": 17,
-    "learned": false
+    "status": 1
   },
   {
     "id": "aaa67684-670f-4e6a-af2d-87dc1255e4ad",
@@ -777,7 +777,7 @@
     "avgTime": 2.66,
     "tps": 2.63,
     "numSolves": 24,
-    "learned": false
+    "status": 1
   },
   {
     "id": "d0989a04-bd0d-47c9-867e-77e6f228f711",
@@ -792,7 +792,7 @@
     "avgTime": 1.56,
     "tps": 7.05,
     "numSolves": 11,
-    "learned": true
+    "status": 2
   },
   {
     "id": "fecc047f-2bc2-4561-a70b-2fc1e8a536cc",
@@ -807,7 +807,7 @@
     "avgTime": 3.57,
     "tps": 3.92,
     "numSolves": 19,
-    "learned": true
+    "status": 0
   },
   {
     "id": "680a9777-7dab-44ec-8968-9380c9e4eaf4",
@@ -822,7 +822,7 @@
     "avgTime": 1.5,
     "tps": 8.67,
     "numSolves": 40,
-    "learned": true
+    "status": 2
   },
   {
     "id": "5015c10e-e71c-49a2-ad38-fb26ede567ae",
@@ -837,7 +837,7 @@
     "avgTime": 2.62,
     "tps": 3.05,
     "numSolves": 33,
-    "learned": true
+    "status": 2
   },
   {
     "id": "3b5d1b3d-9042-4160-8f06-6b97095707ab",
@@ -852,7 +852,7 @@
     "avgTime": 2.28,
     "tps": 5.7,
     "numSolves": 22,
-    "learned": true
+    "status": 2
   },
   {
     "id": "259f56a3-690a-4238-b34b-2d24b864ddf0",
@@ -867,7 +867,7 @@
     "avgTime": 2.68,
     "tps": 2.61,
     "numSolves": 2,
-    "learned": false
+    "status": 1
   },
   {
     "id": "718ceac3-1d0c-457c-8047-7247f00b0a1f",
@@ -882,7 +882,7 @@
     "avgTime": 2.92,
     "tps": 2.4,
     "numSolves": 29,
-    "learned": false
+    "status": 0
   },
   {
     "id": "5ced0080-0356-4145-898e-496c8e64cba6",
@@ -897,6 +897,6 @@
     "avgTime": 3.3,
     "tps": 2.12,
     "numSolves": 29,
-    "learned": false
+    "status": 0
   }
 ]
