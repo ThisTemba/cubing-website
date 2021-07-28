@@ -3,14 +3,17 @@ import { Table } from "react-bootstrap";
 import { useTable, useSortBy, useRowSelect } from "react-table";
 import CubeImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
+import MOCK_DATA from "../data/MOCK_DATA.json";
 
 export default function CaseSetTable({ caseSet }) {
-  const data = useMemo(() => caseSet.cases, []);
+  //   const data = useMemo(() => caseSet.cases, []);
+  const data = useMemo(() => MOCK_DATA, []);
+  console.log(MOCK_DATA);
   const columns = useMemo(
     () => [
       {
         Header: "Case",
-        accessor: "algs[0]",
+        accessor: "alg",
         Cell: ({ value: alg }) => (
           <CubeImage
             case={alg}
@@ -22,17 +25,43 @@ export default function CaseSetTable({ caseSet }) {
       },
       { Header: "Name", accessor: "name" },
       { Header: "Group", accessor: "group" },
+      { Header: "P", accessor: "pRate" },
       {
-        Header: "Algorithm",
-        id: "primary",
-        accessor: "algs[0]",
-        disableSortBy: true,
+        Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
+        accessor: "hRate",
       },
       {
-        Header: "Num Algs",
-        accessor: "algs",
-        Cell: ({ value }) => value.length,
-        disableSortBy: true,
+        Header: (
+          <i
+            style={{ color: "orange" }}
+            className="fa fa-minus"
+            aria-hidden="true"
+          ></i>
+        ),
+        accessor: "mmRate",
+      },
+      {
+        Header: (
+          <i
+            style={{ color: "red" }}
+            className="fa fa-times"
+            aria-hidden="true"
+          ></i>
+        ),
+        accessor: "cmRate",
+      },
+      {
+        Header: <span style={{ textDecoration: "overline" }}>time</span>,
+        accessor: "avgTime",
+      },
+      { Header: "TPS", accessor: "tps" },
+      { Header: "# Solves", accessor: "numSolves" },
+      {
+        Header: "Learned",
+        accessor: "learned",
+        Cell: ({ value }) => {
+          return `${value}`;
+        },
       },
     ],
     []
