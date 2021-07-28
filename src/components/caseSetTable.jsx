@@ -1,6 +1,12 @@
 import React, { useMemo } from "react";
 import { Table } from "react-bootstrap";
-import { useTable, useSortBy, useRowSelect } from "react-table";
+import {
+  useTable,
+  useSortBy,
+  useRowSelect,
+  useGroupBy,
+  useExpanded,
+} from "react-table";
 import CubeImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import MOCK_DATA from "../data/MOCK_DATA.json";
@@ -69,7 +75,9 @@ export default function CaseSetTable({ caseSet }) {
 
   const tableInstance = useTable(
     { columns, data },
+    useGroupBy,
     useSortBy,
+    useExpanded,
     useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
@@ -127,6 +135,12 @@ export default function CaseSetTable({ caseSet }) {
                   {...col.getHeaderProps(col.getSortByToggleProps())}
                   className="align-middle"
                 >
+                  {col.canGroupBy ? (
+                    // If the col can be grouped, let's add a toggle
+                    <span {...col.getGroupByToggleProps()}>
+                      {col.isGrouped ? "🛑 " : "👊 "}
+                    </span>
+                  ) : null}
                   {col.render("Header")} {renderSortIcon(col)}
                 </th>
               ))}
@@ -134,14 +148,44 @@ export default function CaseSetTable({ caseSet }) {
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((r) => {
-            prepareRow(r);
+          {rows.map((row) => {
+            prepareRow(row);
             return (
-              <tr {...r.getRowProps()}>
-                {r.cells.map((c) => {
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
                   return (
-                    <td {...c.getCellProps} className="align-middle">
-                      {c.render("Cell")}
+                    <td
+                      className="align-middle"
+                      // For educational purposes, let's color the
+                      // cell depending on what type it is given
+                      // from the useGroupBy hook
+                      {...cell.getCellProps()}
+                      style={{
+                        background: cell.isGrouped
+                          ? "#0aff0082"
+                          : cell.isAggregated
+                          ? "#ffa50078"
+                          : cell.isPlaceholder
+                          ? "#ff000042"
+                          : "white",
+                      }}
+                    >
+                      {cell.isGrouped ? (
+                        // If it's a grouped cell, add an expander and row count
+                        <>
+                          <span {...row.getToggleRowExpandedProps()}>
+                            {row.isExpanded ? "👇" : "👉"}
+                          </span>{" "}
+                          {cell.render("Cell")} ({row.subRows.length})
+                        </>
+                      ) : cell.isAggregated ? (
+                        // If the cell is aggregated, use the Aggregated
+                        // renderer for cell
+                        cell.render("Aggregated")
+                      ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                        // Otherwise, just render the regular cell
+                        cell.render("Cell")
+                      )}
                     </td>
                   );
                 })}
