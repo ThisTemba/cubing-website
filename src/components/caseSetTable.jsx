@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import { Table } from "react-bootstrap";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, useRowSelect } from "react-table";
 import CubeImage from "./common/cubing/cubeImage";
+import { Checkbox } from "./common/checkbox";
 
 export default function CaseSetTable({ caseSet }) {
   const data = useMemo(() => caseSet.cases, []);
@@ -37,9 +38,42 @@ export default function CaseSetTable({ caseSet }) {
     []
   );
 
-  const tableInstance = useTable({ columns, data }, useSortBy);
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+  const tableInstance = useTable(
+    { columns, data },
+    useSortBy,
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        // Let's make a column for selection
+        {
+          id: "selection",
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to render a checkbox
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              <Checkbox {...getToggleAllRowsSelectedProps()} />
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => (
+            <div>
+              <Checkbox {...row.getToggleRowSelectedProps()} />
+            </div>
+          ),
+        },
+        ...columns,
+      ]);
+    }
+  );
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    selectedFlatRows,
+  } = tableInstance;
 
   const renderSortIcon = (col) => {
     return (
