@@ -2,7 +2,7 @@
   {
     "id": "b23e3f5c-244f-455d-8b7f-3e0f077327d0",
     "name": "Kipper",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "R U2 R2 F R F' U2 R' F R F'",
     "hRate": 0.41,
     "mmRate": 0.57,
@@ -47,7 +47,7 @@
   {
     "id": "e397505a-ead0-48d3-8d77-91e4d28dcb4b",
     "name": "Magda",
-    "group": "Lightening Bold",
+    "group": "V",
     "alg": "l L2' U' L U' l' U2 l U' M'",
     "hRate": 0.07,
     "mmRate": 0.68,
@@ -62,7 +62,7 @@
   {
     "id": "e3147676-ea67-4548-bbbc-afb57468af5e",
     "name": "Judon",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "l' U2 L U L' U l",
     "hRate": 0.25,
     "mmRate": 0.67,
@@ -107,7 +107,7 @@
   {
     "id": "024e805a-4edb-4cd6-879d-dc2f5080e551",
     "name": "Law",
-    "group": "Lightening Bold",
+    "group": "V",
     "alg": "r U R' U [R' F R F'] R U2 r'",
     "hRate": 0.03,
     "mmRate": 0.67,
@@ -122,7 +122,7 @@
   {
     "id": "7ada4c46-6408-4f6e-94e9-95950072ae44",
     "name": "Dayle",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "M' R' U' R U' R' U2 R U' R r'",
     "hRate": 0.21,
     "mmRate": 0.08,
@@ -167,7 +167,7 @@
   {
     "id": "2f3dba63-0ae6-47bb-a665-dbd8ad648956",
     "name": "Shina",
-    "group": "Lightening Bold",
+    "group": "V",
     "alg": "l' U' l L' U' L U l' U l",
     "hRate": 0.3,
     "mmRate": 0.45,
@@ -182,7 +182,7 @@
   {
     "id": "7741dac1-4d6e-45fd-bfea-e7fdb1e21428",
     "name": "Aggi",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "r U r' R U R' U' r U' r'",
     "hRate": 0.2,
     "mmRate": 0.35,
@@ -227,7 +227,7 @@
   {
     "id": "e9371a2e-f1fa-4fe5-9f5f-2f4465e022bd",
     "name": "Karlotta",
-    "group": "Lightening Bold",
+    "group": "V",
     "alg": "r' R U R U R' U' M' R' F R F'",
     "hRate": 0.38,
     "mmRate": 0.62,
@@ -242,7 +242,7 @@
   {
     "id": "b62a91e9-04be-43eb-a7f2-384b65728500",
     "name": "Jada",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "r U R' U' M2 U R U' R' U' M'",
     "hRate": 0.01,
     "mmRate": 0.19,
@@ -287,7 +287,7 @@
   {
     "id": "fc7ccda1-4ea9-4f23-b4a6-3a8d952c0fb5",
     "name": "Rowney",
-    "group": "Lightening Bold",
+    "group": "V",
     "alg": "R' U' R U' R' U2 R F R U R' U' F'",
     "hRate": 0.34,
     "mmRate": 0.01,
@@ -302,7 +302,7 @@
   {
     "id": "d6f5c1c9-842c-44c5-a2e6-893f0c92c2cc",
     "name": "Ree",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "R' U' F' U F R",
     "hRate": 0.29,
     "mmRate": 0.01,
@@ -332,7 +332,7 @@
   {
     "id": "62da0343-e8e8-4fca-8c81-2fbed04ee05e",
     "name": "Evangeline",
-    "group": "C Shape",
+    "group": "Awkward Shape",
     "alg": "R' U' [R' F R F'] U R",
     "hRate": 0.45,
     "mmRate": 0.03,
@@ -347,7 +347,7 @@
   {
     "id": "9ad235fd-d1df-4bef-aa53-9c2b1744166a",
     "name": "Deanne",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "[F R' F' R] U2 R U' R' U R U2' R'",
     "hRate": 0.37,
     "mmRate": 0.46,
@@ -362,7 +362,7 @@
   {
     "id": "7b83d75c-e29f-4a8f-b6b6-5ef527f4c040",
     "name": "Yvette",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "F [R U R' U'] [R U R' U'] F'",
     "hRate": 0.17,
     "mmRate": 0.47,
@@ -392,7 +392,7 @@
   {
     "id": "2754805f-c9dc-49fc-bf7e-81ce6351f37a",
     "name": "Essy",
-    "group": "C Shape",
+    "group": "Awkward Shape",
     "alg": "l' U2 L U L' U' L U L' U l",
     "hRate": 0.27,
     "mmRate": 0.57,
@@ -407,7 +407,7 @@
   {
     "id": "824dd896-b91b-4e6b-b363-6b92f395eb56",
     "name": "June",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "r U2 R' U' R U R' U' R U' r'",
     "hRate": 0.46,
     "mmRate": 0.38,
@@ -422,7 +422,7 @@
   {
     "id": "4f4bb87f-68f8-4403-a699-24995f299f26",
     "name": "Bing",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "[R' F U] [R U'] [R2' F' R2 U R' U' R]",
     "hRate": 0.48,
     "mmRate": 0.08,
@@ -452,7 +452,7 @@
   {
     "id": "f7bf1755-ea98-499e-b0fb-e9053add4e90",
     "name": "Kirbie",
-    "group": "C Shape",
+    "group": "Awkward Shape",
     "alg": "r U R' U R U2 r'",
     "hRate": 0.31,
     "mmRate": 0.39,
@@ -467,7 +467,7 @@
   {
     "id": "c9f67e46-409f-4cd1-8176-67b78ffa06ce",
     "name": "Leda",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "l' U' L U' L' U2 l",
     "hRate": 0.33,
     "mmRate": 0.7,
@@ -482,7 +482,7 @@
   {
     "id": "785cd077-69da-42f3-8de9-83313f22b2c8",
     "name": "Jodee",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "r R2' U2 R U R' U R U R r'",
     "hRate": 0.45,
     "mmRate": 0.2,
@@ -512,7 +512,7 @@
   {
     "id": "2e9193f0-6abe-4ae5-8101-bfc5c2a41e0f",
     "name": "Lilly",
-    "group": "C Shape",
+    "group": "Awkward Shape",
     "alg": "R U2 R2 U' R2 U' R2 U2 R",
     "hRate": 0.33,
     "mmRate": 0.29,
@@ -527,7 +527,7 @@
   {
     "id": "8ddcefae-c9ea-4c51-b028-159336ee342c",
     "name": "Dulcia",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "R2 D R' U2 R D' R' U2 R'",
     "hRate": 0.4,
     "mmRate": 0.42,
@@ -542,7 +542,7 @@
   {
     "id": "a1232126-4810-4d4a-99ae-eeb82a9151ef",
     "name": "Matthiew",
-    "group": "Cross",
+    "group": "L Shape",
     "alg": "r U R' U' r' F R F'",
     "hRate": 0.44,
     "mmRate": 0.51,
@@ -557,7 +557,7 @@
   {
     "id": "1dd51d2d-88ef-4cc2-8544-ffe8dea3373a",
     "name": "Berkie",
-    "group": "P Shape",
+    "group": "G",
     "alg": "R' F R B' R' F' R B",
     "hRate": 0.42,
     "mmRate": 0.7,
@@ -572,7 +572,7 @@
   {
     "id": "a96fc6d3-7dee-412b-a9c6-3d4cfdfc96eb",
     "name": "Rosco",
-    "group": "C Shape",
+    "group": "Awkward Shape",
     "alg": "R U2 R' U' R U' R'",
     "hRate": 0.08,
     "mmRate": 0.54,
@@ -587,7 +587,7 @@
   {
     "id": "a464fe37-7dce-48c0-b1d1-78f57ca841de",
     "name": "Fayth",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "R U R' U R U2 R'",
     "hRate": 0.08,
     "mmRate": 0.12,
@@ -617,7 +617,7 @@
   {
     "id": "876c0d0b-20df-483d-bff4-497d2dcd94d0",
     "name": "Abdel",
-    "group": "P Shape",
+    "group": "G",
     "alg": "l D l' U l D' l2' U l U' l' U' l",
     "hRate": 0.34,
     "mmRate": 0.27,
@@ -647,7 +647,7 @@
   {
     "id": "5027375c-cfe9-4cdd-ba18-ddfedc1e2703",
     "name": "Pandora",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "R' U' F U R U' R' F' R",
     "hRate": 0.02,
     "mmRate": 0.43,
@@ -677,7 +677,7 @@
   {
     "id": "a39d8a77-9e1f-45a6-a066-5207cf14a762",
     "name": "Elvina",
-    "group": "P Shape",
+    "group": "G",
     "alg": "R U R' U' R' F R F'",
     "hRate": 0.47,
     "mmRate": 0.13,
@@ -707,7 +707,7 @@
   {
     "id": "ac36e615-7e52-470b-a086-d0945f5809c6",
     "name": "Patrizia",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "L' U' L U' L' U L U L F' L' F",
     "hRate": 0.44,
     "mmRate": 0.37,
@@ -737,7 +737,7 @@
   {
     "id": "9f5b22ec-0b20-4556-b6a2-1592dd5200c8",
     "name": "Penrod",
-    "group": "P Shape",
+    "group": "G",
     "alg": "R U R' U R U' R' U' R' F R F'",
     "hRate": 0.39,
     "mmRate": 0.01,
@@ -767,7 +767,7 @@
   {
     "id": "aaa67684-670f-4e6a-af2d-87dc1255e4ad",
     "name": "Holly",
-    "group": "Lightening Bold",
+    "group": "Lightening Bolt",
     "alg": "f R' F' R U R U' R' S'",
     "hRate": 0.37,
     "mmRate": 0.64,
@@ -797,7 +797,7 @@
   {
     "id": "fecc047f-2bc2-4561-a70b-2fc1e8a536cc",
     "name": "Parke",
-    "group": "P Shape",
+    "group": "G",
     "alg": "r U' r2' U r2 U r2' U' r",
     "hRate": 0.41,
     "mmRate": 0.6,
@@ -827,7 +827,7 @@
   {
     "id": "5015c10e-e71c-49a2-ad38-fb26ede567ae",
     "name": "Reinhard",
-    "group": "Lightening Bold",
+    "group": "V",
     "alg": "F [U R U' R'] [U R U' R'] F'",
     "hRate": 0.41,
     "mmRate": 0.05,
@@ -887,7 +887,7 @@
   {
     "id": "5ced0080-0356-4145-898e-496c8e64cba6",
     "name": "Jerrylee",
-    "group": "Lightening Bold",
+    "group": "V",
     "alg": "r' R2 U R' U r U2 r' U M'",
     "hRate": 0.14,
     "mmRate": 0.08,
