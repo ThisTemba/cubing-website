@@ -1,5 +1,11 @@
 const ollCaseSet = {
-  details: { name: "OLL", mask: "oll", view: "plan", numCases: 57 },
+  details: {
+    id: "52c32da8-ca9d-47b1-8111-e08f623bce39",
+    name: "OLL",
+    mask: "oll",
+    view: "plan",
+    numCases: 57,
+  },
   cases: [
     {
       id: "9c42e369-25cc-4165-bdee-bf1a3b5af6f7",

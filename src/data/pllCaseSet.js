@@ -1,5 +1,11 @@
 const pllCaseSet = {
-  details: { name: "PLL", mask: "ll", view: "plan", numCases: 21 },
+  details: {
+    id: "52c32da8-ca9d-47b1-8111-e08f623bce39",
+    name: "PLL",
+    mask: "ll",
+    view: "plan",
+    numCases: 21,
+  },
   cases: [
     {
       id: "dc9d5589-0258-43de-bc5f-146e9f38539f",

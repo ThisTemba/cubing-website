@@ -5,7 +5,7 @@ import _ from "lodash";
 
 const caseSets = [ollCaseSet, pllCaseSet];
 const caseSetKeys = ["details", "cases"];
-const detailsKeys = ["name", "mask", "view", "numCases"];
+const detailsKeys = ["id", "name", "mask", "view", "numCases"];
 const caseKeys = ["id", "name", "group", "scrambles", "algs"];
 
 const testForKeys = (object, keys) => {
