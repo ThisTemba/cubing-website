@@ -1,9 +1,9 @@
 [
   {
-    "id": "b23e3f5c-244f-455d-8b7f-3e0f077327d0",
-    "name": "Kipper",
-    "group": "L Shape",
-    "alg": "R U2 R2 F R F' U2 R' F R F'",
+    "id": "9c42e369-25cc-4165-bdee-bf1a3b5af6f7",
+    "name": "OLL 21",
+    "group": "Cross",
+    "alg": "R U2' R' U' R U R' U' R U' R'",
     "hRate": 0.41,
     "mmRate": 0.57,
     "cmRate": 0.69,
@@ -15,10 +15,10 @@
     "learned": true
   },
   {
-    "id": "ad0cbe2a-8d30-42f0-9c2e-727170c27047",
-    "name": "Lilias",
-    "group": "P Shape",
-    "alg": "r U r' U2 r U2 R' U2 R U' r'",
+    "id": "1b730f56-333a-4c70-8996-300ba86d0a27",
+    "name": "OLL 22",
+    "group": "Cross",
+    "alg": "R U2' R2' U' R2 U' R2' U2' R",
     "hRate": 0.09,
     "mmRate": 0.05,
     "cmRate": 0.11,
