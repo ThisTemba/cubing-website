@@ -1,10 +1,11 @@
 import React from "react";
-import CaseSetCard from "./common/cubing/caseSetCard";
-import { Button, Row } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
 import useLocalStorage from "../hooks/useLocalStorage";
 import SelectCaseSet from "./selectCaseSet";
+import CaseSetTable from "./caseSetTable";
+import _ from "lodash";
 
 export default function CaseSetDashboard(props) {
   const [selectedCaseSetId, setSelectedCaseSetId] = useLocalStorage(
@@ -19,9 +20,14 @@ export default function CaseSetDashboard(props) {
         <SelectCaseSet caseSets={caseSets} onClick={setSelectedCaseSetId} />
       )}
       {selectedCaseSetId && (
-        <Button onClick={() => setSelectedCaseSetId(null)}>
-          Select New Case Set
-        </Button>
+        <div>
+          <Button onClick={() => setSelectedCaseSetId(null)} className="m-1">
+            Select New Case Set
+          </Button>
+          <CaseSetTable
+            caseSet={_(caseSets).find(["details.id", selectedCaseSetId])}
+          />
+        </div>
       )}
     </div>
   );
