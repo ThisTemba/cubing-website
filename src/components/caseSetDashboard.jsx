@@ -1,19 +1,28 @@
 import React from "react";
 import CaseSetCard from "./common/cubing/caseSetCard";
-import { Row } from "react-bootstrap";
+import { Button, Row } from "react-bootstrap";
+import ollCaseSet from "../data/ollCaseSet";
+import pllCaseSet from "../data/pllCaseSet";
+import useLocalStorage from "../hooks/useLocalStorage";
+import SelectCaseSet from "./selectCaseSet";
 
-export default function CaseSetDashboard() {
+export default function CaseSetDashboard(props) {
+  const [selectedCaseSetId, setSelectedCaseSetId] = useLocalStorage(
+    "selectedCaseSetId",
+    null
+  );
+  const caseSets = [ollCaseSet, pllCaseSet];
+
   return (
     <div>
-      <h1>Case Set Dashboard</h1>
-      <Row className="">
-        <CaseSetCard case1="r U R' U R U2 r'" mask1="oll" mask2="oll" />
-        <CaseSetCard
-          case1="R' U' R U D' R2 U R' U R U' R U' R2 D"
-          mask1="ll"
-          mask2="ll"
-        />
-      </Row>
+      {!selectedCaseSetId && (
+        <SelectCaseSet caseSets={caseSets} onClick={setSelectedCaseSetId} />
+      )}
+      {selectedCaseSetId && (
+        <Button onClick={() => setSelectedCaseSetId(null)}>
+          Select New Case Set
+        </Button>
+      )}
     </div>
   );
 }
