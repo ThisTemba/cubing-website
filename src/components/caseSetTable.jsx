@@ -10,31 +10,59 @@ import {
 import CubeImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import MOCK_DATA from "../data/MOCK_DATA.json";
+import _ from "lodash";
 
 export default function CaseSetTable({ caseSet }) {
   //   const data = useMemo(() => caseSet.cases, []);
   const data = useMemo(() => MOCK_DATA, []);
   console.log(MOCK_DATA);
+
+  const defaultColumn = useMemo(() => {
+    return {
+      disableGroupBy: true,
+    };
+  }, []);
+
+  const getBoolFraction = (bools) => {
+    let trueCount = bools.filter((b) => b === true).length;
+    let totalCount = bools.length;
+    return trueCount + "/" + totalCount;
+  };
+  const renderCubeImage = (alg, caseSet) => {
+    return (
+      <CubeImage
+        case={alg}
+        view={caseSet.details.view}
+        mask={caseSet.details.mask}
+      />
+    );
+  };
+
   const columns = useMemo(
     () => [
       {
         Header: "Case",
         accessor: "alg",
-        Cell: ({ value: alg }) => (
-          <CubeImage
-            case={alg}
-            view={caseSet.details.view}
-            mask={caseSet.details.mask}
-          />
-        ),
-        disableSortBy: true,
+        Cell: ({ value: alg }) => renderCubeImage(alg, caseSet),
+        aggregate: (values) => _(values).sample(),
+        Aggregated: ({ value: alg }) => renderCubeImage(alg, caseSet),
       },
-      { Header: "Name", accessor: "name" },
-      { Header: "Group", accessor: "group" },
-      { Header: "P", accessor: "pRate" },
+      {
+        Header: "Name",
+        accessor: "name",
+      },
+      { Header: "Group", accessor: "group", disableGroupBy: false },
+      {
+        Header: "P",
+        accessor: "pRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
+      },
       {
         Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
         accessor: "hRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
       },
       {
         Header: (
@@ -45,6 +73,8 @@ export default function CaseSetTable({ caseSet }) {
           ></i>
         ),
         accessor: "mmRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
       },
       {
         Header: (
@@ -55,26 +85,42 @@ export default function CaseSetTable({ caseSet }) {
           ></i>
         ),
         accessor: "cmRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
       },
       {
         Header: <span style={{ textDecoration: "overline" }}>time</span>,
         accessor: "avgTime",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
       },
-      { Header: "TPS", accessor: "tps" },
-      { Header: "# Solves", accessor: "numSolves" },
+      {
+        Header: "TPS",
+        accessor: "tps",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
+      },
+      {
+        Header: "# Solves",
+        accessor: "numSolves",
+        aggregate: "sum",
+        Aggregated: ({ value }) => value,
+      },
       {
         Header: "Learned",
         accessor: "learned",
         Cell: ({ value }) => {
           return `${value}`;
         },
+        aggregate: getBoolFraction,
+        Aggregated: ({ value }) => value,
       },
     ],
     []
   );
 
   const tableInstance = useTable(
-    { columns, data },
+    { columns, data, defaultColumn },
     useGroupBy,
     useSortBy,
     useExpanded,
@@ -152,39 +198,50 @@ export default function CaseSetTable({ caseSet }) {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+                {row.cells.map((c) => {
+                  const getClass = (c) => {
+                    const extra =
+                      c.isGrouped || c.isAggregated ? "table-success" : "";
+                    // c.isGrouped || c.isAggregated ? "table-dark" : "";
+                    // const extra = "";
+                    return "align-middle " + extra;
+                  };
                   return (
                     <td
-                      className="align-middle"
+                      className={getClass(c)}
                       // For educational purposes, let's color the
                       // cell depending on what type it is given
                       // from the useGroupBy hook
-                      {...cell.getCellProps()}
-                      style={{
-                        background: cell.isGrouped
-                          ? "#0aff0082"
-                          : cell.isAggregated
-                          ? "#ffa50078"
-                          : cell.isPlaceholder
-                          ? "#ff000042"
-                          : "white",
-                      }}
+                      {...c.getCellProps()}
+                      //   style={{
+                      //     background: c.isPlaceholder ? "#ff000042" : "white",
+                      //   }}
                     >
-                      {cell.isGrouped ? (
+                      {c.isGrouped ? (
                         // If it's a grouped cell, add an expander and row count
                         <>
                           <span {...row.getToggleRowExpandedProps()}>
-                            {row.isExpanded ? "👇" : "👉"}
+                            {row.isExpanded ? (
+                              <i
+                                class="fa fa-angle-down fa-lg"
+                                aria-hidden="true"
+                              ></i>
+                            ) : (
+                              <i
+                                class="fa fa-angle-right fa-lg"
+                                aria-hidden="true"
+                              ></i>
+                            )}
                           </span>{" "}
-                          {cell.render("Cell")} ({row.subRows.length})
+                          {c.render("Cell")} ({row.subRows.length})
                         </>
-                      ) : cell.isAggregated ? (
+                      ) : c.isAggregated ? (
                         // If the cell is aggregated, use the Aggregated
                         // renderer for cell
-                        cell.render("Aggregated")
-                      ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                        c.render("Aggregated")
+                      ) : c.isPlaceholder ? null : ( // For cells with repeated values, render null
                         // Otherwise, just render the regular cell
-                        cell.render("Cell")
+                        c.render("Cell")
                       )}
                     </td>
                   );
