@@ -60,7 +60,10 @@ export default function CaseSetTable({ caseSet }) {
           {headerGroups.map((hGroup) => (
             <tr {...hGroup.getHeaderGroupProps()}>
               {hGroup.headers.map((col) => (
-                <th {...col.getHeaderProps(col.getSortByToggleProps())}>
+                <th
+                  {...col.getHeaderProps(col.getSortByToggleProps())}
+                  className="align-middle"
+                >
                   {col.render("Header")} {renderSortIcon(col)}
                 </th>
               ))}
