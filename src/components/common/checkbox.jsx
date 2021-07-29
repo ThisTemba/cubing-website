@@ -13,8 +13,9 @@ export const Checkbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
     <input
       type="checkbox"
       ref={resolvedRef}
+      className={"m-2"}
       {...rest}
-      style={{ width: "30px", height: "30px" }}
+      style={{ width: "20px", height: "20px" }}
     />
   );
 });
