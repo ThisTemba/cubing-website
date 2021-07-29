@@ -1,5 +1,7 @@
 import React, { useMemo, useEffect } from "react";
 import { Table } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
+import _ from "lodash";
 import {
   useTable,
   useSortBy,
@@ -10,8 +12,6 @@ import {
 import CubeImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import MOCK_DATA from "../data/MOCK_DATA.json";
-import _ from "lodash";
-import { ProgressBar } from "react-bootstrap";
 
 export default function CaseSetTable({ caseSet, setSelectedCases }) {
   //   const data = useMemo(() => caseSet.cases, []);
