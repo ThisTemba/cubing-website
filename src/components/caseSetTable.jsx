@@ -82,6 +82,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
         accessor: "hRate",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
       },
       {
         Header: (
@@ -94,6 +95,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
         accessor: "pRate",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
       },
       {
         Header: (
@@ -106,6 +108,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
         accessor: "mmRate",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
       },
       {
         Header: (
@@ -118,24 +121,28 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
         accessor: "cmRate",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
       },
       {
         Header: <span style={{ textDecoration: "overline" }}>time</span>,
         accessor: "avgTime",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
       },
       {
         Header: "TPS",
         accessor: "tps",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
       },
       {
         Header: "# Solves",
         accessor: "numSolves",
         aggregate: "sum",
         Aggregated: ({ value }) => value,
+        sortType: "number",
       },
       {
         Header: "Status",
