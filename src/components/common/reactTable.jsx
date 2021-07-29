@@ -56,15 +56,6 @@ export default function ReactTable({ table }) {
   const renderHeader = (column) => {
     return (
       <div>
-        {column.canGroupBy ? (
-          <span {...column.getGroupByToggleProps()}>
-            {column.isGrouped ? (
-              <i className="fa fa-expand fa-lg p-2" aria-hidden="true"></i>
-            ) : (
-              <i className="fa fa-compress fa-lg p-2" aria-hidden="true"></i>
-            )}
-          </span>
-        ) : null}
         {column.render("Header")} {renderSortIcon(column)}
       </div>
     );
