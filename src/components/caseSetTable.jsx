@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import {
   useTable,
@@ -13,7 +13,7 @@ import MOCK_DATA from "../data/MOCK_DATA.json";
 import _ from "lodash";
 import { ProgressBar } from "react-bootstrap";
 
-export default function CaseSetTable({ caseSet }) {
+export default function CaseSetTable({ caseSet, setSelectedCases }) {
   //   const data = useMemo(() => caseSet.cases, []);
   const data = useMemo(() => MOCK_DATA, []);
 
@@ -190,7 +190,10 @@ export default function CaseSetTable({ caseSet }) {
   const getSelectedCases = (selectedRowIds) => {
     return data.filter((unused, i) => selectedRowIds[i]);
   };
-  const selectedCases = getSelectedCases(selectedRowIds);
+
+  useEffect(() => {
+    setSelectedCases(getSelectedCases(selectedRowIds));
+  }, [selectedRowIds]);
 
   const renderSortIcon = (col) => {
     return (
