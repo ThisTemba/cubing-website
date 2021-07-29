@@ -9,7 +9,7 @@ import {
   useGroupBy,
   useExpanded,
 } from "react-table";
-import CubeImage from "./common/cubing/cubeImage";
+import { CaseImage } from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import MOCK_DATA from "../data/MOCK_DATA.json";
 import ReactTable from "./common/reactTable";
@@ -52,14 +52,8 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
       </span>
     );
   };
-  const renderCubeImage = (alg, caseSet) => {
-    return (
-      <CubeImage
-        case={alg}
-        view={caseSet.details.view}
-        mask={caseSet.details.mask}
-      />
-    );
+  const renderCubeImage = (alg, caseSetDetails) => {
+    return <CaseImage alg={alg} caseSetDetails={caseSetDetails} />;
   };
 
   const columns = useMemo(
@@ -68,9 +62,9 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
       {
         Header: "Case",
         accessor: "alg",
-        Cell: ({ value: alg }) => renderCubeImage(alg, caseSet),
+        Cell: ({ value: alg }) => renderCubeImage(alg, caseSet.details),
         aggregate: (values) => _(values).sample(),
-        Aggregated: ({ value: alg }) => renderCubeImage(alg, caseSet),
+        Aggregated: ({ value: alg }) => renderCubeImage(alg, caseSet.details),
         disableSortBy: true,
       },
       {
