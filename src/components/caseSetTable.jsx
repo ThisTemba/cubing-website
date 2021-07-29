@@ -13,10 +13,9 @@ import MOCK_DATA from "../data/MOCK_DATA.json";
 import _ from "lodash";
 import { ProgressBar } from "react-bootstrap";
 
-export default function CaseSetTable({ caseSet }) {
+export default function useCaseSetTable(caseSet) {
   //   const data = useMemo(() => caseSet.cases, []);
   const data = useMemo(() => MOCK_DATA, []);
-  console.log(MOCK_DATA);
 
   const defaultColumn = useMemo(() => {
     return {
@@ -205,6 +204,7 @@ export default function CaseSetTable({ caseSet }) {
     rows,
     prepareRow,
     selectedFlatRows,
+    state: { selectedRowIds },
   } = tableInstance;
 
   const renderSortIcon = (col) => {
@@ -219,73 +219,86 @@ export default function CaseSetTable({ caseSet }) {
     );
   };
 
-  return (
-    <div>
-      <Table {...getTableProps()} size="sm">
-        <thead>
-          {headerGroups.map((hGroup) => (
-            <tr {...hGroup.getHeaderGroupProps()}>
-              {hGroup.headers.map((col) => (
-                <th
-                  {...col.getHeaderProps(col.getSortByToggleProps())}
-                  className="align-middle"
-                >
-                  {col.canGroupBy ? (
-                    // If the col can be grouped, let's add a toggle
-                    <span {...col.getGroupByToggleProps()}>
-                      {col.isGrouped ? (
-                        <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
-                      ) : (
-                        <i class="fa fa-compress fa-lg" aria-hidden="true"></i>
-                      )}
-                    </span>
-                  ) : null}{" "}
-                  {col.render("Header")} {renderSortIcon(col)}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((c) => {
-                  return (
-                    <td
-                      className={
-                        c.isGrouped ? "text-left align-middle" : "align-middle"
-                      }
-                      {...c.getCellProps()}
-                      style={{
-                        background:
-                          c.isGrouped || c.isAggregated ? "#F5F5F5" : null,
-                      }}
-                    >
-                      {c.isGrouped ? (
-                        <>
-                          <span
-                            {...row.getToggleRowExpandedProps()}
-                            className="m-4"
-                          >
-                            {renderExpandArrows(row.isExpanded)}
-                          </span>{" "}
-                          {c.render("Cell")} ({row.subRows.length})
-                        </>
-                      ) : c.isAggregated ? (
-                        c.render("Aggregated")
-                      ) : c.isPlaceholder ? null : (
-                        c.render("Cell")
-                      )}
-                    </td>
-                  );
-                })}
+  const renderTable = () => {
+    return (
+      <div>
+        <Table {...getTableProps()} size="sm">
+          <thead>
+            {headerGroups.map((hGroup) => (
+              <tr {...hGroup.getHeaderGroupProps()}>
+                {hGroup.headers.map((col) => (
+                  <th
+                    {...col.getHeaderProps(col.getSortByToggleProps())}
+                    className="align-middle"
+                  >
+                    {col.canGroupBy ? (
+                      // If the col can be grouped, let's add a toggle
+                      <span {...col.getGroupByToggleProps()}>
+                        {col.isGrouped ? (
+                          <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
+                        ) : (
+                          <i
+                            class="fa fa-compress fa-lg"
+                            aria-hidden="true"
+                          ></i>
+                        )}
+                      </span>
+                    ) : null}{" "}
+                    {col.render("Header")} {renderSortIcon(col)}
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    </div>
-  );
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((c) => {
+                    return (
+                      <td
+                        className={
+                          c.isGrouped
+                            ? "text-left align-middle"
+                            : "align-middle"
+                        }
+                        {...c.getCellProps()}
+                        style={{
+                          background:
+                            c.isGrouped || c.isAggregated ? "#F5F5F5" : null,
+                        }}
+                      >
+                        {c.isGrouped ? (
+                          <>
+                            <span
+                              {...row.getToggleRowExpandedProps()}
+                              className="m-4"
+                            >
+                              {renderExpandArrows(row.isExpanded)}
+                            </span>{" "}
+                            {c.render("Cell")} ({row.subRows.length})
+                          </>
+                        ) : c.isAggregated ? (
+                          c.render("Aggregated")
+                        ) : c.isPlaceholder ? null : (
+                          c.render("Cell")
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
+    );
+  };
+
+  const getSelectedCases = (selectedRowIds) => {
+    return data.filter((unused, i) => selectedRowIds[i]);
+  };
+  const selectedCases = getSelectedCases(selectedRowIds);
+  return [renderTable, selectedCases];
 }
