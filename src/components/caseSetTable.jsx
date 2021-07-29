@@ -12,6 +12,7 @@ import {
 import CubeImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import MOCK_DATA from "../data/MOCK_DATA.json";
+import ReactTable from "./common/reactTable";
 
 export default function CaseSetTable({ caseSet, setSelectedCases }) {
   //   const data = useMemo(() => caseSet.cases, []);
@@ -58,27 +59,6 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
         view={caseSet.details.view}
         mask={caseSet.details.mask}
       />
-    );
-  };
-
-  const renderExpandArrows = (isExpanded) => {
-    return (
-      <i
-        className={`fa fa-angle-${isExpanded ? "down" : "right"} fa-lg`}
-        aria-hidden="true"
-      ></i>
-    );
-  };
-
-  const renderSortIcon = (col) => {
-    return (
-      <span>
-        {col.isSorted ? (
-          <i className={`fa fa-sort-${col.isSortedDesc ? "desc" : "asc"}`} />
-        ) : (
-          ""
-        )}
-      </span>
     );
   };
 
@@ -189,14 +169,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
       ]);
     }
   );
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state: { selectedRowIds },
-  } = tableInstance;
+  const { selectedRowIds } = tableInstance.state;
 
   const getSelectedCases = (selectedRowIds) => {
     return data.filter((unused, i) => selectedRowIds[i]);
@@ -206,82 +179,5 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     setSelectedCases(getSelectedCases(selectedRowIds));
   }, [selectedRowIds]);
 
-  const getCellClassname = (cell) => {
-    return cell.isGrouped ? "text-left align-middle" : "align-middle";
-  };
-
-  const getCellStyle = (cell) => {
-    return {
-      background: cell.isGrouped || cell.isAggregated ? "#F5F5F5" : null,
-    };
-  };
-
-  const renderCell = (cell, row) => {
-    return cell.isGrouped ? (
-      <>
-        <span {...row.getToggleRowExpandedProps()} className="m-4">
-          {renderExpandArrows(row.isExpanded)}
-        </span>{" "}
-        {cell.render("Cell")} ({row.subRows.length})
-      </>
-    ) : cell.isAggregated ? (
-      cell.render("Aggregated")
-    ) : cell.isPlaceholder ? null : (
-      cell.render("Cell")
-    );
-  };
-
-  const renderHeader = (column) => {
-    return (
-      <div>
-        {column.canGroupBy ? (
-          <span {...column.getGroupByToggleProps()}>
-            {column.isGrouped ? (
-              <i className="fa fa-expand fa-lg" aria-hidden="true"></i>
-            ) : (
-              <i className="fa fa-compress fa-lg" aria-hidden="true"></i>
-            )}
-          </span>
-        ) : null}{" "}
-        {column.render("Header")} {renderSortIcon(column)}
-      </div>
-    );
-  };
-
-  return (
-    <Table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-                className="align-middle"
-              >
-                {renderHeader(column)}
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <td
-                  {...cell.getCellProps()}
-                  className={getCellClassname(cell)}
-                  style={getCellStyle(cell)}
-                >
-                  {renderCell(cell, row)}
-                </td>
-              ))}
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
-  );
+  return <ReactTable table={tableInstance} />;
 }
