@@ -206,6 +206,48 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     setSelectedCases(getSelectedCases(selectedRowIds));
   }, [selectedRowIds]);
 
+  const getCellClassname = (cell) => {
+    return cell.isGrouped ? "text-left align-middle" : "align-middle";
+  };
+
+  const getCellStyle = (cell) => {
+    return {
+      background: cell.isGrouped || cell.isAggregated ? "#F5F5F5" : null,
+    };
+  };
+
+  const renderCell = (cell, row) => {
+    return cell.isGrouped ? (
+      <>
+        <span {...row.getToggleRowExpandedProps()} className="m-4">
+          {renderExpandArrows(row.isExpanded)}
+        </span>{" "}
+        {cell.render("Cell")} ({row.subRows.length})
+      </>
+    ) : cell.isAggregated ? (
+      cell.render("Aggregated")
+    ) : cell.isPlaceholder ? null : (
+      cell.render("Cell")
+    );
+  };
+
+  const renderHeader = (column) => {
+    return (
+      <div>
+        {column.canGroupBy ? (
+          <span {...column.getGroupByToggleProps()}>
+            {column.isGrouped ? (
+              <i className="fa fa-expand fa-lg" aria-hidden="true"></i>
+            ) : (
+              <i className="fa fa-compress fa-lg" aria-hidden="true"></i>
+            )}
+          </span>
+        ) : null}{" "}
+        {column.render("Header")} {renderSortIcon(column)}
+      </div>
+    );
+  };
+
   return (
     <Table {...getTableProps()}>
       <thead>
@@ -216,19 +258,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
                 {...column.getHeaderProps(column.getSortByToggleProps())}
                 className="align-middle"
               >
-                {column.canGroupBy ? (
-                  <span {...column.getGroupByToggleProps()}>
-                    {column.isGrouped ? (
-                      <i className="fa fa-expand fa-lg" aria-hidden="true"></i>
-                    ) : (
-                      <i
-                        className="fa fa-compress fa-lg"
-                        aria-hidden="true"
-                      ></i>
-                    )}
-                  </span>
-                ) : null}{" "}
-                {column.render("Header")} {renderSortIcon(column)}
+                {renderHeader(column)}
               </th>
             ))}
           </tr>
@@ -241,30 +271,11 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
                 <td
-                  className={
-                    cell.isGrouped ? "text-left align-middle" : "align-middle"
-                  }
                   {...cell.getCellProps()}
-                  style={{
-                    background:
-                      cell.isGrouped || cell.isAggregated ? "#F5F5F5" : null,
-                  }}
+                  className={getCellClassname(cell)}
+                  style={getCellStyle(cell)}
                 >
-                  {cell.isGrouped ? (
-                    <>
-                      <span
-                        {...row.getToggleRowExpandedProps()}
-                        className="m-4"
-                      >
-                        {renderExpandArrows(row.isExpanded)}
-                      </span>{" "}
-                      {cell.render("Cell")} ({row.subRows.length})
-                    </>
-                  ) : cell.isAggregated ? (
-                    cell.render("Aggregated")
-                  ) : cell.isPlaceholder ? null : (
-                    cell.render("Cell")
-                  )}
+                  {renderCell(cell, row)}
                 </td>
               ))}
             </tr>
