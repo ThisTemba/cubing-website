@@ -4,7 +4,7 @@ import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
 import useLocalStorage from "../hooks/useLocalStorage";
 import SelectCaseSet from "./selectCaseSet";
-import useCaseSetTable from "./caseSetTable";
+import CaseSetTable from "./caseSetTable";
 import { withRouter } from "react-router-dom";
 import _ from "lodash";
 
@@ -15,8 +15,6 @@ function CaseSetDashboard(props) {
   );
   const caseSets = [ollCaseSet, pllCaseSet];
   const selectedCaseSet = _(caseSets).find(["details.id", selectedCaseSetId]);
-  const [renderTable, selectedCases] = useCaseSetTable(selectedCaseSet);
-  console.log(selectedCases);
 
   return (
     <div>
@@ -33,7 +31,7 @@ function CaseSetDashboard(props) {
             <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
             CaseSet Selection
           </Button>
-          {selectedCases.length > 0 && (
+          {/* {selectedCases.length > 0 && (
             <div>
               <Button
                 onClick={() => props.history.push("/train/learn")}
@@ -50,9 +48,9 @@ function CaseSetDashboard(props) {
                 Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
               </Button>
             </div>
-          )}
+          )} */}
 
-          {renderTable()}
+          <CaseSetTable caseSet={selectedCaseSet} />
         </div>
       )}
     </div>
