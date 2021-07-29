@@ -70,6 +70,18 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     );
   };
 
+  const renderSortIcon = (col) => {
+    return (
+      <span>
+        {col.isSorted ? (
+          <i className={`fa fa-sort-${col.isSortedDesc ? "desc" : "asc"}`} />
+        ) : (
+          ""
+        )}
+      </span>
+    );
+  };
+
   const columns = useMemo(
     () => [
       { Header: "Group", accessor: "group", disableGroupBy: false },
@@ -193,18 +205,6 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
   useEffect(() => {
     setSelectedCases(getSelectedCases(selectedRowIds));
   }, [selectedRowIds]);
-
-  const renderSortIcon = (col) => {
-    return (
-      <span>
-        {col.isSorted ? (
-          <i className={`fa fa-sort-${col.isSortedDesc ? "desc" : "asc"}`} />
-        ) : (
-          ""
-        )}
-      </span>
-    );
-  };
 
   return (
     <div>
