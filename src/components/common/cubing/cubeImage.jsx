@@ -24,6 +24,19 @@ CubeImage.defaultProps = {
   // ac: "n", // black arrows?
 };
 
+export const CaseImage = (props) => {
+  const alg = props.case ? props.case.algs[0] : props.alg;
+  const { caseSetDetails, size } = props;
+  const { mask, view } = caseSetDetails;
+  return (
+    <CubeImage case={alg ? alg : ""} mask={mask} view={view} size={size} />
+  );
+};
+
+CaseImage.defaultProps = {
+  size: "100",
+};
+
 export default CubeImage;
 
 // this is all very clever. the SRVisualizer thing works by adding an image to a div
