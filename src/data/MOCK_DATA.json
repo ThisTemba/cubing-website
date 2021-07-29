@@ -30,10 +30,10 @@
     "status": 0
   },
   {
-    "id": "1476890e-9025-4164-9171-085acc16ed3f",
-    "name": "Cristie",
-    "group": "C Shape",
-    "alg": "r' R2 U R' U r U2 r' U M'",
+    "id": "4178d76d-fc48-47af-ab89-76d2e4105db4",
+    "name": "OLL 23",
+    "group": "Cross",
+    "alg": "R2 D R' U2 R D' R' U2 R'",
     "hRate": 0.39,
     "mmRate": 0.04,
     "cmRate": 0.34,
@@ -45,10 +45,10 @@
     "status": 0
   },
   {
-    "id": "e397505a-ead0-48d3-8d77-91e4d28dcb4b",
-    "name": "Magda",
-    "group": "V",
-    "alg": "l L2' U' L U' l' U2 l U' M'",
+    "id": "250a4995-086c-4bbb-b01e-8a7afe763230",
+    "name": "OLL 24",
+    "group": "Cross",
+    "alg": "r U R' U' r' F R F'",
     "hRate": 0.07,
     "mmRate": 0.68,
     "cmRate": 0.29,
@@ -60,10 +60,10 @@
     "status": 2
   },
   {
-    "id": "e3147676-ea67-4548-bbbc-afb57468af5e",
-    "name": "Judon",
-    "group": "L Shape",
-    "alg": "l' U2 L U L' U l",
+    "id": "657c744a-12b7-439e-90d4-fea0e0843b09",
+    "name": "OLL 25",
+    "group": "Cross",
+    "alg": "x R' U R D' R' U' R D x'",
     "hRate": 0.25,
     "mmRate": 0.67,
     "cmRate": 0.2,
@@ -75,10 +75,10 @@
     "status": 2
   },
   {
-    "id": "8e5a9f2f-eed2-4035-b91e-72a3a870a900",
-    "name": "Meridith",
-    "group": "P Shape",
-    "alg": "r U2 R' U' R U' r'",
+    "id": "b2f24506-a6b0-4a6f-96f8-7d959d12c2e8",
+    "name": "OLL 26",
+    "group": "Cross",
+    "alg": "R U2' R' U' R U' R'",
     "hRate": 0.4,
     "mmRate": 0.61,
     "cmRate": 0.0,
@@ -90,10 +90,11 @@
     "status": 2
   },
   {
-    "id": "974c8fc1-8d3a-4a87-941a-dbdf50924367",
-    "name": "Murvyn",
-    "group": "C Shape",
-    "alg": "R U R' U' R' F R2 U R' U' F'",
+    "id": "e6547dd9-feea-46ad-b0f5-3abac69170fc",
+    "name": "OLL 27",
+    "group": "Cross",
+    "prob": 4,
+    "alg": "R U R' U R U2' R'",
     "hRate": 0.35,
     "mmRate": 0.5,
     "cmRate": 0.23,
@@ -105,10 +106,10 @@
     "status": 0
   },
   {
-    "id": "024e805a-4edb-4cd6-879d-dc2f5080e551",
-    "name": "Law",
-    "group": "V",
-    "alg": "r U R' U [R' F R F'] R U2 r'",
+    "id": "a6cc7f18-4b52-4a21-967d-a0d6afd0d0ac",
+    "name": "OLL 1",
+    "group": "Dot",
+    "alg": "R U2 R' R' F R F' U2 R' F R F'",
     "hRate": 0.03,
     "mmRate": 0.67,
     "cmRate": 0.66,
@@ -120,10 +121,10 @@
     "status": 2
   },
   {
-    "id": "7ada4c46-6408-4f6e-94e9-95950072ae44",
-    "name": "Dayle",
-    "group": "L Shape",
-    "alg": "M' R' U' R U' R' U2 R U' R r'",
+    "id": "cc8bcc06-a2c9-44e2-8cde-53a935dc9de3",
+    "name": "OLL 2",
+    "group": "Dot",
+    "alg": "r U r' U2 r U2 R' U2 R U' r'",
     "hRate": 0.21,
     "mmRate": 0.08,
     "cmRate": 0.44,
@@ -135,10 +136,10 @@
     "status": 2
   },
   {
-    "id": "97095b08-8c76-4b07-9d98-c09a733f6574",
-    "name": "Freddy",
-    "group": "P Shape",
-    "alg": "F U R U' R2 F' R U R U' R'",
+    "id": "dbf04f55-6e61-46ac-8ce1-ad3a100767fa",
+    "name": "OLL 3",
+    "group": "Dot",
+    "alg": "r' R2 U R' U r U2 r' U M'",
     "hRate": 0.17,
     "mmRate": 0.5,
     "cmRate": 0.5,
@@ -150,10 +151,10 @@
     "status": 0
   },
   {
-    "id": "2c782e67-4bc1-4393-b024-1745249989d0",
-    "name": "Oliviero",
-    "group": "C Shape",
-    "alg": "R' F R U R' F' R F U' F'",
+    "id": "c50c2525-52b2-4664-8c1b-e4639391d22a",
+    "name": "OLL 4",
+    "group": "Dot",
+    "alg": "M U' r U2 r' U' R U' R' M'",
     "hRate": 0.24,
     "mmRate": 0.3,
     "cmRate": 0.55,
@@ -602,7 +603,7 @@
   {
     "id": "f8c0e243-0aec-442c-b17b-3dd92195fef6",
     "name": "Merola",
-    "group": "Cross",
+    "group": "Loop",
     "alg": "r U R' U' r' R U R U' R'",
     "hRate": 0.2,
     "mmRate": 0.28,
@@ -662,7 +663,7 @@
   {
     "id": "82270a26-8a75-432d-96a2-e68f61416c38",
     "name": "Halsy",
-    "group": "Cross",
+    "group": "Loop",
     "alg": "L U F' U' L' U L F L'",
     "hRate": 0.24,
     "mmRate": 0.1,
@@ -722,7 +723,7 @@
   {
     "id": "2cafd023-edec-46d4-9525-f214954c3e0a",
     "name": "Amalee",
-    "group": "Cross",
+    "group": "Loop",
     "alg": "[F R' F' R] [U R U' R']",
     "hRate": 0.08,
     "mmRate": 0.56,
@@ -782,7 +783,7 @@
   {
     "id": "d0989a04-bd0d-47c9-867e-77e6f228f711",
     "name": "Charis",
-    "group": "Cross",
+    "group": "Loop",
     "alg": "F R U R' U' F'",
     "hRate": 0.02,
     "mmRate": 0.01,
@@ -842,7 +843,7 @@
   {
     "id": "3b5d1b3d-9042-4160-8f06-6b97095707ab",
     "name": "Harli",
-    "group": "Cross",
+    "group": "Loop",
     "alg": "R U R' U' M' U R U' r'",
     "hRate": 0.45,
     "mmRate": 0.04,
