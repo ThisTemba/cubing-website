@@ -6,8 +6,8 @@ export default function SelectCaseSet({ caseSets, onClick }) {
   return (
     <Row className="">
       {caseSets.map((c) => {
-        const { id, name } = c.details;
-        return <CaseSetCard title={name} onClick={() => onClick(id)} />;
+        const { id } = c.details;
+        return <CaseSetCard caseSet={c} onClick={() => onClick(id)} />;
       })}
     </Row>
   );
