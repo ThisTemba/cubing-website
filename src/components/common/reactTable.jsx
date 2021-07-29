@@ -41,7 +41,7 @@ export default function ReactTable({ table }) {
   const renderCell = (cell, row) => {
     return cell.isGrouped ? (
       <>
-        <span {...row.getToggleRowExpandedProps()} className="m-4">
+        <span {...row.getToggleRowExpandedProps()} className="p-3 m-2">
           {renderExpandArrows(row.isExpanded)}
         </span>{" "}
         {cell.render("Cell")} ({row.subRows.length})
