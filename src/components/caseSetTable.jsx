@@ -29,7 +29,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     const s2 = statuses.filter((s) => s === 2).length;
     const total = statuses.length;
     return (
-      <ProgressBar>
+      <ProgressBar style={{ height: "8px" }}>
         <ProgressBar variant="success" now={(s2 * 100) / total} key={1} />
         <ProgressBar variant="warning" now={(s1 * 100) / total} key={2} />
         <ProgressBar variant="secondary" now={(s0 * 100) / total} key={3} />
