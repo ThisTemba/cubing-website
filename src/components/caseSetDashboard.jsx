@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
@@ -15,6 +15,7 @@ function CaseSetDashboard(props) {
   );
   const caseSets = [ollCaseSet, pllCaseSet];
   const selectedCaseSet = _(caseSets).find(["details.id", selectedCaseSetId]);
+  const [selectedCases, setSelectedCases] = useState([]);
 
   return (
     <div>
@@ -50,7 +51,10 @@ function CaseSetDashboard(props) {
             </div>
           )} */}
 
-          <CaseSetTable caseSet={selectedCaseSet} />
+          <CaseSetTable
+            caseSet={selectedCaseSet}
+            setSelectedCases={setSelectedCases}
+          />
         </div>
       )}
     </div>
