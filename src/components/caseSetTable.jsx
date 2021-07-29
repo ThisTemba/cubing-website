@@ -183,7 +183,6 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     headerGroups,
     rows,
     prepareRow,
-    selectedFlatRows,
     state: { selectedRowIds },
   } = tableInstance;
 
