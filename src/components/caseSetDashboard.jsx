@@ -5,9 +5,10 @@ import pllCaseSet from "../data/pllCaseSet";
 import useLocalStorage from "../hooks/useLocalStorage";
 import SelectCaseSet from "./selectCaseSet";
 import useCaseSetTable from "./caseSetTable";
+import { withRouter } from "react-router-dom";
 import _ from "lodash";
 
-export default function CaseSetDashboard(props) {
+function CaseSetDashboard(props) {
   const [selectedCaseSetId, setSelectedCaseSetId] = useLocalStorage(
     "selectedCaseSetId",
     null
@@ -49,3 +50,5 @@ export default function CaseSetDashboard(props) {
     </div>
   );
 }
+
+export default withRouter(CaseSetDashboard);
