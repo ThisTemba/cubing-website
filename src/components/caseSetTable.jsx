@@ -1,5 +1,4 @@
 import React, { useMemo, useEffect } from "react";
-import { Table } from "react-bootstrap";
 import { ProgressBar } from "react-bootstrap";
 import _ from "lodash";
 import {
@@ -9,9 +8,9 @@ import {
   useGroupBy,
   useExpanded,
 } from "react-table";
+import MOCK_DATA from "../data/MOCK_DATA.json";
 import { CaseImage } from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
-import MOCK_DATA from "../data/MOCK_DATA.json";
 import ReactTable from "./common/reactTable";
 
 export default function CaseSetTable({ caseSet, setSelectedCases }) {
