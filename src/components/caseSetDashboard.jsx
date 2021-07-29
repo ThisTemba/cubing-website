@@ -34,14 +34,22 @@ function CaseSetDashboard(props) {
             CaseSet Selection
           </Button>
           {selectedCases.length > 0 && (
-            <Button
-              onClick={(params) => {}}
-              className="m-1"
-              variant="success"
-              // disabled={!selectedCases.length}
-            >
-                <i className="fa fa-chevron-right" aria-hidden="true"></i>
-            </Button>
+            <div>
+              <Button
+                onClick={() => props.history.push("/train/learn")}
+                className="m-1"
+                variant="info"
+              >
+                Learn <i className="fa fa-chevron-right" aria-hidden="true"></i>
+              </Button>
+              <Button
+                onClick={() => props.history.push("/train/test")}
+                className="m-1"
+                variant="success"
+              >
+                Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
+              </Button>
+            </div>
           )}
 
           {renderTable()}
