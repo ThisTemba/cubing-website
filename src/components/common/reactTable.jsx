@@ -77,7 +77,11 @@ export default function ReactTable({ table }) {
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
+                {...column.getHeaderProps(
+                  column.getSortByToggleProps
+                    ? column.getSortByToggleProps()
+                    : {}
+                )}
                 className="align-middle"
               >
                 {renderHeader(column)}
