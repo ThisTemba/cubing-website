@@ -60,7 +60,7 @@ export default function useCaseSetTable(caseSet) {
     };
     return (
       <span style={{ color: map[status][0] }}>
-        <i class={`fa fa-circle `} aria-hidden="true"></i>
+        <i className={`fa fa-circle `} aria-hidden="true"></i>
 
         {end}
       </span>
@@ -110,7 +110,7 @@ export default function useCaseSetTable(caseSet) {
         Header: (
           <i
             style={{ color: "green" }}
-            class="fa fa-check"
+            className="fa fa-check"
             aria-hidden="true"
           ></i>
         ),
@@ -235,10 +235,13 @@ export default function useCaseSetTable(caseSet) {
                       // If the col can be grouped, let's add a toggle
                       <span {...col.getGroupByToggleProps()}>
                         {col.isGrouped ? (
-                          <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
+                          <i
+                            className="fa fa-expand fa-lg"
+                            aria-hidden="true"
+                          ></i>
                         ) : (
                           <i
-                            class="fa fa-compress fa-lg"
+                            className="fa fa-compress fa-lg"
                             aria-hidden="true"
                           ></i>
                         )}

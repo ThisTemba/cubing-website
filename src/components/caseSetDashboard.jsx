@@ -29,7 +29,7 @@ export default function CaseSetDashboard(props) {
             className="m-1"
             variant="secondary"
           >
-            <i class="fa fa-chevron-left" aria-hidden="true"></i> Back to
+            <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
             CaseSet Selection
           </Button>
           {selectedCases.length > 0 && (
@@ -39,7 +39,7 @@ export default function CaseSetDashboard(props) {
               variant="success"
               // disabled={!selectedCases.length}
             >
-              Test <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Button>
           )}
 
