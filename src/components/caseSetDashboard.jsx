@@ -32,7 +32,7 @@ function CaseSetDashboard(props) {
             <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
             CaseSet Selection
           </Button>
-          {/* {selectedCases.length > 0 && (
+          {selectedCases.length > 0 && (
             <div>
               <Button
                 onClick={() => props.history.push("/train/learn")}
@@ -49,7 +49,7 @@ function CaseSetDashboard(props) {
                 Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
               </Button>
             </div>
-          )} */}
+          )}
 
           <CaseSetTable
             caseSet={selectedCaseSet}
