@@ -11,6 +11,7 @@ import CubeImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import MOCK_DATA from "../data/MOCK_DATA.json";
 import _ from "lodash";
+import { ProgressBar } from "react-bootstrap";
 
 export default function CaseSetTable({ caseSet }) {
   //   const data = useMemo(() => caseSet.cases, []);
@@ -23,10 +24,48 @@ export default function CaseSetTable({ caseSet }) {
     };
   }, []);
 
-  const getBoolFraction = (bools) => {
-    let trueCount = bools.filter((b) => b === true).length;
-    let totalCount = bools.length;
-    return trueCount + "/" + totalCount;
+  const aggregateStatus = (statuses) => {
+    // if (statuses.every((s) => s === 2)) return renderStatus(2);
+    // if (statuses.every((s) => s === 0)) return renderStatus(0);
+    const s0 = statuses.filter((s) => s === 0).length;
+    const s1 = statuses.filter((s) => s === 1).length;
+    const s2 = statuses.filter((s) => s === 2).length;
+    const total = statuses.length;
+    // return renderStatus(
+    //   1,
+    //   <ProgressBar
+    //     now={(learning * 100) / total}
+    //     label={`(${learning}/${total})`}
+    //     variant="info"
+    //   />
+    // ); //);
+    return (
+      <ProgressBar>
+        <ProgressBar variant="success" now={(s2 * 100) / total} key={1} />
+        <ProgressBar variant="warning" now={(s1 * 100) / total} key={2} />
+        <ProgressBar variant="secondary" now={(s0 * 100) / total} key={3} />
+      </ProgressBar>
+      // <ProgressBar
+      //   now={(learning * 100) / total}
+      //   label={`(${learning}/${total})`}
+      //   variant="info"
+      // />
+    );
+  };
+
+  const renderStatus = (status, end = null) => {
+    const map = {
+      0: ["gray", "not started"],
+      1: ["orange", "learning"],
+      2: ["green", "learned"],
+    };
+    return (
+      <span style={{ color: map[status][0] }}>
+        <i class={`fa fa-circle `} aria-hidden="true"></i>
+
+        {end}
+      </span>
+    );
   };
   const renderCubeImage = (alg, caseSet) => {
     return (
@@ -38,29 +77,45 @@ export default function CaseSetTable({ caseSet }) {
     );
   };
 
+  const renderExpandArrows = (isExpanded) => {
+    return (
+      <i
+        className={`fa fa-angle-${isExpanded ? "down" : "right"} fa-lg`}
+        aria-hidden="true"
+      ></i>
+    );
+  };
+
   const columns = useMemo(
     () => [
+      { Header: "Group", accessor: "group", disableGroupBy: false },
       {
         Header: "Case",
         accessor: "alg",
         Cell: ({ value: alg }) => renderCubeImage(alg, caseSet),
         aggregate: (values) => _(values).sample(),
         Aggregated: ({ value: alg }) => renderCubeImage(alg, caseSet),
+        disableSortBy: true,
       },
       {
         Header: "Name",
         accessor: "name",
       },
-      { Header: "Group", accessor: "group", disableGroupBy: false },
       {
-        Header: "P",
-        accessor: "pRate",
+        Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
+        accessor: "hRate",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
-        accessor: "hRate",
+        Header: (
+          <i
+            style={{ color: "green" }}
+            class="fa fa-check"
+            aria-hidden="true"
+          ></i>
+        ),
+        accessor: "pRate",
         aggregate: "average",
         Aggregated: ({ value }) => _.round(value, 2),
       },
@@ -107,12 +162,12 @@ export default function CaseSetTable({ caseSet }) {
         Aggregated: ({ value }) => value,
       },
       {
-        Header: "Learned",
-        accessor: "learned",
+        Header: "Status",
+        accessor: "status",
         Cell: ({ value }) => {
-          return `${value}`;
+          return renderStatus(value);
         },
-        aggregate: getBoolFraction,
+        aggregate: aggregateStatus,
         Aggregated: ({ value }) => value,
       },
     ],
@@ -128,24 +183,18 @@ export default function CaseSetTable({ caseSet }) {
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
         // Let's make a column for selection
+        ...columns,
         {
           id: "selection",
           // The header can use the table's getToggleAllRowsSelectedProps method
           // to render a checkbox
           Header: ({ getToggleAllRowsSelectedProps }) => (
-            <div>
-              <Checkbox {...getToggleAllRowsSelectedProps()} />
-            </div>
+            <Checkbox {...getToggleAllRowsSelectedProps()} />
           ),
           // The cell can use the individual row's getToggleRowSelectedProps method
           // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <Checkbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
+          Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
         },
-        ...columns,
       ]);
     }
   );
@@ -172,7 +221,7 @@ export default function CaseSetTable({ caseSet }) {
 
   return (
     <div>
-      <Table {...getTableProps()} bordered size="sm">
+      <Table {...getTableProps()} size="sm">
         <thead>
           {headerGroups.map((hGroup) => (
             <tr {...hGroup.getHeaderGroupProps()}>
@@ -184,9 +233,13 @@ export default function CaseSetTable({ caseSet }) {
                   {col.canGroupBy ? (
                     // If the col can be grouped, let's add a toggle
                     <span {...col.getGroupByToggleProps()}>
-                      {col.isGrouped ? "🛑 " : "👊 "}
+                      {col.isGrouped ? (
+                        <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
+                      ) : (
+                        <i class="fa fa-compress fa-lg" aria-hidden="true"></i>
+                      )}
                     </span>
-                  ) : null}
+                  ) : null}{" "}
                   {col.render("Header")} {renderSortIcon(col)}
                 </th>
               ))}
@@ -199,48 +252,30 @@ export default function CaseSetTable({ caseSet }) {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((c) => {
-                  const getClass = (c) => {
-                    const extra =
-                      c.isGrouped || c.isAggregated ? "table-success" : "";
-                    // c.isGrouped || c.isAggregated ? "table-dark" : "";
-                    // const extra = "";
-                    return "align-middle " + extra;
-                  };
                   return (
                     <td
-                      className={getClass(c)}
-                      // For educational purposes, let's color the
-                      // cell depending on what type it is given
-                      // from the useGroupBy hook
+                      className={
+                        c.isGrouped ? "text-left align-middle" : "align-middle"
+                      }
                       {...c.getCellProps()}
-                      //   style={{
-                      //     background: c.isPlaceholder ? "#ff000042" : "white",
-                      //   }}
+                      style={{
+                        background:
+                          c.isGrouped || c.isAggregated ? "#F5F5F5" : null,
+                      }}
                     >
                       {c.isGrouped ? (
-                        // If it's a grouped cell, add an expander and row count
                         <>
-                          <span {...row.getToggleRowExpandedProps()}>
-                            {row.isExpanded ? (
-                              <i
-                                class="fa fa-angle-down fa-lg"
-                                aria-hidden="true"
-                              ></i>
-                            ) : (
-                              <i
-                                class="fa fa-angle-right fa-lg"
-                                aria-hidden="true"
-                              ></i>
-                            )}
+                          <span
+                            {...row.getToggleRowExpandedProps()}
+                            className="m-4"
+                          >
+                            {renderExpandArrows(row.isExpanded)}
                           </span>{" "}
                           {c.render("Cell")} ({row.subRows.length})
                         </>
                       ) : c.isAggregated ? (
-                        // If the cell is aggregated, use the Aggregated
-                        // renderer for cell
                         c.render("Aggregated")
-                      ) : c.isPlaceholder ? null : ( // For cells with repeated values, render null
-                        // Otherwise, just render the regular cell
+                      ) : c.isPlaceholder ? null : (
                         c.render("Cell")
                       )}
                     </td>
