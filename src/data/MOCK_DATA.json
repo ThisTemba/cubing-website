@@ -166,10 +166,10 @@
     "status": 2
   },
   {
-    "id": "2f3dba63-0ae6-47bb-a665-dbd8ad648956",
-    "name": "Shina",
-    "group": "V",
-    "alg": "l' U' l L' U' L U l' U l",
+    "id": "5c8bb373-10a0-4f84-a876-0c2b50ee1b4b",
+    "name": "OLL 5",
+    "group": "Square Shape",
+    "alg": "l' U2 L U L' U l",
     "hRate": 0.3,
     "mmRate": 0.45,
     "cmRate": 0.32,
@@ -181,10 +181,10 @@
     "status": 0
   },
   {
-    "id": "7741dac1-4d6e-45fd-bfea-e7fdb1e21428",
-    "name": "Aggi",
-    "group": "L Shape",
-    "alg": "r U r' R U R' U' r U' r'",
+    "id": "7a956eaa-cc7f-4d0f-a91c-9dbfa90fef72",
+    "name": "OLL 6",
+    "group": "Square Shape",
+    "alg": "r U2 R' U' R U' r'",
     "hRate": 0.2,
     "mmRate": 0.35,
     "cmRate": 0.67,
@@ -196,10 +196,10 @@
     "status": 2
   },
   {
-    "id": "4d61ad13-7446-4139-b729-1d984d32bc7d",
-    "name": "Daniele",
-    "group": "P Shape",
-    "alg": "F R' F' R2 r' U R U' R' U' M'",
+    "id": "7e677f8e-c858-482c-91d9-eb31c045055e",
+    "name": "OLL 7",
+    "group": "Small Lightning Bolt",
+    "alg": "r U R' U R U2 r'",
     "hRate": 0.44,
     "mmRate": 0.58,
     "cmRate": 0.45,
@@ -211,10 +211,10 @@
     "status": 0
   },
   {
-    "id": "3ca1de6b-f79b-4918-9247-29b499d7421a",
-    "name": "Devinne",
-    "group": "C Shape",
-    "alg": "r U R' U R U2 r2 U' R U' R' U2 r",
+    "id": "94b98931-7db6-47f4-a123-e9c68a496a98",
+    "name": "OLL 8",
+    "group": "Small Lightning Bolt",
+    "alg": "l' U' L U' L' U2 l",
     "hRate": 0.03,
     "mmRate": 0.47,
     "cmRate": 0.59,
@@ -226,10 +226,10 @@
     "status": 0
   },
   {
-    "id": "e9371a2e-f1fa-4fe5-9f5f-2f4465e022bd",
-    "name": "Karlotta",
-    "group": "V",
-    "alg": "r' R U R U R' U' M' R' F R F'",
+    "id": "48616a48-afb7-4aa6-a5c1-72dbe637d0bb",
+    "name": "OLL 9",
+    "group": "Fish Shape",
+    "alg": "R U R' U' R' F R2 U R' U' F'",
     "hRate": 0.38,
     "mmRate": 0.62,
     "cmRate": 0.01,
@@ -241,10 +241,10 @@
     "status": 0
   },
   {
-    "id": "b62a91e9-04be-43eb-a7f2-384b65728500",
-    "name": "Jada",
-    "group": "L Shape",
-    "alg": "r U R' U' M2 U R U' R' U' M'",
+    "id": "7c0361d5-7992-447b-af35-4f1ff475fdef",
+    "name": "OLL 10",
+    "group": "Fish Shape",
+    "alg": "R U R' U R' F R F' R U2 R'",
     "hRate": 0.01,
     "mmRate": 0.19,
     "cmRate": 0.02,
@@ -256,10 +256,10 @@
     "status": 0
   },
   {
-    "id": "ea5c7c89-310a-43c8-8ff8-6acb1bab7bf9",
-    "name": "Jazmin",
-    "group": "P Shape",
-    "alg": "R U2 [R2 F R F'] R U2 R'",
+    "id": "e8911535-6f02-41c1-be79-2723d61ea325",
+    "name": "OLL 11",
+    "group": "Small Lightning Bolt",
+    "alg": "r U R' U R' F R F' R U2 r'",
     "hRate": 0.19,
     "mmRate": 0.43,
     "cmRate": 0.03,
@@ -271,10 +271,10 @@
     "status": 2
   },
   {
-    "id": "ffc8f258-a188-4aca-b800-06b7ef325bbc",
-    "name": "Johnette",
-    "group": "C Shape",
-    "alg": "R U R' U R U2 R' F [R U R' U'] F'",
+    "id": "ed8d4930-0460-4f15-b141-76df2549ddbd",
+    "name": "OLL 12",
+    "group": "Small Lightning Bolt",
+    "alg": "M' R' U' R U' R' U2 R U' R r'",
     "hRate": 0.33,
     "mmRate": 0.26,
     "cmRate": 0.31,
