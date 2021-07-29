@@ -24,31 +24,16 @@ export default function CaseSetTable({ caseSet }) {
   }, []);
 
   const aggregateStatus = (statuses) => {
-    // if (statuses.every((s) => s === 2)) return renderStatus(2);
-    // if (statuses.every((s) => s === 0)) return renderStatus(0);
     const s0 = statuses.filter((s) => s === 0).length;
     const s1 = statuses.filter((s) => s === 1).length;
     const s2 = statuses.filter((s) => s === 2).length;
     const total = statuses.length;
-    // return renderStatus(
-    //   1,
-    //   <ProgressBar
-    //     now={(learning * 100) / total}
-    //     label={`(${learning}/${total})`}
-    //     variant="info"
-    //   />
-    // ); //);
     return (
       <ProgressBar>
         <ProgressBar variant="success" now={(s2 * 100) / total} key={1} />
         <ProgressBar variant="warning" now={(s1 * 100) / total} key={2} />
         <ProgressBar variant="secondary" now={(s0 * 100) / total} key={3} />
       </ProgressBar>
-      // <ProgressBar
-      //   now={(learning * 100) / total}
-      //   label={`(${learning}/${total})`}
-      //   variant="info"
-      // />
     );
   };
 
@@ -181,17 +166,12 @@ export default function CaseSetTable({ caseSet }) {
     useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
-        // Let's make a column for selection
         ...columns,
         {
           id: "selection",
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
           Header: ({ getToggleAllRowsSelectedProps }) => (
             <Checkbox {...getToggleAllRowsSelectedProps()} />
           ),
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
           Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
         },
       ]);
@@ -236,7 +216,6 @@ export default function CaseSetTable({ caseSet }) {
                   className="align-middle"
                 >
                   {col.canGroupBy ? (
-                    // If the col can be grouped, let's add a toggle
                     <span {...col.getGroupByToggleProps()}>
                       {col.isGrouped ? (
                         <i
