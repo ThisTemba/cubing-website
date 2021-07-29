@@ -23,11 +23,6 @@ export default function useCaseSetTable(caseSet) {
     };
   }, []);
 
-  const getSelectedCases = (selectedRowIds) => {
-    return data.filter((unused, i) => selectedRowIds[i]);
-  };
-  const selectedCases = getSelectedCases(selectedRowIds);
-
   const aggregateStatus = (statuses) => {
     // if (statuses.every((s) => s === 2)) return renderStatus(2);
     // if (statuses.every((s) => s === 0)) return renderStatus(0);
@@ -211,6 +206,11 @@ export default function useCaseSetTable(caseSet) {
     selectedFlatRows,
     state: { selectedRowIds },
   } = tableInstance;
+
+  const getSelectedCases = (selectedRowIds) => {
+    return data.filter((unused, i) => selectedRowIds[i]);
+  };
+  const selectedCases = getSelectedCases(selectedRowIds);
 
   const renderSortIcon = (col) => {
     return (
