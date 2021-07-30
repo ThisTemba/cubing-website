@@ -37,7 +37,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     );
   };
 
-  const renderStatus = (status, end = null) => {
+  const renderStatus = (status) => {
     const map = {
       0: ["gray", "not started"],
       1: ["orange", "learning"],
@@ -45,9 +45,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     };
     return (
       <span style={{ color: map[status][0] }}>
-        <i className={`fa fa-circle `} aria-hidden="true"></i>
-
-        {end}
+        <i className={`fa fa-circle fa-lg`} aria-hidden="true"></i>
       </span>
     );
   };
