@@ -26,10 +26,12 @@ CubeImage.defaultProps = {
 
 export const CaseImage = (props) => {
   const alg = props.case ? props.case.algs[0] : props.alg;
+  const arrows = props.case.arrows !== undefined ? props.case.arrows[0] : "";
   const { caseSetDetails, size } = props;
   const { mask, view } = caseSetDetails;
+  const rest = { mask, view, arrows };
   return (
-    <CubeImage case={alg ? alg : ""} mask={mask} view={view} size={size} />
+    <CubeImage case={alg ? alg : ""} height={size} width={size} {...rest} />
   );
 };
 
