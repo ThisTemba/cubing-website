@@ -1,6 +1,6 @@
 const ollCaseSet = {
   details: {
-    id: "52c32da8-ca9d-47b1-8111-e08f623bce39",
+    id: "oll",
     name: "OLL",
     mask: "oll",
     view: "plan",
