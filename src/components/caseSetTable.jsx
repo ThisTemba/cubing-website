@@ -13,7 +13,8 @@ import { CaseImage } from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 
-export default function CaseSetTable({ caseSet, setSelectedCases }) {
+export default function CaseSetTable(props) {
+  const { caseSet } = props;
   const data = useMemo(() => caseSet.cases, []);
   // const data = useMemo(() => MOCK_DATA, []);
 
@@ -195,12 +196,10 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     }
   );
 
-  const getSelectedCases = (selectedRowIds) => {
-    return data.filter((unused, i) => selectedRowIds[i]);
-  };
-
   useEffect(() => {
-    setSelectedCases(getSelectedCases(tableInstance.state.selectedRowIds));
+    const selectedRowIds = tableInstance.state.selectedRowIds;
+    const selectedCases = data.filter((unused, i) => selectedRowIds[i]);
+    props.setSelectedCases(selectedCases);
   }, [tableInstance.state.selectedRowIds]);
 
   return <ReactTable table={tableInstance} />;
