@@ -33,6 +33,15 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     return percents;
   };
 
+  const sortStatus = (rowA, rowB) => {
+    // docs say this function should be memoized
+    const [sA, sB] = [rowA.values.status, rowB.values.status];
+    // if aggregated, sorting percents array
+    const learnedA = Array.isArray(sA) ? sA[2] : sA;
+    const learnedB = Array.isArray(sB) ? sB[2] : sB;
+    return learnedA > learnedB ? 1 : -1;
+  };
+
   const renderAggregatedStatus = (percents) => {
     return (
       <ProgressBar style={{ height: "8px" }}>
@@ -150,6 +159,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
         },
         aggregate: aggregateStatus,
         Aggregated: ({ value }) => renderAggregatedStatus(value),
+        sortType: sortStatus,
       },
     ],
     []
