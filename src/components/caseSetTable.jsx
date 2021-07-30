@@ -24,15 +24,21 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
   }, []);
 
   const aggregateStatus = (statuses) => {
-    const s0 = statuses.filter((s) => s === 0).length;
-    const s1 = statuses.filter((s) => s === 1).length;
-    const s2 = statuses.filter((s) => s === 2).length;
-    const total = statuses.length;
+    const statusEnum = [0, 1, 2];
+    const percents = statusEnum.map((status) => {
+      const count = statuses.filter((s) => s === status).length;
+      const percentage = (count * 100) / statuses.length;
+      return percentage;
+    });
+    return renderAggregatedStatus(percents);
+  };
+
+  const renderAggregatedStatus = (percents) => {
     return (
       <ProgressBar style={{ height: "8px" }}>
-        <ProgressBar variant="success" now={(s2 * 100) / total} key={1} />
-        <ProgressBar variant="warning" now={(s1 * 100) / total} key={2} />
-        <ProgressBar variant="secondary" now={(s0 * 100) / total} key={3} />
+        <ProgressBar variant="success" now={percents[2]} key={2} />
+        <ProgressBar variant="warning" now={percents[1]} key={1} />
+        <ProgressBar variant="secondary" now={percents[0]} key={0} />
       </ProgressBar>
     );
   };
