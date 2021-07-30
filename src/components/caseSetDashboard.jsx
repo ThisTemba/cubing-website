@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
+import eollCaseSet from "../data/eollCaseSet";
+import ocllCaseSet from "../data/ocllCaseSet";
+import epllCaseSet from "../data/epllCaseSet";
+import cpllCaseSet from "../data/cpllCaseSet";
 import useLocalStorage from "../hooks/useLocalStorage";
 import SelectCaseSet from "./selectCaseSet";
 import CaseSetTable from "./caseSetTable";
@@ -13,7 +17,14 @@ function CaseSetDashboard(props) {
     "selectedCaseSetId",
     null
   );
-  const caseSets = [ollCaseSet, pllCaseSet];
+  const caseSets = [
+    eollCaseSet,
+    ocllCaseSet,
+    cpllCaseSet,
+    epllCaseSet,
+    pllCaseSet,
+    ollCaseSet,
+  ];
   const selectedCaseSet = _(caseSets).find(["details.id", selectedCaseSetId]);
   const [selectedCases, setSelectedCases] = useState([]);
 
