@@ -59,7 +59,6 @@ function CaseSetDashboard(props) {
           >
             Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
           </Button>
-          {selectedCases.length > 0 && <div></div>}
 
           <CaseSetTable
             caseSet={selectedCaseSet}
