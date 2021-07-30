@@ -34,8 +34,7 @@ export default function TestPage(props) {
       caseId: c.id,
       dur,
       hesitated: false,
-      mMistakes: true,
-      cMistakes: false,
+      mistakes: null,
       caseName: c.name,
       alg: c.algs[0],
       dateTime,
@@ -62,16 +61,17 @@ export default function TestPage(props) {
         Cell: ({ value }) => JSON.stringify(value),
       },
       {
-        Header: "Minor Mistakes",
-        accessor: "mMistakes",
-        aggregate: "count",
-        Cell: ({ value }) => JSON.stringify(value),
+        Header: "Mistakes",
+        accessor: "mistakes",
+        Cell: ({ value }) => {
+          return value === 0
+            ? "none"
+            : value === 1
+            ? "minor"
+            : value === 2
+            ? "critical"
+            : "";
       },
-      {
-        Header: "Critical Mistakes",
-        accessor: "cMistakes",
-        aggregate: "count",
-        Cell: ({ value }) => JSON.stringify(value),
       },
     ],
     []
