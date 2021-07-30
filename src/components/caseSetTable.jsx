@@ -150,7 +150,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
   );
 
   const tableInstance = useTable(
-    { columns, data, defaultColumn },
+    { columns, data, defaultColumn, initialState: { groupBy: ["group"] } },
     useGroupBy,
     useSortBy,
     useExpanded,
