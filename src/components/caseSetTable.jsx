@@ -30,7 +30,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
       const percentage = (count * 100) / statuses.length;
       return percentage;
     });
-    return renderAggregatedStatus(percents);
+    return percents;
   };
 
   const renderAggregatedStatus = (percents) => {
@@ -149,7 +149,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
           return renderStatus(value);
         },
         aggregate: aggregateStatus,
-        Aggregated: ({ value }) => value,
+        Aggregated: ({ value }) => renderAggregatedStatus(value),
       },
     ],
     []
