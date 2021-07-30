@@ -49,7 +49,7 @@ function CaseSetDashboard(props) {
             CaseSet Selection
           </Button>
           <Button
-            onClick={() => props.history.push("/train/learn")}
+            onClick={onLearn}
             className="m-1"
             variant="info"
             disabled={selectedCases.length === 0}
@@ -57,7 +57,7 @@ function CaseSetDashboard(props) {
             Learn <i className="fa fa-chevron-right" aria-hidden="true"></i>
           </Button>
           <Button
-            onClick={() => props.history.push("/train/test")}
+            onClick={onTest}
             className="m-1"
             variant="success"
             disabled={selectedCases.length === 0}
