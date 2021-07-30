@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import Timer from "../common/cubing/timer";
 import _ from "lodash";
 import { useExpanded, useGroupBy, useTable } from "react-table";
 import ReactTable from "../common/reactTable";
 import { displayDur } from "../../utils/formatTime";
+import ButtonGroupToggle from "../common/buttonGroupToggle";
 
 export default function TestPage(props) {
   const { selectedCases } = props;
@@ -71,7 +72,7 @@ export default function TestPage(props) {
             : value === 2
             ? "critical"
             : "";
-      },
+        },
       },
     ],
     []
@@ -89,6 +90,23 @@ export default function TestPage(props) {
     useGroupBy,
     useExpanded
   );
+
+  let mistakesButtons = [
+    { sym: "check", id: 0, color: "success" },
+    { sym: "minus", id: 1, color: "warning" },
+    { sym: "times", id: 2, color: "danger" },
+  ];
+  mistakesButtons = mistakesButtons.map((b) => {
+    return { ...b, content: <i className={`fa fa-${b.sym}`}></i> };
+  });
+
+  const handleSelectMistake = (mistakes) => {
+    const newSolves = [...solves];
+    newSolves[0].mistakes = mistakes;
+    setSolves(newSolves);
+    document.activeElement.blur();
+    // dehover buttons after clicking
+  };
 
   return (
     <Container>
@@ -108,6 +126,19 @@ export default function TestPage(props) {
         scramble={currentScramble}
         armingTime={100}
       />
+      {solves.length > 0 && (
+        <Card>
+          <Row>
+            <Col>
+              <ButtonGroupToggle
+                buttons={mistakesButtons}
+                onSelect={(id) => handleSelectMistake(id)}
+                activeId={solves[0] ? solves[0].mistakes : null}
+              />
+            </Col>
+          </Row>
+        </Card>
+      )}
       <ReactTable table={table} />
     </Container>
   );
