@@ -9,7 +9,6 @@ import cpllCaseSet from "../data/cpllCaseSet";
 import useLocalStorage from "../hooks/useLocalStorage";
 import SelectCaseSet from "./selectCaseSet";
 import CaseSetTable from "./caseSetTable";
-import { withRouter } from "react-router-dom";
 import _ from "lodash";
 
 function CaseSetDashboard(props) {
@@ -70,4 +69,4 @@ function CaseSetDashboard(props) {
   );
 }
 
-export default withRouter(CaseSetDashboard);
+export default CaseSetDashboard;
