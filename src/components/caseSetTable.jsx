@@ -65,8 +65,10 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
     );
   };
 
-  const renderCaseImage = ({ value: alg }) => {
-    return <CaseImage alg={alg} caseSetDetails={caseSet.details} />;
+  const renderCaseImage = ({ value }) => {
+    return (
+      <CaseImage case={value} caseSetDetails={caseSet.details} size="65" />
+    );
   };
 
   const columns = useMemo(
@@ -74,7 +76,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
       { Header: "Group", accessor: "group", disableGroupBy: false },
       {
         Header: "Case",
-        accessor: "alg",
+        accessor: (row) => row,
         Cell: renderCaseImage,
         aggregate: (values) => _(values).sample(),
         Aggregated: renderCaseImage,
