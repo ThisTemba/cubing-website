@@ -192,15 +192,14 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
       ]);
     }
   );
-  const { selectedRowIds } = tableInstance.state;
 
   const getSelectedCases = (selectedRowIds) => {
     return data.filter((unused, i) => selectedRowIds[i]);
   };
 
   useEffect(() => {
-    setSelectedCases(getSelectedCases(selectedRowIds));
-  }, [selectedRowIds]);
+    setSelectedCases(getSelectedCases(tableInstance.state.selectedRowIds));
+  }, [tableInstance.state.selectedRowIds]);
 
   return <ReactTable table={tableInstance} />;
 }
