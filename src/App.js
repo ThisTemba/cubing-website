@@ -14,7 +14,6 @@ function App() {
     <div className="App">
       <Navbar />
       <Switch>
-        <Route path="/train/test" component={TestPage} />
         <Route path="/time" component={TimePage} />
         <Route path="/train" component={TrainPage} />
         <Route path="/stats" component={StatsPage} />
