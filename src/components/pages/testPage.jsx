@@ -57,8 +57,9 @@ export default function TestPage(props) {
       {
         Header: "Hesitated",
         accessor: "hesitated",
-        aggregate: "count",
+        aggregate: (bools) => bools.filter(Boolean).length / bools.length,
         Cell: ({ value }) => JSON.stringify(value),
+        Aggregated: ({ value }) => _.round(value, 2),
       },
       {
         Header: "Mistakes",
@@ -99,12 +100,26 @@ export default function TestPage(props) {
     return { ...b, content: <i className={`fa fa-${b.sym}`}></i> };
   });
 
+  const hesitationButton = [
+    {
+      content: <i className="fa fa-spinner" aria-hidden="true"></i>,
+      id: "hesitated",
+    },
+  ];
+
   const handleSelectMistake = (mistakes) => {
     const newSolves = [...solves];
     newSolves[0].mistakes = mistakes;
     setSolves(newSolves);
     document.activeElement.blur();
     // dehover buttons after clicking
+  };
+
+  const handleToggleHesitation = (dateTime) => {
+    const newSolves = [...solves];
+    newSolves[0].hesitated = !newSolves[0].hesitated;
+    setSolves(newSolves);
+    document.activeElement.blur();
   };
 
   return (
@@ -129,6 +144,11 @@ export default function TestPage(props) {
         <Card>
           <Row>
             <Col>
+              <ButtonGroupToggle
+                buttons={hesitationButton}
+                onSelect={() => handleToggleHesitation()}
+                activeId={solves[0].hesitated ? "hesitated" : ""}
+              />
               <ButtonGroupToggle
                 buttons={mistakesButtons}
                 onSelect={(id) => handleSelectMistake(id)}
