@@ -6,7 +6,7 @@ const epllCaseSet = {
       name: "H perm",
       group: "EPLL",
       prob: 1,
-      arrows: ["U1U7-s8,U7U1-s8,U3U5-s8,U5U3-s8"],
+      arrows: ["U1U7-s8-black,U7U1-s8-black,U3U5-s8-black,U5U3-s8-black"],
       scrambles: [
         "R L D2 R L D2 R2 B2 D2 B2 L2 F2 U2 R2 F2 U2",
         "F B D2 F B D2 F2 R2 D2 R2 B2 L2 U2 F2 L2 U2",
@@ -22,7 +22,7 @@ const epllCaseSet = {
       name: "Z perm",
       group: "EPLL",
       prob: 2,
-      arrows: ["U3U7-s8,U7U3-s8,U1U5-s8,U5U1-s8"],
+      arrows: ["U3U7-s8-black,U7U3-s8-black,U1U5-s8-black,U5U1-s8-black"],
       scrambles: [
         "R L U2 R L' U' R2 U' R2 U' R2 U' R2 U' R2 B2 R2 B2",
         "F B U2 F B' U R2 F2 R2 U F2 U R2 F2 R2 U F2 U'",
@@ -43,7 +43,7 @@ const epllCaseSet = {
       name: "Ua perm",
       group: "EPLL",
       prob: 4,
-      arrows: ["U5U3-s8,U7U5-s8,U3U7-s8"],
+      arrows: ["U5U3-s8-black,U7U5-s8-black,U3U7-s8-black"],
       scrambles: [
         "F2 D F2 R2 F2 D R2 F2 D2 F2 B2 L2 B2 R2 D2 R2",
         "R2 U' B2 R2 B2 U B2 R2 B2 U2 B2 U2 R2 B2 R2 U2 B2",
@@ -63,7 +63,7 @@ const epllCaseSet = {
       name: "Ub perm",
       group: "EPLL",
       prob: 4,
-      arrows: ["U3U5-s8,U5U7-s8,U7U3-s8"],
+      arrows: ["U3U5-s8-black,U5U7-s8-black,U7U3-s8-black"],
       scrambles: [
         "F2 U' L2 F2 L2 U F2 L2 U2 L2 F2 L2 U2 F2 L2 U2 F2",
         "F2 D' F2 R2 B2 U R D2 F2 B2 U2 L' F2 R2 U2 B2 U2",

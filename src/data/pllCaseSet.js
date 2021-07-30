@@ -12,7 +12,7 @@ const pllCaseSet = {
       name: "H perm",
       group: "EPLL",
       prob: 1,
-      arrows: ["U1U7-s8,U7U1-s8,U3U5-s8,U5U3-s8"],
+      arrows: ["U1U7-s8-black,U7U1-s8-black,U3U5-s8-black,U5U3-s8-black"],
       scrambles: [
         "R L D2 R L D2 R2 B2 D2 B2 L2 F2 U2 R2 F2 U2",
         "F B D2 F B D2 F2 R2 D2 R2 B2 L2 U2 F2 L2 U2",
@@ -28,7 +28,7 @@ const pllCaseSet = {
       name: "Z perm",
       group: "EPLL",
       prob: 2,
-      arrows: ["U3U7-s8,U7U3-s8,U1U5-s8,U5U1-s8"],
+      arrows: ["U3U7-s8-black,U7U3-s8-black,U1U5-s8-black,U5U1-s8-black"],
       scrambles: [
         "R L U2 R L' U' R2 U' R2 U' R2 U' R2 U' R2 B2 R2 B2",
         "F B U2 F B' U R2 F2 R2 U F2 U R2 F2 R2 U F2 U'",
@@ -49,7 +49,7 @@ const pllCaseSet = {
       name: "Ua perm",
       group: "EPLL",
       prob: 4,
-      arrows: ["U5U3-s8,U7U5-s8,U3U7-s8"],
+      arrows: ["U5U3-s8-black,U7U5-s8-black,U3U7-s8-black"],
       scrambles: [
         "F2 D F2 R2 F2 D R2 F2 D2 F2 B2 L2 B2 R2 D2 R2",
         "R2 U' B2 R2 B2 U B2 R2 B2 U2 B2 U2 R2 B2 R2 U2 B2",
@@ -69,7 +69,7 @@ const pllCaseSet = {
       name: "Ub perm",
       group: "EPLL",
       prob: 4,
-      arrows: ["U3U5-s8,U5U7-s8,U7U3-s8"],
+      arrows: ["U3U5-s8-black,U5U7-s8-black,U7U3-s8-black"],
       scrambles: [
         "F2 U' L2 F2 L2 U F2 L2 U2 L2 F2 L2 U2 F2 L2 U2 F2",
         "F2 D' F2 R2 B2 U R D2 F2 B2 U2 L' F2 R2 U2 B2 U2",
@@ -90,7 +90,7 @@ const pllCaseSet = {
       name: "Aa perm",
       group: "A",
       prob: 4,
-      arrows: ["U2U6-s8,U6U0-s8,U0U2-s8"],
+      arrows: ["U2U6-s8-black,U6U0-s8-black,U0U2-s8-black"],
       scrambles: [
         "R L U2 R L' U F2 U2 R2 F2 R2 U' B2 U' F2 U R2 B2",
         "F B U2 F B L2 U R2 B2 U L2 U' B2 R2 U' L2 F2 B2",
@@ -110,7 +110,7 @@ const pllCaseSet = {
       name: "Ab perm",
       group: "A",
       prob: 4,
-      arrows: ["U8U0-s8,U0U6-s8,U6U8-s8"],
+      arrows: ["U8U0-s8-black,U0U6-s8-black,U6U8-s8-black"],
       scrambles: [
         "R L U2 R L U' D' F2 D L2 F2 D B2 D' F2 L2 U' L2",
         "F B U2 F B' R2 U L2 U' B2 U2 B2 L2 F2 D L2 D L2",
@@ -130,7 +130,7 @@ const pllCaseSet = {
       name: "E perm",
       group: "Other",
       prob: 2,
-      arrows: ["U0U6-s8,U6U0-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U0U6-s8-black,U6U0-s8-black,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L F2 R L' U' L2 D2 F2 U' B2 U' R2 F2 D2 B2 U' R2",
         "F B L2 F' B' L2 U R2 D' L2 B2 L2 D R2 U F2 U2 L2",
@@ -147,7 +147,7 @@ const pllCaseSet = {
       name: "F perm",
       group: "Other",
       prob: 4,
-      arrows: ["U1U7-s8,U7U1-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U1U7-s8-black,U7U1-s8-black,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L' F2 R L' U' R2 U' R2 L2 F2 U L2 D' B2 D L2 F2",
         "F B D2 F B' D' L2 B2 D' L2 B2 U' F2 L2 R2 U L2 D'",
@@ -161,7 +161,7 @@ const pllCaseSet = {
       name: "Ja perm",
       group: "J",
       prob: 4,
-      arrows: ["U1U5-s8,U5U1-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U1U5-s8-black,U5U1-s8-black,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L U2 R L' B2 U R2 F2 B2 U' L2 U L2 B2 D F2 U'",
         "F B U2 F B' U F2 D' F2 D R2 F2 L2 B2 D B2 L2 U",
@@ -179,7 +179,7 @@ const pllCaseSet = {
       name: "Jb perm",
       group: "J",
       prob: 4,
-      arrows: ["U5U7-s8,U7U5-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U5U7-s8-black,U7U5-s8-black,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L U2 R L U D' F2 U' F2 D R2 D' F2 D L2 U2",
         "F B U2 F B U L2 U B2 U' L2 R2 F2 U F2 U' L2 D",
@@ -193,7 +193,7 @@ const pllCaseSet = {
       name: "Ra perm",
       group: "R",
       prob: 4,
-      arrows: ["U1U3-s8,U3U1-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U1U3-s8-black,U3U1-s8-black,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L U2 R L' U' R2 L2 B2 U L2 D' R2 F2 B2 D R2 U2",
         "F B U2 F B U R2 U' L2 U F2 U' L2 D B2 D' F2 B2",
@@ -211,7 +211,7 @@ const pllCaseSet = {
       name: "Rb perm",
       group: "R",
       prob: 4,
-      arrows: ["U3U7-s8,U7U3-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U3U7-s8-black,U7U3-s8-black,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L U2 R L' U L2 U' L2 D F2 D' F2 R2 L2 F2 L2 U2",
         "F B U2 F B L2 U' F2 R2 D' F2 D L2 D' R2 F2",
@@ -229,7 +229,7 @@ const pllCaseSet = {
       name: "T perm",
       group: "Other",
       prob: 4,
-      arrows: ["U3U5-s8,U5U3-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U3U5-s8-black,U5U3-s8-black,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L F2 R L U R2 U' L2 F2 U' F2 U F2 R2 U' R2 F2",
         "F B L2 F B' U2 F2 U F2 U' R2 B2 U' L2 U B2 D' R2",
@@ -243,7 +243,7 @@ const pllCaseSet = {
       name: "Y perm",
       group: "Other",
       prob: 4,
-      arrows: ["U1U3-s8,U3U1-s8,U0U8-s8,U8U0-s8"],
+      arrows: ["U1U3-s8-black,U3U1-s8-black,U0U8-s8-black,U8U0-s8-black"],
       scrambles: [
         "R L B2 R' L' U' L2 U' L2 U B2 D B2 D' R2 U R2 U",
         "F B U2 F B' U' L2 U R2 D' R2 U' B2 D R2 D' L2 U'",
@@ -260,7 +260,7 @@ const pllCaseSet = {
       name: "V perm",
       group: "Other",
       prob: 4,
-      arrows: ["U1U5-s8,U5U1-s8,U0U8-s8,U8U0-s8"],
+      arrows: ["U1U5-s8-black,U5U1-s8-black,U0U8-s8-black,U8U0-s8-black"],
       scrambles: [
         "F B U2 F B U F2 U2 L2 U' L2 F2 U2 F2 U L2 U2 B2",
         "L R U2 L R U B2 U2 L2 D' L2 F2 D2 F2 U R2 U2 F2",
@@ -280,7 +280,7 @@ const pllCaseSet = {
       name: "Na perm",
       group: "N",
       prob: 1,
-      arrows: ["U3U5-s8,U5U3-s8,U2U6-s8,U6U2-s8"],
+      arrows: ["U3U5-s8-black,U5U3-s8-black,U2U6-s8-black,U6U2-s8-black"],
       scrambles: [
         "R L' U2 R' L U2 F2 L2 U' L2 U2 F2 U L2 U2 L2 F2 U'",
         "F B' U2 F' B U2 L2 B2 U' B2 U2 L2 U B2 U2 B2 L2 U",
@@ -297,7 +297,7 @@ const pllCaseSet = {
       name: "Nb perm",
       group: "N",
       prob: 1,
-      arrows: ["U3U5-s8,U5U3-s8,U0U8-s8,U8U0-s8"],
+      arrows: ["U3U5-s8-black,U5U3-s8-black,U0U8-s8-black,U8U0-s8-black"],
       scrambles: [
         "R L' U2 R' L U2 F2 R2 U R2 U2 F2 U' R2 U2 R2 F2 U",
         "F B' U2 F' B U2 L2 F2 U F2 U2 L2 U' F2 U2 F2 L2 U'",

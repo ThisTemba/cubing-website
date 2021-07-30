@@ -12,7 +12,7 @@ const cpllCaseSet = {
       name: "Headlights",
       group: "",
       prob: 4,
-      arrows: ["U3U5-s8,U5U3-s8,U2U8-s8,U8U2-s8"],
+      arrows: ["U3U5-s8-black,U5U3-s8-black-b,U2U8-s8-black,U8U2-s8-black"],
       scrambles: [
         "R L F2 R L U R2 U' L2 F2 U' F2 U F2 R2 U' R2 F2",
         "F B L2 F B' U2 F2 U F2 U' R2 B2 U' L2 U B2 D' R2",
@@ -26,7 +26,7 @@ const cpllCaseSet = {
       name: "No Headlights",
       group: "",
       prob: 4,
-      arrows: ["U1U3-s8,U3U1-s8,U0U8-s8,U8U0-s8"],
+      arrows: ["U1U3-s8-black,U3U1-s8-black,U0U8-s8-black,U8U0-s8-black"],
       scrambles: [
         "R L B2 R' L' U' L2 U' L2 U B2 D B2 D' R2 U R2 U",
         "F B U2 F B' U' L2 U R2 D' R2 U' B2 D R2 D' L2 U'",
