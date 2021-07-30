@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import CaseSetDashboard from "../caseSetDashboard";
+import { Route, Switch } from "react-router";
+import TestPage from "./testPage";
+import LearnPage from "./learnPage";
 
 export default function TrainPage(props) {
   const [selectedCases, setSelectedCases] = useState();
@@ -37,6 +40,28 @@ export default function TrainPage(props) {
         // this is a "fake route" that works using display dashboard which should
         // suffice for now
       )}
+      <Switch>
+        <Route
+          path="/train/test"
+          component={(props) => (
+            <TestPage
+              onDashboard={() => setDisplayDashboard(true)}
+              selectedCases={selectedCases}
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path="/train/learn"
+          component={(props) => (
+            <LearnPage
+              onDashboard={() => setDisplayDashboard(true)}
+              selectedCases={selectedCases}
+              {...props}
+            />
+          )}
+        />
+      </Switch>
     </Container>
   );
 }
