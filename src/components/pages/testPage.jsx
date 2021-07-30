@@ -40,7 +40,7 @@ export default function TestPage(props) {
       alg: c.algs[0],
       dateTime,
     };
-    setSolves([...solves, solve]);
+    setSolves([solve, ...solves]);
   };
 
   const columns = useMemo(
