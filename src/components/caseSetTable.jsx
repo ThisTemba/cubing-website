@@ -171,7 +171,7 @@ export default function CaseSetTable({ caseSet, setSelectedCases }) {
       data,
       defaultColumn,
       initialState: {
-        groupBy: ["group"],
+        groupBy: _.uniqBy(caseSet.cases, "group").length > 1 ? ["group"] : [],
         sortBy: [{ id: "status", desc: true }],
       },
     },
