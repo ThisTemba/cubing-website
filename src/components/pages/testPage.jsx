@@ -14,8 +14,8 @@ export default function TestPage(props) {
         variant="secondary"
         className="m-1"
       >
-        <i className="fa fa-chevron-left" aria-hidden="true"></i>
-        Back to Dashboard
+        <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
+        Dashboard
       </Button>
     </Container>
   );
