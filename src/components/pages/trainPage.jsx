@@ -23,7 +23,7 @@ export default function TrainPage(props) {
   };
 
   useEffect(() => {
-    console.table(selectedCases);
+    // console.table(selectedCases);
   }, [selectedCases]);
 
   return (
