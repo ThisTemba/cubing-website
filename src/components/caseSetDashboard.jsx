@@ -43,24 +43,23 @@ function CaseSetDashboard(props) {
             <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
             CaseSet Selection
           </Button>
-          {selectedCases.length > 0 && (
-            <div>
-              <Button
-                onClick={() => props.history.push("/train/learn")}
-                className="m-1"
-                variant="info"
-              >
-                Learn <i className="fa fa-chevron-right" aria-hidden="true"></i>
-              </Button>
-              <Button
-                onClick={() => props.history.push("/train/test")}
-                className="m-1"
-                variant="success"
-              >
-                Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
-              </Button>
-            </div>
-          )}
+          <Button
+            onClick={() => props.history.push("/train/learn")}
+            className="m-1"
+            variant="info"
+            disabled={selectedCases.length === 0}
+          >
+            Learn <i className="fa fa-chevron-right" aria-hidden="true"></i>
+          </Button>
+          <Button
+            onClick={() => props.history.push("/train/test")}
+            className="m-1"
+            variant="success"
+            disabled={selectedCases.length === 0}
+          >
+            Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
+          </Button>
+          {selectedCases.length > 0 && <div></div>}
 
           <CaseSetTable
             caseSet={selectedCaseSet}
