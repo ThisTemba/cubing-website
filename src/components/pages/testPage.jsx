@@ -11,7 +11,10 @@ export default function TestPage(props) {
           props.history.push("/train");
           props.onDashboard();
         }}
+        variant="secondary"
+        className="m-1"
       >
+        <i className="fa fa-chevron-left" aria-hidden="true"></i>
         Back to Dashboard
       </Button>
     </Container>
