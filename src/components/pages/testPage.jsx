@@ -144,6 +144,8 @@ export default function TestPage(props) {
         <Card>
           <Row>
             <Col>
+              <strong>{"Solve: " + solves.length + "."}</strong>{" "}
+              {"Case: " + solves[0].caseName}{" "}
               <ButtonGroupToggle
                 buttons={hesitationButton}
                 onSelect={() => handleToggleHesitation()}
