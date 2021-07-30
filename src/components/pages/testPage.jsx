@@ -37,7 +37,7 @@ export default function TestPage(props) {
       mMistakes: true,
       cMistakes: false,
       caseName: c.name,
-      alg: c.alg,
+      alg: c.algs[0],
       dateTime,
     };
     setSolves([...solves, solve]);
