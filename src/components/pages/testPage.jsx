@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
-import { Container } from "react-bootstrap";
-import Timer from "../common/cubing/timer";
-import _ from "lodash";
+import { Button, Card, Col, Row, Container } from "react-bootstrap";
 import { useExpanded, useGroupBy, useTable } from "react-table";
+import _ from "lodash";
+import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
-import { displayDur } from "../../utils/formatTime";
 import ButtonGroupToggle from "../common/buttonGroupToggle";
+import { displayDur } from "../../utils/formatTime";
 
 export default function TestPage(props) {
   const { selectedCases } = props;
