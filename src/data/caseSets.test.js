@@ -2,9 +2,18 @@ import pllCaseSet from "./pllCaseSet";
 import ollCaseSet from "./ollCaseSet";
 import eollCaseSet from "./eollCaseSet";
 import ocllCaseSet from "./ocllCaseSet";
+import epllCaseSet from "./epllCaseSet";
+import cpllCaseSet from "./cpllCaseSet";
 import _ from "lodash";
 
-const caseSets = [ollCaseSet, pllCaseSet, eollCaseSet, ocllCaseSet];
+const caseSets = [
+  ollCaseSet,
+  pllCaseSet,
+  eollCaseSet,
+  ocllCaseSet,
+  epllCaseSet,
+  cpllCaseSet,
+];
 const caseSetKeys = ["details", "cases"];
 const detailsKeys = ["id", "name", "mask", "view", "numCases"];
 const caseKeys = ["id", "name", "group", "scrambles", "algs"];
