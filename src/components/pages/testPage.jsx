@@ -142,7 +142,8 @@ export default function TestPage(props) {
       getCaseDocRef(caseId)
         .get()
         .then((oldDoc) => {
-          const data = prepareCaseData(solves, caseId, oldDoc);
+          const newSolves = _.filter(solves, ["caseId", caseId]);
+          const data = prepareCaseData(newSolves, oldDoc);
           writeCaseToFirebase(caseId, data);
         })
         .catch((error) => {
