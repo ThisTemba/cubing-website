@@ -117,73 +117,74 @@ export default function CaseSetTable(props) {
         Header: "Name",
         accessor: "name",
       },
-      // {
-      //   Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
-      //   accessor: "hRate",
-      //   aggregate: "average",
-      //   Aggregated: ({ value }) => _.round(value, 2),
-      //   sortType: "number",
-      // },
-      // {
-      //   Header: (
-      //     <i
-      //       style={{ color: "green" }}
-      //       className="fa fa-check"
-      //       aria-hidden="true"
-      //     ></i>
-      //   ),
-      //   accessor: "pRate",
-      //   aggregate: "average",
-      //   Aggregated: ({ value }) => _.round(value, 2),
-      //   sortType: "number",
-      // },
-      // {
-      //   Header: (
-      //     <i
-      //       style={{ color: "orange" }}
-      //       className="fa fa-minus"
-      //       aria-hidden="true"
-      //     ></i>
-      //   ),
-      //   accessor: "mmRate",
-      //   aggregate: "average",
-      //   Aggregated: ({ value }) => _.round(value, 2),
-      //   sortType: "number",
-      // },
-      // {
-      //   Header: (
-      //     <i
-      //       style={{ color: "red" }}
-      //       className="fa fa-times"
-      //       aria-hidden="true"
-      //     ></i>
-      //   ),
-      //   accessor: "cmRate",
-      //   aggregate: "average",
-      //   Aggregated: ({ value }) => _.round(value, 2),
-      //   sortType: "number",
-      // },
-      // {
-      //   Header: <span style={{ textDecoration: "overline" }}>time</span>,
-      //   accessor: "avgTime",
-      //   aggregate: "average",
-      //   Aggregated: ({ value }) => _.round(value, 2),
-      //   sortType: "number",
-      // },
-      // {
-      //   Header: "TPS",
-      //   accessor: "tps",
-      //   aggregate: "average",
-      //   Aggregated: ({ value }) => _.round(value, 2),
-      //   sortType: "number",
-      // },
-      // {
-      //   Header: "# Solves",
-      //   accessor: "numSolves",
-      //   aggregate: "sum",
-      //   Aggregated: ({ value }) => value,
-      //   sortType: "number",
-      // },
+      {
+        Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
+        accessor: "hRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
+      },
+      {
+        Header: (
+          <i
+            style={{ color: "green" }}
+            className="fa fa-check"
+            aria-hidden="true"
+          ></i>
+        ),
+        accessor: "pRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
+      },
+      {
+        Header: (
+          <i
+            style={{ color: "orange" }}
+            className="fa fa-minus"
+            aria-hidden="true"
+          ></i>
+        ),
+        accessor: "mmRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
+      },
+      {
+        Header: (
+          <i
+            style={{ color: "red" }}
+            className="fa fa-times"
+            aria-hidden="true"
+          ></i>
+        ),
+        accessor: "cmRate",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
+      },
+      {
+        Header: <span style={{ textDecoration: "overline" }}>time</span>,
+        accessor: "avgTime",
+        aggregate: "average",
+        Cell: ({ value }) => displayDur(value),
+        Aggregated: ({ value }) => displayDur(value),
+        sortType: "number",
+      },
+      {
+        Header: "TPS",
+        accessor: "tps",
+        aggregate: "average",
+        Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
+      },
+      {
+        Header: "# Solves",
+        accessor: "numSolves",
+        aggregate: "sum",
+        Aggregated: ({ value }) => value,
+        sortType: "number",
+      },
       // {
       //   Header: "Status",
       //   accessor: "status",
