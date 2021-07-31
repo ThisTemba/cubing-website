@@ -45,11 +45,10 @@ export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
 };
 
 const calculateRates = (caseSolves, numSolves) => {
-  let hRate = caseSolves.filter((s) => s.hesitated === true);
-  let mmRate = caseSolves.filter((s) => s.mistakes === 1);
-  let cmRate = caseSolves.filter((s) => s.mistakes === 2);
-  hRate = hRate.length / numSolves;
-  mmRate = mmRate.length / numSolves;
-  cmRate = cmRate.length / numSolves;
+  const cSs = caseSolves;
+  const n = numSolves;
+  let hRate = cSs.filter((s) => s.hesitated === true).length / n;
+  let mmRate = cSs.filter((s) => s.mistakes === 1).length / n;
+  let cmRate = cSs.filter((s) => s.mistakes === 2).length / n;
   return { hRate, mmRate, cmRate };
 };
