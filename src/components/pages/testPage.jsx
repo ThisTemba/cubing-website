@@ -130,7 +130,6 @@ export default function TestPage(props) {
     props.onDashboard();
     console.table("solves", solves);
     console.log("caseSetDetails", caseSetDetails);
-
     const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
     writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
   };
