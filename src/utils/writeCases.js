@@ -1,5 +1,5 @@
-import { db } from "../fire";
 import _ from "lodash";
+import { db } from "../fire";
 import { prepareCaseData } from "./caseStats";
 
 const getCaseDocRef = (user, caseSetDetails, caseId) => {
