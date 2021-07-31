@@ -5,25 +5,33 @@ const CASE_SOLVES_STAT_CAP = 3;
 
 export const prepareCaseData = (newSolves, oldDoc) => {
   const numSolves = getNumSolves(newSolves, oldDoc);
-  const recentCaseSolves = getRecentCaseSolves(newSolves, oldDoc);
-  const caseStats = getCaseStats(recentCaseSolves, numSolves);
+  const recentCaseSolves = getRecentCaseSolves(
+    newSolves,
+    oldDoc,
+    CASE_SOLVES_CAP
+  );
+  const caseStats = getCaseStats(
+    recentCaseSolves,
+    numSolves,
+    CASE_SOLVES_STAT_CAP
+  );
   return { caseStats, recentCaseSolves };
 };
 
-const getNumSolves = (newSolves, oldDoc) => {
+export const getNumSolves = (newSolves, oldDoc) => {
   let numSolves = newSolves.length;
   numSolves += oldDoc.exists ? oldDoc.data().caseStats.numSolves : 0;
   return numSolves;
 };
 
-const getRecentCaseSolves = (newSolves, oldDoc) => {
+export const getRecentCaseSolves = (newSolves, oldDoc, num) => {
   const oldSolves = oldDoc.exists ? oldDoc.data().recentCaseSolves : [];
   const allSolves = [...newSolves, ...oldSolves];
-  return _.take(allSolves, CASE_SOLVES_CAP);
+  return _.take(allSolves, num);
 };
 
-const getCaseStats = (recentCaseSolves, numSolves) => {
-  const statCaseSolves = _.take(recentCaseSolves, CASE_SOLVES_STAT_CAP);
+export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
+  const statCaseSolves = _.take(recentCaseSolves, statsCap);
   const numStatSolves = statCaseSolves.length;
   let hRate = statCaseSolves.filter((s) => s.hesitated === true);
   let mmRate = statCaseSolves.filter((s) => s.mistakes === 1);
