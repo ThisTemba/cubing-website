@@ -22,7 +22,7 @@ export default function TestPage(props) {
       caseId: c.id,
       dur: solve.dur,
       hesitated: false,
-      mistakes: null,
+      mistakes: 0,
       caseName: c.name,
       alg: c.algs[0],
       dateTime: solve.dateTime,
