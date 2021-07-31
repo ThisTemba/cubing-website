@@ -16,6 +16,7 @@ function CaseSetDashboard(props) {
     "selectedCaseSetId",
     null
   );
+
   const caseSets = [
     eollCaseSet,
     ocllCaseSet,
@@ -29,6 +30,7 @@ function CaseSetDashboard(props) {
 
   useEffect(() => {
     props.setSelectedCases(selectedCases);
+    props.setCaseSetDetails(selectedCaseSet.details);
   }, [selectedCases]);
 
   const { onTest, onLearn } = props;

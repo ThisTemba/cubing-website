@@ -8,9 +8,7 @@ import LearnPage from "./learnPage";
 export default function TrainPage(props) {
   const [selectedCases, setSelectedCases] = useState();
   const [displayDashboard, setDisplayDashboard] = useState(true);
-  const handleNewSelection = (params) => {
-    setSelectedCases(params);
-  };
+  const [caseSetDetails, setCaseSetDetails] = useState();
   const handleTest = (params) => {
     console.log(params, "train");
     props.history.push("/train/test");
@@ -24,13 +22,15 @@ export default function TrainPage(props) {
 
   useEffect(() => {
     // console.table(selectedCases);
+    // console.log(caseSetDetails);
   }, [selectedCases]);
 
   return (
     <Container>
       {displayDashboard && (
         <CaseSetDashboard
-          setSelectedCases={handleNewSelection}
+          setSelectedCases={setSelectedCases}
+          setCaseSetDetails={setCaseSetDetails}
           onTest={handleTest}
           onLearn={handleLearn}
         />
@@ -47,6 +47,7 @@ export default function TrainPage(props) {
             <TestPage
               onDashboard={() => setDisplayDashboard(true)}
               selectedCases={selectedCases}
+              caseSetDetails={caseSetDetails}
               {...props}
             />
           )}
