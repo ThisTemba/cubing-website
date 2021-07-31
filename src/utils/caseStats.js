@@ -20,13 +20,22 @@ export const prepareCaseData = (solves, caseId, oldDoc) => {
 
   // num case solves to calculate stats from: CASE_SOLVES_STAT_CAP
   let statCaseSolves = _.take(recentCaseSolves, CASE_SOLVES_STAT_CAP);
-  let hRate = statCaseSolves.filter((s) => s.hesitated === true);
-  let mmRate = statCaseSolves.filter((s) => s.mistakes === 1);
-  let cmRate = statCaseSolves.filter((s) => s.mistakes === 2);
-  hRate = hRate.length / statCaseSolves.length;
-  mmRate = mmRate.length / statCaseSolves.length;
-  cmRate = cmRate.length / statCaseSolves.length;
-  const avgTime = _.mean(statCaseSolves.map((s) => s.dur));
+  const caseStats = getCaseStats(statCaseSolves, numSolves);
+
+  const data = { caseStats, recentCaseSolves };
+  console.log("preparedData", data);
+
+  return data;
+};
+
+const getCaseStats = (caseSolves, numSolves) => {
+  let hRate = caseSolves.filter((s) => s.hesitated === true);
+  let mmRate = caseSolves.filter((s) => s.mistakes === 1);
+  let cmRate = caseSolves.filter((s) => s.mistakes === 2);
+  hRate = hRate.length / caseSolves.length;
+  mmRate = mmRate.length / caseSolves.length;
+  cmRate = cmRate.length / caseSolves.length;
+  const avgTime = _.mean(caseSolves.map((s) => s.dur));
   const caseStats = {
     numSolves,
     hRate,
@@ -34,9 +43,5 @@ export const prepareCaseData = (solves, caseId, oldDoc) => {
     cmRate,
     avgTime,
   };
-
-  const data = { caseStats, recentCaseSolves };
-  console.log("preparedData", data);
-
-  return data;
+  return caseStats;
 };
