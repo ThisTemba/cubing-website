@@ -71,8 +71,8 @@ describe("isValidMove", () => {
   it("returns a boolean", () => {
     expect(typeof isValidMove("")).toBe("boolean");
   });
-  it("returns false if input is more than 2 chars", () => {
-    expect(isValidMove("R'c")).toBeFalsy();
+  it("returns false if input is more than 3 chars", () => {
+    expect(isValidMove("U2'R")).toBeFalsy();
   });
   it("returns false if first character of input is not in validMoves", () => {
     expect(isValidMove("P")).toBeFalsy();
@@ -82,12 +82,23 @@ describe("isValidMove", () => {
       expect(isValidMove("x`")).toBeFalsy();
     });
   });
+  describe("input has three characters", () => {
+    it("returns false if third character is not in modifiers", () => {
+      expect(isValidMove("U2`")).toBeFalsy();
+    });
+    it("returns false if modifiers are equal", () => {
+      expect(isValidMove("U22")).toBeFalsy();
+    });
+  });
   it("returns true otherwise", () => {
     const validMove = _.sample(validMoves);
     expect(isValidMove(validMove)).toBeTruthy();
 
-    const validModifiedMove = validMove + _.sample(modifiers);
-    expect(isValidMove(validModifiedMove)).toBeTruthy();
+    const validModifiedMove2 = validMove + _.sample(modifiers);
+    expect(isValidMove(validModifiedMove2)).toBeTruthy();
+
+    const validModifiedMove3 = validModifiedMove2 + _.sample(modifiers);
+    expect(isValidMove(validModifiedMove3)).toBeTruthy();
   });
 });
 

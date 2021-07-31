@@ -75,10 +75,14 @@ export const isValidAlg = (alg) => {
 };
 
 export const isValidMove = (move) => {
-  if (move.length > 2) return false;
+  if (move.length > 3) return false;
   if (!validMoves.includes(move[0])) return false;
   if (move.length === 2) {
     if (!modifiers.includes(move[1])) return false;
+  }
+  if (move.length === 3) {
+    if (!modifiers.includes(move[2])) return false;
+    if (move[1] === move[2]) return false;
   }
   return true;
 };
