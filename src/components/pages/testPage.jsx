@@ -128,14 +128,42 @@ export default function TestPage(props) {
     document.activeElement.blur();
   };
 
-  const prepareCaseData = (caseId) => {
-    let cSs = _.filter(solves, ["caseId", caseId]);
-    const numSolves = cSs.length;
-    const hRate = cSs.filter((s) => s.hesitated === true).length / numSolves;
-    const mmRate = cSs.filter((s) => s.mistakes === 1).length / numSolves;
-    const cmRate = cSs.filter((s) => s.mistakes === 2).length / numSolves;
-    const avgTime = _.mean(cSs.map((s) => s.dur));
-    return { numSolves, hRate, mmRate, cmRate, avgTime, caseSolves: cSs };
+  const prepareCaseData = (caseId, oldDoc) => {
+    let newSolves = _.filter(solves, ["caseId", caseId]);
+
+    let oldSolves = [];
+    let numSolves = newSolves.length;
+
+    if (oldDoc.exists) {
+      oldSolves = oldDoc.data().recentCaseSolves;
+      numSolves += oldDoc.data().caseStats.numSolves;
+    }
+    let allSolves = [...newSolves, ...oldSolves];
+
+    // num case solves to store: CASE_SOLVES_CAP
+    let recentCaseSolves = _.take(allSolves, CASE_SOLVES_CAP);
+
+    // num case solves to calculate stats from: CASE_SOLVES_STAT_CAP
+    let statCaseSolves = _.take(recentCaseSolves, CASE_SOLVES_STAT_CAP);
+    let hRate = statCaseSolves.filter((s) => s.hesitated === true);
+    let mmRate = statCaseSolves.filter((s) => s.mistakes === 1);
+    let cmRate = statCaseSolves.filter((s) => s.mistakes === 2);
+    hRate = hRate.length / statCaseSolves.length;
+    mmRate = mmRate.length / statCaseSolves.length;
+    cmRate = cmRate.length / statCaseSolves.length;
+    const avgTime = _.mean(statCaseSolves.map((s) => s.dur));
+    const caseStats = {
+      numSolves,
+      hRate,
+      mmRate,
+      cmRate,
+      avgTime,
+    };
+
+    const data = { caseStats, recentCaseSolves };
+    console.log("preparedData", data);
+
+    return data;
   };
 
   const writeCaseToFirebase = (caseId, data) => {
@@ -177,14 +205,15 @@ export default function TestPage(props) {
   const handleBackToDash = () => {
     props.history.push("/train");
     props.onDashboard();
-    console.table(solves);
-    console.log(caseSetDetails);
+    console.table("solves", solves);
+    console.log("caseSetDetails", caseSetDetails);
 
     const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
-    caseIds.map((caseId) => {
-      const data = prepareCaseData(caseId);
-      writeCaseToFirebase(caseId, data);
-    });
+    writeCasesToFirebase(caseIds);
+
+    // after updating cases data
+    // update caseSet doc with high level stats
+    // this will be used for the fancy table
   };
 
   return (
