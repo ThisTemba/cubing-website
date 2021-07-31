@@ -1,7 +1,7 @@
 import _ from "lodash";
 
-const CASE_SOLVES_CAP = 10;
-const CASE_SOLVES_STAT_CAP = 3;
+const CASE_SOLVES_CAP = 100;
+const CASE_SOLVES_STAT_CAP = 20;
 
 export const prepareCaseData = (newSolves, oldDoc) => {
   let CSC = CASE_SOLVES_CAP;
