@@ -102,7 +102,7 @@ export default function TestPage(props) {
     document.activeElement.blur();
   };
 
-  const handleToggleHesitation = (dateTime) => {
+  const handleToggleHesitation = () => {
     const newSolves = [...solves];
     newSolves[0].hesitated = !newSolves[0].hesitated;
     setSolves(newSolves);
