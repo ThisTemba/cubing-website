@@ -2,7 +2,7 @@ import { db } from "../fire";
 import _ from "lodash";
 import { prepareCaseData } from "./caseStats";
 
-const getCaseDocRef = (caseId, user, caseSetDetails) => {
+const getCaseDocRef = (user, caseSetDetails, caseId) => {
   return db
     .collection("users")
     .doc(user.uid)
@@ -21,7 +21,7 @@ const writeCaseToFirebase = (docRef, data) => {
 
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
   caseIds.map((caseId) => {
-    const docRef = getCaseDocRef(caseId, user, caseSetDetails);
+    const docRef = getCaseDocRef(user, caseSetDetails, caseId);
     docRef
       .get()
       .then((oldDoc) => {
