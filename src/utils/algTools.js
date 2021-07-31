@@ -82,3 +82,12 @@ export const isValidMove = (move) => {
   }
   return true;
 };
+
+export const getSTM = (alg) => {
+  if (!isValidAlg(alg)) throw new Error("alg is not valid");
+  let inter = alg.replace(/'/g, "");
+  inter = inter.replace(/2/g, "");
+  const rawMoves = inter.split(" ");
+  const nonRotMoves = _.difference(rawMoves, cubeRotations);
+  return nonRotMoves.length;
+};

@@ -5,6 +5,7 @@ import {
   isValidAlg,
   invertAlg,
   toFaceMoves,
+  getSTM,
 } from "./algTools";
 import _, { curry } from "lodash";
 
@@ -87,5 +88,19 @@ describe("isValidMove", () => {
 
     const validModifiedMove = validMove + _.sample(modifiers);
     expect(isValidMove(validModifiedMove)).toBeTruthy();
+  });
+});
+
+describe("getSTM", () => {
+  it("throws error is alg is not valid", () => {
+    expect(() => getSTM(1)).toThrowError();
+  });
+  it("works on a few examples", () => {
+    expect(getSTM("R U R' R'")).toBe(4);
+    expect(getSTM("R U R' R' E M S")).toBe(7);
+    expect(getSTM("R U x R' R'")).toBe(4);
+    expect(getSTM("R U R' x' R'")).toBe(4);
+    expect(getSTM("R U2 R' R'")).toBe(4);
+    expect(getSTM("R U2 R' R'")).toBe(4);
   });
 });
