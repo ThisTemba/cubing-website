@@ -176,7 +176,7 @@ export default function CaseSetTable(props) {
       },
       {
         Header: "TPS",
-        accessor: "tps",
+        accessor: "avgTPS",
         aggregate: "average",
         Cell: ({ value }) => _.round(value, 2),
         Aggregated: ({ value }) => _.round(value, 2),
