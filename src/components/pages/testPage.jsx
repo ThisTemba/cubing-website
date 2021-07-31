@@ -100,7 +100,6 @@ export default function TestPage(props) {
     newSolves[0].mistakes = mistakes;
     setSolves(newSolves);
     document.activeElement.blur();
-    // dehover buttons after clicking
   };
 
   const handleToggleHesitation = (dateTime) => {
