@@ -24,6 +24,15 @@ export const getRecentCaseSolves = (newSolves, oldDoc, num) => {
   return _.take(allSolves, num);
 };
 
+const calculateRates = (caseSolves, numSolves) => {
+  const cSs = caseSolves;
+  const n = numSolves;
+  let hRate = cSs.filter((s) => s.hesitated === true).length / n;
+  let mmRate = cSs.filter((s) => s.mistakes === 1).length / n;
+  let cmRate = cSs.filter((s) => s.mistakes === 2).length / n;
+  return { hRate, mmRate, cmRate };
+};
+
 export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
   const statCaseSolves = _.take(recentCaseSolves, statsCap);
   const numStatSolves = statCaseSolves.length;
@@ -36,13 +45,4 @@ export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
     numStatSolves,
   };
   return caseStats;
-};
-
-const calculateRates = (caseSolves, numSolves) => {
-  const cSs = caseSolves;
-  const n = numSolves;
-  let hRate = cSs.filter((s) => s.hesitated === true).length / n;
-  let mmRate = cSs.filter((s) => s.mistakes === 1).length / n;
-  let cmRate = cSs.filter((s) => s.mistakes === 2).length / n;
-  return { hRate, mmRate, cmRate };
 };
