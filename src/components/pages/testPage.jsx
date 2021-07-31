@@ -28,20 +28,19 @@ export default function TestPage(props) {
 
   const getRandomScramble = (c) => _.sample(c.scrambles);
 
-  const handleNewCaseSolve = (solve, c, algSetDetails) => {
+  const handleNewCaseSolve = (solve, c) => {
     prepareNextCase();
-
-    const { dateTime, dur } = solve;
 
     solve = {
       caseId: c.id,
-      dur,
+      dur: solve.dur,
       hesitated: false,
       mistakes: null,
       caseName: c.name,
       alg: c.algs[0],
-      dateTime,
+      dateTime: solve.dateTime,
     };
+    // latest solve at the top
     setSolves([solve, ...solves]);
   };
 
@@ -153,7 +152,7 @@ export default function TestPage(props) {
         <Col></Col>
       </Row>
       <Timer
-        onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase, null)}
+        onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
         scramble={currentScramble}
         armingTime={100}
       />
