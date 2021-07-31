@@ -13,10 +13,12 @@ const eollCaseSet = {
       algs: ["f R U R' U' f'"],
       group: "",
       scrambles: [
-        "F U R U' R' F' U F2 R2 L2 F2 B2 R2 L2 B2",
-        "R B2 U' L U' L B R B' L2 B2 R2 U B2 U B2 U B2 U' B2",
-        "R U' B' R' U' B' R2 U B R2 B2 U' B2 R2 B2 U' B2 U2",
-        "B U L U' L' B R2 L2 F2 D F2 R2 L2 B2 U",
+        "R2 U B' D R D' R' B U' R2 U F2 D' F2 D R2 U' R2 U'",
+        "R F D B2 R D2 F U' L' U D F2 R2 U' F2 D B2 D' F2 U2",
+        "R B2 D' B D B R U F2 U' R2 B2 D B2 U2 R2 F2 R2 U'",
+        "R' F R U' R2 F' D' F D R2 F2 U2 F2 U' F2 U' F2",
+        "R' D' L2 D2 F D' F' R F2 R2 U' L2 F2 L2 D B2 U F2 D'",
+        "L F2 R2 F L F2 R2 F R2 U F2 L2 B2 D B2",
       ],
     },
     {
