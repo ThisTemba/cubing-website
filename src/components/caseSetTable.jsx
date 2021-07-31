@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import _ from "lodash";
 import {
@@ -12,11 +12,41 @@ import MOCK_DATA from "../data/MOCK_DATA.json";
 import { CaseImage } from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
+import { useAuthState, db } from "../fire";
+import { displayDur } from "../utils/formatTime";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
-  const data = useMemo(() => caseSet.cases, []);
+  // const data = useMemo(() => caseSet.cases, []);
+  const [data, setData] = useState(caseSet.cases);
+  const user = useAuthState();
   // const data = useMemo(() => MOCK_DATA, []);
+
+  useEffect(() => {
+    let unsubscribe = () => {};
+    if (user) {
+      unsubscribe = db
+        .collection("users")
+        .doc(user.uid)
+        .collection("caseSets")
+        .doc(caseSet.details.id)
+        .collection("cases")
+        .onSnapshot((doc) => {
+          const caseStatData = doc.docs.map((d) => {
+            return { caseId: d.id, caseStats: d.data().caseStats };
+          });
+          console.table(caseStatData);
+          console.table(data);
+          const combined = data.map((c) => {
+            const caseStats = _.find(caseStatData, ["caseId", c.id]).caseStats;
+            return { ...c, ...caseStats };
+          });
+          console.table(combined);
+          setData(combined);
+        });
+    }
+    return unsubscribe;
+  }, [user]);
 
   const defaultColumn = useMemo(() => {
     return {
