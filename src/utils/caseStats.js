@@ -5,17 +5,13 @@ const CASE_SOLVES_STAT_CAP = 3;
 
 export const prepareCaseData = (solves, caseId, oldDoc) => {
   let newSolves = _.filter(solves, ["caseId", caseId]);
-
   let oldSolves = [];
   let numSolves = newSolves.length;
-
   if (oldDoc.exists) {
     oldSolves = oldDoc.data().recentCaseSolves;
     numSolves += oldDoc.data().caseStats.numSolves;
   }
   let allSolves = [...newSolves, ...oldSolves];
-
-  // num case solves to store: CASE_SOLVES_CAP
   let recentCaseSolves = _.take(allSolves, CASE_SOLVES_CAP);
 
   // num case solves to calculate stats from: CASE_SOLVES_STAT_CAP
