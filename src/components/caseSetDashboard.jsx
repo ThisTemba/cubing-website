@@ -30,7 +30,9 @@ function CaseSetDashboard(props) {
 
   useEffect(() => {
     props.setSelectedCases(selectedCases);
-    props.setCaseSetDetails(selectedCaseSet.details);
+    if (selectedCaseSet !== undefined) {
+      props.setCaseSetDetails(selectedCaseSet.details);
+    }
   }, [selectedCases]);
 
   const { onTest, onLearn } = props;
