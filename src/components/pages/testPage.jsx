@@ -6,12 +6,15 @@ import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
 import ButtonGroupToggle from "../common/buttonGroupToggle";
 import { displayDur } from "../../utils/formatTime";
+import { db } from "../../fire";
+import { useAuthState } from "../../fire";
 
 export default function TestPage(props) {
-  const { selectedCases } = props;
+  const { selectedCases, caseSetDetails } = props;
   const [currentCase, setCurrentCase] = useState(selectedCases[0]);
   const [currentScramble, setCurrentScramble] = useState("");
   const [solves, setSolves] = useState([]);
+  const user = useAuthState();
 
   useEffect(() => {
     setCurrentScramble(getRandomScramble(selectedCases[0]));
@@ -122,15 +125,42 @@ export default function TestPage(props) {
     document.activeElement.blur();
   };
 
+  const writeCaseToFirebase = (cas, data) => {
+    const { caseId } = cas;
+    const caseSetId = caseSetDetails.id;
+    db.collection("users")
+      .doc(user.uid)
+      .collection("caseSets")
+      .doc(caseSetId)
+      .collection("cases")
+      .doc(caseId)
+      .set(data)
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  };
+
+  const handleBackToDash = () => {
+    props.history.push("/train");
+    props.onDashboard();
+    console.table(solves);
+    console.log(caseSetDetails);
+    writeCaseToFirebase(solves[0], {
+      name: "Las Angeles",
+      state: "CA",
+      country: "USA",
+    });
+  };
+
   return (
     <Container>
       <Row>
         <Col>
           <Button
-            onClick={() => {
-              props.history.push("/train");
-              props.onDashboard();
-            }}
+            onClick={handleBackToDash}
             variant="secondary"
             className="m-1"
           >
