@@ -149,6 +149,20 @@ export default function TestPage(props) {
       });
   };
 
+  const writeCasesToFirebase = (caseIds) => {
+    caseIds.map((caseId) => {
+      getCaseDocRef(caseId)
+        .get()
+        .then((oldDoc) => {
+          const data = prepareCaseData(caseId, oldDoc);
+          writeCaseToFirebase(caseId, data);
+        })
+        .catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    });
+  };
+
   const getCaseDocRef = (caseId) => {
     const caseSetId = caseSetDetails.id;
     return db
