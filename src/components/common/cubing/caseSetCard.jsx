@@ -34,7 +34,7 @@ export default function CaseSetCard(props) {
               <Col className="d-flex align-items-center justify-content-center">
                 <h3>
                   {" " + details.name + " "}
-                  <i class="fa fa-caret-right" aria-hidden="true"></i>
+                  <i className="fa fa-caret-right" aria-hidden="true"></i>
                 </h3>
               </Col>
               <Col>
