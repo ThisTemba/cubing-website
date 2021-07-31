@@ -124,17 +124,25 @@ export default function TestPage(props) {
 
   return (
     <Container>
-      <Button
-        onClick={() => {
-          props.history.push("/train");
-          props.onDashboard();
-        }}
-        variant="secondary"
-        className="m-1"
-      >
-        <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
-        Dashboard
-      </Button>
+      <Row>
+        <Col>
+          <Button
+            onClick={() => {
+              props.history.push("/train");
+              props.onDashboard();
+            }}
+            variant="secondary"
+            className="m-1"
+          >
+            <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
+            Dashboard
+          </Button>
+        </Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+      </Row>
       <Timer
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase, null)}
         scramble={currentScramble}

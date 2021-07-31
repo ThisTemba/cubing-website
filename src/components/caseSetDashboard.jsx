@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
 import eollCaseSet from "../data/eollCaseSet";
@@ -40,30 +40,38 @@ function CaseSetDashboard(props) {
       )}
       {selectedCaseSetId && (
         <div>
-          <Button
-            onClick={() => setSelectedCaseSetId(null)}
-            className="m-1"
-            variant="secondary"
-          >
-            <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
-            CaseSet Selection
-          </Button>
-          <Button
-            onClick={onLearn}
-            className="m-1"
-            variant="info"
-            disabled={selectedCases.length === 0}
-          >
-            Learn <i className="fa fa-chevron-right" aria-hidden="true"></i>
-          </Button>
-          <Button
-            onClick={onTest}
-            className="m-1"
-            variant="success"
-            disabled={selectedCases.length === 0}
-          >
-            Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
-          </Button>
+          <Row>
+            <Col>
+              <Button
+                onClick={() => setSelectedCaseSetId(null)}
+                className="m-1"
+                variant="secondary"
+              >
+                <i className="fa fa-chevron-left" aria-hidden="true"></i> Back
+                to CaseSet Selection
+              </Button>
+            </Col>
+            <Col></Col>
+            <Col></Col>
+            <Col>
+              <Button
+                onClick={onLearn}
+                className="m-1"
+                variant="info"
+                disabled={selectedCases.length === 0}
+              >
+                Learn <i className="fa fa-chevron-right" aria-hidden="true"></i>
+              </Button>
+              <Button
+                onClick={onTest}
+                className="m-1"
+                variant="success"
+                disabled={selectedCases.length === 0}
+              >
+                Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
+              </Button>
+            </Col>
+          </Row>
 
           <CaseSetTable
             caseSet={selectedCaseSet}
