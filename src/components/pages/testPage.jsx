@@ -12,24 +12,11 @@ import { writeCasesToFirebase } from "../../utils/writeCases";
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
   const [currentCase, setCurrentCase] = useState(selectedCases[0]);
-  const [currentScramble, setCurrentScramble] = useState("");
   const [solves, setSolves] = useState([]);
   const user = useAuthState();
 
-  useEffect(() => {
-    setCurrentScramble(getRandomScramble(selectedCases[0]));
-  }, []);
-
-  const prepareNextCase = () => {
-    let currentCase = _.sample(selectedCases);
-    setCurrentCase(currentCase);
-    setCurrentScramble(getRandomScramble(currentCase));
-  };
-
-  const getRandomScramble = (c) => _.sample(c.scrambles);
-
   const handleNewCaseSolve = (solve, c) => {
-    prepareNextCase();
+    setCurrentCase(_.sample(selectedCases));
 
     solve = {
       caseId: c.id,
@@ -153,7 +140,7 @@ export default function TestPage(props) {
       </Row>
       <Timer
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
-        scramble={currentScramble}
+        scramble={_.sample(currentCase.scrambles)}
         armingTime={100}
       />
       {solves.length > 0 && (
