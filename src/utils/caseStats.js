@@ -4,17 +4,11 @@ const CASE_SOLVES_CAP = 10;
 const CASE_SOLVES_STAT_CAP = 3;
 
 export const prepareCaseData = (newSolves, oldDoc) => {
+  let CSC = CASE_SOLVES_CAP;
+  let CSSC = CASE_SOLVES_STAT_CAP;
   const numSolves = getNumSolves(newSolves, oldDoc);
-  const recentCaseSolves = getRecentCaseSolves(
-    newSolves,
-    oldDoc,
-    CASE_SOLVES_CAP
-  );
-  const caseStats = getCaseStats(
-    recentCaseSolves,
-    numSolves,
-    CASE_SOLVES_STAT_CAP
-  );
+  const recentCaseSolves = getRecentCaseSolves(newSolves, oldDoc, CSC);
+  const caseStats = getCaseStats(recentCaseSolves, numSolves, CSSC);
   return { caseStats, recentCaseSolves };
 };
 
