@@ -7,11 +7,7 @@ export const prepareCaseData = (newSolves, oldDoc) => {
   const numSolves = getNumSolves(newSolves, oldDoc);
   const recentCaseSolves = getRecentCaseSolves(newSolves, oldDoc);
   const caseStats = getCaseStats(recentCaseSolves, numSolves);
-
-  const data = { caseStats, recentCaseSolves };
-  console.log("preparedData", data);
-
-  return data;
+  return { caseStats, recentCaseSolves };
 };
 
 const getNumSolves = (newSolves, oldDoc) => {
