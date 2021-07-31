@@ -24,6 +24,18 @@ export const prepareCaseData = (solves, caseId, oldDoc) => {
   return data;
 };
 
+const getNumSolves = (newSolves, oldDoc) => {
+  let numSolves = newSolves.length;
+  numSolves += oldDoc.exists ? oldDoc.data().caseStats.numSolves : 0;
+  return numSolves;
+};
+
+const getRecentCaseSolves = (newSolves, oldDoc) => {
+  const oldSolves = oldDoc.exists ? oldDoc.data().recentCaseSolves : [];
+  const allSolves = [...newSolves, ...oldSolves];
+  return _.take(allSolves, CASE_SOLVES_CAP);
+};
+
 const getCaseStats = (caseSolves, numSolves) => {
   const numStatSolves = caseSolves.length;
   let hRate = caseSolves.filter((s) => s.hesitated === true);
