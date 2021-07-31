@@ -8,6 +8,7 @@ import ButtonGroupToggle from "../common/buttonGroupToggle";
 import { displayDur } from "../../utils/formatTime";
 import { useAuthState } from "../../fire";
 import { writeCasesToFirebase } from "../../utils/writeCases";
+import { getSTM } from "../../utils/algTools";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -24,6 +25,7 @@ export default function TestPage(props) {
       hesitated: false,
       mistakes: 0,
       caseName: c.name,
+      tps: getSTM(c.algs[0]) / solve.dur,
       alg: c.algs[0],
       dateTime: solve.dateTime,
     };
