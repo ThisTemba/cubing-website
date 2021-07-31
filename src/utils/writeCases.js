@@ -3,12 +3,11 @@ import _ from "lodash";
 import { prepareCaseData } from "./caseStats";
 
 const getCaseDocRef = (caseId, user, caseSetDetails) => {
-  const caseSetId = caseSetDetails.id;
   return db
     .collection("users")
     .doc(user.uid)
     .collection("caseSets")
-    .doc(caseSetId)
+    .doc(caseSetDetails.id)
     .collection("cases")
     .doc(caseId);
 };
@@ -16,12 +15,8 @@ const getCaseDocRef = (caseId, user, caseSetDetails) => {
 const writeCaseToFirebase = (docRef, data) => {
   docRef
     .set(data)
-    .then(() => {
-      console.log("Document successfully written!");
-    })
-    .catch((error) => {
-      console.error("Error writing document: ", error);
-    });
+    .then(() => console.log("Document successfully written!"))
+    .catch((error) => console.error("Error writing document: ", error));
 };
 
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
