@@ -81,12 +81,11 @@ export default function TestPage(props) {
   );
 
   let mistakesButtons = [
-    { sym: "check", id: 0, color: "success" },
-    { sym: "minus", id: 1, color: "warning" },
-    { sym: "times", id: 2, color: "danger" },
-  ];
-  mistakesButtons = mistakesButtons.map((b) => {
-    return { ...b, content: <i className={`fa fa-${b.sym}`}></i> };
+    { symbol: "check", id: 0, color: "success" },
+    { symbol: "minus", id: 1, color: "warning" },
+    { symbol: "times", id: 2, color: "danger" },
+  ].map((b) => {
+    return { ...b, content: <i className={`fa fa-${b.symbol}`}></i> };
   });
 
   const hesitationButton = [
