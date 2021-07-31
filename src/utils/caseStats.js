@@ -38,10 +38,12 @@ export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
   const numStatSolves = statCaseSolves.length;
   const rates = calculateRates(statCaseSolves, numStatSolves);
   const avgTime = _.mean(statCaseSolves.map((s) => s.dur));
+  const avgTPS = _.mean(statCaseSolves.map((s) => s.tps));
   const caseStats = {
     numSolves,
     ...rates,
     avgTime,
+    avgTPS,
     numStatSolves,
   };
   return caseStats;
