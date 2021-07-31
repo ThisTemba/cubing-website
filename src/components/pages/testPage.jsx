@@ -9,7 +9,8 @@ import { displayDur } from "../../utils/formatTime";
 import { db } from "../../fire";
 import { useAuthState } from "../../fire";
 
-const CASE_SOLVES_CAP = 3;
+const CASE_SOLVES_CAP = 10;
+const CASE_SOLVES_STAT_CAP = 3;
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
