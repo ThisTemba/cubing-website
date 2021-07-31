@@ -6,9 +6,8 @@ import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
 import ButtonGroupToggle from "../common/buttonGroupToggle";
 import { displayDur } from "../../utils/formatTime";
-import { db } from "../../fire";
 import { useAuthState } from "../../fire";
-import { prepareCaseData } from "../../utils/caseStats";
+import { writeCasesToFirebase } from "../../utils/writeCases";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -126,43 +125,6 @@ export default function TestPage(props) {
     document.activeElement.blur();
   };
 
-  const writeCaseToFirebase = (caseId, data) => {
-    getCaseDocRef(caseId)
-      .set(data)
-      .then(() => {
-        console.log("Document successfully written!");
-      })
-      .catch((error) => {
-        console.error("Error writing document: ", error);
-      });
-  };
-
-  const writeCasesToFirebase = (caseIds) => {
-    caseIds.map((caseId) => {
-      getCaseDocRef(caseId)
-        .get()
-        .then((oldDoc) => {
-          const newSolves = _.filter(solves, ["caseId", caseId]);
-          const data = prepareCaseData(newSolves, oldDoc);
-          writeCaseToFirebase(caseId, data);
-        })
-        .catch((error) => {
-          console.log("Error getting document:", error);
-        });
-    });
-  };
-
-  const getCaseDocRef = (caseId) => {
-    const caseSetId = caseSetDetails.id;
-    return db
-      .collection("users")
-      .doc(user.uid)
-      .collection("caseSets")
-      .doc(caseSetId)
-      .collection("cases")
-      .doc(caseId);
-  };
-
   const handleBackToDash = () => {
     props.history.push("/train");
     props.onDashboard();
@@ -170,7 +132,7 @@ export default function TestPage(props) {
     console.log("caseSetDetails", caseSetDetails);
 
     const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
-    writeCasesToFirebase(caseIds);
+    writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
   };
 
   return (
