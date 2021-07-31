@@ -143,6 +143,17 @@ export default function TestPage(props) {
       });
   };
 
+  const getCaseDocRef = (caseId) => {
+    const caseSetId = caseSetDetails.id;
+    return db
+      .collection("users")
+      .doc(user.uid)
+      .collection("caseSets")
+      .doc(caseSetId)
+      .collection("cases")
+      .doc(caseId);
+  };
+
   const handleBackToDash = () => {
     props.history.push("/train");
     props.onDashboard();
