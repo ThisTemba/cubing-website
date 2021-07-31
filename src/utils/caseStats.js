@@ -29,12 +29,13 @@ export const prepareCaseData = (solves, caseId, oldDoc) => {
 };
 
 const getCaseStats = (caseSolves, numSolves) => {
+  const numStatSolves = caseSolves.length;
   let hRate = caseSolves.filter((s) => s.hesitated === true);
   let mmRate = caseSolves.filter((s) => s.mistakes === 1);
   let cmRate = caseSolves.filter((s) => s.mistakes === 2);
-  hRate = hRate.length / caseSolves.length;
-  mmRate = mmRate.length / caseSolves.length;
-  cmRate = cmRate.length / caseSolves.length;
+  hRate = hRate.length / numStatSolves;
+  mmRate = mmRate.length / numStatSolves;
+  cmRate = cmRate.length / numStatSolves;
   const avgTime = _.mean(caseSolves.map((s) => s.dur));
   const caseStats = {
     numSolves,
@@ -42,6 +43,7 @@ const getCaseStats = (caseSolves, numSolves) => {
     mmRate,
     cmRate,
     avgTime,
+    numStatSolves,
   };
   return caseStats;
 };
