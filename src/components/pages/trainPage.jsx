@@ -9,13 +9,11 @@ export default function TrainPage(props) {
   const [selectedCases, setSelectedCases] = useState();
   const [displayDashboard, setDisplayDashboard] = useState(true);
   const [caseSetDetails, setCaseSetDetails] = useState();
-  const handleTest = (params) => {
-    console.log(params, "train");
+  const handleTest = () => {
     props.history.push("/train/test");
     setDisplayDashboard(false);
   };
-  const handleLearn = (params) => {
-    console.log(params, "learn");
+  const handleLearn = () => {
     props.history.push("/train/learn");
     setDisplayDashboard(false);
   };
