@@ -125,15 +125,18 @@ export default function TestPage(props) {
     document.activeElement.blur();
   };
 
-  const writeCaseToFirebase = (cas, data) => {
-    const { caseId } = cas;
-    const caseSetId = caseSetDetails.id;
-    db.collection("users")
-      .doc(user.uid)
-      .collection("caseSets")
-      .doc(caseSetId)
-      .collection("cases")
-      .doc(caseId)
+  const prepareCaseData = (caseId) => {
+    let cSs = _.filter(solves, ["caseId", caseId]);
+    const numSolves = cSs.length;
+    const hRate = cSs.filter((s) => s.hesitated === true).length / numSolves;
+    const mmRate = cSs.filter((s) => s.mistakes === 1).length / numSolves;
+    const cmRate = cSs.filter((s) => s.mistakes === 2).length / numSolves;
+    const avgTime = _.mean(cSs.map((s) => s.dur));
+    return { numSolves, hRate, mmRate, cmRate, avgTime, caseSolves: cSs };
+  };
+
+  const writeCaseToFirebase = (caseId, data) => {
+    getCaseDocRef(caseId)
       .set(data)
       .then(() => {
         console.log("Document successfully written!");
@@ -159,10 +162,11 @@ export default function TestPage(props) {
     props.onDashboard();
     console.table(solves);
     console.log(caseSetDetails);
-    writeCaseToFirebase(solves[0], {
-      name: "Las Angeles",
-      state: "CA",
-      country: "USA",
+
+    const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
+    caseIds.map((caseId) => {
+      const data = prepareCaseData(caseId);
+      writeCaseToFirebase(caseId, data);
     });
   };
 
