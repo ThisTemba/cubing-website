@@ -8,6 +8,7 @@ const ocllCaseSet = {
       prob: 2,
       scrambles: [
         "R U B2 R' B2 R2 U' R' U L2 F2 R2 U L2 U L2 U' F2 U' L2",
+        "R U B2 R' B2 R2 U' R' B2 R2 U2 R2 U F2 L2 D' L2 F2 U",
         "R U B2 R' B2 R2 U' R U R2 B2 L2 D2 B2 L2 U F2 U R2 F2",
         "R U B2 R' B2 R2 U' R' B2 L2 D2 L2 U L2 D R2 D R2 L2 U2",
       ],

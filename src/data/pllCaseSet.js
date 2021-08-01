@@ -82,7 +82,6 @@ const pllCaseSet = {
         "M2 U' M U2 M' U' M2",
         "R2 U R U R' U' R' U' R' U R'",
         "y2 R' U R' U' R' U' R' U R U R2",
-        "y2 R' U R' U' R3 U' R' U R U R2",
       ],
     },
     {
