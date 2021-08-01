@@ -8,7 +8,7 @@ import ButtonGroupToggle from "../common/buttonGroupToggle";
 import { displayDur } from "../../utils/formatTime";
 import { useAuthState } from "../../fire";
 import { writeCasesToFirebase } from "../../utils/writeCases";
-import { getSTM } from "../../utils/algTools";
+import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 
 export default function TestPage(props) {
@@ -133,6 +133,10 @@ export default function TestPage(props) {
     writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
   };
 
+  const getScramble = (currentCase) => {
+    return randomYRot(_.sample(currentCase.scrambles));
+  };
+
   return (
     <Container>
       <Row>
@@ -162,7 +166,7 @@ export default function TestPage(props) {
       </Row>
       <Timer
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
-        scramble={_.sample(currentCase.scrambles)}
+        scramble={getScramble(currentCase)}
         armingTime={100}
       />
       {solves.length > 0 && (
