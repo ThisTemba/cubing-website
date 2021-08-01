@@ -5,6 +5,7 @@ import ocllCaseSet from "./ocllCaseSet";
 import epllCaseSet from "./epllCaseSet";
 import cpllCaseSet from "./cpllCaseSet";
 import _ from "lodash";
+import { isValidAlg } from "../utils/algTools";
 
 const caseSets = [
   ollCaseSet,
@@ -45,15 +46,23 @@ caseSets.forEach((caseSet) => {
       });
     });
 
-    describe("random case", () => {
-      const cas = _.sample(caseSet.cases);
-      testForKeys(cas, caseKeys);
+    describe("cases", () => {
+      caseSet.cases.forEach((cas) => {
+        describe(cas.name, () => {
+          testForKeys(cas, caseKeys);
 
-      it("scrambles has at least four scrambles", () => {
-        expect(cas.scrambles.length >= 4).toBeTruthy();
-      });
-      it("algs isn't empty", () => {
-        expect(cas.algs.length > 0).toBeTruthy();
+          it("scrambles has at least four scrambles", () => {
+            expect(cas.scrambles.length >= 4).toBeTruthy();
+          });
+          it("algs isn't empty", () => {
+            expect(cas.algs.length > 0).toBeTruthy();
+          });
+          it("all algs are valid", () => {
+            cas.algs.forEach((alg) => {
+              expect(isValidAlg(alg)).toBeTruthy();
+            });
+          });
+        });
       });
     });
   });
