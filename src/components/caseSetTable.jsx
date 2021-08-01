@@ -185,7 +185,22 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
-        Header: "Alg Length",
+        Header: "TPS",
+        accessor: "avgTPS",
+        aggregate: "average",
+        Cell: ({ value }) => _.round(value, 2),
+        Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
+      },
+      {
+        Header: "# Solves",
+        accessor: "numSolves",
+        aggregate: "sum",
+        Aggregated: ({ value }) => value,
+        sortType: "number",
+      },
+      {
+        Header: "Alg Len",
         accessor: "algs[0]",
         Cell: ({ value }) => {
           let ret = null;
@@ -198,21 +213,6 @@ export default function CaseSetTable(props) {
           return ret;
         },
         aggregate: "average",
-        Aggregated: ({ value }) => value,
-        sortType: "number",
-      },
-      {
-        Header: "TPS",
-        accessor: "avgTPS",
-        aggregate: "average",
-        Cell: ({ value }) => _.round(value, 2),
-        Aggregated: ({ value }) => _.round(value, 2),
-        sortType: "number",
-      },
-      {
-        Header: "# Solves",
-        accessor: "numSolves",
-        aggregate: "sum",
         Aggregated: ({ value }) => value,
         sortType: "number",
       },
