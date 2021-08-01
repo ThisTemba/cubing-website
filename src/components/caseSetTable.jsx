@@ -38,7 +38,9 @@ export default function CaseSetTable(props) {
           console.table(caseStatData);
           console.table(data);
           const combined = data.map((c) => {
-            const caseStats = _.find(caseStatData, ["caseId", c.id]).caseStats;
+            if (_.find(caseStatData, ["caseId", c.id])) {
+              var caseStats = _.find(caseStatData, ["caseId", c.id]).caseStats;
+            }
             return { ...c, ...caseStats };
           });
           console.table(combined);
