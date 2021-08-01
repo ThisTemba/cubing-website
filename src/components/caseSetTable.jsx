@@ -14,6 +14,7 @@ import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
 import { displayDur } from "../utils/formatTime";
+import { getSTM } from "../utils/algTools";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -174,6 +175,12 @@ export default function CaseSetTable(props) {
         aggregate: "average",
         Cell: ({ value }) => displayDur(value),
         Aggregated: ({ value }) => displayDur(value),
+        sortType: "number",
+      },
+      {
+        Header: "Alg Length",
+        accessor: "algs[0]",
+        Cell: ({ value }) => getSTM(value),
         sortType: "number",
       },
       {
