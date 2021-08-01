@@ -1,4 +1,4 @@
-const _ = require("lodash");
+import _ from "lodash";
 
 export const relToAbs = (ws) => {
   const sum = _.sum(ws);
@@ -12,9 +12,8 @@ export const cumSum = (arr) => {
   return cumArr;
 };
 
-export const weightedRandom = (array, probs) => {
-  if (array.length !== probs.length)
-    throw new Error("array and probs must have the same length");
+export const weightedRandomIndex = (weights) => {
+  const probs = relToAbs(weights);
   const cumProbs = cumSum(probs);
   const rand = Math.random();
   for (let i = 0; i < cumProbs.length; i++) {
@@ -23,5 +22,5 @@ export const weightedRandom = (array, probs) => {
       break;
     }
   }
-  return array[index];
+  return index;
 };

@@ -1,4 +1,4 @@
-import { relToAbs, cumSum, weightedRandom } from "./weightedRandom";
+import { relToAbs, cumSum, weightedRandomIndex } from "./weightedRandom";
 import _ from "lodash";
 
 describe("relToAbs", () => {
@@ -33,15 +33,10 @@ describe("cumSum", () => {
   });
 });
 
-describe("weightedRandom", () => {
-  it("returns item from array", () => {
-    const arr = ["a", "b", "c", "d", "e", "f"];
-    const probs = relToAbs(arr.map(() => 1));
-    expect(arr.includes(weightedRandom(arr, probs))).toBeTruthy();
-  });
-  it("throws error if the inputs are different lengths", () => {
-    const arr = ["a", "b", "c"];
-    const probs = [0.2, 0.8];
-    expect(() => weightedRandom(arr, probs)).toThrowError();
+describe("weightedRandomIndex", () => {
+  it("returns index from probs", () => {
+    const weights = [0.1, 0.1, 0.8];
+    const indices = weights.map((a, i) => i);
+    expect(indices.includes(weightedRandomIndex(weights))).toBeTruthy();
   });
 });
