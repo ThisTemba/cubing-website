@@ -180,7 +180,18 @@ export default function CaseSetTable(props) {
       {
         Header: "Alg Length",
         accessor: "algs[0]",
-        Cell: ({ value }) => getSTM(value),
+        Cell: ({ value }) => {
+          let ret = null;
+          try {
+            ret = getSTM(value);
+          } catch {
+            console.log(value);
+            ret = 0;
+          }
+          return ret;
+        },
+        aggregate: "average",
+        Aggregated: ({ value }) => value,
         sortType: "number",
       },
       {
