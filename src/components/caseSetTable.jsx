@@ -216,16 +216,17 @@ export default function CaseSetTable(props) {
         Aggregated: ({ value }) => value,
         sortType: "number",
       },
-      // {
-      //   Header: "Status",
-      //   accessor: "status",
-      //   Cell: ({ value }) => {
-      //     return renderStatus(value);
-      //   },
-      //   aggregate: aggregateStatus,
-      //   Aggregated: ({ value }) => renderAggregatedStatus(value),
-      //   sortType: sortStatus,
-      // },
+      {
+        Header: "Status",
+        id: "status",
+        accessor: getStatus,
+        Cell: ({ value }) => {
+          return renderStatus(value);
+        },
+        aggregate: aggregateStatus,
+        Aggregated: ({ value }) => renderAggregatedStatus(value),
+        sortType: sortStatus,
+      },
     ],
     []
   );
