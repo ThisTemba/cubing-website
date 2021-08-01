@@ -130,7 +130,9 @@ export default function TestPage(props) {
     console.table("solves", solves);
     console.log("caseSetDetails", caseSetDetails);
     const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
-    writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
+    if (user) {
+      writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
+    }
   };
 
   const getScramble = (currentCase) => {
