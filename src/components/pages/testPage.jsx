@@ -9,6 +9,7 @@ import { displayDur } from "../../utils/formatTime";
 import { useAuthState } from "../../fire";
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM } from "../../utils/algTools";
+import balancedRandomIndex from "../../utils/balancedRandom";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -16,9 +17,21 @@ export default function TestPage(props) {
   const [solves, setSolves] = useState([]);
   const user = useAuthState();
 
-  const handleNewCaseSolve = (solve, c) => {
-    setCurrentCase(_.sample(selectedCases));
+  useEffect(() => {
+    const counts = selectedCases.map((c) => {
+      if (solves.length) {
+        const count = _.countBy(solves, "caseId")[c.id];
+        if (count === undefined) return 0;
+        else return count;
+      } else {
+        return 0;
+      }
+    });
+    const index = balancedRandomIndex(counts);
+    setCurrentCase(selectedCases[index]);
+  }, [selectedCases, solves]);
 
+  const handleNewCaseSolve = (solve, c) => {
     solve = {
       caseId: c.id,
       dur: solve.dur,
