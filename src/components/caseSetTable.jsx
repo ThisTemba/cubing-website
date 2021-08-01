@@ -127,20 +127,20 @@ export default function CaseSetTable(props) {
         Aggregated: ({ value }) => _.round(value, 2),
         sortType: "number",
       },
-      {
-        Header: (
-          <i
-            style={{ color: "green" }}
-            className="fa fa-check"
-            aria-hidden="true"
-          ></i>
-        ),
-        accessor: "pRate",
-        aggregate: "average",
-        Cell: ({ value }) => _.round(value, 2),
-        Aggregated: ({ value }) => _.round(value, 2),
-        sortType: "number",
-      },
+      // {
+      //   Header: (
+      //     <i
+      //       style={{ color: "green" }}
+      //       className="fa fa-check"
+      //       aria-hidden="true"
+      //     ></i>
+      //   ),
+      //   accessor: "pRate",
+      //   aggregate: "average",
+      //   Cell: ({ value }) => _.round(value, 2),
+      //   Aggregated: ({ value }) => _.round(value, 2),
+      //   sortType: "number",
+      // },
       {
         Header: (
           <i
