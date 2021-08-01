@@ -149,7 +149,6 @@ export default function TestPage(props) {
         <Col></Col>
         <Col></Col>
         <Col></Col>
-        <Col></Col>
       </Row>
       <Timer
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
