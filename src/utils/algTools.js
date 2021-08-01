@@ -95,3 +95,30 @@ export const getSTM = (alg) => {
   const nonRotMoves = _.difference(rawMoves, cubeRotations);
   return nonRotMoves.length;
 };
+
+const rotY = (alg) => {
+  const map = {
+    R: "F",
+    F: "L",
+    L: "B",
+    B: "R",
+    r: "f",
+    f: "l",
+    l: "b",
+    b: "r",
+  };
+  return alg
+    .split("")
+    .map((char) => (map[char] ? map[char] : char))
+    .join("");
+};
+
+export const randomYRot = (alg) => {
+  const map = {
+    0: alg,
+    1: rotY(alg),
+    2: rotY(rotY(alg)),
+    3: rotY(rotY(rotY(alg))),
+  };
+  return map[_.random(3)];
+};
