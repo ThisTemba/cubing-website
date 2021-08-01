@@ -131,6 +131,7 @@ export default function CaseSetTable(props) {
         Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
         accessor: "hRate",
         aggregate: "average",
+        Cell: ({ value }) => _.round(value, 2),
         Aggregated: ({ value }) => _.round(value, 2),
         sortType: "number",
       },
