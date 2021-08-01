@@ -70,7 +70,7 @@ function CaseSetDashboard(props) {
                 onClick={onTest}
                 className="m-1"
                 variant="success"
-                disabled={selectedCases.length === 0}
+                disabled={selectedCases.length < 2}
               >
                 Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
               </Button>
