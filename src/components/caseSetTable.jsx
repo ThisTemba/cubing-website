@@ -36,15 +36,12 @@ export default function CaseSetTable(props) {
           const caseStatData = doc.docs.map((d) => {
             return { caseId: d.id, caseStats: d.data().caseStats };
           });
-          console.table(caseStatData);
-          console.table(data);
           const combined = data.map((c) => {
             if (_.find(caseStatData, ["caseId", c.id])) {
               var caseStats = _.find(caseStatData, ["caseId", c.id]).caseStats;
             }
             return { ...c, ...caseStats };
           });
-          console.table(combined);
           setData(combined);
         });
     }
@@ -208,7 +205,6 @@ export default function CaseSetTable(props) {
           try {
             ret = getSTM(value);
           } catch {
-            console.log(value);
             ret = 0;
           }
           return ret;
