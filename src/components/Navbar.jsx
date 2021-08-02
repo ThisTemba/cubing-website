@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <NavbarRB bg="light" expand="sm" className="mb-2">
       <NavbarRB.Brand as={Link} to="/">
-        GCW
+        Cubing Website
       </NavbarRB.Brand>
       <NavbarRB.Toggle aria-controls="basic-navbar-nav" />
       <NavbarRB.Collapse id="basic-navbar-nav">
