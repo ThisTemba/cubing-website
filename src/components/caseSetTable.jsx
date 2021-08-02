@@ -59,7 +59,7 @@ export default function CaseSetTable(props) {
 
   const getStatus = ({ hRate, mmRate, cmRate, avgTPS, numSolves }) => {
     const goodRates = hRate < 0.5 && mmRate < 0.5 && cmRate < 0.5;
-    if (numSolves >= 3 && avgTPS >= 4 && goodRates) return 2;
+    if (numSolves >= 3 && avgTPS >= 3 && goodRates) return 2;
     if (numSolves > 0) return 1;
     return 0;
   };
