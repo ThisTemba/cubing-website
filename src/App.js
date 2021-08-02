@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import TrainPage from "./components/pages/trainPage";
 import TimePage from "./components/pages/timePage";
 import StatsPage from "./components/pages/statsPage";
-import TestPage from "./components/pages/testPage";
 import PasswordReset from "./components/passwordReset";
 import SignUp from "./components/signUp";
 import LogIn from "./components/logIn";
