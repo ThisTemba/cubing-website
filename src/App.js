@@ -8,6 +8,7 @@ import TestPage from "./components/pages/testPage";
 import PasswordReset from "./components/passwordReset";
 import SignUp from "./components/signUp";
 import LogIn from "./components/logIn";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/password_reset" component={PasswordReset} />
         <Redirect path="/" to="/time" />
       </Switch>
+      <Footer />
     </div>
   );
 }
