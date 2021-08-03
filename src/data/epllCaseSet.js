@@ -1,5 +1,13 @@
 const epllCaseSet = {
-  details: { id: "epll", name: "EPLL", mask: "ll", view: "plan", numCases: 4 },
+  details: {
+    id: "epll",
+    title: "EPLL",
+    subTitle: "2-Look PLL",
+    subSubTitle: "Second Look",
+    mask: "ll",
+    view: "plan",
+    numCases: 4,
+  },
   cases: [
     {
       id: "dc9d5589-0258-43de-bc5f-146e9f38539f",

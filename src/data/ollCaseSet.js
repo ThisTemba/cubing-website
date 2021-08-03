@@ -1,7 +1,8 @@
 const ollCaseSet = {
   details: {
     id: "oll",
-    name: "OLL",
+    title: "OLL",
+    subTitle: "Full OLL",
     mask: "oll",
     view: "plan",
     numCases: 57,

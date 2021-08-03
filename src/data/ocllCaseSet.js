@@ -1,5 +1,13 @@
 const ocllCaseSet = {
-  details: { id: "ocll", name: "OCLL", mask: "oll", view: "plan", numCases: 7 },
+  details: {
+    id: "ocll",
+    title: "OCLL",
+    subTitle: "2-Look OLL",
+    subSubTitle: "Second Look",
+    mask: "oll",
+    view: "plan",
+    numCases: 7,
+  },
   cases: [
     {
       id: "9c42e369-25cc-4165-bdee-bf1a3b5af6f7",

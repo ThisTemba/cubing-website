@@ -1,7 +1,8 @@
 const pllCaseSet = {
   details: {
     id: "pll",
-    name: "PLL",
+    title: "PLL",
+    subTitle: "Full PLL",
     mask: "ll",
     view: "plan",
     numCases: 21,
