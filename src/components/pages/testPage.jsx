@@ -144,16 +144,6 @@ export default function TestPage(props) {
       <Row>
         <Col>
           <Button
-            onClick={() => {
-              props.history.push("/train");
-              props.onDashboard();
-            }}
-            variant="secondary"
-            className="m-1"
-          >
-            <i className="fa fa-chevron-left" aria-hidden="true"></i>
-          </Button>
-          <Button
             onClick={handleBackToDash}
             variant="secondary"
             className="m-1"
