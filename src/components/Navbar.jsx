@@ -26,7 +26,9 @@ export default function Navbar() {
         <Nav>
           {user && (
             <NavDropdown title={user.email} id="basic-nav-dropdown">
-              <NavDropdown.Item>Settings</NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/settings">
+                Settings
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={() => auth.signOut()}>
                 Sign Out
