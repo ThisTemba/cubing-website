@@ -8,20 +8,16 @@ import _ from "lodash";
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;
   return (
-    <Col className="d-flex justify-content-center">
+    <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button
         variant="light"
-        style={{
-          width: "500px",
-        }}
-        className="m-1 border"
+        className="m-1 border btn-block"
         onClick={props.onClick}
       >
-        <Card.Body>
-          {/* <Card.Title></Card.Title> */}
+        <Card.Body className="p-2 p-sm-3">
           <Card.Text>
             <Row>
-              <Col>
+              <Col className="p-0">
                 <CubeImage
                   live
                   width="120"
@@ -31,13 +27,13 @@ export default function CaseSetCard(props) {
                   view={details.view}
                 ></CubeImage>
               </Col>
-              <Col className="d-flex align-items-center justify-content-center">
-                <h3>
+              <Col className="p-0 d-flex align-items-center justify-content-center">
+                <h4>
                   {" " + details.name + " "}
                   <i className="fa fa-caret-right" aria-hidden="true"></i>
-                </h3>
+                </h4>
               </Col>
-              <Col>
+              <Col className="p-0">
                 <CubeImage
                   width="120"
                   height="120"
