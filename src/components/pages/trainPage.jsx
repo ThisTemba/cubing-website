@@ -56,6 +56,7 @@ export default function TrainPage(props) {
             <LearnPage
               onDashboard={() => setDisplayDashboard(true)}
               selectedCases={selectedCases}
+              caseSetDetails={caseSetDetails}
               {...props}
             />
           )}
