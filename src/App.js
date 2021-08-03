@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import TrainPage from "./components/pages/trainPage";
 import TimePage from "./components/pages/timePage";
 import StatsPage from "./components/pages/statsPage";
+import SettingsPage from "./components/pages/settingsPage";
 import PasswordReset from "./components/passwordReset";
 import SignUp from "./components/signUp";
 import LogIn from "./components/logIn";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/stats" component={StatsPage} />
         <Route path="/signup" component={SignUp} />
         <Route path="/login" component={LogIn} />
+        <Route path="/settings" component={SettingsPage} />
         <Route path="/password_reset" component={PasswordReset} />
         <Redirect path="/" to="/time" />
       </Switch>
