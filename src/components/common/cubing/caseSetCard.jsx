@@ -7,6 +7,7 @@ import _ from "lodash";
 
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;
+  const { title, subTitle, subSubTitle, view, mask } = details;
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button
@@ -23,22 +24,32 @@ export default function CaseSetCard(props) {
                   width="120"
                   height="120"
                   case={_.sample(cases).algs[0]}
-                  mask={details.mask}
-                  view={details.view}
+                  mask={mask}
+                  view={view}
                 ></CubeImage>
               </Col>
               <Col className="p-0 d-flex align-items-center justify-content-center">
-                <h4>
-                  {" " + details.name + " "}
-                  <i className="fa fa-caret-right" aria-hidden="true"></i>
-                </h4>
+                <Row>
+                  <Col xs={12}>
+                    <h4>
+                      {title + " "}
+                      <i className="fa fa-caret-right" aria-hidden="true"></i>
+                    </h4>
+                  </Col>
+                  <Col xs={12}>
+                    {typeof subTitle !== "undefined" ? subTitle : ""}
+                  </Col>
+                  <Col>
+                    {typeof subSubTitle !== "undefined" ? subSubTitle : ""}
+                  </Col>
+                </Row>
               </Col>
               <Col className="p-0">
                 <CubeImage
                   width="120"
                   height="120"
-                  mask={details.mask}
-                  view={details.view}
+                  mask={mask}
+                  view={view}
                 ></CubeImage>
               </Col>
             </Row>
