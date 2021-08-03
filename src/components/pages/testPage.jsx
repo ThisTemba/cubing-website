@@ -139,6 +139,10 @@ export default function TestPage(props) {
     return randomYRot(_.sample(currentCase.scrambles));
   };
 
+  const handleDelete = () => {
+    setSolves(solves.length === 1 ? [] : _.tail(solves));
+  };
+
   return (
     <Container>
       <Row>
@@ -177,6 +181,13 @@ export default function TestPage(props) {
                 onSelect={(id) => handleSelectMistake(id)}
                 activeId={solves[0] ? solves[0].mistakes : null}
               />
+              <Button variant="danger">
+                <i
+                  class="fa fa-trash"
+                  aria-hidden="true"
+                  onClick={handleDelete}
+                ></i>
+              </Button>
             </Col>
           </Row>
         </Card>
