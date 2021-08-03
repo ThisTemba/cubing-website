@@ -1,5 +1,4 @@
 import { Redirect, Route, Switch } from "react-router-dom";
-import "./App.css";
 import Navbar from "./components/Navbar";
 import TrainPage from "./components/pages/trainPage";
 import TimePage from "./components/pages/timePage";
