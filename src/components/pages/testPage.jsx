@@ -171,7 +171,7 @@ export default function TestPage(props) {
       {solves.length > 0 && (
         <Card>
           <Row>
-            <Col>
+            <Col className="text-center">
               <strong>{"Solve: " + solves.length + "."}</strong>{" "}
               {"Case: " + solves[0].caseName}{" "}
               <ButtonGroupToggle
