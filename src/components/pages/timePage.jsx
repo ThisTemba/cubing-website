@@ -95,7 +95,7 @@ export default function TimePage() {
   };
 
   return (
-    <Container fluid>
+    <Container fluid className="text-center">
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
       {user && session && (
         <h3>
