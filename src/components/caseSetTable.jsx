@@ -112,9 +112,16 @@ export default function CaseSetTable(props) {
     );
   };
 
+  const hasUniqueGroups = _.uniqBy(caseSet.cases, "group").length > 1;
+
   const columns = useMemo(
     () => [
-      { Header: "Group", accessor: "group", disableGroupBy: false },
+      {
+        Header: "Group",
+        accessor: "group",
+        disableGroupBy: false,
+        show: hasUniqueGroups,
+      },
       {
         Header: "Case",
         accessor: (row) => row,
@@ -237,8 +244,11 @@ export default function CaseSetTable(props) {
       data,
       defaultColumn,
       initialState: {
-        groupBy: _.uniqBy(caseSet.cases, "group").length > 1 ? ["group"] : [],
+        groupBy: hasUniqueGroups ? ["group"] : [],
         sortBy: [{ id: "status", desc: true }],
+        hiddenColumns: columns.map((column) => {
+          if (column.show === false) return column.accessor || column.id;
+        }),
       },
     },
     useGroupBy,
