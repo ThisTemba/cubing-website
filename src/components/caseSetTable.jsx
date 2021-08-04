@@ -74,15 +74,12 @@ export default function CaseSetTable(props) {
   const sortStatus = (rowA, rowB) => {
     // docs say this function should be memoized
     const [sA, sB] = [rowA.values.status, rowB.values.status];
-    // if aggregated, sorting percents array
-    const learnedA = Array.isArray(sA) ? sA[2] : sA;
-    const learnedB = Array.isArray(sB) ? sB[2] : sB;
-    let AisBigger = learnedA > learnedB;
-    if (learnedA === learnedB) {
-      const learningA = Array.isArray(sA) ? sA[1] : 0;
-      const learningB = Array.isArray(sB) ? sB[1] : 0;
-      AisBigger = learningA > learnedB;
-    }
+    let AisBigger = null;
+    if (Array.isArray(sA)) {
+      // 2 is learned, 1 is learning
+      AisBigger = sA[2] !== sB[2] ? sA[2] > sB[2] : sA[1] > sB[1];
+    } else AisBigger = sA > sB;
+
     return AisBigger ? 1 : -1;
   };
 
