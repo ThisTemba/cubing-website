@@ -5,11 +5,9 @@ import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Tab from "react-bootstrap/Tab";
-import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import useDarkMode from "../../hooks/useDarkMode";
-import { useEffect } from "react";
-const SettingsPage = (props) => {
+const SettingsPage = () => {
   const [darkMode, setDarkMode] = useDarkMode();
 
   const handleChange = () => {

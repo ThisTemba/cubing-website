@@ -7,7 +7,6 @@ import SettingsPage from "./components/pages/settingsPage";
 import PasswordReset from "./components/passwordReset";
 import SignUp from "./components/signUp";
 import LogIn from "./components/logIn";
-import Footer from "./components/footer";
 
 function App() {
   return (
