@@ -2,16 +2,16 @@ import React, { useEffect, useState, useMemo } from "react";
 import { Button, Card, Col, Row, Container } from "react-bootstrap";
 import { useExpanded, useGroupBy, useTable } from "react-table";
 import _ from "lodash";
+import { useAuthState } from "../../fire";
 import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
 import ButtonGroupToggle from "../common/buttonGroupToggle";
+import { CaseImage } from "../common/cubing/cubeImage";
 import { displayDur } from "../../utils/formatTime";
-import { useAuthState } from "../../fire";
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 import useDarkMode from "../../hooks/useDarkMode";
-import { CaseImage } from "../common/cubing/cubeImage";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
