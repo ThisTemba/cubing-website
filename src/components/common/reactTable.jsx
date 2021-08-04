@@ -1,20 +1,20 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import useDarkMode from "../../hooks/useDarkMode";
 
 export default function ReactTable({ table }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     table;
+  const [darkMode] = useDarkMode();
   // Use the state and functions returned from useTable to build your UI
 
   // Render the UI for your table
-  const getCellClassname = (cell) => {
-    return cell.isGrouped ? "text-left align-middle" : "align-middle";
-  };
-
-  const getCellStyle = (cell) => {
-    return {
-      background: cell.isGrouped || cell.isAggregated ? "#F5F5F5" : null,
-    };
+  const getCellClassname = ({ isAggregated, isGrouped }) => {
+    let className = "align-middle";
+    const color = darkMode ? "dark" : "light";
+    className += isAggregated || isGrouped ? ` bg-${color}` : "";
+    className += isGrouped ? " text-left" : "";
+    return className;
   };
 
   const renderExpandArrows = (isExpanded) => {
@@ -90,7 +90,7 @@ export default function ReactTable({ table }) {
                 <td
                   {...cell.getCellProps()}
                   className={getCellClassname(cell)}
-                  style={getCellStyle(cell)}
+                  // style={getCellStyle(cell)}
                 >
                   {renderCell(cell, row)}
                 </td>
