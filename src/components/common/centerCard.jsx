@@ -1,8 +1,10 @@
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
+import useDarkMode from "../../hooks/useDarkMode";
 
 export default function CenterCard({ title, content, textBelowCard, error }) {
+  const [darkMode] = useDarkMode();
   const renderErrorAlert = (error) => {
     return (
       error && (
@@ -18,7 +20,7 @@ export default function CenterCard({ title, content, textBelowCard, error }) {
       style={{ minHeight: "80vh" }}
     >
       <div className="w-100" style={{ maxWidth: "380px" }}>
-        <Card bg="light">
+        <Card bg={darkMode ? "dark" : "light"}>
           <Card.Body>
             <h4 className="text-center mb-4">{title}</h4>
             {content}
