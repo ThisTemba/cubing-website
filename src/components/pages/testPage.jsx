@@ -109,6 +109,7 @@ export default function TestPage(props) {
     {
       content: <i className="fa fa-spinner" aria-hidden="true"></i>,
       id: "hesitated",
+      color: darkMode ? "light" : "dark",
     },
   ];
 
