@@ -4,14 +4,16 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { Row, Col } from "react-bootstrap";
 import _ from "lodash";
+import useDarkMode from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;
   const { title, subTitle, subSubTitle, view, mask } = details;
+  const [darkMode] = useDarkMode();
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button
-        variant="light"
+        variant={darkMode ? "dark" : "light"}
         className="m-1 border btn-block"
         onClick={props.onClick}
       >
