@@ -8,6 +8,12 @@ export default function Navbar() {
 
   const collapse = () => setExpanded(false);
 
+  const navLinks = [
+    { label: "Time", to: "/time" },
+    { label: "Train", to: "/train" },
+    { label: "Stats", to: "/stats" },
+  ];
+
   const user = useAuthState();
   return (
     <NavbarRB
@@ -22,15 +28,11 @@ export default function Navbar() {
       <NavbarRB.Toggle aria-controls="basic-navbar-nav" />
       <NavbarRB.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={NavLink} to="/time" onClick={collapse}>
-            Time
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/train" onClick={collapse}>
-            Train
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/stats" onClick={collapse}>
-            Stats
-          </Nav.Link>
+          {navLinks.map((item) => (
+            <Nav.Link as={NavLink} to={item.to} onClick={collapse}>
+              {item.label}
+            </Nav.Link>
+          ))}
         </Nav>
         <Nav>
           {user && (
