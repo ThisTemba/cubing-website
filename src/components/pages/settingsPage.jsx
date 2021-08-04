@@ -34,29 +34,45 @@ const SettingsPage = (props) => {
       <h1>Settings</h1>
       <Tab.Container
         id="left-tabs-example"
-        defaultActiveKey="first"
+        defaultActiveKey="appearance"
         transition={false}
       >
         <Row>
           <Col lg={4}>
             <ListGroup>
-              <ListGroup.Item action eventKey="first">
-                Account
-              </ListGroup.Item>
-              <ListGroup.Item action eventKey="second">
+              <ListGroup.Item action eventKey="appearance">
                 Appearance
+              </ListGroup.Item>
+              <ListGroup.Item action eventKey="account">
+                Account
               </ListGroup.Item>
             </ListGroup>
           </Col>
           <Col lg={8}>
             <Tab.Content>
-              <Tab.Pane eventKey="first">
+              <Tab.Pane eventKey="appearance">
+                <Card>
+                  <Card.Header>
+                    <Card.Title>Appearance</Card.Title>
+                  </Card.Header>
+                  <Card.Body>
+                    <Form.Check
+                      type="switch"
+                      id="custom-switch"
+                      label="Dark Mode"
+                      checked={darkMode}
+                      onChange={handleChange}
+                    />
+                  </Card.Body>
+                </Card>
+              </Tab.Pane>
+              <Tab.Pane eventKey="account">
                 <Card>
                   <Card.Header>
                     <Card.Title>Account</Card.Title>
                   </Card.Header>
                   <Card.Body>
-                    <Form>
+                    {/* <Form>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
@@ -81,23 +97,7 @@ const SettingsPage = (props) => {
                       <Button variant="primary" type="submit">
                         Submit
                       </Button>
-                    </Form>
-                  </Card.Body>
-                </Card>
-              </Tab.Pane>
-              <Tab.Pane eventKey="second">
-                <Card>
-                  <Card.Header>
-                    <Card.Title>Appearance</Card.Title>
-                  </Card.Header>
-                  <Card.Body>
-                    <Form.Check
-                      type="switch"
-                      id="custom-switch"
-                      label="Dark Mode"
-                      checked={darkMode}
-                      onChange={handleChange}
-                    />
+                    </Form> */}
                   </Card.Body>
                 </Card>
               </Tab.Pane>
