@@ -47,7 +47,7 @@ function CaseSetDashboard(props) {
       {selectedCaseSetId && (
         <div>
           <Row>
-            <Col>
+            <Col className="p-0">
               <Button
                 onClick={() => setSelectedCaseSetId(null)}
                 className="m-1"
@@ -57,9 +57,7 @@ function CaseSetDashboard(props) {
                 to CaseSet Selection
               </Button>
             </Col>
-            <Col></Col>
-            <Col></Col>
-            <Col>
+            <Col className="justify-content-end d-flex p-0">
               <Button
                 onClick={onLearn}
                 className="m-1"
