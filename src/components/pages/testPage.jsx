@@ -11,6 +11,7 @@ import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 import useDarkMode from "../../hooks/useDarkMode";
+import { CaseImage } from "../common/cubing/cubeImage";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -53,6 +54,23 @@ export default function TestPage(props) {
       {
         Header: "Name",
         accessor: "caseName",
+      },
+      {
+        Header: "Case",
+        accessor: "caseId",
+        aggregate: (values) => values[0],
+        Cell: ({ value }) => "",
+        Aggregated: ({ value: id }) => {
+          const cas = _.find(selectedCases, ["id", id]);
+          return (
+            <CaseImage
+              case={cas}
+              caseSetDetails={caseSetDetails}
+              size="65"
+              live
+            />
+          );
+        },
       },
       {
         Header: "Time",
