@@ -24,7 +24,7 @@ const SettingsPage = () => {
       >
         <Row>
           <Col lg={4}>
-            <ListGroup>
+            <ListGroup className="mb-2">
               <ListGroup.Item action eventKey="appearance">
                 Appearance
               </ListGroup.Item>
