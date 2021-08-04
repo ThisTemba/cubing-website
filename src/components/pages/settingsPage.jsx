@@ -7,7 +7,14 @@ import Container from "react-bootstrap/Container";
 import Tab from "react-bootstrap/Tab";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
+import useDarkMode from "../../hooks/useDarkMode";
 const SettingsPage = (props) => {
+  const [darkMode, setDarkMode] = useDarkMode();
+
+  const handleChange = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <Container>
       <h1>Settings</h1>
@@ -74,6 +81,8 @@ const SettingsPage = (props) => {
                       type="switch"
                       id="custom-switch"
                       label="Dark Mode"
+                      checked={darkMode}
+                      onChange={handleChange}
                     />
                   </Card.Body>
                 </Card>
