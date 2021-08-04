@@ -10,12 +10,14 @@ import { useAuthState } from "../../fire";
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
+import useDarkMode from "../../hooks/useDarkMode";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
   const [currentCase, setCurrentCase] = useState(selectedCases[0]);
   const [solves, setSolves] = useState([]);
   const user = useAuthState();
+  const [darkMode] = useDarkMode();
 
   useEffect(() => {
     const counts = selectedCases.map((c) => {
@@ -149,7 +151,7 @@ export default function TestPage(props) {
         <Col>
           <Button
             onClick={handleBackToDash}
-            variant="secondary"
+            variant={darkMode ? "dark" : "secondary"}
             className="m-1"
           >
             <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to

@@ -10,8 +10,10 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import SelectCaseSet from "./selectCaseSet";
 import CaseSetTable from "./caseSetTable";
 import _ from "lodash";
+import useDarkMode from "../hooks/useDarkMode";
 
 function CaseSetDashboard(props) {
+  const [darkMode] = useDarkMode();
   const [selectedCaseSetId, setSelectedCaseSetId] = useLocalStorage(
     "selectedCaseSetId",
     null
@@ -49,7 +51,7 @@ function CaseSetDashboard(props) {
               <Button
                 onClick={() => setSelectedCaseSetId(null)}
                 className="m-1"
-                variant="secondary"
+                variant={darkMode ? "dark" : "secondary"}
               >
                 <i className="fa fa-chevron-left" aria-hidden="true"></i> Back
                 to CaseSet Selection
