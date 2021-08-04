@@ -11,8 +11,11 @@ export default function ReactTable({ table }) {
   // Render the UI for your table
   const getCellClassname = ({ isAggregated, isGrouped }) => {
     let className = "align-middle";
-    const color = darkMode ? "dark" : "light";
-    className += isAggregated || isGrouped ? ` bg-${color}` : "";
+    const groupedColor = darkMode ? "dark" : "light";
+    const borderColor = darkMode ? "border-secondary" : "";
+    const border = `border-bottom ${borderColor}`;
+    className +=
+      isAggregated || isGrouped ? ` bg-${groupedColor} ${border}` : "";
     className += isGrouped ? " text-left" : "";
     return className;
   };
