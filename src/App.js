@@ -23,7 +23,6 @@ function App() {
         <Route path="/password_reset" component={PasswordReset} />
         <Redirect path="/" to="/time" />
       </Switch>
-      <Footer />
     </div>
   );
 }
