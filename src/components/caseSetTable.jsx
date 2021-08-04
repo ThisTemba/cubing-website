@@ -77,7 +77,13 @@ export default function CaseSetTable(props) {
     // if aggregated, sorting percents array
     const learnedA = Array.isArray(sA) ? sA[2] : sA;
     const learnedB = Array.isArray(sB) ? sB[2] : sB;
-    return learnedA > learnedB ? 1 : -1;
+    let AisBigger = learnedA > learnedB;
+    if (learnedA === learnedB) {
+      const learningA = Array.isArray(sA) ? sA[1] : 0;
+      const learningB = Array.isArray(sB) ? sB[1] : 0;
+      AisBigger = learningA > learnedB;
+    }
+    return AisBigger ? 1 : -1;
   };
 
   const renderAggregatedStatus = (percents) => {
