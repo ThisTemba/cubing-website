@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Navbar as NavbarRB, Nav, NavDropdown } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { auth, useAuthState } from "../fire";
