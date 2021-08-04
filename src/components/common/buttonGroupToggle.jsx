@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
 const ButtonGroupToggle = ({
   buttons,
@@ -8,25 +9,24 @@ const ButtonGroupToggle = ({
   size,
   disabled,
 }) => {
-  const getButtonColor = (activeButtonId, button) => {
+  const getButtonVariant = (activeButtonId, button) => {
     color = button.color || color;
-    return activeButtonId === button.id
-      ? `btn-${color}`
-      : `btn-outline-${color}`;
+    return activeButtonId === button.id ? `${color}` : `outline-${color}`;
   };
-  size = size === "small" ? "btn-sm" : "";
   return (
     <div className="btn-group  m-1" role="group">
       {buttons.map((button) => {
         return (
-          <button
-            className={`btn ${getButtonColor(activeId, button)} ${size}`}
+          <Button
+            // className={`btn ${getButtonVariant(activeId, button)} ${size}`}
+            variant={getButtonVariant(activeId, button)}
             onClick={() => onSelect(button.id)}
             key={button.id}
+            size={size}
             disabled={disabled || false}
           >
             {button.content}
-          </button>
+          </Button>
         );
       })}
     </div>
