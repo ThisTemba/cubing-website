@@ -1,42 +1,59 @@
 import React from "react";
+import { useState } from "react";
 import { Navbar as NavbarRB, Nav, NavDropdown } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { auth, useAuthState } from "../fire";
 
 export default function Navbar() {
+  const [expanded, setExpanded] = useState(false);
+
+  const collapse = () => setExpanded(false);
+
   const user = useAuthState();
   return (
-    <NavbarRB expand="sm" className="mb-2 navbar-themed">
+    <NavbarRB
+      expand="sm"
+      className="mb-2 navbar-themed"
+      onToggle={() => setExpanded(!expanded)}
+      expanded={expanded}
+    >
       <NavbarRB.Brand as={Link} to="/">
         Cubing Website
       </NavbarRB.Brand>
       <NavbarRB.Toggle aria-controls="basic-navbar-nav" />
       <NavbarRB.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link as={NavLink} to="/time">
+          <Nav.Link as={NavLink} to="/time" onClick={collapse}>
             Time
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/train">
+          <Nav.Link as={NavLink} to="/train" onClick={collapse}>
             Train
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/stats">
+          <Nav.Link as={NavLink} to="/stats" onClick={collapse}>
             Stats
           </Nav.Link>
         </Nav>
         <Nav>
           {user && (
             <NavDropdown title={user.email} id="basic-nav-dropdown">
-              <NavDropdown.Item as={NavLink} to="/settings">
+              <NavDropdown.Item as={NavLink} to="/settings" onClick={collapse}>
                 Settings
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => auth.signOut()}>
+              <NavDropdown.Item
+                as={Link}
+                to="/login"
+                onClick={() => {
+                  collapse();
+                  auth.signOut();
+                }}
+              >
                 Sign Out
               </NavDropdown.Item>
             </NavDropdown>
           )}
           {!user && (
-            <Nav.Link as={Link} to="/login">
+            <Nav.Link as={Link} to="/login" onClick={collapse}>
               Log In
             </Nav.Link>
           )}
