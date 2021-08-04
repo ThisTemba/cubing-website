@@ -149,7 +149,7 @@ export default function TestPage(props) {
   return (
     <Container>
       <Row>
-        <Col>
+        <Col className="p-0">
           <Button
             onClick={handleBackToDash}
             variant={darkMode ? "dark" : "secondary"}
@@ -159,9 +159,6 @@ export default function TestPage(props) {
             Dashboard
           </Button>
         </Col>
-        <Col></Col>
-        <Col></Col>
-        <Col></Col>
       </Row>
       <Timer
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
