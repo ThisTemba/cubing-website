@@ -11,13 +11,7 @@ describe("getNumSolves", () => {
   describe("oldDoc does exist", () => {
     const oldDoc = {
       exists: true,
-      data: () => {
-        return {
-          caseStats: {
-            numSolves: 7,
-          },
-        };
-      },
+      data: () => ({ caseStats: { numSolves: 7 } }),
     };
     it("returns sum of num new solves and old numSolves", () => {
       const numSolves = newSolves.length + oldDoc.data().caseStats.numSolves;
@@ -37,9 +31,7 @@ describe("getRecentCaseSolves", () => {
     const newSolves = ["a", "b", "c"];
     const oldDoc = {
       exists: true,
-      data: () => {
-        return { recentCaseSolves: ["d", "e"] };
-      },
+      data: () => ({ recentCaseSolves: ["d", "e"] }),
     };
     const num = 4;
     test("result.length === num", () => {
@@ -55,9 +47,7 @@ describe("getRecentCaseSolves", () => {
     const newSolves = ["a", "b", "c"];
     const oldDoc = {
       exists: true,
-      data: () => {
-        return { recentCaseSolves: ["d", "e"] };
-      },
+      data: () => ({ recentCaseSolves: ["d", "e"] }),
     };
     const num = 7;
     test("result is [...newSolves, ...oldSolves] untrimmed", () => {

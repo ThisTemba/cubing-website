@@ -119,9 +119,7 @@ export default function TestPage(props) {
     { symbol: "check", id: 0, color: "success" },
     { symbol: "minus", id: 1, color: "warning" },
     { symbol: "times", id: 2, color: "danger" },
-  ].map((b) => {
-    return { ...b, content: <i className={`fa fa-${b.symbol}`}></i> };
-  });
+  ].map((b) => ({ ...b, content: <i className={`fa fa-${b.symbol}`}></i> }));
 
   const hesitationButton = [
     {

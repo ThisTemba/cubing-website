@@ -79,9 +79,7 @@ export default function TimePage() {
 
   const handleDeleteSolve = (dateTime) => {
     let solves = session.solves.filter((s) => s.dateTime !== dateTime);
-    solves = solves.map((s, i) => {
-      return { ...s, solveNumber: i + 1 };
-    });
+    solves = solves.map((s, i) => ({ ...s, solveNumber: i + 1 }));
     setSession({ ...session, solves });
   };
 

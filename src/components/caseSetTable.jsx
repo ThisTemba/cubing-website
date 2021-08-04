@@ -33,9 +33,10 @@ export default function CaseSetTable(props) {
         .doc(caseSet.details.id)
         .collection("cases")
         .onSnapshot((doc) => {
-          const caseStatData = doc.docs.map((d) => {
-            return { caseId: d.id, caseStats: d.data().caseStats };
-          });
+          const caseStatData = doc.docs.map((d) => ({
+            caseId: d.id,
+            caseStats: d.data().caseStats,
+          }));
           const combined = data.map((c) => {
             if (_.find(caseStatData, ["caseId", c.id])) {
               var caseStats = _.find(caseStatData, ["caseId", c.id]).caseStats;
@@ -48,11 +49,7 @@ export default function CaseSetTable(props) {
     return unsubscribe;
   }, [user]);
 
-  const defaultColumn = useMemo(() => {
-    return {
-      disableGroupBy: true,
-    };
-  }, []);
+  const defaultColumn = useMemo(() => ({ disableGroupBy: true }), []);
 
   const getStatus = ({ hRate, mmRate, cmRate, avgTPS, numSolves }) => {
     const goodRates = hRate < 0.5 && mmRate < 0.5 && cmRate < 0.5;

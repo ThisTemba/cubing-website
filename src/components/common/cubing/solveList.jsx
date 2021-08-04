@@ -26,13 +26,11 @@ export default function SolveList({
       const durs = solves.map((s) => s.dur);
       const ao5s = listAoNs(durs, 5);
       const ao12s = listAoNs(durs, 12);
-      solves = solves.map((s, i) => {
-        return {
-          ...s,
-          ao5: typeof ao5s[i] === "number" ? displayDur(ao5s[i]) : ao5s[i],
-          ao12: typeof ao12s[i] === "number" ? displayDur(ao12s[i]) : ao12s[i],
-        };
-      });
+      solves = solves.map((s, i) => ({
+        ...s,
+        ao5: typeof ao5s[i] === "number" ? displayDur(ao5s[i]) : ao5s[i],
+        ao12: typeof ao12s[i] === "number" ? displayDur(ao12s[i]) : ao12s[i],
+      }));
       const orderedSolves = [...solves].reverse();
       const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
       return paginatedSolves;
