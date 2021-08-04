@@ -58,7 +58,7 @@ export default function TestPage(props) {
         Header: "Time",
         accessor: "dur",
         aggregate: "average",
-        Aggregated: ({ value }) => displayDur(value),
+        Cell: ({ value }) => displayDur(value),
       },
       {
         Header: "Hesitated",
