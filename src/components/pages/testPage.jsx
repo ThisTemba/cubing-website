@@ -175,13 +175,15 @@ export default function TestPage(props) {
                 buttons={hesitationButton}
                 onSelect={() => handleToggleHesitation()}
                 activeId={solves[0].hesitated ? "hesitated" : ""}
+                size="lg"
               />
               <ButtonGroupToggle
                 buttons={mistakesButtons}
                 onSelect={(id) => handleSelectMistake(id)}
                 activeId={solves[0] ? solves[0].mistakes : null}
+                size="lg"
               />
-              <Button variant="danger">
+              <Button variant="danger" size="lg">
                 <i
                   class="fa fa-trash"
                   aria-hidden="true"
