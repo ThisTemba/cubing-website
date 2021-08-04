@@ -62,7 +62,7 @@ export default function ReactTable({ table }) {
   };
 
   return (
-    <Table {...getTableProps()}>
+    <Table {...getTableProps()} responsive>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
