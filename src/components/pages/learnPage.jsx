@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { CaseImage } from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
 import _ from "lodash";
 
 export default function LearnPage(props) {
-  const currentCase = props.selectedCases[0];
+  const [algVisible, setAlgVisible] = useState(true);
+  const [currentCase, setCurrentCase] = useState(props.selectedCases[0]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    setCurrentCase(props.selectedCases[currentIndex]);
+  }, [currentIndex]);
+
+  const renderVisibilityButton = (algVisible) => {
+    if (algVisible)
+      return (
+        <Button variant="light" onClick={() => setAlgVisible(false)}>
+          <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+        </Button>
+      );
+    else
+      return (
+        <Button variant="light" onClick={() => setAlgVisible(true)}>
+          <i class="fa fa-eye-slash fa-lg" aria-hidden="true"></i>
+        </Button>
+      );
+  };
+
   return (
     <div>
       <h1>Learn</h1>
@@ -21,10 +43,13 @@ export default function LearnPage(props) {
         Dashboard
       </Button>
       <h1>{currentCase.name}</h1>
+      Show/Hide Algorithm: {renderVisibilityButton(algVisible)}
+      {algVisible && (
+        <ScrambleDisplay scramble={"Alg: " + currentCase.algs[0]} />
+      )}
       <ScrambleDisplay
         scramble={"Scramble: " + _.sample(currentCase.scrambles)}
       />
-      <ScrambleDisplay scramble={"Alg: " + currentCase.algs[0]} />
       <CaseImage
         size="200"
         case={currentCase}
