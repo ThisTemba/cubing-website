@@ -16,7 +16,7 @@ const SettingsPage = () => {
 
   return (
     <Container>
-      <h1>Settings</h1>
+      <h2>Settings</h2>
       <Tab.Container
         id="left-tabs-example"
         defaultActiveKey="appearance"
