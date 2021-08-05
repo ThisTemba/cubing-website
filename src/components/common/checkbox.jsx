@@ -15,7 +15,7 @@ export const Checkbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
       ref={resolvedRef}
       className="m-2"
       {...rest}
-      style={{ width: "25px", height: "25px" }}
+      style={{ width: "20px", height: "20px" }}
     />
   );
 });
