@@ -92,13 +92,17 @@ export default function CaseSetTable(props) {
 
   const renderStatus = (status) => {
     const map = {
-      0: ["gray", "not started"],
-      1: ["orange", "learning"],
-      2: ["green", "learned"],
+      0: ["secondary", "not started"],
+      1: ["warning", "learning"],
+      2: ["success", "learned"],
     };
+    const color = map[status][0];
     return (
-      <span style={{ color: map[status][0] }}>
-        <i className={`fa fa-circle fa-lg`} aria-hidden="true"></i>
+      <span>
+        <i
+          className={`fa fa-circle fa-lg text-${color}`}
+          aria-hidden="true"
+        ></i>
       </span>
     );
   };
