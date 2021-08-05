@@ -15,12 +15,14 @@ import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
 import { displayDur } from "../utils/formatTime";
 import { getSTM } from "../utils/algTools";
+import useDarkMode from "../hooks/useDarkMode";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
   // const data = useMemo(() => caseSet.cases, []);
   const [data, setData] = useState(caseSet.cases);
   const user = useAuthState();
+  const [darkMode] = useDarkMode();
   // const data = useMemo(() => MOCK_DATA, []);
 
   useEffect(() => {
@@ -242,6 +244,22 @@ export default function CaseSetTable(props) {
     []
   );
 
+  const getCellProps = (cell) => {
+    const statusCells = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
+    if (statusCells.includes(cell.column.id)) {
+      const propLearned = getPropLearned(cell.column.id, cell.value);
+      if (typeof cell.value !== "number") return {};
+      if (cell.isAggregated) return {};
+      if (propLearned) return {};
+      return {
+        style: {
+          fontWeight: "700",
+          color: darkMode ? "#ffc107" : "#f09b0a",
+        },
+      };
+    } else return {};
+  };
+
   const tableInstance = useTable(
     {
       columns,
@@ -279,5 +297,7 @@ export default function CaseSetTable(props) {
     props.setSelectedCases(selectedCases);
   }, [tableInstance.state.selectedRowIds]);
 
-  return <ReactTable table={tableInstance} size="sm" />;
+  return (
+    <ReactTable table={tableInstance} getCellProps={getCellProps} size="sm" />
+  );
 }
