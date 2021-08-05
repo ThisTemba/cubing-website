@@ -216,7 +216,7 @@ export default function TestPage(props) {
               />
               <Button variant="danger" size="lg">
                 <i
-                  class="fa fa-trash"
+                  className="fa fa-trash"
                   aria-hidden="true"
                   onClick={handleDelete}
                 ></i>
