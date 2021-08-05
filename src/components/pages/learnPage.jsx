@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col } from "react-bootstrap";
+import _ from "lodash";
 import { CaseImage } from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
-import _ from "lodash";
 import useDarkMode from "../../hooks/useDarkMode";
 
 export default function LearnPage(props) {
