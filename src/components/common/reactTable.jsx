@@ -2,7 +2,14 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import useDarkMode from "../../hooks/useDarkMode";
 
-export default function ReactTable({ table, ...rest }) {
+// Source: https://react-table.tanstack.com/docs/examples/data-driven-classes-and-styles
+const defaultPropGetter = () => ({});
+
+export default function ReactTable({
+  table,
+  getCellProps = defaultPropGetter,
+  ...rest
+}) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     table;
   const [darkMode] = useDarkMode();
@@ -91,7 +98,13 @@ export default function ReactTable({ table, ...rest }) {
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => (
                 <td
-                  {...cell.getCellProps()}
+                  {...cell.getCellProps([
+                    {
+                      className: cell.column.className,
+                      style: cell.column.style,
+                    },
+                    getCellProps(cell),
+                  ])}
                   className={getCellClassname(cell)}
                   // style={getCellStyle(cell)}
                 >
