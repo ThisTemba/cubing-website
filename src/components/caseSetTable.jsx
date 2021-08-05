@@ -254,5 +254,5 @@ export default function CaseSetTable(props) {
     props.setSelectedCases(selectedCases);
   }, [tableInstance.state.selectedRowIds]);
 
-  return <ReactTable table={tableInstance} />;
+  return <ReactTable table={tableInstance} size="sm" />;
 }
