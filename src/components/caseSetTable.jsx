@@ -140,13 +140,7 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
-        Header: (
-          <i
-            style={{ color: "orange" }}
-            className="fa fa-minus"
-            aria-hidden="true"
-          ></i>
-        ),
+        Header: <i className="fa fa-minus" aria-hidden="true"></i>,
         accessor: "mmRate",
         aggregate: "average",
         Cell: ({ value }) => _.round(value, 2),
@@ -154,13 +148,7 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
-        Header: (
-          <i
-            style={{ color: "red" }}
-            className="fa fa-times"
-            aria-hidden="true"
-          ></i>
-        ),
+        Header: <i className="fa fa-times" aria-hidden="true"></i>,
         accessor: "cmRate",
         aggregate: "average",
         Cell: ({ value }) => _.round(value, 2),
