@@ -28,9 +28,10 @@ const calculateRates = (caseSolves, numSolves) => {
   const cSs = caseSolves;
   const n = numSolves;
   let hRate = cSs.filter((s) => s.hesitated === true).length / n;
+  let nmRate = cSs.filter((s) => s.mistakes === 0).length / n;
   let mmRate = cSs.filter((s) => s.mistakes === 1).length / n;
   let cmRate = cSs.filter((s) => s.mistakes === 2).length / n;
-  return { hRate, mmRate, cmRate };
+  return { hRate, nmRate, mmRate, cmRate };
 };
 
 export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
