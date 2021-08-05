@@ -140,6 +140,14 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
+        Header: <i className="fa fa-check" aria-hidden="true"></i>,
+        accessor: "nmRate",
+        aggregate: "average",
+        Cell: ({ value }) => _.round(value, 2),
+        Aggregated: ({ value }) => _.round(value, 2),
+        sortType: "number",
+      },
+      {
         Header: <i className="fa fa-minus" aria-hidden="true"></i>,
         accessor: "mmRate",
         aggregate: "average",
@@ -178,22 +186,22 @@ export default function CaseSetTable(props) {
         Aggregated: ({ value }) => value,
         sortType: "number",
       },
-      {
-        Header: "Alg Len",
-        accessor: "algs[0]",
-        Cell: ({ value }) => {
-          let ret = null;
-          try {
-            ret = getSTM(value);
-          } catch {
-            ret = 0;
-          }
-          return ret;
-        },
-        aggregate: "average",
-        Aggregated: ({ value }) => value,
-        sortType: "number",
-      },
+      // {
+      //   Header: "Alg Len",
+      //   accessor: "algs[0]",
+      //   Cell: ({ value }) => {
+      //     let ret = null;
+      //     try {
+      //       ret = getSTM(value);
+      //     } catch {
+      //       ret = 0;
+      //     }
+      //     return ret;
+      //   },
+      //   aggregate: "average",
+      //   Aggregated: ({ value }) => value,
+      //   sortType: "number",
+      // },
       {
         Header: "Status",
         id: "status",
