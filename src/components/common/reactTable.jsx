@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import useDarkMode from "../../hooks/useDarkMode";
 
-export default function ReactTable({ table }) {
+export default function ReactTable({ table, ...rest }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     table;
   const [darkMode] = useDarkMode();
@@ -65,7 +65,7 @@ export default function ReactTable({ table }) {
   };
 
   return (
-    <Table {...getTableProps()} responsive className="text-center">
+    <Table {...getTableProps()} responsive className="text-center" {...rest}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
