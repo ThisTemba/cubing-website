@@ -34,6 +34,17 @@ export default function TestPage(props) {
     setCurrentCase(selectedCases[index]);
   }, [selectedCases, solves]);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === " ") {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const handleNewCaseSolve = (solve, c) => {
     solve = {
       caseId: c.id,
