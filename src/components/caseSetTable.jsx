@@ -51,9 +51,30 @@ export default function CaseSetTable(props) {
 
   const defaultColumn = useMemo(() => ({ disableGroupBy: true }), []);
 
+  const getPropLearned = (prop, val) => {
+    const map = {
+      hRate: { symbol: "<", value: 0.5 },
+      mmRate: { symbol: "<", value: 0.5 },
+      cmRate: { symbol: "<", value: 0.5 },
+      avgTPS: { symbol: ">", value: 2 },
+      numSolves: { symbol: ">", value: 2 },
+    };
+    if (typeof map[prop] === "undefined") return null;
+    if (map[prop].symbol === ">") {
+      return val > map[prop].value;
+    } else if (map[prop].symbol === "<") {
+      return val < map[prop].value;
+    } else throw new Error("symbol not recognized");
+  };
+
   const getStatus = ({ hRate, mmRate, cmRate, avgTPS, numSolves }) => {
-    const goodRates = hRate < 0.5 && mmRate < 0.5 && cmRate < 0.5;
-    if (numSolves >= 3 && avgTPS >= 2 && goodRates) return 2;
+    const allLearned =
+      getPropLearned("hRate", hRate) &&
+      getPropLearned("cmRate", cmRate) &&
+      getPropLearned("mmRate", mmRate) &&
+      getPropLearned("avgTPS", avgTPS) &&
+      getPropLearned("numSolves", numSolves);
+    if (allLearned) return 2;
     if (numSolves > 0) return 1;
     return 0;
   };
