@@ -79,24 +79,39 @@ export default function TestPage(props) {
         Cell: ({ value }) => displayDur(value),
       },
       {
-        Header: "Hesitated",
+        Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
         accessor: "hesitated",
         aggregate: (bools) => bools.filter(Boolean).length / bools.length,
-        Cell: ({ value }) => JSON.stringify(value),
+        Cell: ({ value }) =>
+          value ? <i className="fa fa-spinner" aria-hidden="true"></i> : "",
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: "Mistakes",
+        Header: <i className="fa fa-check" aria-hidden="true"></i>,
+        id: "none",
         accessor: "mistakes",
-        Cell: ({ value }) => {
-          return value === 0
-            ? "none"
-            : value === 1
-            ? "minor"
-            : value === 2
-            ? "critical"
-            : "";
-        },
+        aggregate: (vs) => vs.filter((v) => v === 0).length / vs.length,
+        Cell: ({ value }) =>
+          value === 0 ? <i className="fa fa-check" aria-hidden="true"></i> : "",
+        Aggregated: ({ value }) => _.round(value, 2),
+      },
+      {
+        Header: <i className="fa fa-minus" aria-hidden="true"></i>,
+        id: "minor",
+        accessor: "mistakes",
+        aggregate: (vs) => vs.filter((v) => v === 1).length / vs.length,
+        Cell: ({ value }) =>
+          value === 1 ? <i className="fa fa-minus" aria-hidden="true"></i> : "",
+        Aggregated: ({ value }) => _.round(value, 2),
+      },
+      {
+        Header: <i className="fa fa-times" aria-hidden="true"></i>,
+        id: "critical",
+        accessor: "mistakes",
+        aggregate: (vs) => vs.filter((v) => v === 2).length / vs.length,
+        Cell: ({ value }) =>
+          value === 2 ? <i className="fa fa-times" aria-hidden="true"></i> : "",
+        Aggregated: ({ value }) => _.round(value, 2),
       },
     ],
     []
