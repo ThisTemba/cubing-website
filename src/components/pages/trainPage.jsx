@@ -24,6 +24,7 @@ export default function TrainPage(props) {
   }, [selectedCases]);
 
   return (
+    // <Container className="border">
     <Container>
       {displayDashboard && (
         <CaseSetDashboard
