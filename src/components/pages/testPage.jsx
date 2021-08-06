@@ -39,8 +39,8 @@ export default function TestPage(props) {
   }, [selectedCases, solves.length]);
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === " ") event.preventDefault();
+    const handleKeyDown = (e) => {
+      if (e.key === " ") e.preventDefault();
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -58,7 +58,7 @@ export default function TestPage(props) {
       alg: c.algs[0],
       dateTime: solve.dateTime,
     };
-    // latest solve at the top
+    // latest solve at solves[0]
     setSolves([solve, ...solves]);
   };
 
@@ -72,7 +72,7 @@ export default function TestPage(props) {
         Header: "Case",
         accessor: "caseId",
         aggregate: (values) => values[0],
-        Cell: ({ value }) => "",
+        Cell: () => "",
         Aggregated: ({ value: id }) => {
           const cas = _.find(selectedCases, ["id", id]);
           return (
