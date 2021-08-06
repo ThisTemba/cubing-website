@@ -19,11 +19,17 @@ class Timer extends Component {
   }
 
   componentDidMount() {
+    document.addEventListener("touchstart", this.handleTouchStart);
+    document.addEventListener("touchend", this.handleTouchEnd);
+
     document.addEventListener("keyup", this.handleKeyUp);
     document.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillUnmount() {
+    document.removeEventListener("touchstart", this.handleTouchStart);
+    document.removeEventListener("touchend", this.handleTouchEnd);
+
     document.removeEventListener("keyup", this.handleKeyUp);
     document.removeEventListener("keydown", this.handleKeyDown);
   }
@@ -46,6 +52,31 @@ class Timer extends Component {
       durStatic: this.state.time / 1000,
     };
     return solve;
+  };
+
+  handleTouchStart = (e) => {
+    const { timerState } = this.state;
+    const timerElement = document.getElementById("timer-div");
+    const isTouchingTimer = timerElement.contains(e.target);
+    const starting =
+      timerState === "ready" ||
+      timerState === "arming" ||
+      timerState === "armed";
+    const stopping = timerState === "on";
+
+    if ((starting && isTouchingTimer) || stopping) {
+      this.handleKeyDown({ key: " " });
+    }
+  };
+
+  handleTouchEnd = (e) => {
+    const { timerState } = this.state;
+    const cancelling = timerState === "armed";
+    const coolingDown = timerState === "cooldown";
+
+    if (cancelling || coolingDown) {
+      this.handleKeyUp({ key: " " });
+    }
   };
 
   handleKeyUp = ({ key }) => {
@@ -85,7 +116,12 @@ class Timer extends Component {
   render() {
     const { timerState, time } = this.state;
     return (
-      <div>
+      <div
+        id="timer-div"
+        style={{
+          userSelect: "none",
+        }}
+      >
         <ScrambleDisplay scramble={this.props.scramble} />
         <TimeDisplay timeMilliseconds={time} timerState={timerState} />
       </div>
