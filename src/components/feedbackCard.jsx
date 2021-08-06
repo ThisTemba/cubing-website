@@ -26,15 +26,6 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
     setSolves(solves.length === 1 ? [] : _.tail(solves));
   };
 
-  const initial = typeof currentSolve === "undefined";
-  const solveNum = initial ? "#" : solves.length;
-  const caseName = initial ? "Case Name" : currentSolve.caseName;
-  const cardProps = {
-    style: { width: 500 },
-    className: "text-center mb-2",
-    bg: darkMode ? "" : "light",
-  };
-
   const mistakesButtons = [
     { content: <FontAwesomeIcon icon="check" />, id: 0, color: "success" },
     { content: <FontAwesomeIcon icon="minus" />, id: 1, color: "warning" },
@@ -44,14 +35,21 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
   const hesitationButton = [
     {
       content: <FontAwesomeIcon icon="spinner" />,
-      id: "hesitated",
+      id: 1,
       color: darkMode ? "light" : "dark",
     },
   ];
 
+  const initial = typeof currentSolve === "undefined";
+  const solveNum = initial ? "#" : solves.length;
+  const caseName = initial ? "Case Name" : currentSolve.caseName;
   return (
     <div className="d-flex align-items-center justify-content-center">
-      <Card {...cardProps}>
+      <Card
+        style={{ width: 500 }}
+        className="text-center mb-2"
+        bg={darkMode ? "" : "light"}
+      >
         <Card.Body>
           <Card.Title
             className={initial ? "text-muted" : ""}
@@ -59,9 +57,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
           <ButtonGroupToggle
             buttons={hesitationButton}
             onSelect={() => handleToggleHesitation()}
-            activeId={
-              initial ? null : currentSolve.hesitated ? "hesitated" : ""
-            }
+            activeId={initial ? null : currentSolve.hesitated ? 1 : 0}
             size="lg"
             disabled={initial}
           />
