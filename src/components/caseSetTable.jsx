@@ -139,6 +139,12 @@ export default function CaseSetTable(props) {
     return typeof value === "undefined" ? "-" : _.round(value, 2);
   };
 
+  const definedAverage = (values) => {
+    const definedValues = values.filter((v) => typeof v !== "undefined");
+    if (definedValues.length > 0) return _.mean(definedValues);
+    else return undefined;
+  };
+
   const columns = useMemo(
     () => [
       {
