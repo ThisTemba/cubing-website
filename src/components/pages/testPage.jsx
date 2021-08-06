@@ -149,7 +149,7 @@ export default function TestPage(props) {
 
   const hesitationButton = [
     {
-      content: <FontAwesomeIcon icon="check" />, //<FontAwesomeIcon icon="spinner" />,
+      content: <FontAwesomeIcon icon="spinner" />, //<FontAwesomeIcon icon="spinner" />,
       id: "hesitated",
       color: darkMode ? "light" : "dark",
     },
