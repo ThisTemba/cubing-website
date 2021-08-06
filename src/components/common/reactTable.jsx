@@ -1,6 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import useDarkMode from "../../hooks/useDarkMode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Source: https://react-table.tanstack.com/docs/examples/data-driven-classes-and-styles
 const defaultPropGetter = () => ({});
@@ -29,10 +30,10 @@ export default function ReactTable({
 
   const renderExpandArrows = (isExpanded) => {
     return (
-      <i
-        className={`fa fa-angle-${isExpanded ? "down" : "right"} fa-lg`}
-        aria-hidden="true"
-      ></i>
+      <FontAwesomeIcon
+        icon={`angle-${isExpanded ? "down" : "right"}`}
+        size="lg"
+      />
     );
   };
 
@@ -40,7 +41,7 @@ export default function ReactTable({
     return (
       <span>
         {col.isSorted ? (
-          <i className={`fa fa-sort-${col.isSortedDesc ? "desc" : "asc"}`} />
+          <FontAwesomeIcon icon={`sort-${col.isSortedDesc ? "down" : "up"}`} />
         ) : (
           ""
         )}

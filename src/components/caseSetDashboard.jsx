@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useDarkMode from "../hooks/useDarkMode";
@@ -53,8 +54,8 @@ function CaseSetDashboard(props) {
                 className="m-1"
                 variant={darkMode ? "dark" : "secondary"}
               >
-                <i className="fa fa-chevron-left" aria-hidden="true"></i> Back
-                to CaseSet Selection
+                <FontAwesomeIcon icon="chevron-left" /> Back to CaseSet
+                Selection
               </Button>
             </Col>
             <Col className="justify-content-end d-flex p-0">
@@ -64,7 +65,7 @@ function CaseSetDashboard(props) {
                 variant="info"
                 disabled={selectedCases.length === 0}
               >
-                Learn <i className="fa fa-chevron-right" aria-hidden="true"></i>
+                Learn <FontAwesomeIcon icon="chevron-right" />
               </Button>
               <Button
                 onClick={onTest}
@@ -72,7 +73,7 @@ function CaseSetDashboard(props) {
                 variant="success"
                 disabled={selectedCases.length < 2}
               >
-                Test <i className="fa fa-chevron-right" aria-hidden="true"></i>
+                Test <FontAwesomeIcon icon="chevron-right" />
               </Button>
             </Col>
           </Row>

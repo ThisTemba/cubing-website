@@ -1,6 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
-import _ from "lodash";
 import {
   useTable,
   useSortBy,
@@ -8,6 +7,8 @@ import {
   useGroupBy,
   useExpanded,
 } from "react-table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 import MOCK_DATA from "../data/MOCK_DATA.json";
 import { CaseImage } from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
@@ -114,17 +115,14 @@ export default function CaseSetTable(props) {
 
   const renderStatus = (status) => {
     const map = {
-      0: ["secondary", "not started"],
-      1: ["warning", "learning"],
-      2: ["success", "learned"],
+      0: ["text-secondary", "not started"],
+      1: ["text-warning", "learning"],
+      2: ["text-success", "learned"],
     };
     const color = map[status][0];
     return (
       <span>
-        <i
-          className={`fa fa-circle fa-lg text-${color}`}
-          aria-hidden="true"
-        ></i>
+        <FontAwesomeIcon icon="circle" size="lg" className={color} />
       </span>
     );
   };
@@ -158,7 +156,7 @@ export default function CaseSetTable(props) {
         accessor: "name",
       },
       {
-        Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="spinner" />,
         accessor: "hRate",
         aggregate: "average",
         Cell: ({ value }) => _.round(value, 2),
@@ -166,7 +164,7 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
-        Header: <i className="fa fa-check" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="check" />,
         accessor: "nmRate",
         aggregate: "average",
         Cell: ({ value }) => _.round(value, 2),
@@ -174,7 +172,7 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
-        Header: <i className="fa fa-minus" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="minus" />,
         accessor: "mmRate",
         aggregate: "average",
         Cell: ({ value }) => _.round(value, 2),
@@ -182,7 +180,7 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
-        Header: <i className="fa fa-times" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="times" />,
         accessor: "cmRate",
         aggregate: "average",
         Cell: ({ value }) => _.round(value, 2),

@@ -12,6 +12,7 @@ import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 import useDarkMode from "../../hooks/useDarkMode";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -90,38 +91,37 @@ export default function TestPage(props) {
         Cell: ({ value }) => displayDur(value),
       },
       {
-        Header: <i className="fa fa-spinner" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="spinner" />,
         accessor: "hesitated",
         aggregate: (bools) => bools.filter(Boolean).length / bools.length,
-        Cell: ({ value }) =>
-          value ? <i className="fa fa-spinner" aria-hidden="true"></i> : "",
+        Cell: ({ value }) => (value ? <FontAwesomeIcon icon="spinner" /> : ""),
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: <i className="fa fa-check" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="check" />,
         id: "none",
         accessor: "mistakes",
         aggregate: (vs) => vs.filter((v) => v === 0).length / vs.length,
         Cell: ({ value }) =>
-          value === 0 ? <i className="fa fa-check" aria-hidden="true"></i> : "",
+          value === 0 ? <FontAwesomeIcon icon="check" /> : "",
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: <i className="fa fa-minus" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="minus" />,
         id: "minor",
         accessor: "mistakes",
         aggregate: (vs) => vs.filter((v) => v === 1).length / vs.length,
         Cell: ({ value }) =>
-          value === 1 ? <i className="fa fa-minus" aria-hidden="true"></i> : "",
+          value === 1 ? <FontAwesomeIcon icon="minus" /> : "",
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: <i className="fa fa-times" aria-hidden="true"></i>,
+        Header: <FontAwesomeIcon icon="times" />,
         id: "critical",
         accessor: "mistakes",
         aggregate: (vs) => vs.filter((v) => v === 2).length / vs.length,
         Cell: ({ value }) =>
-          value === 2 ? <i className="fa fa-times" aria-hidden="true"></i> : "",
+          value === 2 ? <FontAwesomeIcon icon="times" /> : "",
         Aggregated: ({ value }) => _.round(value, 2),
       },
     ],
@@ -142,14 +142,14 @@ export default function TestPage(props) {
   );
 
   let mistakesButtons = [
-    { symbol: "check", id: 0, color: "success" },
-    { symbol: "minus", id: 1, color: "warning" },
-    { symbol: "times", id: 2, color: "danger" },
-  ].map((b) => ({ ...b, content: <i className={`fa fa-${b.symbol}`}></i> }));
+    { content: <FontAwesomeIcon icon="check" />, id: 0, color: "success" },
+    { content: <FontAwesomeIcon icon="minus" />, id: 1, color: "warning" },
+    { content: <FontAwesomeIcon icon="times" />, id: 2, color: "danger" },
+  ].map((b) => ({ ...b, content: b.content }));
 
   const hesitationButton = [
     {
-      content: <i className="fa fa-spinner" aria-hidden="true"></i>,
+      content: <FontAwesomeIcon icon="check" />, //<FontAwesomeIcon icon="spinner" />,
       id: "hesitated",
       color: darkMode ? "light" : "dark",
     },
@@ -197,8 +197,7 @@ export default function TestPage(props) {
             variant={darkMode ? "dark" : "secondary"}
             className="m-1"
           >
-            <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
-            Dashboard
+            <FontAwesomeIcon icon="chevron-left" /> Back to Dashboard
           </Button>
         </Col>
       </Row>
@@ -226,11 +225,7 @@ export default function TestPage(props) {
                 size="lg"
               />
               <Button variant="danger" size="lg">
-                <i
-                  className="fa fa-trash"
-                  aria-hidden="true"
-                  onClick={handleDelete}
-                ></i>
+                <FontAwesomeIcon icon="trash" />
               </Button>
             </Col>
           </Row>

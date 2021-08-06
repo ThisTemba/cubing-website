@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { CaseImage } from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
@@ -33,13 +34,13 @@ export default function LearnPage(props) {
     if (algVisible)
       return (
         <Button variant="light" onClick={() => setAlgVisible(false)}>
-          <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+          <FontAwesomeIcon icon="eye" />
         </Button>
       );
     else
       return (
         <Button variant="light" onClick={() => setAlgVisible(true)}>
-          <i class="fa fa-eye-slash fa-lg" aria-hidden="true"></i>
+          <FontAwesomeIcon icon="eye-slash" />
         </Button>
       );
   };
@@ -56,8 +57,7 @@ export default function LearnPage(props) {
             variant="secondary"
             className="m-1"
           >
-            <i className="fa fa-chevron-left" aria-hidden="true"></i> Back to
-            Dashboard
+            <FontAwesomeIcon icon="chevron-left" /> Back to Dashboard
           </Button>
         </Col>
         <Col>
@@ -72,7 +72,7 @@ export default function LearnPage(props) {
             className="m-1"
             variant={darkMode ? "dark" : "light"}
           >
-            <i className="fa fa-arrow-left" aria-hidden="true"></i>
+            <FontAwesomeIcon icon="arrow-left" />
           </Button>
         </Col>
         <Col>
@@ -84,7 +84,7 @@ export default function LearnPage(props) {
             className="m-1"
             variant={darkMode ? "dark" : "light"}
           >
-            <i className="fa fa-arrow-right" aria-hidden="true"></i>
+            <FontAwesomeIcon icon="arrow-right" />
           </Button>
         </Col>
       </Row>
