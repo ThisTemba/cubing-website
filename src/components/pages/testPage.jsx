@@ -224,7 +224,7 @@ export default function TestPage(props) {
                 activeId={solves[0] ? solves[0].mistakes : null}
                 size="lg"
               />
-              <Button variant="danger" size="lg">
+              <Button variant="danger" size="lg" onClick={handleDelete}>
                 <FontAwesomeIcon icon="trash" />
               </Button>
             </Col>
