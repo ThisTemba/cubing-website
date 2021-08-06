@@ -25,7 +25,7 @@ class Timer extends Component {
 
   componentWillUnmount() {
     document.removeEventListener("keyup", this.handleKeyUp);
-    document.addEventListener("keydown", this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   startTimer = () => {
