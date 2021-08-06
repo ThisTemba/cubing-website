@@ -1,9 +1,10 @@
 import React from "react";
-import CubeImage from "./cubeImage";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { Row, Col } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 import _ from "lodash";
+import CubeImage from "./cubeImage";
 import useDarkMode from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {
