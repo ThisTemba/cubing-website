@@ -14,7 +14,6 @@ import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
 import { displayDur } from "../utils/formatTime";
-import { getSTM } from "../utils/algTools";
 import useDarkMode from "../hooks/useDarkMode";
 
 export default function CaseSetTable(props) {
