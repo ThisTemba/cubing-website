@@ -50,7 +50,7 @@ export default function TestPage(props) {
   }, []);
 
   const handleNewCaseSolve = (solve, c) => {
-    setCurrentScramble(getScramble(currentCase));
+    setCurrentScramble(randomYRot(_.sample(currentCase.scrambles)));
     solve = {
       caseId: c.id,
       dur: solve.dur,
@@ -182,10 +182,6 @@ export default function TestPage(props) {
     if (user) {
       writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
     }
-  };
-
-  const getScramble = (currentCase) => {
-    return randomYRot(_.sample(currentCase.scrambles));
   };
 
   const handleDelete = () => {
