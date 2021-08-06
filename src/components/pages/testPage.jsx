@@ -206,7 +206,11 @@ export default function TestPage(props) {
       />
       {solves.length > 0 && (
         <div className="d-flex align-items-center justify-content-center">
-          <Card style={{ width: 500 }} className="text-center mb-2">
+          <Card
+            style={{ width: 500 }}
+            className="text-center mb-2"
+            bg={darkMode ? "" : "light"}
+          >
             <Card.Body>
               <Card.Title>{`${solves.length}. ${solves[0].caseName} `}</Card.Title>
               <ButtonGroupToggle
