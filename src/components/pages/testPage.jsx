@@ -33,7 +33,10 @@ export default function TestPage(props) {
       } else return 0;
     });
     const index = balancedRandomIndex(counts);
-    setCurrentCase(selectedCases[index]);
+    const nextCase = selectedCases[index];
+    const nextScramble = randomYRot(_.sample(nextCase.scrambles));
+    setCurrentCase(nextCase);
+    setCurrentScramble(nextScramble);
   }, [selectedCases, solves]);
 
   useEffect(() => {
@@ -46,7 +49,6 @@ export default function TestPage(props) {
   }, []);
 
   const handleNewCaseSolve = (solve, c) => {
-    setCurrentScramble(randomYRot(_.sample(currentCase.scrambles)));
     solve = {
       caseId: c.id,
       dur: solve.dur,
@@ -185,7 +187,7 @@ export default function TestPage(props) {
   };
 
   return (
-    <Container>
+    <>
       <Row>
         <Col className="p-0">
           <Button
@@ -203,11 +205,10 @@ export default function TestPage(props) {
         armingTime={100}
       />
       {solves.length > 0 && (
-        <Card>
-          <Row>
-            <Col className="text-center">
-              <strong>{"Solve: " + solves.length + "."}</strong>{" "}
-              {"Case: " + solves[0].caseName}{" "}
+        <div className="d-flex align-items-center justify-content-center">
+          <Card style={{ maxWidth: 600 }} className="text-center m-2">
+            <Card.Body>
+              <Card.Title>{`${solves.length}. ${solves[0].caseName} `}</Card.Title>
               <ButtonGroupToggle
                 buttons={hesitationButton}
                 onSelect={() => handleToggleHesitation()}
@@ -223,11 +224,11 @@ export default function TestPage(props) {
               <Button variant="danger" size="lg" onClick={handleDelete}>
                 <FontAwesomeIcon icon="trash" />
               </Button>
-            </Col>
-          </Row>
-        </Card>
+            </Card.Body>
+          </Card>
+        </div>
       )}
       <ReactTable table={table} />
-    </Container>
+    </>
   );
 }
