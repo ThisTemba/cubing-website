@@ -18,7 +18,6 @@ const ButtonGroupToggle = ({
       {buttons.map((button) => {
         return (
           <Button
-            // className={`btn ${getButtonVariant(activeId, button)} ${size}`}
             variant={getButtonVariant(activeId, button)}
             onClick={() => onSelect(button.id)}
             key={button.id}
