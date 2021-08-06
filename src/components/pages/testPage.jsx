@@ -28,8 +28,7 @@ export default function TestPage(props) {
     const counts = selectedCases.map((c) => {
       if (solves.length) {
         const count = _.countBy(solves, "caseId")[c.id];
-        if (count === undefined) return 0;
-        else return count;
+        return typeof count !== "undefined" ? count : 0;
       } else return 0;
     });
     const index = balancedRandomIndex(counts);
