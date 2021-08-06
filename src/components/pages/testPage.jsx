@@ -170,6 +170,10 @@ export default function TestPage(props) {
     document.activeElement.blur();
   };
 
+  const handleDelete = () => {
+    setSolves(solves.length === 1 ? [] : _.tail(solves));
+  };
+
   const handleBackToDash = () => {
     props.history.push("/train");
     props.onDashboard();
@@ -179,10 +183,6 @@ export default function TestPage(props) {
     if (user) {
       writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
     }
-  };
-
-  const handleDelete = () => {
-    setSolves(solves.length === 1 ? [] : _.tail(solves));
   };
 
   const renderFeedbackCard = (solve) => {
