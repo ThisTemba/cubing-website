@@ -1,14 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 
-const ButtonGroupToggle = ({
-  buttons,
-  color,
-  activeId,
-  onSelect,
-  size,
-  disabled,
-}) => {
+const ButtonGroupToggle = ({ buttons, color, activeId, onSelect, ...rest }) => {
   const getButtonVariant = (activeButtonId, button) => {
     color = button.color || color;
     return activeButtonId === button.id ? `${color}` : `outline-${color}`;
@@ -21,8 +14,7 @@ const ButtonGroupToggle = ({
             variant={getButtonVariant(activeId, button)}
             onClick={() => onSelect(button.id)}
             key={button.id}
-            size={size}
-            disabled={disabled || false}
+            {...rest}
           >
             {button.content}
           </Button>
