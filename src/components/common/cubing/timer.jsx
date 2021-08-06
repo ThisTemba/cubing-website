@@ -118,6 +118,7 @@ class Timer extends Component {
     return (
       <div
         id="timer-div"
+        // Source: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
         style={{
           userSelect: "none",
         }}
