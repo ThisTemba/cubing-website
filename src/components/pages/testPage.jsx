@@ -145,8 +145,6 @@ export default function TestPage(props) {
   const handleBackToDash = () => {
     props.history.push("/train");
     props.onDashboard();
-    console.table("solves", solves);
-    console.log("caseSetDetails", caseSetDetails);
     const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
     if (user) {
       writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
