@@ -185,6 +185,50 @@ export default function TestPage(props) {
     setSolves(solves.length === 1 ? [] : _.tail(solves));
   };
 
+  const renderFeedbackCard = (solve) => {
+    const initial = typeof solve === "undefined";
+    const solveNum = initial ? "#" : solves.length;
+    const caseName = initial ? "Case Name" : solve.caseName;
+    const cardProps = {
+      style: { width: 500 },
+      className: "text-center mb-2",
+      bg: darkMode ? "" : "light",
+    };
+    return (
+      <div className="d-flex align-items-center justify-content-center">
+        <Card {...cardProps}>
+          <Card.Body>
+            <Card.Title
+              className={initial ? "text-muted" : ""}
+            >{`${solveNum}. ${caseName} `}</Card.Title>
+            <ButtonGroupToggle
+              buttons={hesitationButton}
+              onSelect={() => handleToggleHesitation()}
+              activeId={initial ? null : solve.hesitated ? "hesitated" : ""}
+              size="lg"
+              disabled={initial}
+            />
+            <ButtonGroupToggle
+              buttons={mistakesButtons}
+              onSelect={(id) => handleSelectMistake(id)}
+              activeId={initial ? null : solve.mistakes}
+              size="lg"
+              disabled={initial}
+            />
+            <Button
+              variant="danger"
+              size="lg"
+              onClick={handleDelete}
+              disabled={initial}
+            >
+              <FontAwesomeIcon icon="trash" />
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
+    );
+  };
+
   return (
     <>
       <Row>
@@ -203,34 +247,7 @@ export default function TestPage(props) {
         scramble={currentScramble}
         armingTime={100}
       />
-      {solves.length > 0 && (
-        <div className="d-flex align-items-center justify-content-center">
-          <Card
-            style={{ width: 500 }}
-            className="text-center mb-2"
-            bg={darkMode ? "" : "light"}
-          >
-            <Card.Body>
-              <Card.Title>{`${solves.length}. ${solves[0].caseName} `}</Card.Title>
-              <ButtonGroupToggle
-                buttons={hesitationButton}
-                onSelect={() => handleToggleHesitation()}
-                activeId={solves[0].hesitated ? "hesitated" : ""}
-                size="lg"
-              />
-              <ButtonGroupToggle
-                buttons={mistakesButtons}
-                onSelect={(id) => handleSelectMistake(id)}
-                activeId={solves[0] ? solves[0].mistakes : null}
-                size="lg"
-              />
-              <Button variant="danger" size="lg" onClick={handleDelete}>
-                <FontAwesomeIcon icon="trash" />
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-      )}
+      {renderFeedbackCard(solves[0])}
       <ReactTable table={table} />
     </>
   );
