@@ -21,8 +21,8 @@ export default function TestPage(props) {
     selectedCases[0].scrambles[0]
   );
   const [solves, setSolves] = useState([]);
-  const user = useAuthState();
   const [darkMode] = useDarkMode();
+  const user = useAuthState();
 
   useEffect(() => {
     const counts = selectedCases.map((c) => {
@@ -30,9 +30,7 @@ export default function TestPage(props) {
         const count = _.countBy(solves, "caseId")[c.id];
         if (count === undefined) return 0;
         else return count;
-      } else {
-        return 0;
-      }
+      } else return 0;
     });
     const index = balancedRandomIndex(counts);
     setCurrentCase(selectedCases[index]);
@@ -40,9 +38,7 @@ export default function TestPage(props) {
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === " ") {
-        event.preventDefault();
-      }
+      if (event.key === " ") event.preventDefault();
     };
 
     window.addEventListener("keydown", handleKeyDown);
