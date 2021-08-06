@@ -135,6 +135,10 @@ export default function CaseSetTable(props) {
 
   const hasUniqueGroups = _.uniqBy(caseSet.cases, "group").length > 1;
 
+  const displayRate = ({ value }) => {
+    return typeof value === "undefined" ? "-" : _.round(value, 2);
+  };
+
   const columns = useMemo(
     () => [
       {
