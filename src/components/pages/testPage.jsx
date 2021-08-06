@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Button, Card, Col, Row, Container } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useExpanded, useGroupBy, useTable } from "react-table";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { useAuthState } from "../../fire";
 import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
-import ButtonGroupToggle from "../common/buttonGroupToggle";
 import { CaseImage } from "../common/cubing/cubeImage";
+import FeedbackCard from "../feedbackCard";
 import { displayDur } from "../../utils/formatTime";
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 import useDarkMode from "../../hooks/useDarkMode";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -142,38 +142,6 @@ export default function TestPage(props) {
     useExpanded
   );
 
-  let mistakesButtons = [
-    { content: <FontAwesomeIcon icon="check" />, id: 0, color: "success" },
-    { content: <FontAwesomeIcon icon="minus" />, id: 1, color: "warning" },
-    { content: <FontAwesomeIcon icon="times" />, id: 2, color: "danger" },
-  ].map((b) => ({ ...b, content: b.content }));
-
-  const hesitationButton = [
-    {
-      content: <FontAwesomeIcon icon="spinner" />, //<FontAwesomeIcon icon="spinner" />,
-      id: "hesitated",
-      color: darkMode ? "light" : "dark",
-    },
-  ];
-
-  const handleSelectMistake = (mistakes) => {
-    const newSolves = [...solves];
-    newSolves[0].mistakes = mistakes;
-    setSolves(newSolves);
-    document.activeElement.blur();
-  };
-
-  const handleToggleHesitation = () => {
-    const newSolves = [...solves];
-    newSolves[0].hesitated = !newSolves[0].hesitated;
-    setSolves(newSolves);
-    document.activeElement.blur();
-  };
-
-  const handleDelete = () => {
-    setSolves(solves.length === 1 ? [] : _.tail(solves));
-  };
-
   const handleBackToDash = () => {
     props.history.push("/train");
     props.onDashboard();
@@ -183,50 +151,6 @@ export default function TestPage(props) {
     if (user) {
       writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
     }
-  };
-
-  const renderFeedbackCard = (solve) => {
-    const initial = typeof solve === "undefined";
-    const solveNum = initial ? "#" : solves.length;
-    const caseName = initial ? "Case Name" : solve.caseName;
-    const cardProps = {
-      style: { width: 500 },
-      className: "text-center mb-2",
-      bg: darkMode ? "" : "light",
-    };
-    return (
-      <div className="d-flex align-items-center justify-content-center">
-        <Card {...cardProps}>
-          <Card.Body>
-            <Card.Title
-              className={initial ? "text-muted" : ""}
-            >{`${solveNum}. ${caseName} `}</Card.Title>
-            <ButtonGroupToggle
-              buttons={hesitationButton}
-              onSelect={() => handleToggleHesitation()}
-              activeId={initial ? null : solve.hesitated ? "hesitated" : ""}
-              size="lg"
-              disabled={initial}
-            />
-            <ButtonGroupToggle
-              buttons={mistakesButtons}
-              onSelect={(id) => handleSelectMistake(id)}
-              activeId={initial ? null : solve.mistakes}
-              size="lg"
-              disabled={initial}
-            />
-            <Button
-              variant="danger"
-              size="lg"
-              onClick={handleDelete}
-              disabled={initial}
-            >
-              <FontAwesomeIcon icon="trash" />
-            </Button>
-          </Card.Body>
-        </Card>
-      </div>
-    );
   };
 
   return (
@@ -247,7 +171,11 @@ export default function TestPage(props) {
         scramble={currentScramble}
         armingTime={100}
       />
-      {renderFeedbackCard(solves[0])}
+      <FeedbackCard
+        currentSolve={solves[0]}
+        solves={solves}
+        setSolves={setSolves}
+      />
       <ReactTable table={table} />
     </>
   );
