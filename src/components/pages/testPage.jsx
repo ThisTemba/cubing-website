@@ -17,6 +17,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
   const [currentCase, setCurrentCase] = useState(selectedCases[0]);
+  const [currentScramble, setCurrentScramble] = useState(
+    selectedCases[0].scrambles[0]
+  );
   const [solves, setSolves] = useState([]);
   const user = useAuthState();
   const [darkMode] = useDarkMode();
@@ -47,6 +50,7 @@ export default function TestPage(props) {
   }, []);
 
   const handleNewCaseSolve = (solve, c) => {
+    setCurrentScramble(getScramble(currentCase));
     solve = {
       caseId: c.id,
       dur: solve.dur,
@@ -203,7 +207,7 @@ export default function TestPage(props) {
       </Row>
       <Timer
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
-        scramble={getScramble(currentCase)}
+        scramble={currentScramble}
         armingTime={100}
       />
       {solves.length > 0 && (
