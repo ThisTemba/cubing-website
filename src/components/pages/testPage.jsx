@@ -37,7 +37,7 @@ export default function TestPage(props) {
     const nextScramble = randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
-  }, [selectedCases, solves]);
+  }, [selectedCases, solves.length]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
