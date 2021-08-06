@@ -33,15 +33,8 @@ export default function ReactTable({
   };
 
   const renderSortIcon = (col) => {
-    return (
-      <span>
-        {col.isSorted ? (
-          <FontAwesomeIcon icon={`sort-${col.isSortedDesc ? "down" : "up"}`} />
-        ) : (
-          ""
-        )}
-      </span>
-    );
+    const icon = `sort-${col.isSortedDesc ? "down" : "up"}`;
+    return <span>{col.isSorted ? <FontAwesomeIcon icon={icon} /> : ""}</span>;
   };
 
   const renderCell = (cell, row) => {
