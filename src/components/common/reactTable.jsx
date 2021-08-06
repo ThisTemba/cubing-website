@@ -29,12 +29,7 @@ export default function ReactTable({
   };
 
   const renderExpandArrows = (isExpanded) => {
-    return (
-      <FontAwesomeIcon
-        icon={`angle-${isExpanded ? "down" : "right"}`}
-        size="lg"
-      />
-    );
+    return <FontAwesomeIcon icon={`angle-${isExpanded ? "down" : "right"}`} />;
   };
 
   const renderSortIcon = (col) => {
