@@ -17,6 +17,8 @@ import {
   faSortUp,
   faSortDown,
   faCircle,
+  faForward,
+  faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -36,5 +38,7 @@ library.add(
   faAngleRight,
   faSortUp,
   faSortDown,
-  faCircle
+  faCircle,
+  faForward,
+  faQuestion
 );
