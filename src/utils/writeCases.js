@@ -21,14 +21,14 @@ const setDocument = (docRef, data) => {
     .catch((error) => console.error("Error writing document: ", error));
 };
 
-const writeCasesToCaseDocs = (solves, caseIds, caseSetDetails, user) => {
+const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
   const caseStatData = Promise.all(
     caseIds.map(async (caseId) => {
-      const docRef = getCaseDocRef(user, caseSetDetails, caseId);
-      const oldDoc = await docRef.get();
+      const caseDocRef = caseSetDocRef.collection("cases").doc(caseId);
+      const oldDoc = await caseDocRef.get();
       const newSolves = _.filter(solves, ["caseId", caseId]);
       const data = prepareCaseData(newSolves, oldDoc);
-      setDocument(docRef, data);
+      setDocument(caseDocRef, data);
       return { caseId: caseId, caseStats: data.caseStats };
     })
   );
@@ -36,7 +36,8 @@ const writeCasesToCaseDocs = (solves, caseIds, caseSetDetails, user) => {
 };
 
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
-  writeCasesToCaseDocs(solves, caseIds, caseSetDetails, user).then(
-    (caseStatData) => console.log(caseStatData)
+  const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
+  writeCasesToCaseDocs(solves, caseIds, caseSetDocRef).then((caseStatData) =>
+    console.log(caseStatData)
   );
 };
