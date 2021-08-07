@@ -31,16 +31,15 @@ export default function LearnPage(props) {
   }, [currentIndex]);
 
   const renderVisibilityButton = (algVisible) => {
-    if (algVisible)
       return (
-        <Button variant="light" onClick={() => setAlgVisible(false)}>
-          <FontAwesomeIcon icon="eye" />
-        </Button>
-      );
-    else
-      return (
-        <Button variant="light" onClick={() => setAlgVisible(true)}>
-          <FontAwesomeIcon icon="eye-slash" />
+      <Button
+        variant={darkMode ? "dark" : "light"}
+        onClick={() => {
+          setAlgVisible(!algVisible);
+          document.activeElement.blur();
+        }}
+      >
+        <FontAwesomeIcon icon={algVisible ? "eye" : "eye-slash"} />
         </Button>
       );
   };
