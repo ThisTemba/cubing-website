@@ -12,7 +12,7 @@ const getCaseDocRef = (user, caseSetDetails, caseId) => {
     .doc(caseId);
 };
 
-const writeCaseToFirebase = (docRef, data) => {
+const setDocument = (docRef, data) => {
   docRef
     .set(data)
     .then(() => console.log("Document successfully written!"))
@@ -27,7 +27,7 @@ export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
       .then((oldDoc) => {
         const newSolves = _.filter(solves, ["caseId", caseId]);
         const data = prepareCaseData(newSolves, oldDoc);
-        writeCaseToFirebase(docRef, data);
+        setDocument(docRef, data);
       })
       .catch((error) => {
         console.log("Error getting document:", error);
