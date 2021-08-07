@@ -79,8 +79,8 @@ class Timer extends Component {
     }
   };
 
-  handleKeyUp = ({ key }) => {
-    if (key === " ") {
+  handleKeyUp = (e) => {
+    if (e.key === " ") {
       const { timerState } = this.state;
       switch (timerState) {
         case "armed":
