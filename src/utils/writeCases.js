@@ -3,13 +3,15 @@ import { db } from "../fire";
 import { prepareCaseData } from "./caseStats";
 
 const getCaseDocRef = (user, caseSetDetails, caseId) => {
+  return getCaseSetDocRef(user, caseSetDetails).collection("cases").doc(caseId);
+};
+
+const getCaseSetDocRef = (user, caseSetDetails) => {
   return db
     .collection("users")
     .doc(user.uid)
     .collection("caseSets")
-    .doc(caseSetDetails.id)
-    .collection("cases")
-    .doc(caseId);
+    .doc(caseSetDetails.id);
 };
 
 const setDocument = (docRef, data) => {
