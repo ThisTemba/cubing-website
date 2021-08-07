@@ -54,6 +54,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
           <Card.Title
             className={initial ? "text-muted" : ""}
           >{`${solveNum}. ${caseName} `}</Card.Title>
+
           <ButtonGroupToggle
             buttons={hesitationButton}
             onSelect={() => handleToggleHesitation()}
@@ -69,6 +70,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
             disabled={initial}
           />
           <Button
+            className="m-1"
             variant="danger"
             size="lg"
             onClick={handleDelete}
