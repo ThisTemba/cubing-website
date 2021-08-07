@@ -28,15 +28,6 @@ export default function TestPage(props) {
     nextCaseAndScramble();
   }, [selectedCases, solves.length]);
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === " ") e.preventDefault();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
   const nextCaseAndScramble = () => {
     const counts = selectedCases.map((c) => {
       if (solves.length) {
@@ -49,21 +40,6 @@ export default function TestPage(props) {
     const nextScramble = randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
-  };
-
-  const handleNewCaseSolve = (solve, c) => {
-    solve = {
-      caseId: c.id,
-      dur: solve.dur,
-      hesitated: false,
-      mistakes: 0,
-      caseName: c.name,
-      tps: getSTM(c.algs[0]) / solve.dur,
-      alg: c.algs[0],
-      dateTime: solve.dateTime,
-    };
-    // latest solve at solves[0]
-    setSolves([solve, ...solves]);
   };
 
   const columns = useMemo(
@@ -145,6 +121,21 @@ export default function TestPage(props) {
     useGroupBy,
     useExpanded
   );
+
+  const handleNewCaseSolve = (solve, c) => {
+    solve = {
+      caseId: c.id,
+      dur: solve.dur,
+      hesitated: false,
+      mistakes: 0,
+      caseName: c.name,
+      tps: getSTM(c.algs[0]) / solve.dur,
+      alg: c.algs[0],
+      dateTime: solve.dateTime,
+    };
+    // latest solve at solves[0]
+    setSolves([solve, ...solves]);
+  };
 
   const handleBackToDash = () => {
     props.history.push("/train");

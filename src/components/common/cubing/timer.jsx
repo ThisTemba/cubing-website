@@ -98,18 +98,21 @@ class Timer extends Component {
     }
   };
 
-  handleKeyDown = ({ key }) => {
+  handleKeyDown = (e) => {
     const { timerState } = this.state;
     const { armingTime } = this.props;
     if (timerState === "on") {
       this.setState({ timerState: "cooldown" }); // stop the timer first
       this.props.onNewSolve(this.getNewSolve());
     }
-    if (key === " " && timerState === "ready") {
-      this.timeout = setTimeout(() => {
-        this.setState({ timerState: "armed", time: 0 });
-      }, armingTime);
-      this.setState({ timerState: "arming" });
+    if (e.key === " ") {
+      e.preventDefault(); // no scroll
+      if (timerState === "ready") {
+        this.timeout = setTimeout(() => {
+          this.setState({ timerState: "armed", time: 0 });
+        }, armingTime);
+        this.setState({ timerState: "arming" });
+      }
     }
   };
 
