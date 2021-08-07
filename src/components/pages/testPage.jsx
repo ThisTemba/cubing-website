@@ -25,6 +25,19 @@ export default function TestPage(props) {
   const user = useAuthState();
 
   useEffect(() => {
+    nextCaseAndScramble();
+  }, [selectedCases, solves.length]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === " ") e.preventDefault();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const nextCaseAndScramble = () => {
     const counts = selectedCases.map((c) => {
       if (solves.length) {
         const count = _.countBy(solves, "caseId")[c.id];
@@ -36,16 +49,7 @@ export default function TestPage(props) {
     const nextScramble = randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
-  }, [selectedCases, solves.length]);
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === " ") e.preventDefault();
     };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
 
   const handleNewCaseSolve = (solve, c) => {
     solve = {
