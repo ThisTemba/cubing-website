@@ -49,7 +49,7 @@ export default function TestPage(props) {
     const nextScramble = randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
-    };
+  };
 
   const handleNewCaseSolve = (solve, c) => {
     solve = {
@@ -155,16 +155,28 @@ export default function TestPage(props) {
     }
   };
 
+  const secondary = darkMode ? "dark" : "secondary";
+
   return (
     <>
       <Row>
         <Col className="p-0">
           <Button
             onClick={handleBackToDash}
-            variant={darkMode ? "dark" : "secondary"}
+            variant={secondary}
             className="m-1"
           >
             <FontAwesomeIcon icon="chevron-left" /> Back to Dashboard
+          </Button>
+        </Col>
+        <Col className="justify-content-end d-flex p-0">
+          <Button
+            className="m-1 pl-3 pr-3"
+            variant={secondary}
+            size="sm"
+            onClick={nextCaseAndScramble}
+          >
+            <FontAwesomeIcon icon="forward" />
           </Button>
         </Col>
       </Row>
