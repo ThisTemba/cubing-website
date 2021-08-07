@@ -21,7 +21,7 @@ const setDocument = (docRef, data) => {
     .catch((error) => console.error("Error writing document: ", error));
 };
 
-export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
+const writeCasesToCaseDocs = (solves, caseIds, caseSetDetails, user) => {
   caseIds.map((caseId) => {
     const docRef = getCaseDocRef(user, caseSetDetails, caseId);
     docRef
@@ -35,4 +35,8 @@ export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
         console.log("Error getting document:", error);
       });
   });
+};
+
+export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
+  writeCasesToCaseDocs(solves, caseIds, caseSetDetails, user);
 };
