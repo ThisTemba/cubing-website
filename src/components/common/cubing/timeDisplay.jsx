@@ -6,15 +6,19 @@ const TimeDisplay = (props) => {
     fontFamily: "Monospace",
     textAlign: "center",
     fontSize: "100px",
-    color:
-      props.timerState === "arming"
-        ? "red"
-        : props.timerState === "armed"
-        ? "green"
-        : "",
   };
+  const className =
+    props.timerState === "arming"
+      ? "text-danger"
+      : props.timerState === "armed"
+      ? "text-success"
+      : "";
 
-  return <h1 style={displayStyle}>{getTimeString(timeMilliseconds)}</h1>;
+  return (
+    <h1 style={displayStyle} className={className}>
+      {getTimeString(timeMilliseconds)}
+    </h1>
+  );
 };
 
 export default TimeDisplay;
