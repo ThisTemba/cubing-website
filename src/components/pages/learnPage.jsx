@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Row, Col, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import { CaseImage } from "../common/cubing/cubeImage";
@@ -31,7 +31,7 @@ export default function LearnPage(props) {
   }, [currentIndex]);
 
   const renderVisibilityButton = (algVisible) => {
-      return (
+    return (
       <Button
         variant={darkMode ? "dark" : "light"}
         onClick={() => {
@@ -40,8 +40,8 @@ export default function LearnPage(props) {
         }}
       >
         <FontAwesomeIcon icon={algVisible ? "eye" : "eye-slash"} />
-        </Button>
-      );
+      </Button>
+    );
   };
 
   return (
@@ -64,7 +64,7 @@ export default function LearnPage(props) {
         </Col>
         <Col className="p-0"></Col>
       </Row>
-      <Row>
+      <Row className="mt-2">
         <Col className="text-left p-0 align-middle">
           <Button
             onClick={() => nextIndex("left")}
@@ -87,19 +87,48 @@ export default function LearnPage(props) {
           </Button>
         </Col>
       </Row>
-      Show/Hide Algorithm: {renderVisibilityButton(algVisible)}
-      {algVisible && (
-        <ScrambleDisplay scramble={"Alg: " + currentCase.algs[0]} />
-      )}
       <ScrambleDisplay
         scramble={"Scramble: " + _.sample(currentCase.scrambles)}
       />
-      <CaseImage
-        live
-        size="200"
-        case={currentCase}
-        caseSetDetails={props.caseSetDetails}
-      />
+      <Row>
+        <Col>
+          <Card>
+            <Card.Body>
+              <CaseImage
+                live
+                size="200"
+                case={currentCase}
+                caseSetDetails={props.caseSetDetails}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col>
+          <Card>
+            <Card.Body>
+              <iframe
+                frameBorder="0"
+                width="250"
+                height="290"
+                src={`https://ruwix.com/widget/3d/?alg=${currentCase.algs[0]}&speed=1000&colors=F:b%20L:o%20B:g%20R:r`}
+                scrolling="no"
+              ></iframe>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <div
+        className="text-center mt-2"
+        style={{
+          fontFamily: "Monospace",
+          textAlign: "center",
+          fontSize: "30px",
+        }}
+      >
+        {"Algorithm "}
+        {renderVisibilityButton(algVisible)}
+      </div>
+      {algVisible && <ScrambleDisplay scramble={currentCase.algs[0]} />}
     </div>
   );
 }
