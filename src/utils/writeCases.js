@@ -22,15 +22,21 @@ const setDocument = (docRef, data) => {
 };
 
 const writeCasesToCaseDocs = (solves, caseIds, caseSetDetails, user) => {
-  caseIds.map(async (caseId) => {
-    const docRef = getCaseDocRef(user, caseSetDetails, caseId);
-    const oldDoc = await docRef.get();
-    const newSolves = _.filter(solves, ["caseId", caseId]);
-    const data = prepareCaseData(newSolves, oldDoc);
-    setDocument(docRef, data);
-  });
+  const caseStatData = Promise.all(
+    caseIds.map(async (caseId) => {
+      const docRef = getCaseDocRef(user, caseSetDetails, caseId);
+      const oldDoc = await docRef.get();
+      const newSolves = _.filter(solves, ["caseId", caseId]);
+      const data = prepareCaseData(newSolves, oldDoc);
+      setDocument(docRef, data);
+      return { caseId: caseId, caseStats: data.caseStats };
+    })
+  );
+  return caseStatData;
 };
 
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
-  writeCasesToCaseDocs(solves, caseIds, caseSetDetails, user);
+  writeCasesToCaseDocs(solves, caseIds, caseSetDetails, user).then(
+    (caseStatData) => console.log(caseStatData)
+  );
 };
