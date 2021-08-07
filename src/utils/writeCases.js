@@ -22,18 +22,12 @@ const setDocument = (docRef, data) => {
 };
 
 const writeCasesToCaseDocs = (solves, caseIds, caseSetDetails, user) => {
-  caseIds.map((caseId) => {
+  caseIds.map(async (caseId) => {
     const docRef = getCaseDocRef(user, caseSetDetails, caseId);
-    docRef
-      .get()
-      .then((oldDoc) => {
-        const newSolves = _.filter(solves, ["caseId", caseId]);
-        const data = prepareCaseData(newSolves, oldDoc);
-        setDocument(docRef, data);
-      })
-      .catch((error) => {
-        console.log("Error getting document:", error);
-      });
+    const oldDoc = await docRef.get();
+    const newSolves = _.filter(solves, ["caseId", caseId]);
+    const data = prepareCaseData(newSolves, oldDoc);
+    setDocument(docRef, data);
   });
 };
 
