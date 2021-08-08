@@ -10,10 +10,6 @@ const getCaseSetDocRef = (user, caseSetDetails) => {
     .doc(caseSetDetails.id);
 };
 
-const getCaseDocRef = (user, caseSetDetails, caseId) => {
-  return getCaseSetDocRef(user, caseSetDetails).collection("cases").doc(caseId);
-};
-
 const setDocument = (docRef, data) => {
   docRef
     .set(data)
