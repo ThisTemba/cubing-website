@@ -34,14 +34,16 @@ export default function CaseSetTable(props) {
         .collection("caseSets")
         .doc(caseSet.details.id)
         .onSnapshot((caseSetDoc) => {
-          const caseStatData = caseSetDoc.data().cases;
-          const combined = data.map((c) => {
-            if (_.find(caseStatData, ["id", c.id])) {
-              var caseStats = _.find(caseStatData, ["id", c.id]).caseStats;
-            }
-            return { ...c, ...caseStats };
-          });
-          setData(combined);
+          if (caseSetDoc.data()) {
+            const caseStatData = caseSetDoc.data().cases;
+            const combined = data.map((c) => {
+              if (_.find(caseStatData, ["id", c.id])) {
+                var caseStats = _.find(caseStatData, ["id", c.id]).caseStats;
+              }
+              return { ...c, ...caseStats };
+            });
+            setData(combined);
+          }
         });
     }
     return unsubscribe;
