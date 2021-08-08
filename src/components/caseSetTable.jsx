@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { ProgressBar, Table } from "react-bootstrap";
+import { ProgressBar } from "react-bootstrap";
 import {
   useTable,
   useSortBy,
@@ -16,7 +16,7 @@ import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
 import { displayDur } from "../utils/formatTime";
 import useDarkMode from "../hooks/useDarkMode";
-import useModal from "../hooks/useModal";
+import useCaseModal from "../hooks/useCaseModal";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -24,7 +24,7 @@ export default function CaseSetTable(props) {
   const [data, setData] = useState(caseSet.cases);
   const user = useAuthState();
   const [darkMode] = useDarkMode();
-  const [ModalComponent, showModal] = useModal();
+  const [CaseModal, showCaseModal] = useCaseModal();
   // const data = useMemo(() => MOCK_DATA, []);
 
   useEffect(() => {
@@ -247,47 +247,6 @@ export default function CaseSetTable(props) {
     []
   );
 
-  const getCaseModalContent = (cas) => {
-    const renderModalBody = () => {
-      return (
-        <div className="text-center">
-          <CaseImage caseSetDetails={caseSet.details} case={cas} size="200" />
-          <Table bordered size="sm">
-            <tbody>
-              <tr>
-                <th colspan="2">{"Details"}</th>
-              </tr>
-              <tr>
-                <th>{"Name"}</th>
-                <td>{cas.name}</td>
-              </tr>
-              {cas.group && (
-                <tr>
-                  <th>{"Group"}</th>
-                  <td>{cas.group}</td>
-                </tr>
-              )}
-              <tr>
-                <th>{"Case Set"}</th>
-                <td>{caseSet.details.title}</td>
-              </tr>
-              <tr>
-                <th>{"Algorithm"}</th>
-                <td>{cas.algs[0]}</td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
-      );
-    };
-
-    const caseModalContent = {
-      title: `${cas.name}`,
-      body: renderModalBody(),
-    };
-    return caseModalContent;
-  };
-
   const getCellProps = (cell) => {
     const statusCells = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
     let props = {};
@@ -309,7 +268,9 @@ export default function CaseSetTable(props) {
       props = {
         ...props,
         onClick: () => {
-          showModal(getCaseModalContent(cell.row.original));
+          const cas = cell.row.original;
+          const caseSetDetails = caseSet.details;
+          showCaseModal(cas, caseSetDetails);
         },
         style: { ...props.style, cursor: "pointer" },
       };
@@ -362,7 +323,7 @@ export default function CaseSetTable(props) {
         size="sm"
         hover
       />
-      <ModalComponent />
+      <CaseModal />
     </>
   );
 }
