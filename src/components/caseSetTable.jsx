@@ -248,11 +248,13 @@ export default function CaseSetTable(props) {
   );
 
   const getCellProps = (cell) => {
-    const statusCells = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
+    const { isAggregated, isGrouped } = cell;
+    const columnId = cell.column.id;
+    const statusCols = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
     let props = {};
-    if (statusCells.includes(cell.column.id)) {
-      const propLearned = getPropLearned(cell.column.id, cell.value);
-      if (typeof cell.value === "number" && !cell.isAggregated && !propLearned)
+    if (statusCols.includes(columnId)) {
+      const propLearned = getPropLearned(columnId, cell.value);
+      if (typeof cell.value === "number" && !isAggregated && !propLearned)
         props = {
           style: {
             fontWeight: "700",
@@ -260,11 +262,7 @@ export default function CaseSetTable(props) {
           },
         };
     }
-    if (
-      !cell.isGrouped &&
-      !cell.isAggregated &&
-      !(cell.column.id === "selection")
-    ) {
+    if (!isGrouped && !isAggregated && !(columnId === "selection")) {
       props = {
         ...props,
         onClick: () => {
