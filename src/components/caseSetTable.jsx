@@ -202,7 +202,7 @@ export default function CaseSetTable(props) {
         sortType: "number",
       },
       {
-        Header: "TPS",
+        Header: <span style={{ textDecoration: "overline" }}>TPS</span>,
         accessor: "avgTPS",
         aggregate: definedAverage,
         Cell: ({ value }) =>
