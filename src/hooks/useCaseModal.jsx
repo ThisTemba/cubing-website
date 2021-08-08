@@ -1,6 +1,6 @@
+import { Table } from "react-bootstrap";
 import useModal from "./useModal";
 import { CaseImage } from "../components/common/cubing/cubeImage";
-import { Table } from "react-bootstrap";
 
 const CaseModalBody = (props) => {
   const cas = props.case;
