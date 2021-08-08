@@ -267,8 +267,7 @@ export default function CaseSetTable(props) {
         ...props,
         onClick: () => {
           const cas = cell.row.original;
-          const caseSetDetails = caseSet.details;
-          showCaseModal(cas, caseSetDetails);
+          showCaseModal(cas, caseSet.details);
         },
         style: { ...props.style, cursor: "pointer" },
       };
