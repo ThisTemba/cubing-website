@@ -250,9 +250,7 @@ export default function CaseSetTable(props) {
     let props = {};
     if (statusCells.includes(cell.column.id)) {
       const propLearned = getPropLearned(cell.column.id, cell.value);
-      if (typeof cell.value !== "number") return {};
-      if (cell.isAggregated) return {};
-      if (propLearned) return {};
+      if (typeof cell.value === "number" && !cell.isAggregated && !propLearned)
       props = {
         style: {
           fontWeight: "700",
