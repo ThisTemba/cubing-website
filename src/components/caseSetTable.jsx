@@ -33,15 +33,11 @@ export default function CaseSetTable(props) {
         .doc(user.uid)
         .collection("caseSets")
         .doc(caseSet.details.id)
-        .collection("cases")
-        .onSnapshot((doc) => {
-          const caseStatData = doc.docs.map((d) => ({
-            caseId: d.id,
-            caseStats: d.data().caseStats,
-          }));
+        .onSnapshot((caseSetDoc) => {
+          const caseStatData = caseSetDoc.data().cases;
           const combined = data.map((c) => {
-            if (_.find(caseStatData, ["caseId", c.id])) {
-              var caseStats = _.find(caseStatData, ["caseId", c.id]).caseStats;
+            if (_.find(caseStatData, ["id", c.id])) {
+              var caseStats = _.find(caseStatData, ["id", c.id]).caseStats;
             }
             return { ...c, ...caseStats };
           });
