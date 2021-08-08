@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { ProgressBar } from "react-bootstrap";
+import { ProgressBar, Table } from "react-bootstrap";
 import {
   useTable,
   useSortBy,
@@ -16,6 +16,7 @@ import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
 import { displayDur } from "../utils/formatTime";
 import useDarkMode from "../hooks/useDarkMode";
+import useModal from "../hooks/useModal";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -23,6 +24,7 @@ export default function CaseSetTable(props) {
   const [data, setData] = useState(caseSet.cases);
   const user = useAuthState();
   const [darkMode] = useDarkMode();
+  const [ModalComponent, showModal] = useModal();
   // const data = useMemo(() => MOCK_DATA, []);
 
   useEffect(() => {
@@ -245,17 +247,71 @@ export default function CaseSetTable(props) {
     []
   );
 
+  const getCaseModalContent = (cas) => {
+    const renderModalBody = () => {
+      return (
+        <div className="text-center">
+          <CaseImage caseSetDetails={caseSet.details} case={cas} size="200" />
+          <Table bordered size="sm">
+            <tbody>
+              <tr>
+                <th colspan="2">{"Details"}</th>
+              </tr>
+              <tr>
+                <th>{"Name"}</th>
+                <td>{cas.name}</td>
+              </tr>
+              {cas.group && (
+                <tr>
+                  <th>{"Group"}</th>
+                  <td>{cas.group}</td>
+                </tr>
+              )}
+              <tr>
+                <th>{"Case Set"}</th>
+                <td>{caseSet.details.title}</td>
+              </tr>
+              <tr>
+                <th>{"Algorithm"}</th>
+                <td>{cas.algs[0]}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+      );
+    };
+
+    const caseModalContent = {
+      title: `${cas.name}`,
+      body: renderModalBody(),
+    };
+    return caseModalContent;
+  };
+
   const getCellProps = (cell) => {
     const statusCells = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
     let props = {};
     if (statusCells.includes(cell.column.id)) {
       const propLearned = getPropLearned(cell.column.id, cell.value);
       if (typeof cell.value === "number" && !cell.isAggregated && !propLearned)
+        props = {
+          style: {
+            fontWeight: "700",
+            color: darkMode ? "#ffc107" : "#f09b0a",
+          },
+        };
+    }
+    if (
+      !cell.isGrouped &&
+      !cell.isAggregated &&
+      !(cell.column.id === "selection")
+    ) {
       props = {
-        style: {
-          fontWeight: "700",
-          color: darkMode ? "#ffc107" : "#f09b0a",
+        ...props,
+        onClick: () => {
+          showModal(getCaseModalContent(cell.row.original));
         },
+        style: { ...props.style, cursor: "pointer" },
       };
     }
     return props;
@@ -299,6 +355,14 @@ export default function CaseSetTable(props) {
   }, [tableInstance.state.selectedRowIds]);
 
   return (
-    <ReactTable table={tableInstance} getCellProps={getCellProps} size="sm" />
+    <>
+      <ReactTable
+        table={tableInstance}
+        getCellProps={getCellProps}
+        size="sm"
+        hover
+      />
+      <ModalComponent />
+    </>
   );
 }
