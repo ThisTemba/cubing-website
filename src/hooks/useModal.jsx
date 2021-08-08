@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import CloseButton from "react-bootstrap/CloseButton";
 
 export default function useModal() {
   const [show, setShow] = useState(false);
@@ -22,8 +23,10 @@ export default function useModal() {
   const ModalComponent = () => {
     return (
       <Modal show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
+        <Modal.Header>
+          <CloseButton disabled style={{ opacity: 0 }} />
           <Modal.Title>{content.title}</Modal.Title>
+          <CloseButton onClick={() => setShow(false)} />
         </Modal.Header>
         <Modal.Body>{content.body}</Modal.Body>
         <Modal.Footer>
