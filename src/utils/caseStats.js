@@ -39,7 +39,9 @@ export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
   const numStatSolves = statCaseSolves.length;
   const rates = calculateRates(statCaseSolves, numStatSolves);
   const avgTime = _.mean(statCaseSolves.map((s) => s.dur));
-  const avgTPS = _.mean(statCaseSolves.map((s) => s.tps));
+  const totTime = _.sum(statCaseSolves.map((s) => s.dur));
+  const totAlgLen = _.sum(statCaseSolves.map((s) => getSTM(s.alg)));
+  const avgTPS = totAlgLen / totTime;
   const caseStats = {
     numSolves,
     ...rates,
