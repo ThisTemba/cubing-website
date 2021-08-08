@@ -29,7 +29,7 @@ const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
       const newSolves = _.filter(solves, ["caseId", caseId]);
       const data = prepareCaseData(newSolves, oldDoc);
       setDocument(caseDocRef, data);
-      return { caseId: caseId, caseStats: data.caseStats };
+      return { id: caseId, caseStats: data.caseStats };
     })
   );
   return caseStatData;
