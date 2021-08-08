@@ -8,7 +8,7 @@ const CaseModalBody = (props) => {
   return (
     <div className="text-center">
       <CaseImage caseSetDetails={caseSetDetails} case={cas} size="200" />
-      <Table bordered size="sm">
+      <Table bordered>
         <tbody>
           <tr>
             <th colspan="2">{"Details"}</th>
