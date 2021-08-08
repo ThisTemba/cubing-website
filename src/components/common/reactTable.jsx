@@ -40,9 +40,7 @@ export default function ReactTable({
   const renderCell = (cell, row) => {
     return cell.isGrouped ? (
       <>
-        <span {...row.getToggleRowExpandedProps()} className="p-3 m-2">
-          {renderExpandArrows(row.isExpanded)}
-        </span>{" "}
+        <span className="p-3 m-2">{renderExpandArrows(row.isExpanded)}</span>{" "}
         {cell.render("Cell")} ({row.subRows.length})
       </>
     ) : cell.isAggregated ? (
@@ -93,6 +91,7 @@ export default function ReactTable({
                       style: cell.column.style,
                     },
                     getCellProps(cell),
+                    cell.isGrouped ? row.getToggleRowExpandedProps() : {},
                   ])}
                   className={getCellClassname(cell)}
                   // style={getCellStyle(cell)}
