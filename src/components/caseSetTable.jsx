@@ -247,18 +247,20 @@ export default function CaseSetTable(props) {
 
   const getCellProps = (cell) => {
     const statusCells = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
+    let props = {};
     if (statusCells.includes(cell.column.id)) {
       const propLearned = getPropLearned(cell.column.id, cell.value);
       if (typeof cell.value !== "number") return {};
       if (cell.isAggregated) return {};
       if (propLearned) return {};
-      return {
+      props = {
         style: {
           fontWeight: "700",
           color: darkMode ? "#ffc107" : "#f09b0a",
         },
       };
-    } else return {};
+    }
+    return props;
   };
 
   const tableInstance = useTable(
