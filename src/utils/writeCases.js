@@ -35,9 +35,19 @@ const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
   return caseStatData;
 };
 
+const writeCasesToCaseSetDoc = async (newCases, caseSetDocRef) => {
+  const caseSetDoc = await caseSetDocRef.get();
+  let cases = [...newCases];
+  if (caseSetDoc.exists) {
+    const oldCases = caseSetDoc.data().cases;
+    cases = _(oldCases).differenceBy(newCases, "id").concat(newCases).value();
+  }
+  setDocument(caseSetDocRef, { cases });
+};
+
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
   const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
-  writeCasesToCaseDocs(solves, caseIds, caseSetDocRef).then((caseStatData) =>
-    console.log(caseStatData)
+  writeCasesToCaseDocs(solves, caseIds, caseSetDocRef).then((newCases) =>
+    writeCasesToCaseSetDoc(newCases, caseSetDocRef)
   );
 };
