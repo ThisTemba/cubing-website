@@ -100,9 +100,9 @@ const pllCaseSet = {
       algs: [
         "x R' U R' D2 R U' R' D2 R2 x'",
         "x L2 D2 L' U' L D2 L' U L' x'",
-        "x' L' U L' D2 L U' L' D2 L2",
-        "x R' U R' D2 R U' R' D2 R2",
-        "x' R2 D2 R' U' R D2 R' U R'",
+        "x' L' U L' D2 L U' L' D2 L2 x",
+        "x R' U R' D2 R U' R' D2 R2 x'",
+        "x' R2 D2 R' U' R D2 R' U R' x",
       ],
     },
     {
@@ -120,9 +120,9 @@ const pllCaseSet = {
       algs: [
         "x R2' D2 R U R' D2 R U' R x'",
         "x' L2 D2 L U L' D2 L U' L x",
-        "y x L U' L D2 L' U L D2 L2",
-        "y2 x R2 D2 R U R' D2 R U' R",
-        "y' x' R U' R D2 R' U R D2 R2",
+        "y x L U' L D2 L' U L D2 L2 x'",
+        "y2 x R2 D2 R U R' D2 R U' R x'",
+        "y' x' R U' R D2 R' U R D2 R2 x",
       ],
     },
     {
@@ -139,7 +139,7 @@ const pllCaseSet = {
       ],
       algs: [
         "x' L' U L D' L' U' L D L' U' L D' L' U L D x",
-        "x' R U' R' D R U R' D' R U R' D R U' R' D'",
+        "x' R U' R' D R U R' D' R U R' D R U' R' D' x",
       ],
     },
     {
@@ -272,7 +272,7 @@ const pllCaseSet = {
         "R' U R' U' R D' R' D R' U D' R2 U' R2 D R2",
         "z D' R2 D R2 U R' D' R U' R U R' D R U' z'",
         "R U2 R' D R U' R U' R U R2 D R' U' R D2",
-        "x' R' F R F' U R U2 R' U' R U' R' U2 R U R' U'",
+        "x' R' F R F' U R U2 R' U' R U' R' U2 R U R' U' x",
       ],
     },
     {
