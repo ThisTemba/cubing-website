@@ -87,7 +87,7 @@ const ollCaseSet = {
         "R L U' R' L' F2 U' D' L U' B2 L2 U2 B2 D2 F2 U R2 D'",
         "R L U R' L' F2 U' D' L' B2 L2 U2 B2 D2 F2 U2 R2 D'",
       ],
-      algs: ["R U2' R' U' R U R' U' R U' R'", "y R U R' U R U' R' U R U2 R'"],
+      algs: ["R U2' R' U' R U R' U' R U' R'", "R U R' U R U' R' U R U2 R'"],
     },
     {
       id: "1b730f56-333a-4c70-8996-300ba86d0a27",
@@ -330,7 +330,7 @@ const ollCaseSet = {
         "R D L2 D' R F2 L2 B2 U2 B2 D2 R2 U F2 D' B2 D' F2",
         "L D R2 D' L D2 B2 U' L2 D F2 D' L2 B2 D2 L2",
       ],
-      algs: ["r U R' U' r' F R F'", "y R U R D R' U' R D' R2"],
+      algs: ["r U R' U' r' F R F'", "R U R D R' U' R D' R2"],
     },
     {
       id: "657c744a-12b7-439e-90d4-fea0e0843b09",
@@ -411,7 +411,7 @@ const ollCaseSet = {
         "R2 U R D' L2 D R' F2 D' F2 U L2 U2 F2 R2 B2 U' L2 B2 U",
         "R2 U B U' F2 U B L2 F2 B2 D B2 U' L2 U L2 B2 U'",
       ],
-      algs: ["x R' U R D' R' U' R D x'", "y' R' F R B' R' F' R B"],
+      algs: ["x R' U R D' R' U' R D x'", "R' F R B' R' F' R B"],
     },
     {
       id: "b2f24506-a6b0-4a6f-96f8-7d959d12c2e8",
@@ -492,7 +492,7 @@ const ollCaseSet = {
         "F' D' B D F' D' B U2 L2 D' B2 D2 F2 U F2 D F2 U2 R2 D'",
         "R U R2 U' R2 U R B2 U2 B2 R2 U' B2 R2 U2 R2 U' B2 U2 R2",
       ],
-      algs: ["R U2' R' U' R U' R'", "y' R' U' R U' R' U2 R"],
+      algs: ["R U2' R' U' R U' R'", "R' U' R U' R' U2 R"],
     },
     {
       id: "e6547dd9-feea-46ad-b0f5-3abac69170fc",
@@ -573,7 +573,7 @@ const ollCaseSet = {
         "R D L' D' R D L' B2 U F2 U' B2 R2 D' F2 U' B2 R2 F2 D2",
         "F' U B U' F U B D L2 D' R2 D L2 D' R2 B2",
       ],
-      algs: ["R U R' U R U2' R'", "y' R' U2 R U R' U R"],
+      algs: ["R U R' U R U2' R'", "R' U2 R U R' U R"],
     },
     {
       id: "a6cc7f18-4b52-4a21-967d-a0d6afd0d0ac",
@@ -737,8 +737,8 @@ const ollCaseSet = {
       ],
       algs: [
         "r U r' U2 r U2 R' U2 R U' r'",
-        "y' F R U R' U' F' f R U R' U' f'",
-        "y' F R U R' U' S R U R' U' f'",
+        "F R U R' U' F' f R U R' U' f'",
+        "F R U R' U' S R U R' U' f'",
       ],
     },
     {
@@ -822,8 +822,8 @@ const ollCaseSet = {
       ],
       algs: [
         "r' R2 U R' U r U2 r' U M'",
-        "y F U R U' R' F' U F R U R' U' F'",
-        "y' f R U R' U' f' U' F R U R' U' F'",
+        "F U R U' R' F' U F R U R' U' F'",
+        "f R U R' U' f' U' F R U R' U' F'",
       ],
     },
     {
@@ -907,8 +907,8 @@ const ollCaseSet = {
       ],
       algs: [
         "M U' r U2 r' U' R U' R' M'",
-        "y F U R U' R' F' U' F R U R' U' F'",
-        "y' f R U R' U' f' U F R U R' U' F'",
+        "F U R U' R' F' U' F R U R' U' F'",
+        "f R U R' U' f' U F R U R' U' F'",
       ],
     },
     {
@@ -990,7 +990,7 @@ const ollCaseSet = {
         "R U2 R' U2 R' F R F R2 U R2 U' R2 D R2 D' F2 U",
         "R' U F U R' U' D' F' D R2 U F2 U B2 D' F2 D B2 U2",
       ],
-      algs: ["l' U2 L U L' U l", "y2 r' U2 R U R' U r"],
+      algs: ["l' U2 L U L' U l", "r' U2 R U R' U r"],
     },
     {
       id: "7a956eaa-cc7f-4d0f-a91c-9dbfa90fef72",
@@ -1236,7 +1236,7 @@ const ollCaseSet = {
       algs: [
         "l' U' L U' L' U2 l",
         "R U2 R' U2 R' F R F'",
-        "y2 r' U' R U' R' U2 r",
+        "r' U' R U' R' U2 r",
       ],
     },
     {
@@ -1401,7 +1401,7 @@ const ollCaseSet = {
       ],
       algs: [
         "R U R' U R' F R F' R U2 R'",
-        "y2 r U R' U R U' R' U' r' R U R U' R'",
+        "r U R' U R U' R' U' r' R U R U' R'",
       ],
     },
     {
@@ -1483,7 +1483,7 @@ const ollCaseSet = {
         "F2 U' R F L F R' D2 L D2 R2 L2 U' R2 L2 B2 R2 D' B2 L2",
         "R2 B' R F R F' R2 B U B2 U2 F2 L2 D' L2 F2 U B2 R2 U2",
       ],
-      algs: ["r U R' U R' F R F' R U2 r'", "y2 r' R2 U R' U R U2 R' U M'"],
+      algs: ["r U R' U R' F R F' R U2 r'", "r' R2 U R' U R U2 R' U M'"],
     },
     {
       id: "ed8d4930-0460-4f15-b141-76df2549ddbd",
@@ -1807,7 +1807,7 @@ const ollCaseSet = {
         "R' U2 L U2 R F' L F' U R2 U' R2 B2 D' F2 U L2 U' B2 L2",
         "R' U F U R' U' D' F U' L2 U' F2 D' F2 B2 U' L2 U F2 D2",
       ],
-      algs: ["l' U' l L' U' L U l' U l", "y2 r' U' r R' U' R U r' U r"],
+      algs: ["l' U' l L' U' L U l' U l", "r' U' r R' U' R U r' U r"],
     },
     {
       id: "cd3d8964-6575-4df6-863a-172af6b9a80c",
@@ -1971,7 +1971,7 @@ const ollCaseSet = {
       ],
       algs: [
         "F R' F' R2 r' U R U' R' U' M'",
-        "y2 R U R' U R' F R F' U2 R' F R F'",
+        "R U R' U R' F R F' U2 R' F R F'",
       ],
     },
     {
@@ -2055,7 +2055,7 @@ const ollCaseSet = {
       ],
       algs: [
         "r U R' U R U2 r' r' U' R U' R' U2 r",
-        "y R U2 R' R' F R F' U2 M' U R U' r'",
+        "R U2 R' R' F R F' U2 M' U R U' r'",
       ],
     },
     {
@@ -2623,7 +2623,7 @@ const ollCaseSet = {
         "B R B R2 F R' F L2 D2 B2 U' F2 R2 U B2 D' R2 U' B2 U2",
         "R2 U' R' B U B' U' R U2 R2 U2 B2 U B2 U B2 U2 B2 U'",
       ],
-      algs: ["L U F' U' L' U L F L'", "y2 S R U R' U' R' F R f'"],
+      algs: ["L U F' U' L' U L F L'", "S R U R' U' R' F R f'"],
     },
     {
       id: "a730d816-4051-4522-a58c-59d177f5222a",
@@ -2947,10 +2947,7 @@ const ollCaseSet = {
         "L2 F' B2 D L D' L' F U R2 U L2 U' R2 L2 U' B2 L2 U'",
         "R U B' U' R' B' U B' U R2 U' R2 L2 F2 U L2 B2 D R2 U",
       ],
-      algs: [
-        "L' U' L U' L' U L U L F' L' F",
-        "y2 R' U' R U' R' U R U R B' R' B",
-      ],
+      algs: ["L' U' L U' L' U L U L F' L' F", "R' U' R U' R' U R U R B' R' B"],
     },
     {
       id: "8e1b5dd7-def4-4857-8fe8-0bf6c226484f",
@@ -3193,7 +3190,7 @@ const ollCaseSet = {
         "F U F R' F' R U' F' B2 L2 U' B2 D B2 D' R2 U R2 L2 B2",
         "F2 R' F U2 F' U2 F' R F2 U2 R2 F2 R2 U2 L2 D' B2 D L2 U'",
       ],
-      algs: ["L F' L' U' L U F U' L'", "y2 R B' R' U' R U B U' R'"],
+      algs: ["L F' L' U' L U F U' L'", "R B' R' U' R U B U' R'"],
     },
     {
       id: "4b28ce47-01e8-4a28-93a1-b7fb8ac63c6b",
@@ -3598,7 +3595,7 @@ const ollCaseSet = {
         "R U2 R B' R' B U2 R U B2 U2 F2 L2 D' L2 F2 U B2 R2",
         "R' U2 R' F R F' U2 R U R2 U B2 U B2 R2 D2 L2 D' L2 D'",
       ],
-      algs: ["F U R U' R' F'", "y2 f R U R' U' f'"],
+      algs: ["F U R U' R' F'", "f R U R' U' f'"],
     },
     {
       id: "0bfea05a-ebe0-4429-b20b-500b3e575861",
@@ -3844,7 +3841,7 @@ const ollCaseSet = {
       algs: [
         "R' U' R' F R F' R' F R F' U R",
         "F' L' U' L U L' U' L U F",
-        "y' F U R U' R' F' R U R' U R U2 R'",
+        "F U R U' R' F' R U R' U R U2 R'",
       ],
     },
     {
@@ -4169,7 +4166,7 @@ const ollCaseSet = {
         "B D F2 D2 L' D L B R2 D' R2 D' R2 D2 R2 F2 D' B2",
         "R2 F R F' B2 R' B2 R L2 U2 B2 L2 B2 R2 U' R2 U2 L2 U' R2",
       ],
-      algs: ["F U R U' R' U R U' R' F'", "y2 f R U R' U' R U R' U' f'"],
+      algs: ["F U R U' R' U R U' R' F'", "f R U R' U' R U R' U' f'"],
     },
     {
       id: "f8645b56-9c13-45c5-91c1-a5235c771eac",
@@ -4252,7 +4249,7 @@ const ollCaseSet = {
       ],
       algs: [
         "R U R' U R U' B U' B' R'",
-        "y2 R' F' U' F U' R U R' U R",
+        "R' F' U' F U' R U R' U R",
         "R U R' U R U' y R U' R' F'",
       ],
     },
@@ -4337,8 +4334,8 @@ const ollCaseSet = {
       ],
       algs: [
         "l' U2 L U L' U' L U L' U l",
-        "y2 r' U2 R U R' U' R U R' U r",
-        "y r' U' R U' R' U R U' R' U2 r",
+        "r' U2 R U R' U' R U R' U r",
+        "r' U' R U' R' U R U' R' U2 r",
       ],
     },
     {
@@ -4420,7 +4417,7 @@ const ollCaseSet = {
         "R U R F2 U2 D F R' F D2 L2 U B2 D2 L2 U F2 L2 B2 L2",
         "R' U' R U R2 U2 B' R B R2 U F2 R2 U F2 U' R2 F2 U R2",
       ],
-      algs: ["r U2 R' U' R U R' U' R U' r'", "y r U R' U R U' R' U R U2 r'"],
+      algs: ["r U2 R' U' R U R' U' R U' r'", "r U R' U R U' R' U R U2 r'"],
     },
     {
       id: "fbf69930-ad86-41e7-8989-9e7aaf5380ef",
@@ -4503,7 +4500,7 @@ const ollCaseSet = {
       ],
       algs: [
         "R' F R U R U' R2 F' R2 U' R' U R U R'",
-        "y R U2 R2 U' R U' R' U2 F R F'",
+        "R U2 R2 U' R U' R' U2 F R F'",
       ],
     },
     {
