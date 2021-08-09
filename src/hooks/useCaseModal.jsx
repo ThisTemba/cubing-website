@@ -16,7 +16,12 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const selectRef = useRef();
 
   const edit = () => setEditing(true);
-  const save = () => setEditing(false);
+  const save = () => {
+    const userAlgs = options.filter((o) => o.deletable).map((o) => o.value);
+    const alg = selectedOption.value;
+    const id = cas.id;
+    setEditing(false);
+  };
   const components = {
     Option: (props) => <DeletableOption {...props} onDelete={handleDelete} />,
   };
