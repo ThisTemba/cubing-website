@@ -5,6 +5,7 @@ import _ from "lodash";
 import useModal from "./useModal";
 import { CaseImage } from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
+import CenterModalHeader from "../components/common/centerModalHeader";
 
 const CaseModalBody = ({ case: cas, caseSetDetails, editing }) => {
   const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
@@ -105,11 +106,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
 
   const caseModalContent = (
     <>
-      <Modal.Header>
-        <CloseButton disabled style={{ opacity: 0 }} />
-        <Modal.Title>{cas.name}</Modal.Title>
-        <CloseButton onClick={hideModal} />
-      </Modal.Header>
+      <CenterModalHeader title={cas.name} onClose={hideModal} />
       <Modal.Body>
         <CaseModalBody
           case={cas}

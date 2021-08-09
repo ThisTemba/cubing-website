@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import CloseButton from "react-bootstrap/CloseButton";
+import CenterModalHeader from "../components/common/centerModalHeader";
 import _ from "lodash";
 
 export default function useModal() {
@@ -25,11 +25,7 @@ export default function useModal() {
     if (_.has(content, "title") && _.has(content, "body"))
       return (
         <Modal show={show} onHide={hideModal}>
-          <Modal.Header>
-            <CloseButton disabled style={{ opacity: 0 }} />
-            <Modal.Title>{content.title}</Modal.Title>
-            <CloseButton onClick={hideModal} />
-          </Modal.Header>
+          <CenterModalHeader title={content.title} onClose={hideModal} />
           <Modal.Body>{content.body}</Modal.Body>
           <Modal.Footer>
             {content.footer}
