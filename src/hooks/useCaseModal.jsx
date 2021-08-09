@@ -6,24 +6,7 @@ import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
 import useModal from "./useModal";
 import { CaseImage } from "../components/common/cubing/cubeImage";
-
-const Option = (props) => {
-  const { deletable, value } = props.data;
-  return (
-    <div className="d-flex justify-content-between">
-      <components.Option {...props} />
-      {deletable && (
-        <Button
-          variant="link"
-          className="text-dark"
-          onClick={() => props.onDelete(value)}
-        >
-          <FontAwesomeIcon icon="trash" />
-        </Button>
-      )}
-    </div>
-  );
-};
+import DeletableOption from "../components/common/deletableOption";
 
 const CaseModalBody = ({ case: cas, caseSetDetails, editing }) => {
   const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
@@ -33,7 +16,7 @@ const CaseModalBody = ({ case: cas, caseSetDetails, editing }) => {
   const selectRef = useRef();
 
   const components = {
-    Option: (props) => <Option {...props} onDelete={handleDelete} />,
+    Option: (props) => <DeletableOption {...props} onDelete={handleDelete} />,
   };
 
   const handleDelete = (value) => {
