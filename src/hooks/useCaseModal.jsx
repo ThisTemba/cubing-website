@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Modal, CloseButton } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { components } from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -25,7 +25,7 @@ const Option = (props) => {
   );
 };
 
-const CaseModalBody = ({ case: cas, caseSetDetails }) => {
+const CaseModalBody = ({ case: cas, caseSetDetails, editing }) => {
   const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
   const customOption = { value: "!@#$", label: "Custom" };
   const [options, setOptions] = useState([customOption, ...initialOptions]);
@@ -66,65 +66,103 @@ const CaseModalBody = ({ case: cas, caseSetDetails }) => {
   return (
     <div className="text-center">
       <CaseImage caseSetDetails={caseSetDetails} case={cas} size="200" />
-      <Table bordered>
-        <tbody>
-          <tr>
-            <th colspan="2">{"Details"}</th>
-          </tr>
-          <tr>
-            <th>{"Name"}</th>
-            <td>{cas.name}</td>
-          </tr>
-          {cas.group && (
+      {!editing && (
+        <Table bordered>
+          <tbody>
             <tr>
-              <th>{"Group"}</th>
-              <td>{cas.group}</td>
+              <th colspan="2">{"Details"}</th>
             </tr>
-          )}
+            <tr>
+              <th>{"Name"}</th>
+              <td>{cas.name}</td>
+            </tr>
+            {cas.group && (
+              <tr>
+                <th>{"Group"}</th>
+                <td>{cas.group}</td>
+              </tr>
+            )}
+            <tr>
+              <th>{"Case Set"}</th>
+              <td>{caseSetDetails.title}</td>
+            </tr>
+            <tr>
+              <th>{"Algorithm"}</th>
+              <td>{selectedOption && selectedOption.value}</td>
+            </tr>
+          </tbody>
+        </Table>
+      )}
+      {editing && (
+        <Table bordered>
           <tr>
-            <th>{"Case Set"}</th>
-            <td>{caseSetDetails.title}</td>
+            <th>{"Edit Algorithm:"}</th>
           </tr>
           <tr>
-            <th>{"Algorithm"}</th>
-            <td>{selectedOption && selectedOption.value}</td>
+            <td>
+              <CreatableSelect
+                ref={selectRef}
+                options={options}
+                value={selectedOption}
+                onChange={handleChange}
+                components={components}
+                onCreateOption={handleCreate}
+                placeholder="Type or paste custom alg..."
+              />
+            </td>
           </tr>
-        </tbody>
-      </Table>
-      <Table bordered>
-        <tr>
-          <th>{"Choose Algorithm:"}</th>
-        </tr>
-        <tr>
-          <td>
-            <CreatableSelect
-              ref={selectRef}
-              options={options}
-              value={selectedOption}
-              onChange={handleChange}
-              components={components}
-              onCreateOption={handleCreate}
-              placeholder="Type or paste custom alg..."
-            />
-          </td>
-        </tr>
-      </Table>
+        </Table>
+      )}
     </div>
   );
 };
 
-const getCaseModalContent = (cas, caseSetDetails) => {
-  const caseModalContent = {
-    title: `${cas.name}`,
-    body: <CaseModalBody case={cas} caseSetDetails={caseSetDetails} />,
-  };
+const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
+  const [editing, setEditing] = useState(false);
+  const edit = () => setEditing(true);
+  const save = () => setEditing(false);
+
+  const caseModalContent = (
+    <>
+      <Modal.Header>
+        <CloseButton disabled style={{ opacity: 0 }} />
+        <Modal.Title>{cas.name}</Modal.Title>
+        <CloseButton onClick={hideModal} />
+      </Modal.Header>
+      <Modal.Body>
+        <CaseModalBody
+          case={cas}
+          caseSetDetails={caseSetDetails}
+          editing={editing}
+        />
+      </Modal.Body>
+      <Modal.Footer>
+        {!editing && (
+          <>
+            <Button onClick={edit}>Edit Algorithm</Button>
+            <Button variant="secondary" onClick={hideModal}>
+              Close
+            </Button>
+          </>
+        )}
+        {editing && <Button onClick={save}>Save</Button>}
+      </Modal.Footer>
+    </>
+  );
+
   return caseModalContent;
 };
 
 export default function useCaseModal() {
   const [_ModalComponent, _showModal, _hideModal] = useModal();
   const showModal = (cas, caseSetDetails) => {
-    _showModal(getCaseModalContent(cas, caseSetDetails));
+    _showModal(
+      <CaseModalContent
+        cas={cas}
+        caseSetDetails={caseSetDetails}
+        hideModal={_hideModal}
+      />
+    );
   };
 
   const hideModal = _hideModal;
