@@ -2,7 +2,7 @@ import _ from "lodash";
 import { db } from "../fire";
 import { prepareCaseData } from "./caseStats";
 
-const getCaseSetDocRef = (user, caseSetDetails) => {
+export const getCaseSetDocRef = (user, caseSetDetails) => {
   return db
     .collection("users")
     .doc(user.uid)
@@ -10,7 +10,7 @@ const getCaseSetDocRef = (user, caseSetDetails) => {
     .doc(caseSetDetails.id);
 };
 
-const setDocument = (docRef, data) => {
+export const setDocument = (docRef, data) => {
   docRef
     .set(data)
     .then(() => console.log("Document successfully written!"))
