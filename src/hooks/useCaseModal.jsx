@@ -6,6 +6,8 @@ import useModal from "./useModal";
 import { CaseImage } from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
+import { getCaseSetDocRef } from "../utils/writeCases";
+import { useAuthState } from "../fire";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [editing, setEditing] = useState(false);
@@ -13,9 +15,27 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const customOption = { value: "!@#$", label: "Custom" };
   const [options, setOptions] = useState([customOption, ...initialOptions]);
   const [selectedOption, setSelectedOption] = useState(options[1]);
+  const user = useAuthState();
   const selectRef = useRef();
 
-  const edit = () => setEditing(true);
+  const edit = async () => {
+    const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
+    const caseDoc = await caseSetDocRef.collection("cases").doc(cas.id).get();
+    const userCase = caseDoc.data();
+    const userAlgs = userCase.userAlgs;
+    const alg = userCase.alg;
+    if (userAlgs) {
+      const userOptions = userAlgs.map((a) => ({
+        label: a,
+        value: a,
+        deletable: true,
+      }));
+      setOptions([...options, ...userOptions]);
+    }
+    setSelectedOption({ label: alg, value: alg }); // probably only works if the selected option is a custom option
+    setEditing(true);
+  };
+
   const save = () => {
     const userAlgs = options.filter((o) => o.deletable).map((o) => o.value);
     const alg = selectedOption.value;
