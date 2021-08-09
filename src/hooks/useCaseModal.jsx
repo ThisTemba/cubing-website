@@ -1,7 +1,5 @@
 import { useState, useRef } from "react";
 import { Button, Table, Modal, CloseButton } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { components } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
 import useModal from "./useModal";
