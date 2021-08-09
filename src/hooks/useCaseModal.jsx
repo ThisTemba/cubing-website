@@ -1,3 +1,5 @@
+import { useState } from "react";
+import Select from "react-select";
 import { Table } from "react-bootstrap";
 import useModal from "./useModal";
 import { CaseImage } from "../components/common/cubing/cubeImage";
@@ -5,6 +7,9 @@ import { CaseImage } from "../components/common/cubing/cubeImage";
 const CaseModalBody = (props) => {
   const cas = props.case;
   const caseSetDetails = props.caseSetDetails;
+  const options = cas.algs.map((a) => ({ value: a, label: a }));
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+
   return (
     <div className="text-center">
       <CaseImage caseSetDetails={caseSetDetails} case={cas} size="200" />
@@ -29,7 +34,16 @@ const CaseModalBody = (props) => {
           </tr>
           <tr>
             <th>{"Algorithm"}</th>
-            <td>{cas.algs[0]}</td>
+            <td style={{ width: "350px" }}>
+              <Select
+                value={selectedOption}
+                options={options}
+                width="200px"
+                onChange={(value) => {
+                  setSelectedOption(value);
+                }}
+              />
+            </td>
           </tr>
         </tbody>
       </Table>
