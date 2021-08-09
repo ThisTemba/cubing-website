@@ -2,6 +2,7 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import CloseButton from "react-bootstrap/CloseButton";
+import _ from "lodash";
 
 export default function useModal() {
   const [show, setShow] = useState(false);
@@ -21,22 +22,29 @@ export default function useModal() {
   };
 
   const ModalComponent = () => {
-    return (
-      <Modal show={show} onHide={hideModal}>
-        <Modal.Header>
-          <CloseButton disabled style={{ opacity: 0 }} />
-          <Modal.Title>{content.title}</Modal.Title>
-          <CloseButton onClick={hideModal} />
-        </Modal.Header>
-        <Modal.Body>{content.body}</Modal.Body>
-        <Modal.Footer>
-          {content.footer}
-          <Button variant="secondary" onClick={hideModal}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
+    if (_.has(content, "title") && _.has(content, "body"))
+      return (
+        <Modal show={show} onHide={hideModal}>
+          <Modal.Header>
+            <CloseButton disabled style={{ opacity: 0 }} />
+            <Modal.Title>{content.title}</Modal.Title>
+            <CloseButton onClick={hideModal} />
+          </Modal.Header>
+          <Modal.Body>{content.body}</Modal.Body>
+          <Modal.Footer>
+            {content.footer}
+            <Button variant="secondary" onClick={hideModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      );
+    else
+      return (
+        <Modal show={show} onHide={hideModal}>
+          {content}
+        </Modal>
+      );
   };
   return [ModalComponent, showModal, hideModal];
 }
