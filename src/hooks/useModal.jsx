@@ -22,16 +22,16 @@ export default function useModal() {
 
   const ModalComponent = () => {
     return (
-      <Modal show={show} onHide={() => setShow(false)}>
+      <Modal show={show} onHide={hideModal}>
         <Modal.Header>
           <CloseButton disabled style={{ opacity: 0 }} />
           <Modal.Title>{content.title}</Modal.Title>
-          <CloseButton onClick={() => setShow(false)} />
+          <CloseButton onClick={hideModal} />
         </Modal.Header>
         <Modal.Body>{content.body}</Modal.Body>
         <Modal.Footer>
           {content.footer}
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button variant="secondary" onClick={hideModal}>
             Close
           </Button>
         </Modal.Footer>
