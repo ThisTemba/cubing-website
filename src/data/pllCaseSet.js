@@ -101,7 +101,6 @@ const pllCaseSet = {
         "x R' U R' D2 R U' R' D2 R2 x'",
         "x L2 D2 L' U' L D2 L' U L' x'",
         "x' L' U L' D2 L U' L' D2 L2 x",
-        "x R' U R' D2 R U' R' D2 R2 x'",
         "x' R2 D2 R' U' R D2 R' U R' x",
       ],
     },
