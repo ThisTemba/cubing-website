@@ -9,7 +9,6 @@ import {
 } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import MOCK_DATA from "../data/MOCK_DATA.json";
 import { CaseImage } from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
@@ -31,7 +30,6 @@ export default function CaseSetTable(props) {
   const [caseModalId, setCaseModalId] = useState(null);
   const { width } = useWindowDimensions();
 
-  // const data = useMemo(() => MOCK_DATA, []);
 
   useEffect(() => {
     setCaseModalContent();
