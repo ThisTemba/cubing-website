@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Button, Table, Modal, CloseButton } from "react-bootstrap";
+import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
 import useModal from "./useModal";
@@ -8,6 +8,7 @@ import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
 import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
 import { useAuthState } from "../fire";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [editing, setEditing] = useState(false);
@@ -95,6 +96,15 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     }
   };
 
+  const statCols = [
+    { key: "hRate", Header: <FontAwesomeIcon icon="spinner" /> },
+    { key: "nmRate", Header: <FontAwesomeIcon icon="check" /> },
+    { key: "mmRate", Header: <FontAwesomeIcon icon="minus" /> },
+    { key: "cmRate", Header: <FontAwesomeIcon icon="times" /> },
+    { key: "avgTime", Header: "Mean Time" },
+    { key: "numSolves", Header: "Num Solves" },
+  ];
+
   const caseModalContent = (
     <>
       <CenterModalHeader title={cas.name} onClose={hideModal} />
@@ -106,31 +116,65 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
           live
         />
         {!editing && (
-          <Table bordered>
-            <tbody>
-              <tr>
-                <th colspan="2">{"Details"}</th>
-              </tr>
-              <tr>
-                <th>{"Name"}</th>
-                <td>{cas.name}</td>
-              </tr>
-              {cas.group && (
-                <tr>
-                  <th>{"Group"}</th>
-                  <td>{cas.group}</td>
-                </tr>
-              )}
-              <tr>
-                <th>{"Case Set"}</th>
-                <td>{caseSetDetails.title}</td>
-              </tr>
-              <tr>
-                <th>{"Algorithm"}</th>
-                <td>{cas.alg}</td>
-              </tr>
-            </tbody>
-          </Table>
+          <Accordion defaultActiveKey="0">
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                  Details
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Table size={"sm"}>
+                  <tbody>
+                    <tr>
+                      <th>{"Name"}</th>
+                      <td>{cas.name}</td>
+                    </tr>
+                    {cas.group && (
+                      <tr>
+                        <th>{"Group"}</th>
+                        <td>{cas.group}</td>
+                      </tr>
+                    )}
+                    <tr>
+                      <th>{"Case Set"}</th>
+                      <td>{caseSetDetails.title}</td>
+                    </tr>
+                    <tr>
+                      <th>{"Algorithm"}</th>
+                      <td>{cas.alg}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                <Accordion.Toggle
+                  as={Button}
+                  variant="link"
+                  eventKey="1"
+                  disabled={!cas.numSolves}
+                >
+                  Stats
+                </Accordion.Toggle>
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Table size={"sm"}>
+                  <tbody>
+                    {statCols.map((c) => {
+                      return (
+                        <tr>
+                          <th>{c.Header}</th>
+                          <td>{cas[c.key]}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </Table>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
         )}
         {editing && (
           <Table bordered>
