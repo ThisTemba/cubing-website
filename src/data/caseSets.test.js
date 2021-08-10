@@ -16,7 +16,7 @@ const caseSets = [
   cpllCaseSet,
 ];
 const caseSetKeys = ["details", "cases"];
-const detailsKeys = ["id", "name", "mask", "view", "numCases"];
+const detailsKeys = ["id", "title", "mask", "view", "numCases"];
 const caseKeys = ["id", "name", "group", "scrambles", "algs"];
 
 const testForKeys = (object, keys) => {
