@@ -16,7 +16,6 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [editing, setEditing] = useState(false);
   const [caseDoc, setCaseDoc] = useState(null);
   const user = useAuthState();
-  const selectRef = useRef();
   const customOption = { value: "!@#$", label: "Custom" };
 
   useEffect(() => {
@@ -87,9 +86,6 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const handleChange = (option) => {
     if (option && option.value === customOption.value) {
       setSelectedOption(null);
-      selectRef.current.blur();
-      selectRef.current.focus();
-      // blur then focus ensures blinking typey cursor
     } else {
       setSelectedOption(option);
     }
@@ -183,7 +179,6 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
             <tr>
               <td>
                 <CreatableSelect
-                  ref={selectRef}
                   options={options}
                   value={selectedOption}
                   onChange={handleChange}
