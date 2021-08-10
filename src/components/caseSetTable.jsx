@@ -17,6 +17,7 @@ import { useAuthState, db } from "../fire";
 import { displayDur } from "../utils/formatTime";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -28,6 +29,8 @@ export default function CaseSetTable(props) {
   const [CaseModal, showCaseModal, unused, setCaseModalContent, showing] =
     useCaseModal();
   const [caseModalId, setCaseModalId] = useState(null);
+  const { width } = useWindowDimensions();
+
   // const data = useMemo(() => MOCK_DATA, []);
 
   useEffect(() => {
@@ -160,6 +163,8 @@ export default function CaseSetTable(props) {
     else return undefined;
   };
 
+  const showStats = width >= 576;
+
   const columns = useMemo(
     () => [
       {
@@ -179,6 +184,7 @@ export default function CaseSetTable(props) {
       {
         Header: "Name",
         accessor: "name",
+        show: showStats,
       },
       {
         Header: <FontAwesomeIcon icon="spinner" />,
@@ -186,6 +192,7 @@ export default function CaseSetTable(props) {
         aggregate: definedAverage,
         Cell: displayRate,
         sortType: "number",
+        show: showStats,
       },
       {
         Header: <FontAwesomeIcon icon="check" />,
@@ -193,6 +200,7 @@ export default function CaseSetTable(props) {
         aggregate: definedAverage,
         Cell: displayRate,
         sortType: "number",
+        show: showStats,
       },
       {
         Header: <FontAwesomeIcon icon="minus" />,
@@ -200,6 +208,7 @@ export default function CaseSetTable(props) {
         aggregate: definedAverage,
         Cell: displayRate,
         sortType: "number",
+        show: showStats,
       },
       {
         Header: <FontAwesomeIcon icon="times" />,
@@ -207,6 +216,7 @@ export default function CaseSetTable(props) {
         aggregate: definedAverage,
         Cell: displayRate,
         sortType: "number",
+        show: showStats,
       },
       {
         Header: <span style={{ textDecoration: "overline" }}>time</span>,
@@ -215,6 +225,7 @@ export default function CaseSetTable(props) {
         Cell: ({ value }) =>
           typeof value === "undefined" ? "-" : displayDur(value),
         sortType: "number",
+        show: showStats,
       },
       {
         Header: <span style={{ textDecoration: "overline" }}>TPS</span>,
@@ -223,6 +234,7 @@ export default function CaseSetTable(props) {
         Cell: ({ value }) =>
           typeof value === "undefined" ? "-" : _.round(value, 2),
         sortType: "number",
+        show: showStats,
       },
       {
         Header: "# Solves",
@@ -230,6 +242,7 @@ export default function CaseSetTable(props) {
         aggregate: "sum",
         Cell: ({ value }) => (typeof value === "undefined" ? 0 : value),
         sortType: "number",
+        show: showStats,
       },
       // {
       //   Header: "Alg Len",
@@ -259,7 +272,7 @@ export default function CaseSetTable(props) {
         sortType: sortStatus,
       },
     ],
-    []
+    [showStats]
   );
 
   const getCellProps = (cell) => {
