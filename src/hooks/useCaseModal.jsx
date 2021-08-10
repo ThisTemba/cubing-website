@@ -84,6 +84,8 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     setSelectedOption(createdOption);
   };
 
+  const handleChange = (option) => setSelectedOption(option);
+
   const statCols = [
     { key: "hRate", Header: <FontAwesomeIcon icon="spinner" /> },
     { key: "nmRate", Header: <FontAwesomeIcon icon="check" /> },
@@ -172,6 +174,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
               <td>
                 <CreatableSelect
                   options={options}
+                  onChange={handleChange}
                   value={selectedOption}
                   components={components}
                   onCreateOption={handleCreate}
