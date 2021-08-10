@@ -42,5 +42,5 @@ export default function useModal() {
         </Modal>
       );
   };
-  return [ModalComponent, showModal, hideModal];
+  return [ModalComponent, showModal, hideModal, setContent, show];
 }
