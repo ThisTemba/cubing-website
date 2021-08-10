@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import CubeImage from "./cubeImage";
+import { CaseImage } from "./cubeImage";
 import useDarkMode from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {
@@ -23,13 +23,11 @@ export default function CaseSetCard(props) {
           <Card.Text>
             <Row>
               <Col className="p-0">
-                <CubeImage
-                  width="120"
-                  height="120"
-                  case={_.sample(cases).algs[0]}
-                  mask={mask}
-                  view={view}
-                ></CubeImage>
+                <CaseImage
+                  size="120"
+                  alg={_.sample(cases).algs[0]}
+                  caseSetDetails={details}
+                ></CaseImage>
               </Col>
               <Col className="p-0 d-flex align-items-center justify-content-center">
                 <Row>
@@ -48,12 +46,7 @@ export default function CaseSetCard(props) {
                 </Row>
               </Col>
               <Col className="p-0">
-                <CubeImage
-                  width="120"
-                  height="120"
-                  mask={mask}
-                  view={view}
-                ></CubeImage>
+                <CaseImage size="120" caseSetDetails={details}></CaseImage>
               </Col>
             </Row>
           </Card.Text>
