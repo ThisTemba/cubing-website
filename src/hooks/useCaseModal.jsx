@@ -101,7 +101,6 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
           caseSetDetails={caseSetDetails}
           alg={selectedOption && selectedOption.value}
           size="200"
-          live
         />
         {!editing && (
           <Accordion defaultActiveKey="0">

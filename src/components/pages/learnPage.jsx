@@ -95,7 +95,6 @@ export default function LearnPage(props) {
           <Card>
             <Card.Body>
               <CaseImage
-                live
                 size="200"
                 case={currentCase}
                 caseSetDetails={props.caseSetDetails}

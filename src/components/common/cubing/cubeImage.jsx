@@ -11,10 +11,9 @@ const CubeImageInternal = (props) => {
   return <div ref={imageRef}></div>;
 };
 
-const CubeImage = ({ live, ...props }) => {
+const CubeImage = (props) => {
   const dyanmicKey = _.values(props).join();
-  const key = live ? dyanmicKey : "";
-  return <CubeImageInternal {...props} key={key} />;
+  return <CubeImageInternal {...props} key={dyanmicKey} />;
 };
 
 CubeImage.defaultProps = {
@@ -33,9 +32,9 @@ export const CaseImage = (props) => {
       ? props.case.arrows[0]
       : ""
     : "";
-  const { caseSetDetails, size, live } = props;
+  const { caseSetDetails, size } = props;
   const { mask, view } = caseSetDetails;
-  const rest = { mask, view, arrows, live };
+  const rest = { mask, view, arrows };
   return (
     <CubeImage case={alg ? alg : ""} height={size} width={size} {...rest} />
   );
@@ -47,6 +46,7 @@ CaseImage.defaultProps = {
 
 export default CubeImage;
 
+// Possibly outdated:
 // this is all very clever. the SRVisualizer thing works by adding an image to a div
 // this image is added when the component CubeImageInternal is mounted
 // it is not added when the component updates because it is literally adding images

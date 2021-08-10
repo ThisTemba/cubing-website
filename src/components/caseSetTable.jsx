@@ -139,12 +139,7 @@ export default function CaseSetTable(props) {
 
   const renderCaseImage = ({ value }) => {
     return (
-      <CaseImage
-        alg={value.alg}
-        caseSetDetails={caseSet.details}
-        size="65"
-        live
-      />
+      <CaseImage alg={value.alg} caseSetDetails={caseSet.details} size="65" />
     );
   };
 

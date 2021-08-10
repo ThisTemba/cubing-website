@@ -60,7 +60,6 @@ export default function TestPage(props) {
               alg={cas.alg}
               caseSetDetails={caseSetDetails}
               size="65"
-              live
             />
           );
         },
