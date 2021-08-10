@@ -23,6 +23,12 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const user = useAuthState();
   const selectRef = useRef();
 
+  const newOption = (alg, deletable = false) => ({
+    label: alg,
+    value: alg,
+    deletable,
+  });
+
   const edit = async () => {
     const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
     const _caseDoc = await caseSetDocRef.collection("cases").doc(cas.id).get();
@@ -30,16 +36,12 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     const userCase = _caseDoc.data();
     if (userCase && userCase.userAlgs) {
       const userAlgs = userCase.userAlgs;
-      const userOptions = userAlgs.map((a) => ({
-        label: a,
-        value: a,
-        deletable: true,
-      }));
+      const userOptions = userAlgs.map((alg) => newOption(alg, true));
       setOptions([...options, ...userOptions]);
     }
     if (userCase && userCase.alg) {
       const alg = userCase.alg;
-      setSelectedOption({ label: alg, value: alg });
+      setSelectedOption(newOption(alg));
     } else setSelectedOption(options[1]);
     setEditing(true);
   };
@@ -80,8 +82,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   };
 
   const handleCreate = (inputValue) => {
-    const newOption = { label: inputValue, value: inputValue, deletable: true };
-    setOptions([...options, newOption]);
+    setOptions([...options, newOption(inputValue, true)]);
     setSelectedOption(newOption);
   };
 
