@@ -24,7 +24,6 @@ export default function CaseSetCard(props) {
             <Row>
               <Col className="p-0">
                 <CubeImage
-                  live
                   width="120"
                   height="120"
                   case={_.sample(cases).algs[0]}
