@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
-import useModal from "./useModal";
+import { useAuthState } from "../fire";
 import { CaseImage } from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
+import useModal from "./useModal";
 import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
-import { useAuthState } from "../fire";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [editing, setEditing] = useState(false);
