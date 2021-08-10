@@ -40,7 +40,7 @@ export default function ReactTable({
   const renderCell = (cell, row) => {
     return cell.isGrouped ? (
       <>
-        <span className="p-3 m-2">{renderExpandArrows(row.isExpanded)}</span>{" "}
+        <span className="p-sm-3 m-2">{renderExpandArrows(row.isExpanded)}</span>{" "}
         {cell.render("Cell")} ({row.subRows.length})
       </>
     ) : cell.isAggregated ? (
