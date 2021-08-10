@@ -15,12 +15,18 @@ export const prepareCaseData = (newSolves, oldDoc) => {
 
 export const getNumSolves = (newSolves, oldDoc) => {
   let numSolves = newSolves.length;
-  numSolves += oldDoc.exists ? oldDoc.data().caseStats.numSolves : 0;
+  numSolves +=
+    oldDoc.exists && oldDoc.data().caseStats
+      ? oldDoc.data().caseStats.numSolves
+      : 0;
   return numSolves;
 };
 
 export const getRecentCaseSolves = (newSolves, oldDoc, num) => {
-  const oldSolves = oldDoc.exists ? oldDoc.data().recentCaseSolves : [];
+  const oldSolves =
+    oldDoc.exists && oldDoc.data().recentCaseSolves
+      ? oldDoc.data().recentCaseSolves
+      : [];
   const allSolves = [...newSolves, ...oldSolves];
   return _.take(allSolves, num);
 };
