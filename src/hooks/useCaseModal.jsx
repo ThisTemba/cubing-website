@@ -69,13 +69,12 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     Option: (props) => <DeletableOption {...props} onDelete={handleDelete} />,
   };
 
-  const handleDelete = (value) => {
-    const newOptions = options.filter((o) => o.value !== value);
+  const handleDelete = (delValue) => {
+    const newOptions = options.filter((o) => o.value !== delValue);
     setOptions(newOptions);
-    const deletedIsSelected = selectedOption.value === value;
-    if (deletedIsSelected) {
-      const i = _.findIndex(options, (o) => o.value === value);
-      if (i !== 0) setSelectedOption(newOptions[i - 1]);
+    if (selectedOption.value === delValue) {
+      const i = _.findIndex(options, (o) => o.value === delValue);
+      setSelectedOption(newOptions[i - 1]);
     }
   };
 
