@@ -48,13 +48,8 @@ export default function CaseSetTable(props) {
             const userCases = caseSetDoc.data().cases;
             const combined = data.map((c) => {
               const userCase = _.find(userCases, ["id", c.id]);
-              let alg = null;
-              let caseStats = null;
-
-              if (userCase) caseStats = userCase.caseStats;
-              if (userCase && userCase.alg) alg = userCase.alg;
-              else alg = c.algs[0];
-
+              const caseStats = userCase ? userCase.caseStats : null;
+              const alg = userCase && userCase.alg ? userCase.alg : c.alg;
               const combinedCase = { ...c, ...caseStats, alg };
               return combinedCase;
             });
