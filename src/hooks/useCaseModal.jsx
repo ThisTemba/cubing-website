@@ -11,7 +11,6 @@ import useModal from "./useModal";
 import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
-  const [editing, setEditing] = useState(false);
   const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
   const customOption = { value: "!@#$", label: "Custom" };
   const [options, setOptions] = useState([customOption, ...initialOptions]);
@@ -19,6 +18,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     value: cas.alg,
     label: cas.alg,
   });
+  const [editing, setEditing] = useState(false);
   const [caseDoc, setCaseDoc] = useState(null);
   const user = useAuthState();
   const selectRef = useRef();
