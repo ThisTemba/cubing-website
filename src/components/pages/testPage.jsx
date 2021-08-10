@@ -57,7 +57,7 @@ export default function TestPage(props) {
           const cas = _.find(selectedCases, ["id", id]);
           return (
             <CaseImage
-              case={cas}
+              alg={cas.alg}
               caseSetDetails={caseSetDetails}
               size="65"
               live
