@@ -9,6 +9,7 @@ import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
 import useModal from "./useModal";
 import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
+import useDarkMode from "../hooks/useDarkMode";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [options, setOptions] = useState();
@@ -17,6 +18,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [caseDoc, setCaseDoc] = useState(null);
   const user = useAuthState();
   const customOption = { value: null, label: "Custom" };
+  const [darkMode] = useDarkMode();
 
   useEffect(() => {
     const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
@@ -94,6 +96,22 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     { key: "avgTime", Header: "Mean Time" },
     { key: "numSolves", Header: "Num Solves" },
   ];
+
+  const dropdownDarkTheme = (theme) => ({
+    ...theme,
+    colors: {
+      ...theme.colors,
+      primary: "#007bff",
+      primary75: "#0057b7",
+      primary50: "#003e82",
+      primary25: "#002650",
+      neutral0: "#191d21",
+      danger: "#eb00ff",
+      dangerLight: "#eb00ff",
+      neutral5: "#eb00ff",
+      neutral80: "#bfbfbf",
+    },
+  });
 
   const caseModalContent = (
     <>
@@ -188,6 +206,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
                   components={components}
                   onCreateOption={handleCreate}
                   placeholder="Type or paste custom alg..."
+                  theme={darkMode && dropdownDarkTheme}
                 />
               </td>
             </tr>
