@@ -59,11 +59,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     const oldCaseSet = caseSetDoc.data();
     const oldCases = oldCaseSet.cases;
     const oldCase = _.find(oldCases, ["id", cas.id]);
-    let newCase; // set id in case oldCase undefined
-
-    if (oldCase) newCase = { ...oldCase, alg };
-    else newCase = { alg, id: cas.id };
-
+    const newCase = oldCase ? { ...oldCase, alg } : { alg, id: cas.id };
     const newCases = [...oldCases.filter((c) => c.id !== cas.id), newCase];
     const newCaseSet = { ...oldCaseSet, cases: newCases };
     setDocument(caseSetDocRef, newCaseSet);
