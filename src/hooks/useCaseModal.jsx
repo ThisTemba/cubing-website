@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CreatableSelect from "react-select/creatable";
@@ -11,17 +11,19 @@ import useModal from "./useModal";
 import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
-  const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
-  const customOption = { value: "!@#$", label: "Custom" };
-  const [options, setOptions] = useState([customOption, ...initialOptions]);
-  const [selectedOption, setSelectedOption] = useState({
-    value: cas.alg,
-    label: cas.alg,
-  });
+  const [options, setOptions] = useState();
+  const [selectedOption, setSelectedOption] = useState();
   const [editing, setEditing] = useState(false);
   const [caseDoc, setCaseDoc] = useState(null);
   const user = useAuthState();
   const selectRef = useRef();
+  const customOption = { value: "!@#$", label: "Custom" };
+
+  useEffect(() => {
+    const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
+    setOptions([customOption, ...initialOptions]);
+    setSelectedOption(newOption(cas.alg));
+  }, []);
 
   const newOption = (alg, deletable = false) => ({
     label: alg,
