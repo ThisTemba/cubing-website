@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { CaseImage } from "../common/cubing/cubeImage";
+import CaseImage from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
 import useDarkMode from "../../hooks/useDarkMode";
 

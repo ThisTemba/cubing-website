@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { CaseImage } from "./cubeImage";
+import CaseImage from "./cubeImage";
 import useDarkMode from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {

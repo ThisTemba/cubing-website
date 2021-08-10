@@ -9,7 +9,7 @@ import {
 } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import { CaseImage } from "./common/cubing/cubeImage";
+import CaseImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";

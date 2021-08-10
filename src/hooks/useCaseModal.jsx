@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
 import { useAuthState } from "../fire";
-import { CaseImage } from "../components/common/cubing/cubeImage";
+import CaseImage from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
 import useModal from "./useModal";

@@ -11,7 +11,7 @@ const CubeImageInternal = (props) => {
   return <div ref={imageRef}></div>;
 };
 
-const CubeImage = (props) => {
+export const CubeImage = (props) => {
   const dyanmicKey = _.values(props).join();
   return <CubeImageInternal {...props} key={dyanmicKey} />;
 };
@@ -23,7 +23,7 @@ CubeImage.defaultProps = {
   // ac: "n", // black arrows?
 };
 
-export const CaseImage = (props) => {
+const CaseImage = (props) => {
   if (!props.caseSetDetails)
     throw new Error("CaseImage must have caseSetDetails property");
   const alg = props.case ? props.case.algs[0] : props.alg;
@@ -44,7 +44,7 @@ CaseImage.defaultProps = {
   size: "100",
 };
 
-export default CubeImage;
+export default CaseImage;
 
 // Possibly outdated:
 // this is all very clever. the SRVisualizer thing works by adding an image to a div

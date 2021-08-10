@@ -6,7 +6,7 @@ import _ from "lodash";
 import { useAuthState } from "../../fire";
 import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
-import { CaseImage } from "../common/cubing/cubeImage";
+import CaseImage from "../common/cubing/cubeImage";
 import FeedbackCard from "../feedbackCard";
 import { displayDur } from "../../utils/formatTime";
 import { writeCasesToFirebase } from "../../utils/writeCases";
