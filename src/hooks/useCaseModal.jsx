@@ -79,8 +79,9 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   };
 
   const handleCreate = (inputValue) => {
-    setOptions([...options, newOption(inputValue, true)]);
-    setSelectedOption(newOption);
+    const createdOption = newOption(inputValue, true);
+    setOptions([...options, createdOption]);
+    setSelectedOption(createdOption);
   };
 
   const handleChange = (option) => {
