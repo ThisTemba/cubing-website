@@ -21,7 +21,8 @@ import useCaseModal from "../hooks/useCaseModal";
 export default function CaseSetTable(props) {
   const { caseSet } = props;
   // const data = useMemo(() => caseSet.cases, []);
-  const [data, setData] = useState(caseSet.cases);
+  const initData = caseSet.cases.map((c) => ({ ...c, alg: c.algs[0] }));
+  const [data, setData] = useState(initData);
   const user = useAuthState();
   const [darkMode] = useDarkMode();
   const [CaseModal, showCaseModal, unused, setCaseModalContent, showing] =
