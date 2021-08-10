@@ -25,11 +25,10 @@ export default function CaseSetTable(props) {
   const [data, setData] = useState(initData);
   const user = useAuthState();
   const [darkMode] = useDarkMode();
-  const [CaseModal, showCaseModal, unused, setCaseModalContent, showing] =
+  const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
     useCaseModal();
   const [caseModalId, setCaseModalId] = useState(null);
   const { width } = useWindowDimensions();
-
 
   useEffect(() => {
     setCaseModalContent();
