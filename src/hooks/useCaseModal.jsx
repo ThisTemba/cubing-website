@@ -168,7 +168,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
         {editing && (
           <Table bordered>
             <tr>
-              <th>{"Edit Algorithm:"}</th>
+              <th>{"New Algorithm:"}</th>
             </tr>
             <tr>
               <td>
@@ -188,7 +188,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
       <Modal.Footer>
         {!editing && (
           <>
-            <Button onClick={edit}>Edit Algorithm</Button>
+            <Button onClick={edit}>Edit</Button>
             <Button variant="secondary" onClick={hideModal}>
               Close
             </Button>
