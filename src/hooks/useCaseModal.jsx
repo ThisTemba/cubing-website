@@ -64,6 +64,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     setDocument(caseSetDocRef, newCaseSet);
     setEditing(false);
   };
+
   const components = {
     Option: (props) => <DeletableOption {...props} onDelete={handleDelete} />,
   };
