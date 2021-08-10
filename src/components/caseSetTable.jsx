@@ -65,9 +65,9 @@ export default function CaseSetTable(props) {
 
   const getPropLearned = (prop, val) => {
     const map = {
-      hRate: { symbol: "<", value: 0.5 },
-      mmRate: { symbol: "<", value: 0.5 },
-      cmRate: { symbol: "<", value: 0.5 },
+      hRate: { symbol: "<", value: 0.4 },
+      mmRate: { symbol: "<", value: 0.4 },
+      cmRate: { symbol: "<", value: 0.1 },
       avgTPS: { symbol: ">", value: 2 },
       numSolves: { symbol: ">", value: 2 },
     };
