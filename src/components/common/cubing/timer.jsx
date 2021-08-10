@@ -65,7 +65,8 @@ class Timer extends Component {
     const stopping = timerState === "on";
 
     if ((starting && isTouchingTimer) || stopping) {
-      this.handleKeyDown({ key: " " });
+      e.key = " ";
+      this.handleKeyDown(e);
     }
   };
 
@@ -75,7 +76,8 @@ class Timer extends Component {
     const coolingDown = timerState === "cooldown";
 
     if (cancelling || coolingDown) {
-      this.handleKeyUp({ key: " " });
+      e.key = " ";
+      this.handleKeyUp(e);
     }
   };
 
