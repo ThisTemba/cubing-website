@@ -41,7 +41,7 @@ const pllCaseSet = {
       algs: [
         "M' U' M2 U' M2 U' M' U2 M2",
         "M' U M2 U M2 U M' U2 M2",
-        "y M2 U M2 U M' U2 M2 U2 M'",
+        "M2 U M2 U M' U2 M2 U2 M'",
         "M2 U' M2 U' M' U2 M2 U2 M'",
       ],
     },
@@ -62,7 +62,7 @@ const pllCaseSet = {
       algs: [
         "M2 U M U2 M' U M2",
         "R U' R U R U R U' R' U' R2",
-        "y2 R2 U' R' U' R U R U R U' R",
+        "R2 U' R' U' R U R U R U' R",
       ],
     },
     {
@@ -82,7 +82,7 @@ const pllCaseSet = {
       algs: [
         "M2 U' M U2 M' U' M2",
         "R2 U R U R' U' R' U' R' U R'",
-        "y2 R' U R' U' R' U' R' U R U R2",
+        "R' U R' U' R' U' R' U R U R2",
       ],
     },
     {
@@ -119,9 +119,9 @@ const pllCaseSet = {
       algs: [
         "x R2' D2 R U R' D2 R U' R x'",
         "x' L2 D2 L U L' D2 L U' L x",
-        "y x L U' L D2 L' U L D2 L2 x'",
-        "y2 x R2 D2 R U R' D2 R U' R x'",
-        "y' x' R U' R D2 R' U R D2 R2 x",
+        "x L U' L D2 L' U L D2 L2 x'",
+        "x R2 D2 R U R' D2 R U' R x'",
+        "x' R U' R D2 R' U R D2 R2 x",
       ],
     },
     {
@@ -169,8 +169,8 @@ const pllCaseSet = {
       ],
       algs: [
         "x R2 F R F' R U2 r' U r U2 x'",
-        "y2 L' U' L F L' U' L U L F' L2 U L",
-        "y' R' U L' U2 R U' R' U2 R L",
+        "L' U' L F L' U' L U L F' L2 U L",
+        "R' U L' U2 R U' R' U2 R L",
       ],
     },
     {
@@ -202,7 +202,7 @@ const pllCaseSet = {
       algs: [
         "R U' R' U' R U R D R' U' R D' R' U2 R'",
         "R U R' F' R U2 R' U2 R' F R U R U2 R'",
-        "y' L U2 L' U2 L F' L' U' L U L F L2",
+        "L U2 L' U2 L F' L' U' L U L F L2",
       ],
     },
     {
@@ -219,7 +219,7 @@ const pllCaseSet = {
       ],
       algs: [
         "R2 F R U R U' R' F' R U2 R' U2 R",
-        "y' R' U2 R U2 R' F R U R' U' R' F' R2",
+        "R' U2 R U2 R' F R U R' U' R' F' R2",
         "R' U2 R' D' R U' R' D R U R U' R' U' R",
       ],
     },
@@ -339,7 +339,7 @@ const pllCaseSet = {
       ],
       algs: [
         "R' U' R U D' R2 U R' U R U' R U' R2 D",
-        "y F' U' F R2 u R' U R U' R u' R2",
+        "F' U' F R2 u R' U R U' R u' R2",
       ],
     },
     {
@@ -356,7 +356,7 @@ const pllCaseSet = {
       ],
       algs: [
         "R2 U' R U' R U R' U R2 U D' R U' R' D",
-        "y2 R2 F2 R U2 R U2 R' F R U R' U' R' F R2",
+        "R2 F2 R U2 R U2 R' F R U R' U' R' F R2",
         "R2 u' R U' R U R' u R2 y R U' R'",
       ],
     },
