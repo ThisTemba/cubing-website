@@ -16,7 +16,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [editing, setEditing] = useState(false);
   const [caseDoc, setCaseDoc] = useState(null);
   const user = useAuthState();
-  const customOption = { value: "!@#$", label: "Custom" };
+  const customOption = { value: null, label: "Custom" };
 
   useEffect(() => {
     const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
@@ -81,14 +81,6 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     const createdOption = newOption(inputValue, true);
     setOptions([...options, createdOption]);
     setSelectedOption(createdOption);
-  };
-
-  const handleChange = (option) => {
-    if (option && option.value === customOption.value) {
-      setSelectedOption(null);
-    } else {
-      setSelectedOption(option);
-    }
   };
 
   const statCols = [
@@ -181,7 +173,6 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
                 <CreatableSelect
                   options={options}
                   value={selectedOption}
-                  onChange={handleChange}
                   components={components}
                   onCreateOption={handleCreate}
                   placeholder="Type or paste custom alg..."
