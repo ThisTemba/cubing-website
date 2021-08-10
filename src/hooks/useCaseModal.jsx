@@ -131,7 +131,16 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
                     </tr>
                     <tr>
                       <th>{"Algorithm"}</th>
-                      <td>{cas.alg}</td>
+                      <td>
+                        <Button
+                          onClick={edit}
+                          variant="link"
+                          size="md"
+                          className="p-0"
+                        >
+                          {cas.alg}
+                        </Button>
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
