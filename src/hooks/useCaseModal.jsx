@@ -113,7 +113,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
-                <Table size={"sm"}>
+                <Table size={"sm"} className="mb-0">
                   <tbody>
                     <tr>
                       <th>{"Name"}</th>
@@ -149,7 +149,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
-                <Table size={"sm"}>
+                <Table size={"sm"} className="mb-0">
                   <tbody>
                     {statCols.map((c) => {
                       return (
