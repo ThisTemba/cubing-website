@@ -24,8 +24,16 @@ export default function CaseSetTable(props) {
   const [data, setData] = useState(caseSet.cases);
   const user = useAuthState();
   const [darkMode] = useDarkMode();
-  const [CaseModal, showCaseModal] = useCaseModal();
+  const [CaseModal, showCaseModal, unused, setCaseModalContent, showing] =
+    useCaseModal();
+  const [caseModalId, setCaseModalId] = useState(null);
   // const data = useMemo(() => MOCK_DATA, []);
+
+  useEffect(() => {
+    setCaseModalContent();
+    const cas = _.find(data, ["id", caseModalId]);
+    setCaseModalContent(cas, caseSet.details);
+  }, [showing, _.find(data, ["id", caseModalId])]);
 
   useEffect(() => {
     let unsubscribe = () => {};
@@ -37,12 +45,18 @@ export default function CaseSetTable(props) {
         .doc(caseSet.details.id)
         .onSnapshot((caseSetDoc) => {
           if (caseSetDoc.data()) {
-            const caseStatData = caseSetDoc.data().cases;
+            const userCases = caseSetDoc.data().cases;
             const combined = data.map((c) => {
-              if (_.find(caseStatData, ["id", c.id])) {
-                var caseStats = _.find(caseStatData, ["id", c.id]).caseStats;
-              }
-              return { ...c, ...caseStats };
+              const userCase = _.find(userCases, ["id", c.id]);
+              let alg = null;
+              let caseStats = null;
+
+              if (userCase) caseStats = userCase.caseStats;
+              if (userCase && userCase.alg) alg = userCase.alg;
+              else alg = c.algs[0];
+
+              const combinedCase = { ...c, ...caseStats, alg };
+              return combinedCase;
             });
             setData(combined);
           }
@@ -129,7 +143,12 @@ export default function CaseSetTable(props) {
 
   const renderCaseImage = ({ value }) => {
     return (
-      <CaseImage case={value} caseSetDetails={caseSet.details} size="65" />
+      <CaseImage
+        alg={value.alg}
+        caseSetDetails={caseSet.details}
+        size="65"
+        live
+      />
     );
   };
 
@@ -267,6 +286,7 @@ export default function CaseSetTable(props) {
         ...props,
         onClick: () => {
           const cas = cell.row.original;
+          setCaseModalId(cas.id);
           showCaseModal(cas, caseSet.details);
         },
         style: { ...props.style, cursor: "pointer" },

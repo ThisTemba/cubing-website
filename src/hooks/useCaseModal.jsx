@@ -6,7 +6,7 @@ import useModal from "./useModal";
 import { CaseImage } from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
-import { getCaseSetDocRef } from "../utils/writeCases";
+import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
 import { useAuthState } from "../fire";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
@@ -14,17 +14,21 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
   const customOption = { value: "!@#$", label: "Custom" };
   const [options, setOptions] = useState([customOption, ...initialOptions]);
-  const [selectedOption, setSelectedOption] = useState(options[1]);
+  const [selectedOption, setSelectedOption] = useState({
+    value: cas.alg,
+    label: cas.alg,
+  });
+  const [caseDoc, setCaseDoc] = useState(null);
   const user = useAuthState();
   const selectRef = useRef();
 
   const edit = async () => {
     const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
-    const caseDoc = await caseSetDocRef.collection("cases").doc(cas.id).get();
-    const userCase = caseDoc.data();
-    const userAlgs = userCase.userAlgs;
-    const alg = userCase.alg;
-    if (userAlgs) {
+    const _caseDoc = await caseSetDocRef.collection("cases").doc(cas.id).get();
+    setCaseDoc(_caseDoc);
+    const userCase = _caseDoc.data();
+    if (userCase && userCase.userAlgs) {
+      const userAlgs = userCase.userAlgs;
       const userOptions = userAlgs.map((a) => ({
         label: a,
         value: a,
@@ -32,14 +36,32 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
       }));
       setOptions([...options, ...userOptions]);
     }
-    setSelectedOption({ label: alg, value: alg }); // probably only works if the selected option is a custom option
+    if (userCase && userCase.alg) {
+      const alg = userCase.alg;
+      setSelectedOption({ label: alg, value: alg });
+    } else setSelectedOption(options[1]);
     setEditing(true);
   };
 
-  const save = () => {
+  const save = async () => {
     const userAlgs = options.filter((o) => o.deletable).map((o) => o.value);
     const alg = selectedOption.value;
-    const id = cas.id;
+    const newCaseDoc = { ...caseDoc.data(), alg, userAlgs };
+    setDocument(caseDoc.ref, newCaseDoc);
+
+    const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
+    const caseSetDoc = await caseSetDocRef.get();
+    const oldCaseSet = caseSetDoc.data();
+    const oldCases = oldCaseSet.cases;
+    const oldCase = _.find(oldCases, ["id", cas.id]);
+    let newCase; // set id in case oldCase undefined
+
+    if (oldCase) newCase = { ...oldCase, alg };
+    else newCase = { alg, id: cas.id };
+
+    const newCases = [...oldCases.filter((c) => c.id !== cas.id), newCase];
+    const newCaseSet = { ...oldCaseSet, cases: newCases };
+    setDocument(caseSetDocRef, newCaseSet);
     setEditing(false);
   };
   const components = {
@@ -77,7 +99,12 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     <>
       <CenterModalHeader title={cas.name} onClose={hideModal} />
       <Modal.Body className="text-center">
-        <CaseImage caseSetDetails={caseSetDetails} case={cas} size="200" />
+        <CaseImage
+          caseSetDetails={caseSetDetails}
+          alg={selectedOption && selectedOption.value}
+          size="200"
+          live
+        />
         {!editing && (
           <Table bordered>
             <tbody>
@@ -100,7 +127,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
               </tr>
               <tr>
                 <th>{"Algorithm"}</th>
-                <td>{selectedOption && selectedOption.value}</td>
+                <td>{cas.alg}</td>
               </tr>
             </tbody>
           </Table>
@@ -144,9 +171,17 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
 };
 
 export default function useCaseModal() {
-  const [_ModalComponent, _showModal, _hideModal] = useModal();
+  const [_ModalComponent, _showModal, _hideModal, _setContent, _showing] =
+    useModal();
   const showModal = (cas, caseSetDetails) => {
-    _showModal(
+    setContent(cas, caseSetDetails);
+    _showModal();
+  };
+
+  const hideModal = _hideModal;
+  const ModalComponent = _ModalComponent;
+  const setContent = (cas, caseSetDetails) => {
+    _setContent(
       <CaseModalContent
         cas={cas}
         caseSetDetails={caseSetDetails}
@@ -154,9 +189,7 @@ export default function useCaseModal() {
       />
     );
   };
+  const showing = _showing;
 
-  const hideModal = _hideModal;
-  const ModalComponent = _ModalComponent;
-
-  return [ModalComponent, showModal, hideModal];
+  return [ModalComponent, showModal, hideModal, setContent, showing];
 }
