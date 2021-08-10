@@ -1,9 +1,4 @@
-import {
-  getSessionAverage,
-  getBestSingle,
-  getWorstSingle,
-  bestAoN,
-} from "./averages";
+import { getSessionAverage, bestAoN } from "./averages";
 
 export const getSessionStats = ({ solves }) => {
   if (!solves.length) throw new Error("session has no solves");
