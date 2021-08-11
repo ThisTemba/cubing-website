@@ -1,138 +1,123 @@
-import React, { Component } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import TimeDisplay from "./timeDisplay";
 import ScrambleDisplay from "./scrambleDisplay";
+import useInterval from "../../../hooks/useInterval";
 
-//this.props.onNewSolve
-//this.props.armingTime
-//this.props.scramble
-class Timer extends Component {
-  state = {
-    time: 0, // time in ms
-    timerState: "ready",
+export default function Timer(props) {
+  const { scramble, armingTime, onNewSolve } = props;
+  const [time, _setTime] = useState(0);
+  const [timerState, _setTimerState] = useState("ready");
+  const timerRef = useRef();
+  const timeoutRef = useRef();
+  const timeRef = useRef();
+  const onNewSolveRef = useRef(onNewSolve);
+  const timerStateRef = useRef(timerState);
+
+  useInterval(() => setTime(time + 10), timerState === "on" ? 10 : null);
+
+  useEffect(() => {
+    onNewSolveRef.current = onNewSolve;
+  }, [onNewSolve]);
+
+  const setTimerState = (state) => {
+    timerStateRef.current = state;
+    _setTimerState(state);
   };
 
-  componentDidUpdate(_, prevState) {
-    const { timerState } = this.state;
-    if (timerState !== prevState.timerState) {
-      timerState === "on" ? this.startTimer() : this.stopTimer();
+  const setTime = (time) => {
+    timeRef.current = time;
+    _setTime(time);
+  };
+
+  const handleTouchStart = (e) => {
+    const timerState = timerStateRef.current;
+    const timerElement = timerRef.current;
+    const isTouchingTimer = timerElement.contains(e.target);
+    const starting = timerState === "ready" || "arming" || "armed";
+    const stopping = timerState === "on";
+    if ((starting && isTouchingTimer) || stopping) {
+      e.key = " ";
+      e.preventDefault();
+      handleKeyDown(e);
     }
-  }
-
-  componentDidMount() {
-    document.addEventListener("touchstart", this.handleTouchStart);
-    document.addEventListener("touchend", this.handleTouchEnd);
-
-    document.addEventListener("keyup", this.handleKeyUp);
-    document.addEventListener("keydown", this.handleKeyDown);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("touchstart", this.handleTouchStart);
-    document.removeEventListener("touchend", this.handleTouchEnd);
-
-    document.removeEventListener("keyup", this.handleKeyUp);
-    document.removeEventListener("keydown", this.handleKeyDown);
-  }
-
-  startTimer = () => {
-    this.interval = setInterval(() => {
-      this.setState((state) => ({ time: state.time + 10 }));
-    }, 10);
   };
 
-  stopTimer = () => {
-    clearInterval(this.interval);
+  const handleTouchEnd = (e) => {
+    const timerState = timerStateRef.current;
+    const cancelling = timerState === "armed";
+    const coolingDown = timerState === "cooldown";
+    if (cancelling || coolingDown) {
+      e.key = " ";
+      e.preventDefault();
+      handleKeyUp(e);
+    }
   };
 
-  getNewSolve = () => {
+  const handleKeyUp = (e) => {
+    const timerState = timerStateRef.current;
+    if (e.key === " ") {
+      const timerStateMap = { armed: "on", cooldown: "ready", arming: "ready" };
+      setTimerState(timerStateMap[timerState]);
+      if (timerState === "arming") {
+        clearTimeout(timeoutRef.current);
+        setTime(0);
+      }
+    }
+  };
+
+  const getNewSolve = () => {
+    const dur = timeRef.current / 1000;
     const solve = {
       dateTime: new Date().toString(),
-      scramble: this.props.scramble,
-      dur: this.state.time / 1000,
-      durStatic: this.state.time / 1000,
+      scramble: scramble,
+      durStatic: dur,
+      dur,
     };
     return solve;
   };
 
-  handleTouchStart = (e) => {
-    const { timerState } = this.state;
-    const timerElement = document.getElementById("timer-div");
-    const isTouchingTimer = timerElement.contains(e.target);
-    const starting =
-      timerState === "ready" ||
-      timerState === "arming" ||
-      timerState === "armed";
-    const stopping = timerState === "on";
-
-    if ((starting && isTouchingTimer) || stopping) {
-      e.key = " ";
-      this.handleKeyDown(e);
-    }
-  };
-
-  handleTouchEnd = (e) => {
-    const { timerState } = this.state;
-    const cancelling = timerState === "armed";
-    const coolingDown = timerState === "cooldown";
-
-    if (cancelling || coolingDown) {
-      e.key = " ";
-      this.handleKeyUp(e);
-    }
-  };
-
-  handleKeyUp = (e) => {
-    if (e.key === " ") {
-      const { timerState } = this.state;
-      switch (timerState) {
-        case "armed":
-          this.setState({ timerState: "on" });
-          break;
-        case "cooldown":
-          this.setState({ timerState: "ready" });
-          break;
-        case "arming":
-          clearTimeout(this.timeout);
-          this.setState({ timerState: "ready", time: 0 });
-          break;
-        default:
-      }
-    }
-  };
-
-  handleKeyDown = (e) => {
-    const { timerState } = this.state;
-    const { armingTime } = this.props;
+  const handleKeyDown = (e) => {
+    const timerState = timerStateRef.current;
+    const onNewSolve = onNewSolveRef.current;
     if (timerState === "on") {
-      this.setState({ timerState: "cooldown" }); // stop the timer first
-      this.props.onNewSolve(this.getNewSolve());
+      setTimerState("cooldown");
+      onNewSolve(getNewSolve());
     }
     if (e.key === " ") {
       e.preventDefault(); // no scroll
       if (timerState === "ready") {
-        this.timeout = setTimeout(() => {
-          this.setState({ timerState: "armed", time: 0 });
+        setTimerState("arming");
+        timeoutRef.current = setTimeout(() => {
+          setTimerState("armed");
+          setTime(0);
         }, armingTime);
-        this.setState({ timerState: "arming" });
       }
     }
   };
 
-  render() {
-    const { timerState, time } = this.state;
-    return (
-      <div
-        id="timer-div"
-        // Source: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
-        style={{
-          userSelect: "none",
-        }}
-      >
-        <ScrambleDisplay scramble={this.props.scramble} />
-        <TimeDisplay timeMilliseconds={time} timerState={timerState} />
-      </div>
-    );
-  }
+  useEffect(() => {
+    const listeners = [
+      { type: "touchstart", listener: handleTouchStart },
+      { type: "touchend", listener: handleTouchEnd },
+      { type: "keyup", listener: handleKeyUp },
+      { type: "keydown", listener: handleKeyDown },
+    ];
+
+    const addListener = (t, l) => document.addEventListener(t, l);
+    const removeListener = (t, l) => document.removeEventListener(t, l);
+    listeners.forEach((l) => addListener(l.type, l.listener));
+    return () => {
+      listeners.forEach((l) => removeListener(l.type, l.listener));
+    };
+  }, []);
+
+  // Source: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
+  return (
+    <div ref={timerRef} style={{ userSelect: "none" }}>
+      <ScrambleDisplay scramble={scramble} />
+      <TimeDisplay timeMilliseconds={time} timerState={timerState} />
+    </div>
+  );
 }
 
 Timer.defaultProps = {
@@ -140,5 +125,3 @@ Timer.defaultProps = {
   scramble: "R U R' U'(test scramble)",
   onNewSolve: () => {},
 };
-
-export default Timer;
