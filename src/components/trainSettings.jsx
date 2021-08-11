@@ -1,0 +1,111 @@
+import React from "react";
+import Joi from "joi-browser";
+import InputMosh from "./common/inputMosh";
+import { db, useAuthState } from "../fire";
+import { useState } from "react";
+
+export default function TrainSettings() {
+  const [errors, setErrors] = useState({});
+  const [data, setData] = useState({
+    hRate: 0.5,
+    mmRate: 0.5,
+    cmRate: 0.5,
+    numSolves: 5,
+    avgTPS: 3,
+  });
+  const user = useAuthState();
+
+  const schema = {
+    hRate: Joi.number().required().min(0).max(1).label("Max hRate"),
+    mmRate: Joi.number().required().min(0).max(1).label("Max mmRate"),
+    cmRate: Joi.number().required().min(0).max(1).label("Max cmRate"),
+    numSolves: Joi.number().required().min(1).label("Min numSolves"),
+    avgTPS: Joi.number().required().min(0.1).label("Min avgTPS"),
+  };
+
+  const validate = () => {
+    const options = { abortEarly: false };
+    const { error } = Joi.validate(data, schema, options);
+    if (!error) return null;
+
+    const errors = {};
+    for (let item of error.details) errors[item.path[0]] = item.message;
+    return errors;
+  };
+
+  const validateProperty = ({ name, value }) => {
+    const obj = { [name]: value };
+    const schema = { [name]: schema[name] };
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const errors = validate();
+    setErrors(errors || {});
+    if (errors) return;
+
+    doSubmit();
+  };
+
+  const handleChange = ({ currentTarget: input }) => {
+    const errors = { ...errors };
+    const errorMessage = validateProperty(input);
+    if (errorMessage) errors[input.name] = errorMessage;
+    else delete errors[input.name];
+
+    const data = { ...data };
+    data[input.name] = input.value;
+
+    setErrors(errors);
+    setData(data);
+  };
+
+  const renderButton = (label) => {
+    return (
+      <button disabled={validate()} className="btn btn-primary">
+        {label}
+      </button>
+    );
+  };
+
+  const renderInput = (name, label, type = "text") => {
+    return (
+      <InputMosh
+        type={type}
+        name={name}
+        value={data[name]}
+        label={label}
+        onChange={handleChange}
+        error={errors[name]}
+      />
+    );
+  };
+
+  const doSubmit = async () => {
+    const userDocRef = db.collection("users").doc(user.uid);
+    const userDoc = await userDocRef.get();
+    let userData = userDoc.data();
+    let settings = userData.settings;
+    userData.settings = { ...settings, trainSettings: data };
+    userDocRef
+      .set(userData)
+      .then(console.log("Document written"))
+      .catch((err) => console.log(err));
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        {renderInput("hRate", "Max hRate")}
+        {renderInput("mmRate", "Max mmRate")}
+        {renderInput("cmRate", "Max cmRate")}
+        {renderInput("numSolves", "Min numSolves")}
+        {renderInput("avgTPS", "Min avgTPS")}
+        {renderButton("Save")}
+      </form>
+    </div>
+  );
+}

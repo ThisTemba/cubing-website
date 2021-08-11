@@ -7,6 +7,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
 import useDarkMode from "../../hooks/useDarkMode";
+import TrainSettings from "../trainSettings";
 const SettingsPage = () => {
   const [darkMode, setDarkMode] = useDarkMode();
 
@@ -31,7 +32,7 @@ const SettingsPage = () => {
     {
       name: "Train",
       key: "train",
-      content: "hello",
+      content: <TrainSettings />,
     },
   ];
 
