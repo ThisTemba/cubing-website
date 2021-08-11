@@ -138,6 +138,7 @@ export default function TestPage(props) {
 
   const handleBackToDash = () => {
     props.history.push("/train");
+    // TODO: if not logged in, tell them that their data won't be saved
     props.onDashboard();
     const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
     if (user) {
