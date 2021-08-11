@@ -2,7 +2,13 @@ import useLocalStorage from "./useLocalStorage";
 import { useEffect } from "react";
 
 export default function useDarkMode() {
-  const [darkMode, setDarkMode] = useLocalStorage("dark-mode-enabled", true);
+  const [darkMode, _setDarkMode] = useLocalStorage("dark-mode-enabled", true);
+
+  const setDarkMode = (value) => {
+    window.location.reload();
+    _setDarkMode(value);
+  };
+
   useEffect(() => {
     // Source: https://stackoverflow.com/a/19844757/3593621
     const dark = document.getElementById("dark-mode-css");
