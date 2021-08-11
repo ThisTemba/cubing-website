@@ -48,7 +48,11 @@ export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
   const avgTime = _.mean(statCaseSolves.map((s) => s.dur));
   const totTime = _.sum(statCaseSolves.map((s) => s.dur));
   const totAlgLen = _.sum(statCaseSolves.map((s) => getSTM(s.alg)));
-  const avgTPS = totAlgLen / totTime;
+  const moveTime = 0.2; // the minimum ammount of time needed to let go of the spacebar and hit it again
+  // by excluding this time, TPS is made slightly more accurate
+  // without it, longer algorithms tend to have higher TPSes
+  const totTimeAdjusted = totTime - numStatSolves * moveTime;
+  const avgTPS = totAlgLen / totTimeAdjusted;
   const caseStats = {
     numSolves,
     ...rates,
