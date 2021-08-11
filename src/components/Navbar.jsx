@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { Navbar as NavbarRB, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar as NavbarRB, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { auth, useAuthState } from "../fire";
+import useDarkMode from "../hooks/useDarkMode";
 
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false);
+  const [darkMode, setDarkMode] = useDarkMode();
 
   const collapse = () => setExpanded(false);
 
@@ -35,6 +38,17 @@ export default function Navbar() {
           ))}
         </Nav>
         <Nav>
+          <Button variant="link" className="text-secondary">
+            <FontAwesomeIcon
+              onClick={() => {
+                setDarkMode(!darkMode);
+                document.activeElement.blur();
+              }}
+              icon={darkMode ? "moon" : "sun"}
+              size="lg"
+              color={darkMode ? "" : "#707070"}
+            />
+          </Button>
           {user && (
             <NavDropdown title={user.email} id="basic-nav-dropdown">
               <NavDropdown.Item as={NavLink} to="/settings" onClick={collapse}>
