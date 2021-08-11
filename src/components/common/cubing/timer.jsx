@@ -29,17 +29,15 @@ export default function Timer(props) {
     _setTime(time);
   };
 
-  const handleTouchStart = (e) => {
-    const timerState = timerStateRef.current;
-    const timerElement = timerRef.current;
-    const isTouchingTimer = timerElement.contains(e.target);
-    const starting = timerState === "ready" || "arming" || "armed";
-    const stopping = timerState === "on";
-    if ((starting && isTouchingTimer) || stopping) {
-      e.key = " ";
-      e.preventDefault();
-      handleKeyDown(e);
-    }
+  const getNewSolve = () => {
+    const dur = timeRef.current / 1000;
+    const solve = {
+      dateTime: new Date().toString(),
+      scramble: scramble,
+      durStatic: dur,
+      dur,
+    };
+    return solve;
   };
 
   const handleTouchEnd = (e) => {
@@ -65,15 +63,14 @@ export default function Timer(props) {
     }
   };
 
-  const getNewSolve = () => {
-    const dur = timeRef.current / 1000;
-    const solve = {
-      dateTime: new Date().toString(),
-      scramble: scramble,
-      durStatic: dur,
-      dur,
-    };
-    return solve;
+  const handleTouchStart = (e) => {
+    const isTouchingTimer = timerRef.current.contains(e.target);
+    const timerOn = timerStateRef.current === "on";
+    if (isTouchingTimer || timerOn) {
+      e.key = " ";
+      e.preventDefault();
+      handleKeyDown(e);
+    }
   };
 
   const handleKeyDown = (e) => {
