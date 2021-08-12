@@ -22,7 +22,7 @@ export default function TimePage() {
   const puzzle = "333";
 
   useEffect(() => {
-    if (!session) handleNewSession();
+    if (session.name === null) handleNewSession();
   }, []);
 
   const saveCurrentSession = (session) => {
