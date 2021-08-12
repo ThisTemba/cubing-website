@@ -1,12 +1,13 @@
 import React from "react";
+import { Form, Alert } from "react-bootstrap";
 
 const InputMosh = ({ name, label, error, ...rest }) => {
   return (
-    <div className="form-group">
-      <label htmlFor={name}>{label}</label>
-      <input {...rest} name={name} id={name} className="form-control" />
-      {error && <div className="alert alert-danger">{error}</div>}
-    </div>
+    <Form.Group>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control {...rest} name={name} id={name} />
+      {error && <Alert variant="danger">{error}</Alert>}
+    </Form.Group>
   );
 };
 
