@@ -35,8 +35,8 @@ export default function TrainSettings() {
 
   const validateProperty = ({ name, value }) => {
     const obj = { [name]: value };
-    const schema = { [name]: schema[name] };
-    const { error } = Joi.validate(obj, schema);
+    const _schema = { [name]: schema[name] };
+    const { error } = Joi.validate(obj, _schema);
     return error ? error.details[0].message : null;
   };
 
@@ -51,16 +51,16 @@ export default function TrainSettings() {
   };
 
   const handleChange = ({ currentTarget: input }) => {
-    const errors = { ...errors };
+    const newErrors = { ...errors };
     const errorMessage = validateProperty(input);
-    if (errorMessage) errors[input.name] = errorMessage;
-    else delete errors[input.name];
+    if (errorMessage) newErrors[input.name] = errorMessage;
+    else delete newErrors[input.name];
 
-    const data = { ...data };
-    data[input.name] = input.value;
+    const newData = { ...data };
+    newData[input.name] = input.value;
 
-    setErrors(errors);
-    setData(data);
+    setErrors(newErrors);
+    setData(newData);
   };
 
   const renderButton = (label) => {
