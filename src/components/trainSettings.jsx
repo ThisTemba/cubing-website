@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Joi from "joi-browser";
 import InputMosh from "./common/inputMosh";
 import { db, useAuthState } from "../fire";
@@ -7,13 +7,23 @@ import { useState } from "react";
 export default function TrainSettings() {
   const [errors, setErrors] = useState({});
   const [data, setData] = useState({
-    hRate: 0.5,
-    mmRate: 0.5,
-    cmRate: 0.5,
-    numSolves: 5,
-    avgTPS: 3,
+    hRate: 0.4,
+    mmRate: 0.4,
+    cmRate: 0.1,
+    avgTPS: 2,
+    numSolves: 2,
   });
   const user = useAuthState();
+
+  useEffect(async () => {
+    if (user) {
+      const userDocRef = db.collection("users").doc(user.uid);
+      const userDoc = await userDocRef.get();
+      let userData = userDoc.data();
+      let settings = userData.settings;
+      if (settings && settings.trainSettings) setData(settings.trainSettings);
+    }
+  }, [user]);
 
   const schema = {
     hRate: Joi.number().required().min(0).max(1).label("Max hRate"),
