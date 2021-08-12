@@ -99,7 +99,7 @@ export default function TimePage() {
         <h3>
           {"Session: " + session.name + "  "}
           <Button size="sm" onClick={handleNewSession}>
-            New Session
+            New Session / Save Session
           </Button>
         </h3>
       )}
