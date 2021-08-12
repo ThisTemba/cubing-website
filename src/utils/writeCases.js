@@ -34,9 +34,23 @@ const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
 const writeCasesToCaseSetDoc = async (newCases, caseSetDocRef) => {
   const caseSetDoc = await caseSetDocRef.get();
   let cases = [...newCases];
-  if (caseSetDoc.exists) {
+  if (caseSetDoc.exists && caseSetDoc.data()) {
     const oldCases = caseSetDoc.data().cases;
-    cases = _(oldCases).differenceBy(newCases, "id").concat(newCases).value();
+    if (oldCases) {
+      const mergedCases = newCases.map((newCase) => {
+        const oldCase = _.find(oldCases, ["id", newCase.id]);
+        const mergedCase = oldCase
+          ? { ...oldCase, caseStats: newCase.caseStats }
+          : { ...newCase };
+        return mergedCase;
+      });
+      cases = _(oldCases)
+        .differenceBy(mergedCases, "id")
+        .concat(mergedCases)
+        .value();
+    } else {
+      cases = newCases;
+    }
   }
   setDocument(caseSetDocRef, { cases });
 };
