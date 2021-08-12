@@ -4,6 +4,8 @@ import eollCaseSet from "./eollCaseSet";
 import ocllCaseSet from "./ocllCaseSet";
 import epllCaseSet from "./epllCaseSet";
 import cpllCaseSet from "./cpllCaseSet";
+import ttllCaseSet from "./ttllCaseSet";
+import tsleCaseSet from "./tsleCaseSet";
 import _ from "lodash";
 import { isValidAlg } from "../utils/algTools";
 
@@ -14,6 +16,8 @@ const caseSets = [
   ocllCaseSet,
   epllCaseSet,
   cpllCaseSet,
+  ttllCaseSet,
+  tsleCaseSet,
 ];
 const caseSetKeys = ["details", "cases"];
 const detailsKeys = ["id", "title", "mask", "view", "numCases"];
