@@ -98,9 +98,9 @@ export default function CaseSetTable(props) {
     };
     if (typeof map[prop] === "undefined") return null;
     if (map[prop].symbol === ">") {
-      return val > settingsValue;
+      return val >= settingsValue;
     } else if (map[prop].symbol === "<") {
-      return val < settingsValue;
+      return val <= settingsValue;
     } else throw new Error("symbol not recognized");
   };
 
