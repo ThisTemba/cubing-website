@@ -57,15 +57,22 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
 
     const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
     const caseSetDoc = await caseSetDocRef.get();
-    const oldCaseSet = caseSetDoc.data();
-    const oldCases = oldCaseSet.cases;
-    const oldCase = _.find(oldCases, ["id", cas.id]);
-    const newCase = oldCase ? { ...oldCase, alg } : { alg, id: cas.id };
-    const newCases = oldCases
-      ? [...oldCases.filter((c) => c.id !== cas.id), newCase]
-      : [newCase];
-    const newCaseSet = { ...oldCaseSet, cases: newCases };
-    setDocument(caseSetDocRef, newCaseSet);
+    if (caseSetDoc.exists) {
+      const oldCaseSet = caseSetDoc.data();
+      const oldCases = oldCaseSet.cases;
+      if (oldCases) {
+        const oldCase = _.find(oldCases, ["id", cas.id]);
+        const newCase = oldCase ? { ...oldCase, alg } : { alg, id: cas.id };
+        const newCases = [...oldCases.filter((c) => c.id !== cas.id), newCase];
+        const newCaseSet = { ...oldCaseSet, cases: newCases };
+        setDocument(caseSetDocRef, newCaseSet);
+      }
+      setDocument(caseSetDocRef, {
+        ...oldCaseSet,
+        cases: [{ alg, id: cas.id }],
+      });
+    }
+    setDocument(caseSetDocRef, { cases: [{ alg, id: cas.id }] });
     setEditing(false);
   };
 
