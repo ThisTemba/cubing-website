@@ -109,11 +109,11 @@ export default function TrainSettings() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {renderInput("hRate", "Max hRate")}
-        {renderInput("mmRate", "Max mmRate")}
-        {renderInput("cmRate", "Max cmRate")}
-        {renderInput("numSolves", "Min numSolves")}
-        {renderInput("avgTPS", "Min avgTPS")}
+        {renderInput("hRate", "Max hesitation rate")}
+        {renderInput("mmRate", "Max minor mistake rate")}
+        {renderInput("cmRate", "Max critical mistake rate")}
+        {renderInput("numSolves", "Min number of solves")}
+        {renderInput("avgTPS", "Min average TPS")}
         {renderButton("Save")}
       </form>
     </div>
