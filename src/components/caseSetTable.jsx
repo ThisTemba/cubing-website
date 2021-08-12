@@ -29,6 +29,14 @@ export default function CaseSetTable(props) {
     useCaseModal();
   const [caseModalId, setCaseModalId] = useState(null);
   const { width } = useWindowDimensions();
+  const defaultTrainSettings = {
+    hRate: 0.4,
+    mmRate: 0.4,
+    cmRate: 0.1,
+    avgTPS: 2,
+    numSolves: 2,
+  };
+  const [trainSettings, setTrainSettings] = useState(defaultTrainSettings);
 
   useEffect(() => {
     setCaseModalContent();
@@ -37,9 +45,10 @@ export default function CaseSetTable(props) {
   }, [showing, _.find(data, ["id", caseModalId])]);
 
   useEffect(() => {
-    let unsubscribe = () => {};
+    let unsubscribe1 = () => {};
+    let unsubscribe2 = () => {};
     if (user) {
-      unsubscribe = db
+      unsubscribe1 = db
         .collection("users")
         .doc(user.uid)
         .collection("caseSets")
@@ -57,25 +66,41 @@ export default function CaseSetTable(props) {
             setData(combined);
           }
         });
+      unsubscribe2 = db
+        .collection("users")
+        .doc(user.uid)
+        .onSnapshot((userDoc) => {
+          if (
+            userDoc.data() &&
+            userDoc.data().settings &&
+            userDoc.data().settings.trainSettings
+          ) {
+            setTrainSettings(userDoc.data().settings.trainSettings);
+          }
+        });
     }
-    return unsubscribe;
+    return () => {
+      unsubscribe1();
+      unsubscribe2();
+    };
   }, [user]);
 
   const defaultColumn = useMemo(() => ({ disableGroupBy: true }), []);
 
   const getPropLearned = (prop, val) => {
+    const settingsValue = trainSettings[prop];
     const map = {
-      hRate: { symbol: "<", value: 0.4 },
-      mmRate: { symbol: "<", value: 0.4 },
-      cmRate: { symbol: "<", value: 0.1 },
-      avgTPS: { symbol: ">", value: 2 },
-      numSolves: { symbol: ">", value: 2 },
+      hRate: { symbol: "<" },
+      mmRate: { symbol: "<" },
+      cmRate: { symbol: "<" },
+      avgTPS: { symbol: ">" },
+      numSolves: { symbol: ">" },
     };
     if (typeof map[prop] === "undefined") return null;
     if (map[prop].symbol === ">") {
-      return val > map[prop].value;
+      return val > settingsValue;
     } else if (map[prop].symbol === "<") {
-      return val < map[prop].value;
+      return val < settingsValue;
     } else throw new Error("symbol not recognized");
   };
 
@@ -264,7 +289,7 @@ export default function CaseSetTable(props) {
         sortType: sortStatus,
       },
     ],
-    [showStats]
+    [showStats, trainSettings]
   );
 
   const getCellProps = (cell) => {
