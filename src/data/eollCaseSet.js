@@ -26,7 +26,7 @@ const eollCaseSet = {
     {
       id: "4ab6538f-771f-4004-abbf-ca0c3bc3ac09",
       name: "Line",
-      algs: ["F R U R' U' F'", "F U R U' R' F'"],
+      algs: ["F R U R' U' F'"],
       group: "",
       scrambles: [
         "U2 F' U R U2 L' U' L U2 R' F",
