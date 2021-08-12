@@ -42,7 +42,7 @@ const epllCaseSet = {
       algs: [
         "M' U' M2 U' M2 U' M' U2 M2",
         "M' U M2 U M2 U M' U2 M2",
-        "y M2 U M2 U M' U2 M2 U2 M'",
+        "M2 U M2 U M' U2 M2 U2 M'",
         "M2 U' M2 U' M' U2 M2 U2 M'",
       ],
     },
@@ -63,7 +63,7 @@ const epllCaseSet = {
       algs: [
         "M2 U M U2 M' U M2",
         "R U' R U R U R U' R' U' R2",
-        "y2 R2 U' R' U' R U R U R U' R",
+        "R2 U' R' U' R U R U R U' R",
       ],
     },
     {
@@ -83,7 +83,7 @@ const epllCaseSet = {
       algs: [
         "M2 U' M U2 M' U' M2",
         "R2 U R U R' U' R' U' R' U R'",
-        "y2 R' U R' U' R' U' R' U R U R2",
+        "R' U R' U' R' U' R' U R U R2",
       ],
     },
   ],

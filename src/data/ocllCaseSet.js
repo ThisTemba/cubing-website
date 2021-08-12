@@ -20,7 +20,7 @@ const ocllCaseSet = {
         "U F U F' U F U' F' U F U2 F' U",
         "L' U2 L F' L F L' F2 R' F' R F' U",
       ],
-      algs: ["R U2' R' U' R U R' U' R U' R'", "y R U R' U R U' R' U R U2 R'"],
+      algs: ["R U2' R' U' R U R' U' R U' R'", "R U R' U R U' R' U R U2 R'"],
     },
     {
       id: "1b730f56-333a-4c70-8996-300ba86d0a27",
@@ -59,7 +59,7 @@ const ocllCaseSet = {
         "R F' U2 F U2 F R' F' U2 F' U2 F U",
         "R' F' L F' L' F' R F' U' F' U F U",
       ],
-      algs: ["r U R' U' r' F R F'", "y R U R D R' U' R D' R2"],
+      algs: ["r U R' U' r' F R F'", "R U R D R' U' R D' R2"],
     },
     {
       id: "657c744a-12b7-439e-90d4-fea0e0843b09",
@@ -72,7 +72,7 @@ const ocllCaseSet = {
         "U' F L2 R U' L2 U R' U' L2 U L2 F'",
         "U2 F L2 R U' L2 U R' U' L2 U L2 F",
       ],
-      algs: ["x R' U R D' R' U' R D x'", "y' R' F R B' R' F' R B"],
+      algs: ["x R' U R D' R' U' R D x'", "R' F R B' R' F' R B"],
     },
     {
       id: "b2f24506-a6b0-4a6f-96f8-7d959d12c2e8",
@@ -85,7 +85,7 @@ const ocllCaseSet = {
         "R U2 L' R' U2 R U R' U2 L R U2 R'",
         "L' U2 L R U2 L' U R' U2 L R U2 R'",
       ],
-      algs: ["R U2' R' U' R U' R'", "y' R' U' R U' R' U2 R"],
+      algs: ["R U2' R' U' R U' R'", "R' U' R U' R' U2 R"],
     },
     {
       id: "e6547dd9-feea-46ad-b0f5-3abac69170fc",
@@ -98,7 +98,7 @@ const ocllCaseSet = {
         "R' U' R2 U R2 U L R F2 R2 F2 L' R2",
         "L' R2 F' R2 F' L2 F R2 F' L2 F2 L R2",
       ],
-      algs: ["R U R' U R U2' R'", "y' R' U2 R U R' U R"],
+      algs: ["R U R' U R U2' R'", "R' U2 R U R' U R"],
     },
   ],
 };
