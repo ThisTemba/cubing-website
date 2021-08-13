@@ -10,7 +10,7 @@ const tsleCaseSet = {
   cases: [
     {
       algs: ["U' R U' R' U R U R' U' R U' R'"],
-      group: "Corner In",
+      group: "1 Corner Oriented",
       id: "12de907e-7809-4d1e-9d3b-f6b9ce3c9043",
       name: "TSLE 1",
       scrambles: [
@@ -22,7 +22,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U' R' U R U' R'"],
-      group: "Corner In",
+      group: "1 Corner Oriented",
       id: "c8633d78-dd58-4232-b8f8-1ad53f8db88a",
       name: "TSLE 2",
       scrambles: [
@@ -34,7 +34,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U R' U' R U R'"],
-      group: "Corner In",
+      group: "1 Corner Oriented",
       id: "f59c4e49-d1be-4c6b-bdff-192b44eb44c8",
       name: "TSLE 3",
       scrambles: [
@@ -46,7 +46,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U' R' U' R U' R' U R U R'"],
-      group: "Corner In",
+      group: "0 Corners Oriented",
       id: "0d472ecc-4fa2-4aaa-8c1e-26e615e3d53a",
       name: "TSLE 4",
       scrambles: [
@@ -58,7 +58,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R U2 R' U' R U R' U R U R'"],
-      group: "Corner In",
+      group: "2 Corners Oriented",
       id: "fa17e889-7150-4919-9293-f2b4c77337c3",
       name: "TSLE 5",
       scrambles: [
@@ -70,7 +70,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U' R' U2 R U R' U R U' R'"],
-      group: "Corner In",
+      group: "2 Corners Oriented",
       id: "6c27242d-1379-48f6-b00b-39e1bf8da15f",
       name: "TSLE 6",
       scrambles: [
@@ -82,7 +82,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R U R' U2 R U R'"],
-      group: "Corner In",
+      group: "1 Corner Oriented",
       id: "320de418-0fea-4a41-8813-ae6bbf05e4aa",
       name: "TSLE 7",
       scrambles: [
@@ -94,7 +94,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U' R' U2 R U2 R'"],
-      group: "Corner In",
+      group: "2 Corners Oriented",
       id: "ddd06fae-904c-4929-a6c0-3a8b881e059e",
       name: "TSLE 8",
       scrambles: [
@@ -106,7 +106,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U' R U' R' U2 R U' R'"],
-      group: "Corner In",
+      group: "2 Corners Oriented",
       id: "00b05d30-4721-4d53-8f36-da7174f2794e",
       name: "TSLE 9",
       scrambles: [
@@ -118,7 +118,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U2 R' U' R U2 R' U2 R U R'"],
-      group: "Corner In",
+      group: "1 Corner Oriented",
       id: "824934f3-1a59-471f-9a92-e94ad1dd39d7",
       name: "TSLE 10",
       scrambles: [
@@ -130,7 +130,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U' R U' R' U' R U2 R'"],
-      group: "Corner In",
+      group: "1 Corner Oriented",
       id: "cfb30784-288b-41ab-8f15-1f2f8cbd1a53",
       name: "TSLE 11",
       scrambles: [
@@ -142,7 +142,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U' R' U R U R' U' R U2 R'"],
-      group: "Corner In",
+      group: "0 Corners Oriented",
       id: "dcca3643-5ce3-4dba-a8b1-0a4b3a98fcfb",
       name: "TSLE 12",
       scrambles: [
@@ -154,7 +154,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U' R U R' U R U' R'"],
-      group: "Edge In",
+      group: "3 Corners Oriented",
       id: "8b3ee703-892c-422b-963f-ce5c9b0905a2",
       name: "TSLE 13",
       scrambles: [
@@ -166,7 +166,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U2 R U R' U R U' R'"],
-      group: "Edge In",
+      group: "2 Corners Oriented",
       id: "3885975a-1467-4f16-8834-94d76c1c478f",
       name: "TSLE 14",
       scrambles: [
@@ -178,7 +178,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U R U2 R' U2 R U R'"],
-      group: "Edge In",
+      group: "1 Corner Oriented",
       id: "90fe5e59-2b91-408b-9e8b-7f8d7512ce1d",
       name: "TSLE 15",
       scrambles: [
@@ -190,7 +190,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U2 R' U R U R'"],
-      group: "Edge In",
+      group: "2 Corners Oriented",
       id: "5400a2bf-ae1e-47a7-b1bf-fba67d23435c",
       name: "TSLE 16",
       scrambles: [
@@ -202,7 +202,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U' R' U' R U R' U' R U2 R'"],
-      group: "Edge In",
+      group: "1 Corner Oriented",
       id: "68518ee9-be5b-418d-be82-1cd4346ff565",
       name: "TSLE 17",
       scrambles: [
@@ -214,7 +214,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U' R U R' U R U R'"],
-      group: "Edge In",
+      group: "0 Corners Oriented",
       id: "b46e71a1-1c4e-48f1-af9e-65edda873293",
       name: "TSLE 18",
       scrambles: [
@@ -226,7 +226,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R' U' R U R' U R U U R' U' R U2 R'"],
-      group: "Edge In",
+      group: "0 Corners Oriented",
       id: "c6447949-37f9-4756-9add-191bed88991d",
       name: "TSLE 19",
       scrambles: [
@@ -238,7 +238,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R U R' U R U' R'"],
-      group: "Edge In",
+      group: "3 Corners Oriented",
       id: "51ffabcd-910c-4350-a4fd-54a06dcc3714",
       name: "TSLE 20",
       scrambles: [
@@ -250,7 +250,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U' R' U' R U2 R'"],
-      group: "Edge In",
+      group: "2 Corners Oriented",
       id: "9e31d797-dfc3-43d6-9263-3c97ada9149f",
       name: "TSLE 21",
       scrambles: [
@@ -262,7 +262,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U' R U' R' U2 R U2 R'"],
-      group: "Edge In",
+      group: "2 Corners Oriented",
       id: "0ae52138-b810-471e-8221-37a3c6b5958c",
       name: "TSLE 22",
       scrambles: [
@@ -274,7 +274,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U' R' U2 R U' R'"],
-      group: "Edge In",
+      group: "1 Corner Oriented",
       id: "627980af-a62a-41ee-b9e7-80aed0ad86b4",
       name: "TSLE 23",
       scrambles: [
@@ -286,7 +286,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U' R' U R U2 R' U R U' R'"],
-      group: "Edge In",
+      group: "1 Corner Oriented",
       id: "f01cda80-c255-4a3f-8029-08b3c3425a44",
       name: "TSLE 24",
       scrambles: [
@@ -298,7 +298,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R' U' R U U R' U' R U' R' U R U R'"],
-      group: "Edge In",
+      group: "0 Corners Oriented",
       id: "e0e70ea1-3e36-4120-a380-01532ff71243",
       name: "TSLE 25",
       scrambles: [
@@ -310,7 +310,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U R U R' U R U2 R' U' R U' R'"],
-      group: "Edge In",
+      group: "0 Corners Oriented",
       id: "1eb0e458-8a6e-4bb3-b6be-ed0721a0ebe5",
       name: "TSLE 26",
       scrambles: [
@@ -322,14 +322,14 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R'"],
-      group: "Paired",
+      group: "2 Corners Oriented",
       id: "3cb5add3-5d29-40fc-97b8-0983b484094b",
       name: "TSLE 27",
       scrambles: ["R U R'", "R U R'", "R U R'", "R U R'"],
     },
     {
       algs: ["R2 D R' U' R D' R2"],
-      group: "Paired",
+      group: "2 Corners Oriented",
       id: "d3b073a0-01a4-4128-b473-eb09f72aa0c1",
       name: "TSLE 28",
       scrambles: [
@@ -341,7 +341,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R' U' R U' R' U2 R"],
-      group: "Paired",
+      group: "2 Corners Oriented",
       id: "c7103dbc-b8f6-48d2-aa16-80b29ebcb6af",
       name: "TSLE 29",
       scrambles: [
@@ -353,7 +353,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U' R U' R'"],
-      group: "Paired",
+      group: "2 Corners Oriented",
       id: "1a21ffd1-6bd6-4e48-a7a1-42503ed932d6",
       name: "TSLE 30",
       scrambles: [
@@ -365,7 +365,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U' R' U R U2 R'"],
-      group: "Paired",
+      group: "1 Corner Oriented",
       id: "5900f0bc-38a8-4f56-b07c-def48d5aa082",
       name: "TSLE 31",
       scrambles: [
@@ -377,7 +377,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U' R U2 R' U' R U' R'"],
-      group: "Paired",
+      group: "1 Corner Oriented",
       id: "e3aca242-7a51-47e5-a2be-64259492b80a",
       name: "TSLE 32",
       scrambles: [
@@ -389,7 +389,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U2 R' U' R U2 R' U' R U' R'"],
-      group: "Paired",
+      group: "1 Corner Oriented",
       id: "b4ff4c35-843e-457b-b0e1-62ae8b7aa9bb",
       name: "TSLE 33",
       scrambles: [
@@ -401,14 +401,14 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U2 R'"],
-      group: "Paired",
+      group: "1 Corner Oriented",
       id: "2da6deb2-e05a-4791-b98b-7b950a7e864b",
       name: "TSLE 34",
       scrambles: ["R U2 R' U'", "R U2 R' U'", "R U2 R' U'", "R U2 R' U'"],
     },
     {
       algs: ["R U' R' U' R U R' U R U2 R'"],
-      group: "Paired",
+      group: "0 Corners Oriented",
       id: "0644bc3b-84f6-4871-ab11-ba963a3a1bdd",
       name: "TSLE 35",
       scrambles: [
@@ -420,7 +420,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R U R' U R U2 R'"],
-      group: "Paired",
+      group: "0 Corners Oriented",
       id: "f9b41157-1f02-4875-903c-888ae3f1db8f",
       name: "TSLE 36",
       scrambles: [
@@ -432,7 +432,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U' R' U R U' R' U R U2 R'"],
-      group: "Paired",
+      group: "0 Corners Oriented",
       id: "d7c93f7e-1589-4312-86b0-d04c4cb89327",
       name: "TSLE 37",
       scrambles: [
@@ -444,7 +444,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R U2 R' U' R U' R'"],
-      group: "Paired",
+      group: "0 Corners Oriented",
       id: "b717e1d3-10d4-4926-adcd-c73eb9ae1b5d",
       name: "TSLE 38",
       scrambles: [
@@ -456,7 +456,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U' R U R' U' R U' R'"],
-      group: "Paired",
+      group: "0 Corners Oriented",
       id: "6813971f-9b03-43e3-87ba-ef3def5f3a81",
       name: "TSLE 39",
       scrambles: [
@@ -468,7 +468,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U' R' U' R U' R' U R U' R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "228b1f7e-80c3-4deb-b468-4fa6dd501866",
       name: "TSLE 40",
       scrambles: [
@@ -480,7 +480,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U2 R' U2 R U2 R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "65696ec8-2491-459e-8735-80fe9c96ec16",
       name: "TSLE 41",
       scrambles: [
@@ -492,7 +492,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U2 R U' R' U' R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "1a392bab-9e62-4f29-bced-f70999bde3c6",
       name: "TSLE 42",
       scrambles: [
@@ -504,7 +504,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U2 R' U R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "38833529-c300-4951-b441-85772fb9f4e3",
       name: "TSLE 43",
       scrambles: [
@@ -516,7 +516,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U2 R U2 R' U R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "aa20131f-be87-4f3a-bf50-5eea4a3c6a15",
       name: "TSLE 44",
       scrambles: [
@@ -528,7 +528,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U R' U2 R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "95de5c15-8184-41e2-9f9f-1bb1f6454d5b",
       name: "TSLE 45",
       scrambles: [
@@ -540,7 +540,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U R U' R' U R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "c06f61ec-226a-430a-addf-3d16e61fd06d",
       name: "TSLE 46",
       scrambles: [
@@ -552,7 +552,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U2 R' U R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "1f167420-6c70-4ac3-ba40-9a6fb07f2ea8",
       name: "TSLE 47",
       scrambles: [
@@ -564,7 +564,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U R' U' R U R' U2 R U R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "ee75d1e7-331c-492e-980b-3308eae93695",
       name: "TSLE 48",
       scrambles: [
@@ -576,7 +576,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U R' U' R U R' U2 R U R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "a0d1de30-d5c9-4962-9705-5a34e2abbb75",
       name: "TSLE 49",
       scrambles: [
@@ -588,7 +588,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U' R' U2 R U R'"],
-      group: "Other",
+      group: "4 Corners Oriented",
       id: "22fe214e-3d45-4046-ba43-0d4f1b4a518e",
       name: "TSLE 50",
       scrambles: [
@@ -600,7 +600,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U R' U R U' R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "a7437300-afac-4e2e-b755-17f1197b8d9a",
       name: "TSLE 51",
       scrambles: [
@@ -612,7 +612,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U R U R' U R U' R' U' R U2 R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "655ae986-b509-4518-9552-2b23c9c141b5",
       name: "TSLE 52",
       scrambles: [
@@ -624,7 +624,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U' R' U' R U R' U R U' R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "2a62d2e9-911a-42b9-b631-c18e734f4fd1",
       name: "TSLE 53",
       scrambles: [
@@ -636,7 +636,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U R' U' R U' R' U2 R U' R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "601092b9-efaa-448d-a009-7e781e9df513",
       name: "TSLE 54",
       scrambles: [
@@ -648,7 +648,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R' U2 R U R' U R U' R U R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "715087ab-7be3-4115-bb5b-2da01f31be23",
       name: "TSLE 55",
       scrambles: [
@@ -660,7 +660,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U2 R' U' R U' R' U R U' R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "557d83fe-12f3-4211-a950-9397a7e9bc03",
       name: "TSLE 56",
       scrambles: [
@@ -672,7 +672,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U' R U R' U2 R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "b6e7d2ff-0b2d-40b3-82e1-953b753063ee",
       name: "TSLE 57",
       scrambles: [
@@ -684,7 +684,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U2 R' U2 R U R' U2 R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "3f61bf0c-4a03-4b4f-b255-14976bd68a3d",
       name: "TSLE 58",
       scrambles: [
@@ -696,7 +696,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U' R U R' U R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "90567e2a-a0ae-4c1e-8225-b2d62392fbd9",
       name: "TSLE 59",
       scrambles: [
@@ -708,7 +708,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U2 R U R' U R U' R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "abb5fe5a-794f-46bb-b3d6-964431c6225a",
       name: "TSLE 60",
       scrambles: [
@@ -720,7 +720,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R U R' U R U2 R' U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "c362c2a2-7048-4fce-bdb2-11819093b9f3",
       name: "TSLE 61",
       scrambles: [
@@ -732,14 +732,14 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "ad0b3081-76ee-41e4-b342-aa10fc92fe6b",
       name: "TSLE 62",
       scrambles: ["R U' R' U2", "R U' R' U2", "R U' R' U2", "R U' R' U2"],
     },
     {
       algs: ["U R U' R' U R U' R' U2 R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "f2796d3f-470f-4fc4-a4fb-bd72228c9bff",
       name: "TSLE 63",
       scrambles: [
@@ -751,7 +751,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U R' U' R U' R' U R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "4a730f4b-9b2d-4955-95ce-7f091c57c680",
       name: "TSLE 64",
       scrambles: [
@@ -763,7 +763,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U' R U R' U2 R U' R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "1f43a638-757a-4bed-bc4d-31fe6f40d52c",
       name: "TSLE 65",
       scrambles: [
@@ -775,7 +775,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U2 R U R' U2 R U R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "78aef519-4f42-4780-8cdf-b2d315fc54b6",
       name: "TSLE 66",
       scrambles: [
@@ -787,7 +787,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U' R U' R' U R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "74c4825d-1563-4d92-be88-0a8b5249996a",
       name: "TSLE 67",
       scrambles: [
@@ -799,7 +799,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R' U' R U R' U2 R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "f7690d51-8a48-4ab7-9c7f-29cc8eada12c",
       name: "TSLE 68",
       scrambles: [
@@ -811,7 +811,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R D R' U2 R D' R' U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "e21f9a02-e61a-45cf-9a95-f6e823eda024",
       name: "TSLE 69",
       scrambles: [
@@ -823,7 +823,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R' U' R U' R' U2 R U' R U R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "dc64fe5e-2671-4bf4-bb21-bea0d4b6def5",
       name: "TSLE 70",
       scrambles: [
@@ -835,7 +835,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U' R U R' U' R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "a0a46c3c-627b-4ba2-a6bd-3c20499e2cfe",
       name: "TSLE 71",
       scrambles: [
@@ -847,7 +847,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U R U R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "9b489f43-0c26-4451-9715-4c37b9d4fbbc",
       name: "TSLE 72",
       scrambles: [
@@ -859,7 +859,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R' U' R U R' U' R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "6b5b1e7f-ec28-4914-894b-a11055a40c9f",
       name: "TSLE 73",
       scrambles: [
@@ -871,7 +871,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U R' U R U R' U' R U' R'"],
-      group: "Other",
+      group: "3 Corners Oriented",
       id: "e871debf-dccf-4ecf-9005-57f078c2d985",
       name: "TSLE 74",
       scrambles: [
@@ -883,7 +883,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U R U R' U R U' R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "ff9f7f77-61c2-4b19-93de-6d889ef0ac19",
       name: "TSLE 75",
       scrambles: [
@@ -895,7 +895,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U R U2 R' U R U' R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "b4d0d7c2-9814-4fb7-9d09-4a152e027403",
       name: "TSLE 76",
       scrambles: [
@@ -907,7 +907,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U' R' U R U R' U2 R U' R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "e53eaf0a-199d-4ea4-8133-9d1b88cd2906",
       name: "TSLE 77",
       scrambles: [
@@ -919,7 +919,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U R' U2 R U' R' U R U2 R'"],
-      group: "Other",
+      group: "2 Corners Oriented",
       id: "078db7d8-d0ba-4e7d-bd8a-ecaec0dd8082",
       name: "TSLE 78",
       scrambles: [
@@ -931,7 +931,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U2 R' U' R U' R' U' R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "2af702fc-abd8-4ea8-97b3-47b06e8de2f8",
       name: "TSLE 79",
       scrambles: [
@@ -943,7 +943,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U R' U R U' R' U R U R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "572a3557-bf5e-4d4a-a595-f45c30712863",
       name: "TSLE 80",
       scrambles: [
@@ -955,7 +955,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U2 R U' R' U2 R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "2787321e-9802-4b86-8bef-c30b38d0cf6e",
       name: "TSLE 81",
       scrambles: [
@@ -967,7 +967,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R' U2 R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "e990c25c-138c-4972-a99c-0d5f3db268d8",
       name: "TSLE 82",
       scrambles: [
@@ -979,7 +979,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R' U2 R U R' U R2 U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "1572688a-f394-4a4f-9c71-cdd1738bcec3",
       name: "TSLE 83",
       scrambles: [
@@ -991,7 +991,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U' R' U R U R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "dd05952e-cd05-48d0-b0b9-c233654e299a",
       name: "TSLE 84",
       scrambles: [
@@ -1003,7 +1003,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U' R' U R U2 R' U' R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "973398fb-5b3c-421a-a5e1-c8df702122f3",
       name: "TSLE 85",
       scrambles: [
@@ -1015,7 +1015,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U' R U2 R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "1df610c8-81f8-416e-a211-e025ad7dfa0c",
       name: "TSLE 86",
       scrambles: [
@@ -1027,7 +1027,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R U' R' U R U R' U R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "10c383d0-ae6c-48a6-80ff-b82d7125affa",
       name: "TSLE 87",
       scrambles: [
@@ -1039,7 +1039,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U' R' U R U' R' U2 R U' R'"],
-      group: "Other",
+      group: "1 Corner Oriented",
       id: "c453b76f-5375-44f1-be70-560eae051272",
       name: "TSLE 88",
       scrambles: [
@@ -1051,7 +1051,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R' U R U2 R' U R U' R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "e14607aa-7ab2-4546-819f-816e38f0d158",
       name: "TSLE 89",
       scrambles: [
@@ -1063,7 +1063,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U R U R' U' R U2 R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "1b79bcb6-84e0-4ca8-b195-bd170d25e39f",
       name: "TSLE 90",
       scrambles: [
@@ -1075,7 +1075,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["R U2 R' U2 R U' R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "55644da0-0d05-4df0-a3d4-ad6491af34bd",
       name: "TSLE 91",
       scrambles: [
@@ -1087,7 +1087,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U U R U U R' U' R U R' U' R U R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "6ef1b633-6cd1-48e1-8ce7-18c7e37068df",
       name: "TSLE 92",
       scrambles: [
@@ -1099,7 +1099,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U' R U2 R' U' R U' R' U R U R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "3d8c786b-02b4-417c-9d59-e8b60c57e8b5",
       name: "TSLE 93",
       scrambles: [
@@ -1111,7 +1111,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R' U2 R U R' U R U' R U2 R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "f31de70c-94f7-4ce4-a832-e61a9115208b",
       name: "TSLE 94",
       scrambles: [
@@ -1123,7 +1123,7 @@ const tsleCaseSet = {
     },
     {
       algs: ["U2 R U R' U' R U2 R' U' R U' R'"],
-      group: "Other",
+      group: "0 Corners Oriented",
       id: "72d676b2-6f0a-41b9-aca0-e3ce6e6bb4fc",
       name: "TSLE 95",
       scrambles: [
