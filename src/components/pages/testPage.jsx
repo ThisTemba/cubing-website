@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useExpanded, useGroupBy, useTable } from "react-table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,12 +21,33 @@ export default function TestPage(props) {
     selectedCases[0].scrambles[0]
   );
   const [solves, setSolves] = useState([]);
+  const solvesRef = useRef();
+  const userRef = useRef();
   const [darkMode] = useDarkMode();
   const user = useAuthState();
 
   useEffect(() => {
     nextCaseAndScramble();
   }, [selectedCases, solves.length]);
+
+  useEffect(() => {
+    solvesRef.current = solves;
+    userRef.current = user;
+  }, [solves, user]);
+
+  useEffect(() => {
+    return () => {
+      props.onDashboard();
+      saveData(solvesRef.current, userRef.current);
+    };
+  }, []);
+
+  const saveData = (solves, user) => {
+    const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
+    if (user) {
+      writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
+    }
+  };
 
   const nextCaseAndScramble = () => {
     const counts = selectedCases.map((c) => {
@@ -140,15 +161,8 @@ export default function TestPage(props) {
     setSolves([solve, ...solves]);
   };
 
-  const handleBackToDash = () => {
-    props.history.push("/train");
-    // TODO: if not logged in, tell them that their data won't be saved
-    props.onDashboard();
-    const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
-    if (user) {
-      writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
-    }
-  };
+  const handleBackToDash = () => props.history.push("/train");
+  // TODO: if not logged in, tell them that their data won't be saved
 
   const secondary = darkMode ? "dark" : "secondary";
 
