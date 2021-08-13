@@ -17,6 +17,7 @@ import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { dispDecimal, dispDur } from "../utils/displayValue";
+import { getCaseSetDocRef } from "../utils/writeCases";
 
 export default function CaseSetTable(props) {
   // PROPS
@@ -54,12 +55,8 @@ export default function CaseSetTable(props) {
     let unsubscribe1 = () => {};
     let unsubscribe2 = () => {};
     if (user) {
-      unsubscribe1 = db
-        .collection("users")
-        .doc(user.uid)
-        .collection("caseSets")
-        .doc(caseSet.details.id)
-        .onSnapshot((caseSetDoc) => {
+      unsubscribe1 = getCaseSetDocRef(user, caseSet.details).onSnapshot(
+        (caseSetDoc) => {
           if (caseSetDoc.data()) {
             const userCases = caseSetDoc.data().cases;
             const combined = data.map((c) => {
@@ -71,7 +68,8 @@ export default function CaseSetTable(props) {
             });
             setData(combined);
           }
-        });
+        }
+      );
       unsubscribe2 = db
         .collection("users")
         .doc(user.uid)
