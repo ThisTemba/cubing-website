@@ -17,7 +17,7 @@ import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { dispDecimal, dispDur } from "../utils/displayValue";
-import { getCaseSetDocRef } from "../utils/writeCases";
+import { getCaseSetDocRef, getUserDocRef } from "../utils/writeCases";
 
 export default function CaseSetTable(props) {
   // PROPS
@@ -70,18 +70,15 @@ export default function CaseSetTable(props) {
           }
         }
       );
-      unsubscribe2 = db
-        .collection("users")
-        .doc(user.uid)
-        .onSnapshot((userDoc) => {
-          if (
-            userDoc.data() &&
-            userDoc.data().settings &&
-            userDoc.data().settings.trainSettings
-          ) {
-            setTrainSettings(userDoc.data().settings.trainSettings);
-          }
-        });
+      unsubscribe2 = getUserDocRef(user).onSnapshot((userDoc) => {
+        if (
+          userDoc.data() &&
+          userDoc.data().settings &&
+          userDoc.data().settings.trainSettings
+        ) {
+          setTrainSettings(userDoc.data().settings.trainSettings);
+        }
+      });
     }
     return () => {
       unsubscribe1();
