@@ -37,7 +37,11 @@ export default function TestPage(props) {
     });
     const index = balancedRandomIndex(counts);
     const nextCase = selectedCases[index];
-    const nextScramble = randomYRot(_.sample(nextCase.scrambles));
+
+    const nextScramble =
+      caseSetDetails.name === "ttll" || "tsle"
+        ? _.sample(nextCase.scrambles)
+        : randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
   };
