@@ -85,8 +85,6 @@ export default function CaseSetTable(props) {
     };
   }, [user]);
 
-  const defaultColumn = useMemo(() => ({ disableGroupBy: true }), []);
-
   const getPropLearned = (prop, val) => {
     const settingsValue = trainSettings[prop];
     const map = {
@@ -178,6 +176,7 @@ export default function CaseSetTable(props) {
 
   const showStats = width >= 576;
 
+  const defaultColumn = useMemo(() => ({ disableGroupBy: true }), []);
   const columns = useMemo(
     () => [
       {
