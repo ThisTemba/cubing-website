@@ -19,16 +19,22 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 import { dispDecimal, dispDur } from "../utils/displayValue";
 
 export default function CaseSetTable(props) {
+  // PROPS
   const { caseSet } = props;
-  // const data = useMemo(() => caseSet.cases, []);
   const initData = caseSet.cases.map((c) => ({ ...c, alg: c.algs[0] }));
+
+  // STATE
   const [data, setData] = useState(initData);
-  const user = useAuthState();
-  const [darkMode] = useDarkMode();
+  const [caseModalId, setCaseModalId] = useState(null);
+
+  // OTHER HOOKS
   const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
     useCaseModal();
-  const [caseModalId, setCaseModalId] = useState(null);
   const { width } = useWindowDimensions();
+  const [darkMode] = useDarkMode();
+  const user = useAuthState();
+
+  // CONSTANTS
   const defaultTrainSettings = {
     hRate: 0.4,
     mmRate: 0.4,
