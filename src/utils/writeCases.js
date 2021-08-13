@@ -10,10 +10,10 @@ export const getCaseSetDocRef = (user, caseSetDetails) => {
     .doc(caseSetDetails.id);
 };
 
-export const setDocument = (docRef, data) => {
+export const setDocument = (docRef, data, name = "Placeholder") => {
   docRef
     .set(data)
-    .then(() => console.log("Document successfully written!"))
+    .then(() => console.log(`${name} document successfully written!`))
     .catch((error) => console.error("Error writing document: ", error));
 };
 
@@ -24,7 +24,7 @@ const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
       const oldDoc = await caseDocRef.get();
       const newSolves = _.filter(solves, ["caseId", caseId]);
       const data = prepareCaseData(newSolves, oldDoc);
-      setDocument(caseDocRef, data);
+      setDocument(caseDocRef, data, "CaseDoc");
       return { id: caseId, caseStats: data.caseStats };
     })
   );
@@ -52,7 +52,7 @@ const writeCasesToCaseSetDoc = async (newCases, caseSetDocRef) => {
       cases = newCases;
     }
   }
-  setDocument(caseSetDocRef, { cases });
+  setDocument(caseSetDocRef, { cases }, "CaseSetDoc");
 };
 
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {
