@@ -6,7 +6,6 @@ import {
   useGroupBy,
   useExpanded,
 } from "react-table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import CaseImage from "./common/cubing/cubeImage";
 import Checkbox from "./common/checkbox";
@@ -18,6 +17,7 @@ import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { dispDecimal, dispDur } from "../utils/displayValue";
 import { getCaseSetDocRef, getUserDocRef } from "../utils/writeCases";
+import { FaIcon } from "../fontAwesome";
 
 export default function CaseSetTable(props) {
   const { caseSet, initData } = props;
@@ -123,8 +123,7 @@ export default function CaseSetTable(props) {
 
   const renderStatus = (status) => {
     const textStyles = ["text-secondary", "text-warning", "text-success"];
-    const props = { icon: "circle", size: "lg", className: textStyles[status] };
-    return <FontAwesomeIcon {...props} />;
+    return <FaIcon icon="circle" size="lg" className={textStyles[status]} />;
   };
 
   const renderCaseImage = ({ value }) => {
@@ -166,7 +165,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="spinner" />,
+        Header: <FaIcon icon="spinner" />,
         accessor: "hRate",
         aggregate: definedAverage,
         Cell: ({ value }) => dispDecimal(value),
@@ -174,7 +173,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="check" />,
+        Header: <FaIcon icon="check" />,
         accessor: "nmRate",
         aggregate: definedAverage,
         Cell: ({ value }) => dispDecimal(value),
@@ -182,7 +181,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="minus" />,
+        Header: <FaIcon icon="minus" />,
         accessor: "mmRate",
         aggregate: definedAverage,
         Cell: ({ value }) => dispDecimal(value),
@@ -190,7 +189,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="times" />,
+        Header: <FaIcon icon="times" />,
         accessor: "cmRate",
         aggregate: definedAverage,
         Cell: ({ value }) => dispDecimal(value),
