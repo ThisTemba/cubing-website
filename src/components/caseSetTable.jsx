@@ -278,29 +278,26 @@ export default function CaseSetTable(props) {
     }),
   };
 
+  const addCheckboxes = (hooks) => {
+    hooks.visibleColumns.push((columns) => [
+      ...columns,
+      {
+        id: "selection",
+        Header: ({ getToggleAllRowsSelectedProps }) => (
+          <Checkbox {...getToggleAllRowsSelectedProps()} />
+        ),
+        Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
+      },
+    ]);
+  };
+
   const tableInstance = useTable(
-    {
-      columns,
-      data,
-      defaultColumn,
-      initialState,
-    },
+    { columns, data, defaultColumn, initialState },
     useGroupBy,
     useSortBy,
     useExpanded,
     useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        ...columns,
-        {
-          id: "selection",
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <Checkbox {...getToggleAllRowsSelectedProps()} />
-          ),
-          Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
-        },
-      ]);
-    }
+    addCheckboxes
   );
 
   useEffect(() => {
