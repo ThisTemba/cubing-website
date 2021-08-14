@@ -142,12 +142,22 @@ export default function CaseSetTable(props) {
 
   const showStats = width >= 576;
 
-  const defaultColumn = useMemo(() => ({ disableGroupBy: true }), []);
+  const defaultColumn = useMemo(
+    () => ({
+      disableGroupBy: true,
+      Cell: ({ value }) => dispDecimal(value),
+      aggregate: definedAverage,
+      sortType: "number",
+    }),
+    [dispDecimal, definedAverage]
+  );
   const columns = useMemo(
     () => [
       {
         Header: "Group",
         accessor: "group",
+        Cell: ({ value }) => String(value),
+        aggregate: null,
         disableGroupBy: false,
         show: hasUniqueGroups,
       },
@@ -162,62 +172,26 @@ export default function CaseSetTable(props) {
       {
         Header: "Name",
         accessor: "name",
+        Cell: ({ value }) => (value ? String(value) : ""),
         show: showStats,
+        aggregate: null,
       },
-      {
-        Header: <FaIcon icon="spinner" />,
-        accessor: "hRate",
-        aggregate: definedAverage,
-        Cell: ({ value }) => dispDecimal(value),
-        sortType: "number",
-        show: showStats,
-      },
-      {
-        Header: <FaIcon icon="check" />,
-        accessor: "nmRate",
-        aggregate: definedAverage,
-        Cell: ({ value }) => dispDecimal(value),
-        sortType: "number",
-        show: showStats,
-      },
-      {
-        Header: <FaIcon icon="minus" />,
-        accessor: "mmRate",
-        aggregate: definedAverage,
-        Cell: ({ value }) => dispDecimal(value),
-        sortType: "number",
-        show: showStats,
-      },
-      {
-        Header: <FaIcon icon="times" />,
-        accessor: "cmRate",
-        aggregate: definedAverage,
-        Cell: ({ value }) => dispDecimal(value),
-        sortType: "number",
-        show: showStats,
-      },
+      { Header: <FaIcon icon="spinner" />, accessor: "hRate", show: showStats },
+      { Header: <FaIcon icon="check" />, accessor: "nmRate", show: showStats },
+      { Header: <FaIcon icon="minus" />, accessor: "mmRate", show: showStats },
+      { Header: <FaIcon icon="times" />, accessor: "cmRate", show: showStats },
       {
         Header: dispOverline("time"),
         accessor: "avgTime",
-        aggregate: definedAverage,
         Cell: ({ value }) => dispDur(value),
-        sortType: "number",
         show: showStats,
       },
-      {
-        Header: dispOverline("TPS"),
-        accessor: "avgTPS",
-        aggregate: definedAverage,
-        Cell: ({ value }) => dispDecimal(value),
-        sortType: "number",
-        show: showStats,
-      },
+      { Header: dispOverline("TPS"), accessor: "avgTPS", show: showStats },
       {
         Header: "# Solves",
         accessor: "numSolves",
         aggregate: "sum",
         Cell: ({ value }) => dispDecimal(value, 0),
-        sortType: "number",
         show: showStats,
       },
       {
