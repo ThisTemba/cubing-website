@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import CaseImage from "./common/cubing/cubeImage";
-import { Checkbox } from "./common/checkbox";
+import Checkbox from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import { useAuthState } from "../fire";
 import useDarkMode from "../hooks/useDarkMode";
