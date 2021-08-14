@@ -82,8 +82,8 @@ export default function CaseSetTable(props) {
     };
   }, [user]);
 
-  const getPropLearned = (prop, val) => {
-    const settingsValue = trainSettings[prop];
+  const getStatLearned = (val, stat) => {
+    const settingsValue = trainSettings[stat];
     const map = {
       hRate: { symbol: "<" },
       mmRate: { symbol: "<" },
@@ -91,22 +91,21 @@ export default function CaseSetTable(props) {
       avgTPS: { symbol: ">" },
       numSolves: { symbol: ">" },
     };
-    if (typeof map[prop] === "undefined") return null;
-    if (map[prop].symbol === ">") {
+    if (typeof map[stat] === "undefined") return null;
+    if (map[stat].symbol === ">") {
       return val >= settingsValue;
-    } else if (map[prop].symbol === "<") {
+    } else if (map[stat].symbol === "<") {
       return val <= settingsValue;
     } else throw new Error("symbol not recognized");
   };
 
+  const allStatsLearned = (statsObj) => {
+    const mapped = _.mapValues(statsObj, (v, k) => getStatLearned(v, k));
+    return !_.some(mapped, (c) => c === false);
+  };
+
   const getStatus = ({ hRate, mmRate, cmRate, avgTPS, numSolves }) => {
-    const allLearned =
-      getPropLearned("hRate", hRate) &&
-      getPropLearned("cmRate", cmRate) &&
-      getPropLearned("mmRate", mmRate) &&
-      getPropLearned("avgTPS", avgTPS) &&
-      getPropLearned("numSolves", numSolves);
-    if (allLearned) return 2;
+    if (allStatsLearned({ hRate, mmRate, cmRate, avgTPS, numSolves })) return 2;
     if (numSolves > 0) return 1;
     return 0;
   };
