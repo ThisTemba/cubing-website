@@ -270,18 +270,20 @@ export default function CaseSetTable(props) {
     return _.merge(getStatNotLearnedProps(cell), getClickForModalProps(cell));
   };
 
+  const initialState = {
+    groupBy: hasUniqueGroups ? ["group"] : [],
+    sortBy: [{ id: "status", desc: true }],
+    hiddenColumns: columns.map((column) => {
+      if (column.show === false) return column.accessor || column.id;
+    }),
+  };
+
   const tableInstance = useTable(
     {
       columns,
       data,
       defaultColumn,
-      initialState: {
-        groupBy: hasUniqueGroups ? ["group"] : [],
-        sortBy: [{ id: "status", desc: true }],
-        hiddenColumns: columns.map((column) => {
-          if (column.show === false) return column.accessor || column.id;
-        }),
-      },
+      initialState,
     },
     useGroupBy,
     useSortBy,
