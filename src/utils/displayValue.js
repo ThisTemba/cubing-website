@@ -12,3 +12,7 @@ export const dispDecimal = (number, n = 2) => {
   if (typeof number === "undefined") return undefinedValue;
   return _.round(number, n);
 };
+
+export const dispOverline = (string) => {
+  return <span style={{ textDecoration: "overline" }}>string</span>;
+};
