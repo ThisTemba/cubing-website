@@ -252,7 +252,7 @@ export default function CaseSetTable(props) {
     }),
   };
 
-  const tableInstance = useTable(
+  const table = useTable(
     { columns, data, defaultColumn, initialState },
     useGroupBy,
     useSortBy,
@@ -262,19 +262,14 @@ export default function CaseSetTable(props) {
   );
 
   useEffect(() => {
-    const selectedRowIds = tableInstance.state.selectedRowIds;
+    const selectedRowIds = table.state.selectedRowIds;
     const selectedCases = data.filter((unused, i) => selectedRowIds[i]);
     props.setSelectedCases(selectedCases);
-  }, [tableInstance.state.selectedRowIds]);
+  }, [table.state.selectedRowIds]);
 
   return (
     <>
-      <ReactTable
-        table={tableInstance}
-        getCellProps={getCellProps}
-        size="sm"
-        hover
-      />
+      <ReactTable table={table} getCellProps={getCellProps} size="sm" hover />
       <CaseModal />
     </>
   );
