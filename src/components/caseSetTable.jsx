@@ -133,8 +133,8 @@ export default function CaseSetTable(props) {
   };
 
   const hasUniqueGroups = _.uniqBy(caseSet.cases, "group").length > 1;
-
   const isWide = width >= 576;
+  const csDetails = caseSet.details;
 
   const defaultColumn = useMemo(
     () => ({
@@ -159,11 +159,7 @@ export default function CaseSetTable(props) {
         Header: "Case",
         accessor: (row) => row,
         Cell: ({ value }) => (
-          <CaseImage
-            alg={value.alg}
-            caseSetDetails={caseSet.details}
-            size="65"
-          />
+          <CaseImage alg={value.alg} caseSetDetails={csDetails} size="65" />
         ),
         aggregate: (values) => _(values).sample(),
         disableSortBy: true,
