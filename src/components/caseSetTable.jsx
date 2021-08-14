@@ -20,10 +20,8 @@ import { getCaseSetDocRef, getUserDocRef } from "../utils/writeCases";
 import MultiProgressBar from "./common/multiProgressBar";
 
 export default function CaseSetTable(props) {
-  // PROPS
   const { caseSet, initData } = props;
 
-  // STATE
   const [data, setData] = useState(initData);
   const [caseModalId, setCaseModalId] = useState(null);
   const defaultTrainSettings = {
@@ -35,13 +33,11 @@ export default function CaseSetTable(props) {
   };
   const [trainSettings, setTrainSettings] = useState(defaultTrainSettings);
 
-  // OTHER HOOKS
   const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
     useCaseModal();
   const { width } = useWindowDimensions();
   const [darkMode] = useDarkMode();
   const user = useAuthState();
-
 
   useEffect(() => {
     setCaseModalContent();
@@ -107,7 +103,6 @@ export default function CaseSetTable(props) {
     return 0;
   };
 
-  // SORT CASE LEARNED STATUS
   const sortStatus = useMemo(() => (rowA, rowB) => {
     const [sA, sB] = [rowA.values.status, rowB.values.status];
     const isAggregated = typeof sA === "object";
@@ -120,7 +115,6 @@ export default function CaseSetTable(props) {
     return AisBigger ? 1 : -1;
   });
 
-  // RENDER AGGREGATED STATUS
   const renderAggregatedStatus = (counts) => {
     const values = [2, 1, 0].map((n) => counts[n]);
     const variants = ["success", "warning", "secondary"];
