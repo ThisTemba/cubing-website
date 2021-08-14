@@ -273,7 +273,7 @@ export default function CaseSetTable(props) {
     const statusCols = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
     let props = {};
     if (statusCols.includes(columnId)) {
-      const propLearned = getPropLearned(columnId, cell.value);
+      const propLearned = getStatLearned(cell.value, columnId);
       if (typeof cell.value === "number" && !isAggregated && !propLearned)
         props = {
           style: {
