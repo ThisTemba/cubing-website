@@ -270,14 +270,6 @@ export default function CaseSetTable(props) {
     return _.merge(getStatNotLearnedProps(cell), getClickForModalProps(cell));
   };
 
-  const initialState = {
-    groupBy: hasUniqueGroups ? ["group"] : [],
-    sortBy: [{ id: "status", desc: true }],
-    hiddenColumns: columns.map((column) => {
-      if (column.show === false) return column.accessor || column.id;
-    }),
-  };
-
   const addCheckboxes = (hooks) => {
     hooks.visibleColumns.push((columns) => [
       ...columns,
@@ -289,6 +281,14 @@ export default function CaseSetTable(props) {
         Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
       },
     ]);
+  };
+
+  const initialState = {
+    groupBy: hasUniqueGroups ? ["group"] : [],
+    sortBy: [{ id: "status", desc: true }],
+    hiddenColumns: columns.map((column) => {
+      if (column.show === false) return column.accessor || column.id;
+    }),
   };
 
   const tableInstance = useTable(
