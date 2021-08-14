@@ -1,5 +1,4 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { ProgressBar } from "react-bootstrap";
 import {
   useTable,
   useSortBy,
@@ -12,7 +11,7 @@ import _ from "lodash";
 import CaseImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
-import { useAuthState, db } from "../fire";
+import { useAuthState } from "../fire";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
