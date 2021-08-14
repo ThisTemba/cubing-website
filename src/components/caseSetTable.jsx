@@ -111,16 +111,7 @@ export default function CaseSetTable(props) {
     return 0;
   };
 
-  const aggregateStatus = (statuses) => {
-    const statusEnum = [0, 1, 2];
-    const percents = statusEnum.map((status) => {
-      const count = statuses.filter((s) => s === status).length;
-      const percentage = (count * 100) / statuses.length;
-      return percentage;
-    });
-    return percents;
-  };
-
+  // SORT CASE LEARNED STATUS
   const sortStatus = (rowA, rowB) => {
     // docs say this function should be memoized
     const [sA, sB] = [rowA.values.status, rowB.values.status];
@@ -133,8 +124,9 @@ export default function CaseSetTable(props) {
     return AisBigger ? 1 : -1;
   };
 
-  const renderAggregatedStatus = (percents) => {
-    const values = [...percents].reverse();
+  // RENDER AGGREGATED STATUS
+  const renderAggregatedStatus = (counts) => {
+    const values = [2, 1, 0].map((n) => counts[n]);
     const variants = ["success", "warning", "secondary"];
     return <MultiProgressBar values={values} variants={variants} />;
   };
@@ -268,7 +260,7 @@ export default function CaseSetTable(props) {
         id: "status",
         accessor: getStatus,
         Cell: ({ value }) => renderStatus(value),
-        aggregate: aggregateStatus,
+        aggregate: (values) => _.countBy(values),
         Aggregated: ({ value }) => renderAggregatedStatus(value),
         sortType: sortStatus,
       },
