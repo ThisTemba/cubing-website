@@ -26,15 +26,6 @@ export default function CaseSetTable(props) {
   // STATE
   const [data, setData] = useState(initData);
   const [caseModalId, setCaseModalId] = useState(null);
-
-  // OTHER HOOKS
-  const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
-    useCaseModal();
-  const { width } = useWindowDimensions();
-  const [darkMode] = useDarkMode();
-  const user = useAuthState();
-
-  // CONSTANTS
   const defaultTrainSettings = {
     hRate: 0.4,
     mmRate: 0.4,
@@ -43,6 +34,14 @@ export default function CaseSetTable(props) {
     numSolves: 2,
   };
   const [trainSettings, setTrainSettings] = useState(defaultTrainSettings);
+
+  // OTHER HOOKS
+  const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
+    useCaseModal();
+  const { width } = useWindowDimensions();
+  const [darkMode] = useDarkMode();
+  const user = useAuthState();
+
 
   useEffect(() => {
     setCaseModalContent();
