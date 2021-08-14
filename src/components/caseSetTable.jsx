@@ -21,8 +21,7 @@ import MultiProgressBar from "./common/multiProgressBar";
 
 export default function CaseSetTable(props) {
   // PROPS
-  const { caseSet } = props;
-  const initData = caseSet.cases.map((c) => ({ ...c, alg: c.algs[0] }));
+  const { caseSet, initData } = props;
 
   // STATE
   const [data, setData] = useState(initData);
