@@ -22,7 +22,7 @@ import { FaIcon } from "../fontAwesome";
 export default function CaseSetTable(props) {
   const { caseSet, initData } = props;
 
-  const [data, setData] = useState(initData);
+  const [tableData, setTableData] = useState(initData);
   const [caseModalId, setCaseModalId] = useState(null);
   const defaultTrainSettings = {
     hRate: 0.4,
@@ -41,9 +41,9 @@ export default function CaseSetTable(props) {
 
   useEffect(() => {
     setCaseModalContent();
-    const cas = _.find(data, ["id", caseModalId]);
+    const cas = _.find(tableData, ["id", caseModalId]);
     setCaseModalContent(cas, caseSet.details);
-  }, [showing, _.find(data, ["id", caseModalId])]);
+  }, [showing, _.find(tableData, ["id", caseModalId])]);
 
   useEffect(() => {
     let unsubscribe1 = () => {};
@@ -53,14 +53,14 @@ export default function CaseSetTable(props) {
         (caseSetDoc) => {
           if (caseSetDoc.data()) {
             const userCases = caseSetDoc.data().cases;
-            const combined = data.map((c) => {
+            const combined = tableData.map((c) => {
               const userCase = _.find(userCases, ["id", c.id]);
               const caseStats = userCase?.caseStats;
               const alg = userCase?.alg || c.alg;
               const combinedCase = { ...c, ...caseStats, alg };
               return combinedCase;
             });
-            setData(combined);
+            setTableData(combined);
           }
         }
       );
@@ -247,6 +247,7 @@ export default function CaseSetTable(props) {
     }),
   };
 
+  const data = useMemo(() => tableData, [tableData]);
   const table = useTable(
     { columns, data, defaultColumn, initialState },
     useGroupBy,
@@ -258,7 +259,7 @@ export default function CaseSetTable(props) {
 
   useEffect(() => {
     const selectedRowIds = table.state.selectedRowIds;
-    const selectedCases = data.filter((unused, i) => selectedRowIds[i]);
+    const selectedCases = tableData.filter((unused, i) => selectedRowIds[i]);
     props.setSelectedCases(selectedCases);
   }, [table.state.selectedRowIds]);
 
