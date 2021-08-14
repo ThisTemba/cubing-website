@@ -140,7 +140,7 @@ export default function CaseSetTable(props) {
     else return undefined;
   };
 
-  const showStats = width >= 576;
+  const isWide = width >= 576;
 
   const defaultColumn = useMemo(
     () => ({
@@ -173,26 +173,26 @@ export default function CaseSetTable(props) {
         Header: "Name",
         accessor: "name",
         Cell: ({ value }) => (value ? String(value) : ""),
-        show: showStats,
+        show: isWide,
         aggregate: null,
       },
-      { Header: <FaIcon icon="spinner" />, accessor: "hRate", show: showStats },
-      { Header: <FaIcon icon="check" />, accessor: "nmRate", show: showStats },
-      { Header: <FaIcon icon="minus" />, accessor: "mmRate", show: showStats },
-      { Header: <FaIcon icon="times" />, accessor: "cmRate", show: showStats },
+      { Header: <FaIcon icon="spinner" />, accessor: "hRate", show: isWide },
+      { Header: <FaIcon icon="check" />, accessor: "nmRate", show: isWide },
+      { Header: <FaIcon icon="minus" />, accessor: "mmRate", show: isWide },
+      { Header: <FaIcon icon="times" />, accessor: "cmRate", show: isWide },
       {
         Header: dispOverline("time"),
         accessor: "avgTime",
         Cell: ({ value }) => dispDur(value),
-        show: showStats,
+        show: isWide,
       },
-      { Header: dispOverline("TPS"), accessor: "avgTPS", show: showStats },
+      { Header: dispOverline("TPS"), accessor: "avgTPS", show: isWide },
       {
         Header: "# Solves",
         accessor: "numSolves",
         aggregate: "sum",
         Cell: ({ value }) => dispDecimal(value, 0),
-        show: showStats,
+        show: isWide,
       },
       {
         Header: "Status",
@@ -204,7 +204,7 @@ export default function CaseSetTable(props) {
         sortType: sortStatus,
       },
     ],
-    [showStats, trainSettings]
+    [isWide, trainSettings]
   );
 
   const getStatNotLearnedProps = ({ column, row, isAggregated, value }) => {
