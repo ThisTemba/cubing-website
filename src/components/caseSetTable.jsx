@@ -11,13 +11,13 @@ import _ from "lodash";
 import CaseImage from "./common/cubing/cubeImage";
 import Checkbox from "./common/checkbox";
 import ReactTable from "./common/reactTable";
+import MultiProgressBar from "./common/multiProgressBar";
 import { useAuthState } from "../fire";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { dispDecimal, dispDur } from "../utils/displayValue";
 import { getCaseSetDocRef, getUserDocRef } from "../utils/writeCases";
-import MultiProgressBar from "./common/multiProgressBar";
 
 export default function CaseSetTable(props) {
   const { caseSet, initData } = props;
