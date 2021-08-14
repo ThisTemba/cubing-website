@@ -61,8 +61,8 @@ export default function CaseSetTable(props) {
             const userCases = caseSetDoc.data().cases;
             const combined = data.map((c) => {
               const userCase = _.find(userCases, ["id", c.id]);
-              const caseStats = userCase ? userCase.caseStats : null;
-              const alg = userCase && userCase.alg ? userCase.alg : c.alg;
+              const caseStats = userCase?.caseStats;
+              const alg = userCase?.alg || c.alg;
               const combinedCase = { ...c, ...caseStats, alg };
               return combinedCase;
             });
@@ -71,13 +71,8 @@ export default function CaseSetTable(props) {
         }
       );
       unsubscribe2 = getUserDocRef(user).onSnapshot((userDoc) => {
-        if (
-          userDoc.data() &&
-          userDoc.data().settings &&
-          userDoc.data().settings.trainSettings
-        ) {
-          setTrainSettings(userDoc.data().settings.trainSettings);
-        }
+        const userSettings = userDoc.data()?.settings?.trainSettings;
+        if (userSettings) setTrainSettings(userSettings);
       });
     }
     return () => {

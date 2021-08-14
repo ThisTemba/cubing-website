@@ -19,9 +19,8 @@ export default function TrainSettings() {
     if (user) {
       const userDocRef = db.collection("users").doc(user.uid);
       const userDoc = await userDocRef.get();
-      let userData = userDoc.data();
-      let settings = userData.settings;
-      if (settings && settings.trainSettings) setData(settings.trainSettings);
+      const trainSettings = userDoc.data()?.settings?.trainSettings;
+      if (trainSettings) setData(trainSettings);
     }
   }, [user]);
 
