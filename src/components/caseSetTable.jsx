@@ -211,10 +211,9 @@ export default function CaseSetTable(props) {
     const statLearned = getStatLearned(value, column.id);
     if (statLearned === null) return;
     const hasSolves = row.original?.numSolves;
-    if (hasSolves && !isAggregated && !statLearned) {
-      const color = darkMode ? "#ffc107" : "#f09b0a";
-      return { style: { fontWeight: "700", color } };
-    }
+    const color = darkMode ? "#ffc107" : "#f09b0a";
+    const styleMe = hasSolves && !isAggregated && !statLearned;
+    if (styleMe) return { style: { fontWeight: "700", color } };
   };
 
   const getClickForModalProps = ({ column, row, isAggregated, isGrouped }) => {
