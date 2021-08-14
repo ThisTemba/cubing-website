@@ -230,22 +230,6 @@ export default function CaseSetTable(props) {
         sortType: "number",
         show: showStats,
       },
-      // {
-      //   Header: "Alg Len",
-      //   accessor: "algs[0]",
-      //   Cell: ({ value }) => {
-      //     let ret = null;
-      //     try {
-      //       ret = getSTM(value);
-      //     } catch {
-      //       ret = 0;
-      //     }
-      //     return ret;
-      //   },
-      //   aggregate: "average",
-      //   Aggregated: ({ value }) => value,
-      //   sortType: "number",
-      // },
       {
         Header: "Status",
         id: "status",
