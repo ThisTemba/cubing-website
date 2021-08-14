@@ -15,7 +15,7 @@ import { useAuthState } from "../fire";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import { dispDecimal, dispDur } from "../utils/displayValue";
+import { dispDecimal, dispDur, dispOverline } from "../utils/displayValue";
 import { getCaseSetDocRef, getUserDocRef } from "../utils/writeCases";
 import { FaIcon } from "../fontAwesome";
 
@@ -197,7 +197,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <span style={{ textDecoration: "overline" }}>time</span>,
+        Header: dispOverline("time"),
         accessor: "avgTime",
         aggregate: definedAverage,
         Cell: ({ value }) => dispDur(value),
@@ -205,7 +205,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <span style={{ textDecoration: "overline" }}>TPS</span>,
+        Header: dispOverline("TPS"),
         accessor: "avgTPS",
         aggregate: definedAverage,
         Cell: ({ value }) => dispDecimal(value),
