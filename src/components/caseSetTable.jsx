@@ -17,6 +17,7 @@ import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { dispDecimal, dispDur, dispOverline } from "../utils/displayValue";
 import { getCaseSetDocRef, getUserDocRef } from "../utils/writeCases";
+import { getStatLearned, getStatus, sortStatus } from "../utils/learnedStatus";
 import { FaIcon } from "../fontAwesome";
 
 export default function CaseSetTable(props) {
@@ -38,6 +39,14 @@ export default function CaseSetTable(props) {
   const { width } = useWindowDimensions();
   const [darkMode] = useDarkMode();
   const user = useAuthState();
+
+  const caseLearnedCriteria = {
+    hRate: { threshold: 0.4, symbol: "<=" },
+    mmRate: { threshold: 0.4, symbol: "<=" },
+    cmRate: { threshold: 0.1, symbol: "<=" },
+    numSolves: { threshold: 5, symbol: ">=" },
+    avgTPS: { threshold: 3, symbol: ">=" },
+  };
 
   useEffect(() => {
     setCaseModalContent();
@@ -74,43 +83,6 @@ export default function CaseSetTable(props) {
       unsubscribe2();
     };
   }, [user]);
-
-  const getStatLearned = (val, stat) => {
-    const settingsValue = trainSettings[stat];
-    const isLess = {
-      hRate: true,
-      mmRate: true,
-      cmRate: true,
-      avgTPS: false,
-      numSolves: false,
-    };
-    if (typeof isLess[stat] === "undefined") return null;
-    if (isLess[stat]) return val <= settingsValue;
-    else return val >= settingsValue;
-  };
-
-  const allStatsLearned = (statsObj) => {
-    const mapped = _.mapValues(statsObj, (v, k) => getStatLearned(v, k));
-    return !_.some(mapped, (c) => c === false);
-  };
-
-  const getStatus = ({ hRate, mmRate, cmRate, avgTPS, numSolves }) => {
-    if (allStatsLearned({ hRate, mmRate, cmRate, avgTPS, numSolves })) return 2;
-    if (numSolves > 0) return 1;
-    return 0;
-  };
-
-  const sortStatus = useMemo(() => (rowA, rowB) => {
-    const [sA, sB] = [rowA.values.status, rowB.values.status];
-    const isAggregated = typeof sA === "object";
-    let AisBigger;
-    if (isAggregated) {
-      AisBigger = sA[2] !== sB[2] ? sA[2] > sB[2] : sA[1] > sB[1];
-    } else {
-      AisBigger = sA > sB;
-    }
-    return AisBigger ? 1 : -1;
-  });
 
   const renderAggregatedStatus = (counts) => {
     const values = [2, 1, 0].map((n) => counts[n]);
@@ -189,18 +161,20 @@ export default function CaseSetTable(props) {
       {
         Header: "Status",
         id: "status",
-        accessor: getStatus,
+        accessor: (row) => getStatus(row, caseLearnedCriteria),
         Cell: ({ value }) => renderStatus(value),
         aggregate: (values) => _.countBy(values),
         Aggregated: ({ value }) => renderAggregatedStatus(value),
-        sortType: sortStatus,
+        sortType: (rowA, rowB) =>
+          sortStatus(rowA.values.status, rowB.values.status),
       },
     ],
     [isWide, trainSettings]
   );
 
   const getStatNotLearnedProps = ({ column, row, isAggregated, value }) => {
-    const statLearned = getStatLearned(value, column.id);
+    const statObj = { [column.id]: value };
+    const statLearned = getStatLearned(statObj, caseLearnedCriteria);
     if (statLearned === null) return;
     const hasSolves = row.original?.numSolves;
     const color = darkMode ? "#ffc107" : "#f09b0a";
