@@ -69,8 +69,8 @@ export default function CaseSetTable(props) {
         }
       );
       unsubscribe2 = getUserDocRef(user).onSnapshot((userDoc) => {
-        const caseLearnedCriteria =
-          userDoc.data()?.settings?.trainSettings?.caseLearnedCriteria;
+        const trainSettings = userDoc.data()?.settings?.trainSettings;
+        const caseLearnedCriteria = trainSettings?.caseLearnedCriteria;
         if (caseLearnedCriteria) setCaseLearnedCriteria(caseLearnedCriteria);
       });
     }
