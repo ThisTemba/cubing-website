@@ -79,21 +79,21 @@ function CaseSetDashboard(props) {
   };
 
   return (
-    <div>
+    <>
       {!selectedCaseSetId && (
         <SelectCaseSet caseSets={caseSets} onClick={setSelectedCaseSetId} />
       )}
       {selectedCaseSetId && (
-        <div>
+        <>
           {renderTopButtons()}
           <CaseSetTable
             initData={initData}
             caseSet={selectedCaseSet}
             setSelectedCases={setSelectedCases}
           />
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 
