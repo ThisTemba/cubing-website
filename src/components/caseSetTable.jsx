@@ -25,28 +25,23 @@ export default function CaseSetTable(props) {
 
   const [tableData, setTableData] = useState(initData);
   const [caseModalId, setCaseModalId] = useState(null);
-  const defaultTrainSettings = {
-    hRate: 0.4,
-    mmRate: 0.4,
-    cmRate: 0.1,
-    avgTPS: 2,
-    numSolves: 2,
-  };
-  const [trainSettings, setTrainSettings] = useState(defaultTrainSettings);
-
-  const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
-    useCaseModal();
-  const { width } = useWindowDimensions();
-  const [darkMode] = useDarkMode();
-  const user = useAuthState();
-
-  const caseLearnedCriteria = {
+  const defaultCaseLearnedCriteria = {
     hRate: { threshold: 0.4, symbol: "<=" },
     mmRate: { threshold: 0.4, symbol: "<=" },
     cmRate: { threshold: 0.1, symbol: "<=" },
     numSolves: { threshold: 5, symbol: ">=" },
     avgTPS: { threshold: 3, symbol: ">=" },
   };
+
+  const [caseLearnedCriteria, setCaseLearnedCriteria] = useState(
+    defaultCaseLearnedCriteria
+  );
+
+  const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
+    useCaseModal();
+  const { width } = useWindowDimensions();
+  const [darkMode] = useDarkMode();
+  const user = useAuthState();
 
   useEffect(() => {
     setCaseModalContent();
@@ -74,8 +69,9 @@ export default function CaseSetTable(props) {
         }
       );
       unsubscribe2 = getUserDocRef(user).onSnapshot((userDoc) => {
-        const userSettings = userDoc.data()?.settings?.trainSettings;
-        if (userSettings) setTrainSettings(userSettings);
+        const caseLearnedCriteria =
+          userDoc.data()?.settings?.trainSettings?.caseLearnedCriteria;
+        if (caseLearnedCriteria) setCaseLearnedCriteria(caseLearnedCriteria);
       });
     }
     return () => {
@@ -169,7 +165,7 @@ export default function CaseSetTable(props) {
           sortStatus(rowA.values.status, rowB.values.status),
       },
     ],
-    [isWide, trainSettings]
+    [isWide, caseLearnedCriteria]
   );
 
   const getStatNotLearnedProps = ({ column, row, isAggregated, value }) => {
