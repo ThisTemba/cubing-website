@@ -77,19 +77,16 @@ export default function CaseSetTable(props) {
 
   const getStatLearned = (val, stat) => {
     const settingsValue = trainSettings[stat];
-    const map = {
-      hRate: { symbol: "<" },
-      mmRate: { symbol: "<" },
-      cmRate: { symbol: "<" },
-      avgTPS: { symbol: ">" },
-      numSolves: { symbol: ">" },
+    const isLess = {
+      hRate: true,
+      mmRate: true,
+      cmRate: true,
+      avgTPS: false,
+      numSolves: false,
     };
-    if (typeof map[stat] === "undefined") return null;
-    if (map[stat].symbol === ">") {
-      return val >= settingsValue;
-    } else if (map[stat].symbol === "<") {
-      return val <= settingsValue;
-    } else throw new Error("symbol not recognized");
+    if (typeof isLess[stat] === "undefined") return null;
+    if (isLess[stat]) return val <= settingsValue;
+    else return val >= settingsValue;
   };
 
   const allStatsLearned = (statsObj) => {
