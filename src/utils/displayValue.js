@@ -14,5 +14,5 @@ export const dispDecimal = (number, n = 2) => {
 };
 
 export const dispOverline = (string) => {
-  return <span style={{ textDecoration: "overline" }}>string</span>;
+  return <span style={{ textDecoration: "overline" }}>{string}</span>;
 };
