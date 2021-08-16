@@ -15,6 +15,7 @@ export function getStatLearned(statObj, CaseLearnedCriteria) {
 }
 
 export function getCaseLearned(cas, CaseLearnedCriteria) {
+  if (!CaseLearnedCriteria) return;
   const learnedbools = Object.keys(CaseLearnedCriteria).map((key) => {
     return getStatLearned({ [key]: cas[key] }, CaseLearnedCriteria);
   });
