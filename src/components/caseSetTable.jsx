@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState, useContext } from "react";
 import {
   useTable,
   useSortBy,
@@ -11,12 +11,12 @@ import CaseImage from "./common/cubing/cubeImage";
 import Checkbox from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import MultiProgressBar from "./common/multiProgressBar";
-import { useAuthState } from "../fire";
+import { UserContext } from "../fire";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { dispDecimal, dispDur, dispOverline } from "../utils/displayValue";
-import { getCaseSetDocRef, getUserDocRef } from "../utils/writeCases";
+import { getCaseSetDocRef } from "../utils/writeCases";
 import { getStatLearned, getStatus, sortStatus } from "../utils/learnedStatus";
 import { FaIcon } from "../fontAwesome";
 
@@ -33,15 +33,14 @@ export default function CaseSetTable(props) {
     avgTPS: { threshold: 3, symbol: ">=" },
   };
 
-  const [caseLearnedCriteria, setCaseLearnedCriteria] = useState(
-    defaultCaseLearnedCriteria
-  );
-
   const [CaseModal, showCaseModal, setCaseModalContent, showing] =
     useCaseModal();
   const { width } = useWindowDimensions();
   const [darkMode] = useDarkMode();
-  const user = useAuthState();
+  const { user, userDoc } = useContext(UserContext);
+  const criteria =
+    userDoc?.settings?.trainSettings?.caseLearnedCriteria ||
+    defaultCaseLearnedCriteria;
 
   useEffect(() => {
     setCaseModalContent();
@@ -51,7 +50,6 @@ export default function CaseSetTable(props) {
 
   useEffect(() => {
     let unsubscribe1 = () => {};
-    let unsubscribe2 = () => {};
     if (user) {
       unsubscribe1 = getCaseSetDocRef(user, caseSet.details).onSnapshot(
         (caseSetDoc) => {
@@ -68,15 +66,9 @@ export default function CaseSetTable(props) {
           }
         }
       );
-      unsubscribe2 = getUserDocRef(user).onSnapshot((userDoc) => {
-        const trainSettings = userDoc.data()?.settings?.trainSettings;
-        const caseLearnedCriteria = trainSettings?.caseLearnedCriteria;
-        if (caseLearnedCriteria) setCaseLearnedCriteria(caseLearnedCriteria);
-      });
     }
     return () => {
       unsubscribe1();
-      unsubscribe2();
     };
   }, [user]);
 
@@ -157,7 +149,7 @@ export default function CaseSetTable(props) {
       {
         Header: "Status",
         id: "status",
-        accessor: (row) => getStatus(row, caseLearnedCriteria),
+        accessor: (row) => getStatus(row, criteria),
         Cell: ({ value }) => renderStatus(value),
         aggregate: (values) => _.countBy(values),
         Aggregated: ({ value }) => renderAggregatedStatus(value),
@@ -165,12 +157,12 @@ export default function CaseSetTable(props) {
           sortStatus(rowA.values.status, rowB.values.status),
       },
     ],
-    [isWide, caseLearnedCriteria]
+    [isWide, criteria]
   );
 
   const getStatNotLearnedProps = ({ column, row, isAggregated, value }) => {
     const statObj = { [column.id]: value };
-    const statLearned = getStatLearned(statObj, caseLearnedCriteria);
+    const statLearned = getStatLearned(statObj, criteria);
     if (statLearned === null) return;
     const hasSolves = row.original?.numSolves;
     const color = darkMode ? "#ffc107" : "#f09b0a";
