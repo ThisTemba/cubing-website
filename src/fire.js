@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -23,6 +23,8 @@ export const db = firebase.firestore();
 export const auth = firebase.auth();
 
 export const usersRef = db.collection("users");
+
+export const UserContext = createContext(null);
 
 export const useAuthState = () => {
   const [user, setUser] = useState(null);
