@@ -37,7 +37,7 @@ export default function CaseSetTable(props) {
     defaultCaseLearnedCriteria
   );
 
-  const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
+  const [CaseModal, showCaseModal, setCaseModalContent, showing] =
     useCaseModal();
   const { width } = useWindowDimensions();
   const [darkMode] = useDarkMode();

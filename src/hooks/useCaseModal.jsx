@@ -262,5 +262,5 @@ export default function useCaseModal() {
   };
   const showing = _showing;
 
-  return [ModalComponent, showModal, hideModal, setContent, showing];
+  return [ModalComponent, showModal, setContent, showing];
 }
