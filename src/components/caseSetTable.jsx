@@ -242,13 +242,14 @@ export default function CaseSetTable(props) {
     [showStats, trainSettings]
   );
 
-  const getCellProps = () => {
+  const getCellProps = (cell) => {
     const { isAggregated, isGrouped, column, row, value } = cell;
     const statusCols = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
     let props = {};
     if (statusCols.includes(column.id)) {
       const propLearned = getPropLearned(column.id, value);
-      if (typeof value === "number" && !isAggregated && !propLearned) {
+      const hasSolves = row.original?.numSolves;
+      if (hasSolves && !isAggregated && !propLearned) {
         const color = darkMode ? "#ffc107" : "#f09b0a";
         props = { style: { fontWeight: "700", color } };
       }
