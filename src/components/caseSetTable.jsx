@@ -1,5 +1,4 @@
 import React, { useMemo, useEffect, useState } from "react";
-import { ProgressBar } from "react-bootstrap";
 import {
   useTable,
   useSortBy,
