@@ -242,14 +242,14 @@ export default function CaseSetTable(props) {
     [showStats, trainSettings]
   );
 
-  const getCellProps = (cell) => {
-    const { isAggregated, isGrouped } = cell;
-    const columnId = cell.column.id;
+  const getCellProps = () => {
+    const { isAggregated, isGrouped, column, row, value } = cell;
+    const columnId = column.id;
     const statusCols = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
     let props = {};
     if (statusCols.includes(columnId)) {
-      const propLearned = getPropLearned(columnId, cell.value);
-      if (typeof cell.value === "number" && !isAggregated && !propLearned)
+      const propLearned = getPropLearned(columnId, value);
+      if (typeof value === "number" && !isAggregated && !propLearned)
         props = {
           style: {
             fontWeight: "700",
@@ -261,7 +261,7 @@ export default function CaseSetTable(props) {
       props = {
         ...props,
         onClick: () => {
-          const cas = cell.row.original;
+          const cas = row.original;
           setCaseModalId(cas.id);
           showCaseModal(cas, caseSet.details);
         },
