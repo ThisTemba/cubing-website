@@ -242,32 +242,32 @@ export default function CaseSetTable(props) {
     [showStats, trainSettings]
   );
 
-  const getCellProps = (cell) => {
-    const { isAggregated, isGrouped, column, row, value } = cell;
-    const statusCols = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
-    let props = {};
-    if (statusCols.includes(column.id)) {
-      const propLearned = getPropLearned(column.id, value);
-      const hasSolves = row.original?.numSolves;
-      if (hasSolves && !isAggregated && !propLearned) {
-        const color = darkMode ? "#ffc107" : "#f09b0a";
-        props = { style: { fontWeight: "700", color } };
-      }
+  const getPropNotLearnedProps = ({ column, row, isAggregated, value }) => {
+    const propLearned = getPropLearned(column.id, value);
+    if (propLearned === null) return;
+    const hasSolves = row.original?.numSolves;
+    if (hasSolves && !isAggregated && !propLearned) {
+      const color = darkMode ? "#ffc107" : "#f09b0a";
+      return { style: { fontWeight: "700", color } };
     }
+  };
+
+  const getClickForModalProps = ({ column, row, isAggregated, isGrouped }) => {
     if (!isGrouped && !isAggregated && !(column.id === "selection")) {
-      props = {
-        ...props,
+      return {
         onClick: () => {
           const cas = row.original;
           setCaseModalId(cas.id);
           showCaseModal(cas, caseSet.details);
         },
-        style: { ...props.style, cursor: "pointer" },
+        style: { cursor: "pointer" },
       };
     }
-    return props;
   };
 
+  const getCellProps = (cell) => {
+    return _.merge(getPropNotLearnedProps(cell), getClickForModalProps(cell));
+  };
   const tableInstance = useTable(
     {
       columns,
