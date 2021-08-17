@@ -149,7 +149,7 @@ export default function CaseSetTable(props) {
 
   const showStats = width >= 576;
 
-  const defaultColumn = useMemo(() => ({ disableGroupBy: true }), []);
+  const defaultColumn = { disableGroupBy: true };
 
   const columns = useMemo(
     () => [
