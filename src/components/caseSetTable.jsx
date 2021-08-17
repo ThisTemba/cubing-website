@@ -7,7 +7,7 @@ import {
   useGroupBy,
   useExpanded,
 } from "react-table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
@@ -157,7 +157,7 @@ export default function CaseSetTable(props) {
     const color = map[status][0];
     return (
       <span>
-        <FontAwesomeIcon icon="circle" size="lg" className={color} />
+        <FaIcon icon="circle" size="lg" className={color} />
       </span>
     );
   };
@@ -204,7 +204,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="spinner" />,
+        Header: <FaIcon icon="spinner" />,
         accessor: "hRate",
         aggregate: definedAverage,
         Cell: displayRate,
@@ -212,7 +212,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="check" />,
+        Header: <FaIcon icon="check" />,
         accessor: "nmRate",
         aggregate: definedAverage,
         Cell: displayRate,
@@ -220,7 +220,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="minus" />,
+        Header: <FaIcon icon="minus" />,
         accessor: "mmRate",
         aggregate: definedAverage,
         Cell: displayRate,
@@ -228,7 +228,7 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <FontAwesomeIcon icon="times" />,
+        Header: <FaIcon icon="times" />,
         accessor: "cmRate",
         aggregate: definedAverage,
         Cell: displayRate,

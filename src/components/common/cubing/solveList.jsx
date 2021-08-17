@@ -5,7 +5,7 @@ import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
 import { displayDur } from "../../../utils/formatTime";
 import useModal from "../../../hooks/useModal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../../../fontAwesome";
 
 export default function SolveList({
   solves,
@@ -69,7 +69,7 @@ export default function SolveList({
           className="btn btn-sm btn-danger"
           onClick={() => onDeleteSolve(dateTime)}
         >
-          <FontAwesomeIcon icon="trash" />
+          <FaIcon icon="trash" />
         </button>
       </div>
     );

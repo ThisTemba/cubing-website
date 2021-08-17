@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../../fontAwesome";
 import { components } from "react-select";
 
 export default function DeletableOption(props) {
@@ -14,7 +14,7 @@ export default function DeletableOption(props) {
           className="text-dark"
           onClick={() => props.onDelete(value)}
         >
-          <FontAwesomeIcon icon="trash" />
+          <FaIcon icon="trash" />
         </Button>
       )}
     </div>

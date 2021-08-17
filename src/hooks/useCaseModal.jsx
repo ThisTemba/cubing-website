@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../fontAwesome";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
 import { useAuthState } from "../fire";
@@ -98,10 +98,10 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const handleChange = (option) => setSelectedOption(option);
 
   const statCols = [
-    { key: "hRate", Header: <FontAwesomeIcon icon="spinner" /> },
-    { key: "nmRate", Header: <FontAwesomeIcon icon="check" /> },
-    { key: "mmRate", Header: <FontAwesomeIcon icon="minus" /> },
-    { key: "cmRate", Header: <FontAwesomeIcon icon="times" /> },
+    { key: "hRate", Header: <FaIcon icon="spinner" /> },
+    { key: "nmRate", Header: <FaIcon icon="check" /> },
+    { key: "mmRate", Header: <FaIcon icon="minus" /> },
+    { key: "cmRate", Header: <FaIcon icon="times" /> },
     { key: "avgTime", Header: "Mean Time" },
     { key: "numSolves", Header: "Num Solves" },
   ];

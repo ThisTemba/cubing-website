@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useExpanded, useGroupBy, useTable } from "react-table";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
 import { useAuthState } from "../../fire";
 import Timer from "../common/cubing/timer";
@@ -96,37 +96,34 @@ export default function TestPage(props) {
         Cell: ({ value }) => displayDur(value),
       },
       {
-        Header: <FontAwesomeIcon icon="spinner" />,
+        Header: <FaIcon icon="spinner" />,
         accessor: "hesitated",
         aggregate: (bools) => bools.filter(Boolean).length / bools.length,
-        Cell: ({ value }) => (value ? <FontAwesomeIcon icon="spinner" /> : ""),
+        Cell: ({ value }) => (value ? <FaIcon icon="spinner" /> : ""),
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: <FontAwesomeIcon icon="check" />,
+        Header: <FaIcon icon="check" />,
         id: "none",
         accessor: "mistakes",
         aggregate: (vs) => vs.filter((v) => v === 0).length / vs.length,
-        Cell: ({ value }) =>
-          value === 0 ? <FontAwesomeIcon icon="check" /> : "",
+        Cell: ({ value }) => (value === 0 ? <FaIcon icon="check" /> : ""),
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: <FontAwesomeIcon icon="minus" />,
+        Header: <FaIcon icon="minus" />,
         id: "minor",
         accessor: "mistakes",
         aggregate: (vs) => vs.filter((v) => v === 1).length / vs.length,
-        Cell: ({ value }) =>
-          value === 1 ? <FontAwesomeIcon icon="minus" /> : "",
+        Cell: ({ value }) => (value === 1 ? <FaIcon icon="minus" /> : ""),
         Aggregated: ({ value }) => _.round(value, 2),
       },
       {
-        Header: <FontAwesomeIcon icon="times" />,
+        Header: <FaIcon icon="times" />,
         id: "critical",
         accessor: "mistakes",
         aggregate: (vs) => vs.filter((v) => v === 2).length / vs.length,
-        Cell: ({ value }) =>
-          value === 2 ? <FontAwesomeIcon icon="times" /> : "",
+        Cell: ({ value }) => (value === 2 ? <FaIcon icon="times" /> : ""),
         Aggregated: ({ value }) => _.round(value, 2),
       },
     ],
@@ -175,7 +172,7 @@ export default function TestPage(props) {
             variant={secondary}
             className="m-1"
           >
-            <FontAwesomeIcon icon="chevron-left" /> Back to Dashboard
+            <FaIcon icon="chevron-left" /> Back to Dashboard
           </Button>
         </Col>
         <Col className="justify-content-end d-flex p-0">
@@ -185,7 +182,7 @@ export default function TestPage(props) {
             size="sm"
             onClick={nextCaseAndScramble}
           >
-            <FontAwesomeIcon icon="forward" />
+            <FaIcon icon="forward" />
           </Button>
         </Col>
       </Row>

@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./cubeImage";
 import useDarkMode from "../../../hooks/useDarkMode";
@@ -34,7 +34,7 @@ export default function CaseSetCard(props) {
                   <Col xs={12}>
                     <h4>
                       {`${title} `}
-                      <FontAwesomeIcon icon="caret-right" />
+                      <FaIcon icon="caret-right" />
                     </h4>
                   </Col>
                   <Col xs={12}>
