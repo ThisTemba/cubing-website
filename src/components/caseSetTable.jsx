@@ -112,14 +112,14 @@ export default function CaseSetTable(props) {
   };
 
   const sortStatus = (rowA, rowB) => {
-    // docs say this function should be memoized
     const [sA, sB] = [rowA.values.status, rowB.values.status];
+    const isAggregated = typeof sA === "object";
     let AisBigger = null;
-    if (Array.isArray(sA)) {
-      // 2 is learned, 1 is learning
+    if (isAggregated) {
       AisBigger = sA[2] !== sB[2] ? sA[2] > sB[2] : sA[1] > sB[1];
-    } else AisBigger = sA > sB;
-
+    } else {
+      AisBigger = sA > sB;
+    }
     return AisBigger ? 1 : -1;
   };
 
