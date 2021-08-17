@@ -9,7 +9,7 @@ import {
 import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./common/cubing/cubeImage";
-import { Checkbox } from "./common/checkbox";
+import Checkbox from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
 import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
