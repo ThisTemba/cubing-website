@@ -147,7 +147,7 @@ export default function CaseSetTable(props) {
     else return undefined;
   };
 
-  const showStats = width >= 576;
+  const windowIsWide = width >= 576;
 
   const defaultColumn = {
     disableGroupBy: true,
@@ -181,45 +181,45 @@ export default function CaseSetTable(props) {
         Cell: ({ value }) => (value ? String(value) : ""),
         aggregate: null,
         sortType: "alphanumeric",
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: <FaIcon icon="spinner" />,
         accessor: "hRate",
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: <FaIcon icon="check" />,
         accessor: "nmRate",
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: <FaIcon icon="minus" />,
         accessor: "mmRate",
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: <FaIcon icon="times" />,
         accessor: "cmRate",
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: dispOverline("time"),
         accessor: "avgTime",
         Cell: ({ value }) => dispDur(value),
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: dispOverline("TPS"),
         accessor: "avgTPS",
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: "# Solves",
         accessor: "numSolves",
         aggregate: "sum",
         Cell: ({ value }) => dispDecimal(value, 0),
-        show: showStats,
+        show: windowIsWide,
       },
       {
         Header: "Status",
@@ -231,7 +231,7 @@ export default function CaseSetTable(props) {
         sortType: sortStatus,
       },
     ],
-    [showStats, trainSettings]
+    [windowIsWide, trainSettings]
   );
 
   const getPropNotLearnedProps = ({ column, row, isAggregated, value }) => {
