@@ -113,7 +113,7 @@ export default function CaseSetTable(props) {
   const sortStatus = (rowA, rowB) => {
     const [sA, sB] = [rowA.values.status, rowB.values.status];
     const isAggregated = typeof sA === "object";
-    let AisBigger = null;
+    let AisBigger;
     if (isAggregated) {
       AisBigger = sA[2] !== sB[2] ? sA[2] > sB[2] : sA[1] > sB[1];
     } else {
