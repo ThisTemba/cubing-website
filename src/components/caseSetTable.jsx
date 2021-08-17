@@ -270,16 +270,14 @@ export default function CaseSetTable(props) {
   };
 
   const addCheckboxes = (hooks) => {
-    hooks.visibleColumns.push((columns) => [
-      ...columns,
-      {
-        id: "selection",
-        Header: ({ getToggleAllRowsSelectedProps }) => (
-          <Checkbox {...getToggleAllRowsSelectedProps()} />
-        ),
-        Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
-      },
-    ]);
+    const selectColumn = {
+      id: "selection",
+      Header: ({ getToggleAllRowsSelectedProps }) => (
+        <Checkbox {...getToggleAllRowsSelectedProps()} />
+      ),
+      Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
+    };
+    hooks.visibleColumns.push((columns) => [...columns, selectColumn]);
   };
 
   const initialState = {
