@@ -20,36 +20,34 @@ export default function CaseSetCard(props) {
         onClick={props.onClick}
       >
         <Card.Body className="p-2 p-sm-3">
-          <Card.Text>
-            <Row>
-              <Col className="p-0">
-                <CaseImage
-                  size="120"
-                  alg={_.sample(cases).algs[0]}
-                  caseSetDetails={details}
-                ></CaseImage>
-              </Col>
-              <Col className="p-0 d-flex align-items-center justify-content-center">
-                <Row>
-                  <Col xs={12}>
-                    <h4>
-                      {`${title} `}
-                      <FaIcon icon="caret-right" />
-                    </h4>
-                  </Col>
-                  <Col xs={12}>
-                    {typeof subTitle !== "undefined" ? subTitle : ""}
-                  </Col>
-                  <Col>
-                    {typeof subSubTitle !== "undefined" ? subSubTitle : ""}
-                  </Col>
-                </Row>
-              </Col>
-              <Col className="p-0">
-                <CaseImage size="120" caseSetDetails={details}></CaseImage>
-              </Col>
-            </Row>
-          </Card.Text>
+          <Row>
+            <Col className="p-0">
+              <CaseImage
+                size="120"
+                alg={_.sample(cases).algs[0]}
+                caseSetDetails={details}
+              ></CaseImage>
+            </Col>
+            <Col className="p-0 d-flex align-items-center justify-content-center">
+              <Row>
+                <Col xs={12}>
+                  <h4>
+                    {`${title} `}
+                    <FaIcon icon="caret-right" />
+                  </h4>
+                </Col>
+                <Col xs={12}>
+                  {typeof subTitle !== "undefined" ? subTitle : ""}
+                </Col>
+                <Col>
+                  {typeof subSubTitle !== "undefined" ? subSubTitle : ""}
+                </Col>
+              </Row>
+            </Col>
+            <Col className="p-0">
+              <CaseImage size="120" caseSetDetails={details}></CaseImage>
+            </Col>
+          </Row>
         </Card.Body>
       </Button>
     </Col>
