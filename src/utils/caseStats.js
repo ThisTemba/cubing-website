@@ -4,23 +4,23 @@ import { getSTM } from "./algTools";
 const CASE_SOLVES_CAP = 100;
 const CASE_SOLVES_STAT_CAP = 20;
 
-export const prepareCaseData = (newSolves, oldDoc) => {
+export const prepareCaseData = (newSolves, oldCaseDoc) => {
   let CSC = CASE_SOLVES_CAP;
   let CSSC = CASE_SOLVES_STAT_CAP;
-  const numSolves = getNumSolves(newSolves, oldDoc);
-  const recentCaseSolves = getRecentCaseSolves(newSolves, oldDoc, CSC);
+  const numSolves = getNumSolves(newSolves, oldCaseDoc);
+  const recentCaseSolves = getRecentCaseSolves(newSolves, oldCaseDoc, CSC);
   const caseStats = getCaseStats(recentCaseSolves, numSolves, CSSC);
   return { caseStats, recentCaseSolves };
 };
 
-export const getNumSolves = (newSolves, oldDoc) => {
+export const getNumSolves = (newSolves, oldCaseDoc) => {
   const numNewSolves = newSolves.length;
-  const numOldSolves = oldDoc?.data()?.caseStats?.numSolves || 0;
+  const numOldSolves = oldCaseDoc?.data()?.caseStats?.numSolves || 0;
   return numNewSolves + numOldSolves;
 };
 
-export const getRecentCaseSolves = (newSolves, oldDoc, num) => {
-  const oldSolves = oldDoc.data()?.recentCaseSolves || [];
+export const getRecentCaseSolves = (newSolves, oldCaseDoc, num) => {
+  const oldSolves = oldCaseDoc.data()?.recentCaseSolves || [];
   const allSolves = [...newSolves, ...oldSolves];
   return _.take(allSolves, num);
 };
