@@ -41,12 +41,12 @@ function CaseSetDashboard(props) {
   const { onTest, onLearn } = props;
 
   return (
-    <div>
+    <>
       {!selectedCaseSetId && (
         <SelectCaseSet caseSets={caseSets} onClick={setSelectedCaseSetId} />
       )}
       {selectedCaseSetId && (
-        <div>
+        <>
           <Row>
             <Col className="p-0">
               <Button
@@ -81,9 +81,9 @@ function CaseSetDashboard(props) {
             caseSet={selectedCaseSet}
             setSelectedCases={setSelectedCases}
           />
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 
