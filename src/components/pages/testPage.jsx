@@ -59,10 +59,11 @@ export default function TestPage(props) {
     const index = balancedRandomIndex(counts);
     const nextCase = selectedCases[index];
 
-    const nextScramble =
-      caseSetDetails.name === "ttll" || "tsle"
-        ? _.sample(nextCase.scrambles)
-        : randomYRot(_.sample(nextCase.scrambles));
+    const caseSet = caseSetDetails.name;
+    const doNotRotate = caseSet === "ttll" || caseSet === "tsle";
+    const nextScramble = doNotRotate
+      ? _.sample(nextCase.scrambles)
+      : randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
   };
