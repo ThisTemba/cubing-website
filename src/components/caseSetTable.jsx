@@ -18,6 +18,7 @@ import { getCaseSetDocRef } from "../utils/writeCases";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import MultiProgressBar from "./common/multiProgressBar";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -133,13 +134,9 @@ export default function CaseSetTable(props) {
   };
 
   const renderAggregatedStatus = (percents) => {
-    return (
-      <ProgressBar style={{ height: "8px" }}>
-        <ProgressBar variant="success" now={percents[2]} key={2} />
-        <ProgressBar variant="warning" now={percents[1]} key={1} />
-        <ProgressBar variant="secondary" now={percents[0]} key={0} />
-      </ProgressBar>
-    );
+    const values = [...percents].reverse();
+    const variants = ["success", "warning", "secondary"];
+    return <MultiProgressBar values={values} variants={variants} />;
   };
 
   const renderStatus = (status) => {
