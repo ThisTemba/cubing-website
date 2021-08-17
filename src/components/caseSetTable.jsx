@@ -130,17 +130,8 @@ export default function CaseSetTable(props) {
   };
 
   const renderStatus = (status) => {
-    const map = {
-      0: ["text-secondary", "not started"],
-      1: ["text-warning", "learning"],
-      2: ["text-success", "learned"],
-    };
-    const color = map[status][0];
-    return (
-      <span>
-        <FaIcon icon="circle" size="lg" className={color} />
-      </span>
-    );
+    const textStyles = ["text-secondary", "text-warning", "text-success"];
+    return <FaIcon icon="circle" size="lg" className={textStyles[status]} />;
   };
 
   const renderCaseImage = ({ value }) => {
