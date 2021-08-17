@@ -244,17 +244,16 @@ export default function CaseSetTable(props) {
 
   const getCellProps = () => {
     const { isAggregated, isGrouped, column, row, value } = cell;
-    const columnId = column.id;
     const statusCols = ["hRate", "cmRate", "mmRate", "avgTPS", "numSolves"];
     let props = {};
-    if (statusCols.includes(columnId)) {
-      const propLearned = getPropLearned(columnId, value);
+    if (statusCols.includes(column.id)) {
+      const propLearned = getPropLearned(column.id, value);
       if (typeof value === "number" && !isAggregated && !propLearned) {
         const color = darkMode ? "#ffc107" : "#f09b0a";
         props = { style: { fontWeight: "700", color } };
       }
     }
-    if (!isGrouped && !isAggregated && !(columnId === "selection")) {
+    if (!isGrouped && !isAggregated && !(column.id === "selection")) {
       props = {
         ...props,
         onClick: () => {
