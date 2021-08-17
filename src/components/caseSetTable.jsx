@@ -269,6 +269,19 @@ export default function CaseSetTable(props) {
     return _.merge(getPropNotLearnedProps(cell), getClickForModalProps(cell));
   };
 
+  const addCheckboxes = (hooks) => {
+    hooks.visibleColumns.push((columns) => [
+      ...columns,
+      {
+        id: "selection",
+        Header: ({ getToggleAllRowsSelectedProps }) => (
+          <Checkbox {...getToggleAllRowsSelectedProps()} />
+        ),
+        Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
+      },
+    ]);
+  };
+
   const initialState = {
     groupBy: hasUniqueGroups ? ["group"] : [],
     sortBy: [{ id: "status", desc: true }],
@@ -283,18 +296,7 @@ export default function CaseSetTable(props) {
     useSortBy,
     useExpanded,
     useRowSelect,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => [
-        ...columns,
-        {
-          id: "selection",
-          Header: ({ getToggleAllRowsSelectedProps }) => (
-            <Checkbox {...getToggleAllRowsSelectedProps()} />
-          ),
-          Cell: ({ row }) => <Checkbox {...row.getToggleRowSelectedProps()} />,
-        },
-      ]);
-    }
+    addCheckboxes
   );
 
   useEffect(() => {
