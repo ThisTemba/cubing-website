@@ -19,8 +19,6 @@ export const CubeImage = (props) => {
 CubeImage.defaultProps = {
   width: "50",
   height: "50",
-  // bg: "t", // transparent
-  // ac: "n", // black arrows?
 };
 
 const CaseImage = (props) => {
