@@ -13,8 +13,7 @@ import CaseImage from "./common/cubing/cubeImage";
 import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
-import { displayDur } from "../utils/formatTime";
-import { dispDecimal, dispOverline } from "../utils/displayValue";
+import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
@@ -236,8 +235,7 @@ export default function CaseSetTable(props) {
         Header: dispOverline("time"),
         accessor: "avgTime",
         aggregate: definedAverage,
-        Cell: ({ value }) =>
-          typeof value === "undefined" ? "-" : displayDur(value),
+        Cell: ({ value }) => dispDur(value),
         sortType: "number",
         show: showStats,
       },

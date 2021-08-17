@@ -8,7 +8,7 @@ import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
 import CaseImage from "../common/cubing/cubeImage";
 import FeedbackCard from "../feedbackCard";
-import { displayDur } from "../../utils/formatTime";
+import { dispDur } from "../../utils/displayValue";
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
@@ -93,7 +93,7 @@ export default function TestPage(props) {
         Header: "Time",
         accessor: "dur",
         aggregate: "average",
-        Cell: ({ value }) => displayDur(value),
+        Cell: ({ value }) => dispDur(value),
       },
       {
         Header: <FaIcon icon="spinner" />,
