@@ -249,13 +249,10 @@ export default function CaseSetTable(props) {
     let props = {};
     if (statusCols.includes(columnId)) {
       const propLearned = getPropLearned(columnId, value);
-      if (typeof value === "number" && !isAggregated && !propLearned)
-        props = {
-          style: {
-            fontWeight: "700",
-            color: darkMode ? "#ffc107" : "#f09b0a",
-          },
-        };
+      if (typeof value === "number" && !isAggregated && !propLearned) {
+        const color = darkMode ? "#ffc107" : "#f09b0a";
+        props = { style: { fontWeight: "700", color } };
+      }
     }
     if (!isGrouped && !isAggregated && !(columnId === "selection")) {
       props = {
