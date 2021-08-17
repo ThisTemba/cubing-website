@@ -14,19 +14,13 @@ export const prepareCaseData = (newSolves, oldDoc) => {
 };
 
 export const getNumSolves = (newSolves, oldDoc) => {
-  let numSolves = newSolves.length;
-  numSolves +=
-    oldDoc.exists && oldDoc.data().caseStats
-      ? oldDoc.data().caseStats.numSolves
-      : 0;
-  return numSolves;
+  const numNewSolves = newSolves.length;
+  const numOldSolves = oldDoc?.data()?.caseStats?.numSolves || 0;
+  return numNewSolves + numOldSolves;
 };
 
 export const getRecentCaseSolves = (newSolves, oldDoc, num) => {
-  const oldSolves =
-    oldDoc.exists && oldDoc.data().recentCaseSolves
-      ? oldDoc.data().recentCaseSolves
-      : [];
+  const oldSolves = oldDoc.data()?.recentCaseSolves || [];
   const allSolves = [...newSolves, ...oldSolves];
   return _.take(allSolves, num);
 };
@@ -51,6 +45,7 @@ export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
   const moveTime = 0.2; // the minimum ammount of time needed to let go of the spacebar and hit it again
   // by excluding this time, TPS is made slightly more accurate
   // without it, longer algorithms tend to have higher TPSes
+  // TODO: This is bad for super quick solves
   const totTimeAdjusted = totTime - numStatSolves * moveTime;
   const avgTPS = totAlgLen / totTimeAdjusted;
   const caseStats = {

@@ -37,15 +37,17 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     const _caseDoc = await caseSetDocRef.collection("cases").doc(cas.id).get();
     setCaseDoc(_caseDoc);
     const userCase = _caseDoc.data();
-    if (userCase && userCase.userAlgs) {
-      const userAlgs = userCase.userAlgs;
+
+    const userAlgs = userCase?.userAlgs;
+    if (userAlgs) {
       const userOptions = userAlgs.map((alg) => newOption(alg, true));
       setOptions([...options, ...userOptions]);
     }
-    if (userCase && userCase.alg) {
-      const alg = userCase.alg;
-      setSelectedOption(newOption(alg));
-    } else setSelectedOption(options[1]);
+
+    const userAlg = userCase?.alg;
+    if (userAlg) setSelectedOption(newOption(userAlg));
+    else setSelectedOption(options[1]);
+
     setEditing(true);
   };
 
@@ -59,7 +61,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     const caseSetDoc = await caseSetDocRef.get();
     if (caseSetDoc.exists) {
       const oldCaseSet = caseSetDoc.data();
-      const oldCases = oldCaseSet.cases;
+      const oldCases = oldCaseSet?.cases;
       if (oldCases) {
         const oldCase = _.find(oldCases, ["id", cas.id]);
         const newCase = oldCase ? { ...oldCase, alg } : { alg, id: cas.id };
@@ -128,7 +130,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
       <Modal.Body className="text-center">
         <CaseImage
           caseSetDetails={caseSetDetails}
-          alg={selectedOption && selectedOption.value}
+          alg={selectedOption?.value}
           size="200"
         />
         {!editing && (

@@ -55,9 +55,11 @@ export default function CaseSetTable(props) {
             const userCases = caseSetDoc.data().cases;
             const combined = data.map((c) => {
               const userCase = _.find(userCases, ["id", c.id]);
-              const caseStats = userCase ? userCase.caseStats : null;
-              const alg = userCase && userCase.alg ? userCase.alg : c.alg;
+              const caseStats = userCase?.caseStats;
+              const alg = userCase?.alg || c.alg;
               const combinedCase = { ...c, ...caseStats, alg };
+              // Source: https://stackoverflow.com/q/46957194/3593621
+              // TL;DR can spread undefined into objects but not arrays
               return combinedCase;
             });
             setData(combined);
@@ -68,11 +70,7 @@ export default function CaseSetTable(props) {
         .collection("users")
         .doc(user.uid)
         .onSnapshot((userDoc) => {
-          if (
-            userDoc.data() &&
-            userDoc.data().settings &&
-            userDoc.data().settings.trainSettings
-          ) {
+          if (userDoc.data()?.settings?.trainSettings) {
             setTrainSettings(userDoc.data().settings.trainSettings);
           }
         });
