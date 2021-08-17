@@ -268,19 +268,17 @@ export default function CaseSetTable(props) {
   const getCellProps = (cell) => {
     return _.merge(getPropNotLearnedProps(cell), getClickForModalProps(cell));
   };
+
+  const initialState = {
+    groupBy: hasUniqueGroups ? ["group"] : [],
+    sortBy: [{ id: "status", desc: true }],
+    hiddenColumns: columns.map((column) => {
+      if (column.show === false) return column.accessor || column.id;
+    }),
+  };
+
   const tableInstance = useTable(
-    {
-      columns,
-      data,
-      defaultColumn,
-      initialState: {
-        groupBy: hasUniqueGroups ? ["group"] : [],
-        sortBy: [{ id: "status", desc: true }],
-        hiddenColumns: columns.map((column) => {
-          if (column.show === false) return column.accessor || column.id;
-        }),
-      },
-    },
+    { columns, data, defaultColumn, initialState },
     useGroupBy,
     useSortBy,
     useExpanded,
