@@ -133,12 +133,6 @@ export default function CaseSetTable(props) {
     return <FaIcon icon="circle" size="lg" className={textStyles[status]} />;
   };
 
-  const renderCaseImage = ({ value }) => {
-    return (
-      <CaseImage alg={value.alg} caseSetDetails={caseSet.details} size="65" />
-    );
-  };
-
   const hasUniqueGroups = _.uniqBy(caseSet.cases, "group").length > 1;
 
   const definedAverage = (values) => {
@@ -170,9 +164,14 @@ export default function CaseSetTable(props) {
       {
         Header: "Case",
         accessor: (row) => row,
-        Cell: renderCaseImage,
+        Cell: ({ value }) => (
+          <CaseImage
+            alg={value.alg}
+            caseSetDetails={caseSet.details}
+            size="65"
+          />
+        ),
         aggregate: (values) => _(values).sample(),
-        Aggregated: renderCaseImage,
         disableSortBy: true,
       },
       {
