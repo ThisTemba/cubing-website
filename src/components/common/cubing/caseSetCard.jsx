@@ -10,7 +10,7 @@ import useDarkMode from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;
-  const { title, subTitle, subSubTitle, view, mask } = details;
+  const { title, subTitle, subSubTitle } = details;
   const [darkMode] = useDarkMode();
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
