@@ -22,6 +22,8 @@ export const db = firebase.firestore();
 
 export const auth = firebase.auth();
 
+export const usersRef = db.collection("users");
+
 export const UserContext = createContext(null);
 
 export const useAuthState = () => {
