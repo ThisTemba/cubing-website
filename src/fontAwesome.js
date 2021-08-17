@@ -1,4 +1,5 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCheck,
   faMinus,
@@ -46,3 +47,5 @@ library.add(
   faSun,
   faMoon
 );
+
+export { FontAwesomeIcon as FaIcon };
