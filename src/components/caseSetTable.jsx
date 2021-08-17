@@ -14,6 +14,7 @@ import { Checkbox } from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import { useAuthState, db } from "../fire";
 import { displayDur } from "../utils/formatTime";
+import { dispDecimal, dispOverline } from "../utils/displayValue";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
@@ -170,10 +171,6 @@ export default function CaseSetTable(props) {
 
   const hasUniqueGroups = _.uniqBy(caseSet.cases, "group").length > 1;
 
-  const displayRate = ({ value }) => {
-    return typeof value === "undefined" ? "-" : _.round(value, 2);
-  };
-
   const definedAverage = (values) => {
     const definedValues = values.filter((v) => typeof v !== "undefined");
     if (definedValues.length > 0) return _.mean(definedValues);
@@ -207,7 +204,7 @@ export default function CaseSetTable(props) {
         Header: <FaIcon icon="spinner" />,
         accessor: "hRate",
         aggregate: definedAverage,
-        Cell: displayRate,
+        Cell: ({ value }) => dispDecimal(value),
         sortType: "number",
         show: showStats,
       },
@@ -215,7 +212,7 @@ export default function CaseSetTable(props) {
         Header: <FaIcon icon="check" />,
         accessor: "nmRate",
         aggregate: definedAverage,
-        Cell: displayRate,
+        Cell: ({ value }) => dispDecimal(value),
         sortType: "number",
         show: showStats,
       },
@@ -223,7 +220,7 @@ export default function CaseSetTable(props) {
         Header: <FaIcon icon="minus" />,
         accessor: "mmRate",
         aggregate: definedAverage,
-        Cell: displayRate,
+        Cell: ({ value }) => dispDecimal(value),
         sortType: "number",
         show: showStats,
       },
@@ -231,12 +228,12 @@ export default function CaseSetTable(props) {
         Header: <FaIcon icon="times" />,
         accessor: "cmRate",
         aggregate: definedAverage,
-        Cell: displayRate,
+        Cell: ({ value }) => dispDecimal(value),
         sortType: "number",
         show: showStats,
       },
       {
-        Header: <span style={{ textDecoration: "overline" }}>time</span>,
+        Header: dispOverline("time"),
         accessor: "avgTime",
         aggregate: definedAverage,
         Cell: ({ value }) =>
@@ -245,11 +242,10 @@ export default function CaseSetTable(props) {
         show: showStats,
       },
       {
-        Header: <span style={{ textDecoration: "overline" }}>TPS</span>,
+        Header: dispOverline("TPS"),
         accessor: "avgTPS",
         aggregate: definedAverage,
-        Cell: ({ value }) =>
-          typeof value === "undefined" ? "-" : _.round(value, 2),
+        Cell: ({ value }) => dispDecimal(value),
         sortType: "number",
         show: showStats,
       },
@@ -257,7 +253,7 @@ export default function CaseSetTable(props) {
         Header: "# Solves",
         accessor: "numSolves",
         aggregate: "sum",
-        Cell: ({ value }) => (typeof value === "undefined" ? 0 : value),
+        Cell: ({ value }) => dispDecimal(value, 0),
         sortType: "number",
         show: showStats,
       },
@@ -281,9 +277,7 @@ export default function CaseSetTable(props) {
         Header: "Status",
         id: "status",
         accessor: getStatus,
-        Cell: ({ value }) => {
-          return renderStatus(value);
-        },
+        Cell: ({ value }) => renderStatus(value),
         aggregate: aggregateStatus,
         Aggregated: ({ value }) => renderAggregatedStatus(value),
         sortType: sortStatus,
