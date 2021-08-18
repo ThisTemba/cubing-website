@@ -5,8 +5,7 @@ const getProbsFromCounts = (counts) => {
     const relProbs = counts.map((n) => (n === 0 ? 1 : 0));
     return relProbs;
   } else {
-    const first = counts[0];
-    const relProbs = counts.map((n, i) => (i === 0 ? 1 : first / n));
+    const relProbs = counts.map((n) => 1 / n);
     return relProbs;
   }
 };
