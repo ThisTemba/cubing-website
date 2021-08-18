@@ -11,6 +11,6 @@ export default function useUserDoc() {
       unsubscribe = userDocRef?.onSnapshot((userDoc) => setUserDoc(userDoc));
     }
     return unsubscribe;
-  }, []);
+  }, [user]);
   return userDoc;
 }
