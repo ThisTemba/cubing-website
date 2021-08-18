@@ -18,6 +18,10 @@ import { getCaseSetDocRef } from "../utils/writeCases";
 import useDarkMode from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import { dispDecimal, dispDur, dispOverline } from "../utils/displayValue";
+import { getCaseSetDocRef } from "../utils/writeCases";
+import { getStatLearned, getStatus, sortStatus } from "../utils/learnedStatus";
+import { FaIcon } from "../fontAwesome";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -42,9 +46,9 @@ export default function CaseSetTable(props) {
 
   useEffect(() => {
     setCaseModalContent();
-    const cas = _.find(data, ["id", caseModalId]);
+    const cas = _.find(tableData, ["id", caseModalId]);
     setCaseModalContent(cas, caseSet.details);
-  }, [showing, _.find(data, ["id", caseModalId])]);
+  }, [showing, _.find(tableData, ["id", caseModalId])]);
 
   useEffect(() => {
     let unsubscribe1 = () => {};
@@ -53,7 +57,7 @@ export default function CaseSetTable(props) {
         (caseSetDoc) => {
           if (caseSetDoc.data()) {
             const userCases = caseSetDoc.data().cases;
-            const combined = data.map((c) => {
+            const combined = tableData.map((c) => {
               const userCase = _.find(userCases, ["id", c.id]);
               const caseStats = userCase?.caseStats;
               const alg = userCase?.alg || c.alg;
@@ -196,6 +200,10 @@ export default function CaseSetTable(props) {
         accessor: "cmRate",
         show: windowIsWide,
       },
+      { Header: <FaIcon icon="spinner" />, accessor: "hRate", show: isWide },
+      { Header: <FaIcon icon="check" />, accessor: "nmRate", show: isWide },
+      { Header: <FaIcon icon="minus" />, accessor: "mmRate", show: isWide },
+      { Header: <FaIcon icon="times" />, accessor: "cmRate", show: isWide },
       {
         Header: dispOverline("time"),
         accessor: "avgTime",
@@ -207,6 +215,7 @@ export default function CaseSetTable(props) {
         accessor: "avgTPS",
         show: windowIsWide,
       },
+      { Header: dispOverline("TPS"), accessor: "avgTPS", show: isWide },
       {
         Header: "# Solves",
         accessor: "numSolves",
@@ -221,7 +230,8 @@ export default function CaseSetTable(props) {
         Cell: ({ value }) => renderStatus(value),
         aggregate: (values) => _.countBy(values),
         Aggregated: ({ value }) => renderAggregatedStatus(value),
-        sortType: sortStatus,
+        sortType: (rowA, rowB) =>
+          sortStatus(rowA.values.status, rowB.values.status),
       },
     ],
     [windowIsWide]

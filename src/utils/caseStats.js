@@ -37,10 +37,10 @@ const calculateRates = (caseSolves, numSolves) => {
 
 export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
   const statCaseSolves = _.take(recentCaseSolves, statsCap);
+  const times = _.map(statCaseSolves, "dur");
   const numStatSolves = statCaseSolves.length;
   const rates = calculateRates(statCaseSolves, numStatSolves);
-  const avgTime = _.mean(statCaseSolves.map((s) => s.dur));
-  const totTime = _.sum(statCaseSolves.map((s) => s.dur));
+  const avgTime = _.mean(times);
   const totAlgLen = _.sum(statCaseSolves.map((s) => getSTM(s.alg)));
   const moveTime = 0.2; // the minimum ammount of time needed to let go of the spacebar and hit it again
   // by excluding this time, TPS is made slightly more accurate

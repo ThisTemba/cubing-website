@@ -39,6 +39,10 @@ function CaseSetDashboard(props) {
   }, [selectedCases]);
 
   const { onTest, onLearn } = props;
+  const initData = selectedCaseSet?.cases.map((c) => ({
+    ...c,
+    alg: c.algs[0],
+  }));
 
   return (
     <>
@@ -76,8 +80,8 @@ function CaseSetDashboard(props) {
               </Button>
             </Col>
           </Row>
-
           <CaseSetTable
+            initData={initData}
             caseSet={selectedCaseSet}
             setSelectedCases={setSelectedCases}
           />

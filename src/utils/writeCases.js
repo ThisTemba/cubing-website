@@ -2,12 +2,12 @@ import _ from "lodash";
 import { db } from "../fire";
 import { prepareCaseData } from "./caseStats";
 
+export const getUserDocRef = (user) => {
+  return db.collection("users").doc(user.uid);
+};
+
 export const getCaseSetDocRef = (user, caseSetDetails) => {
-  return db
-    .collection("users")
-    .doc(user.uid)
-    .collection("caseSets")
-    .doc(caseSetDetails.id);
+  return getUserDocRef(user).collection("caseSets").doc(caseSetDetails.id);
 };
 
 export const setDocument = (docRef, data, name = "Placeholder") => {
