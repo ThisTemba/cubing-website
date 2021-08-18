@@ -35,7 +35,7 @@ export default function CaseSetTable(props) {
     mmRate: 0.4,
     cmRate: 0.1,
     avgTPS: 2,
-    numSolves: 2,
+    numSolves: 5,
   };
   const trainSettings =
     userDoc?.data()?.settings?.trainSettings || defaultTrainSettings;
