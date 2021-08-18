@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Card } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
@@ -39,7 +39,7 @@ export default function LearnPage(props) {
           document.activeElement.blur();
         }}
       >
-        <FontAwesomeIcon icon={algVisible ? "eye" : "eye-slash"} />
+        <FaIcon icon={algVisible ? "eye" : "eye-slash"} />
       </Button>
     );
   };
@@ -56,7 +56,7 @@ export default function LearnPage(props) {
             variant="secondary"
             className="m-1"
           >
-            <FontAwesomeIcon icon="chevron-left" /> Back to Dashboard
+            <FaIcon icon="chevron-left" /> Back to Dashboard
           </Button>
         </Col>
         <Col>
@@ -71,7 +71,7 @@ export default function LearnPage(props) {
             className="m-1"
             variant={darkMode ? "dark" : "light"}
           >
-            <FontAwesomeIcon icon="arrow-left" />
+            <FaIcon icon="arrow-left" />
           </Button>
         </Col>
         <Col>
@@ -83,7 +83,7 @@ export default function LearnPage(props) {
             className="m-1"
             variant={darkMode ? "dark" : "light"}
           >
-            <FontAwesomeIcon icon="arrow-right" />
+            <FaIcon icon="arrow-right" />
           </Button>
         </Col>
       </Row>

@@ -11,7 +11,3 @@ export const getTimeString = (timeMilliseconds) => {
   }
   return timeString;
 };
-
-export const displayDur = (dur) => {
-  return dur === Infinity ? "DNF" : getTimeString(dur * 1000);
-};

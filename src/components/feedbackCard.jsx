@@ -1,5 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../fontAwesome";
 import { Button, Card } from "react-bootstrap";
 import _ from "lodash";
 import ButtonGroupToggle from "./common/buttonGroupToggle";
@@ -27,14 +27,14 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
   };
 
   const mistakesButtons = [
-    { content: <FontAwesomeIcon icon="check" />, id: 0, color: "success" },
-    { content: <FontAwesomeIcon icon="minus" />, id: 1, color: "warning" },
-    { content: <FontAwesomeIcon icon="times" />, id: 2, color: "danger" },
+    { content: <FaIcon icon="check" />, id: 0, color: "success" },
+    { content: <FaIcon icon="minus" />, id: 1, color: "warning" },
+    { content: <FaIcon icon="times" />, id: 2, color: "danger" },
   ];
 
   const hesitationButton = [
     {
-      content: <FontAwesomeIcon icon="spinner" />,
+      content: <FaIcon icon="spinner" />,
       id: 1,
       color: darkMode ? "light" : "dark",
     },
@@ -76,7 +76,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
             onClick={handleDelete}
             disabled={initial}
           >
-            <FontAwesomeIcon icon="trash" />
+            <FaIcon icon="trash" />
           </Button>
         </Card.Body>
       </Card>

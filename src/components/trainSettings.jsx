@@ -35,9 +35,8 @@ export default function TrainSettings() {
     if (user) {
       const userDocRef = db.collection("users").doc(user.uid);
       const userDoc = await userDocRef.get();
-      const caseLearnedCriteria =
-        userDoc.data()?.settings?.trainSettings?.caseLearnedCriteria;
-      if (caseLearnedCriteria) setData(criteriaToData(caseLearnedCriteria));
+      const trainSettings = userDoc.data()?.settings?.trainSettings;
+      if (trainSettings) setData(trainSettings);
     }
   }, [user]);
 
@@ -113,15 +112,10 @@ export default function TrainSettings() {
   const doSubmit = async () => {
     const userDocRef = db.collection("users").doc(user.uid);
     const userDoc = await userDocRef.get();
-    let userData = { ...userDoc.data() };
-    const settings = userData?.settings;
-    userData.settings = {
-      ...settings,
-      trainSettings: {
-        ...settings?.trainSettings,
-        caseLearnedCriteria: dataToCriteria(data),
-      },
-    };
+    const dataToWrite = _.mapValues(data, (v) => parseFloat(v));
+    let userData = userDoc.data();
+    let settings = userData.settings;
+    userData.settings = { ...settings, trainSettings: dataToWrite };
     userDocRef
       .set(userData)
       .then(console.log("Document written"))

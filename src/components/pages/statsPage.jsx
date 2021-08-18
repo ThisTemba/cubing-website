@@ -6,7 +6,7 @@ import Container from "react-bootstrap/Container";
 import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
-import { displayDur } from "../../utils/formatTime";
+import { dispDur } from "../../utils/displayValue";
 import useModal from "../../hooks/useModal";
 
 export default function StatsPage() {
@@ -78,11 +78,11 @@ export default function StatsPage() {
             </tr>
             <tr>
               <td>Session Average</td>
-              <td>{displayDur(session.stats.sessionAverage)}</td>
+              <td>{dispDur(session.stats.sessionAverage)}</td>
             </tr>
             <tr>
               <td>Best Single</td>
-              <td>{displayDur(session.stats.bestSingle)}</td>
+              <td>{dispDur(session.stats.bestSingle)}</td>
             </tr>
           </tbody>
         </Table>

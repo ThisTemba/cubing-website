@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { useAuthState, UserContext, usersRef } from "./fire";
+import { useAuthState, UserContext } from "./fire";
 import Navbar from "./components/Navbar";
 import TrainPage from "./components/pages/trainPage";
 import TimePage from "./components/pages/timePage";
@@ -10,10 +10,11 @@ import PasswordReset from "./components/passwordReset";
 import SignUp from "./components/signUp";
 import LogIn from "./components/logIn";
 import useDarkMode from "./hooks/useDarkMode";
+import useUserDoc from "./hooks/useUserDoc";
 
 function App() {
   const user = useAuthState();
-  const [userDoc, loading, error] = useDocumentData(usersRef.doc(user?.uid));
+  const userDoc = useUserDoc();
   const userObj = useMemo(() => ({ user, userDoc }), [user, userDoc]);
 
   useDarkMode();

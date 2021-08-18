@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Navbar as NavbarRB, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../fontAwesome";
 import { auth, useAuthState } from "../fire";
 import useDarkMode from "../hooks/useDarkMode";
 
@@ -39,7 +39,7 @@ export default function Navbar() {
         </Nav>
         <Nav>
           <Button variant="link" className="text-secondary">
-            <FontAwesomeIcon
+            <FaIcon
               onClick={() => {
                 setDarkMode(!darkMode);
                 document.activeElement.blur();

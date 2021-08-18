@@ -21,7 +21,8 @@ export const getNumSolves = (newSolves, oldCaseDoc) => {
 
 export const getRecentCaseSolves = (newSolves, oldCaseDoc, num) => {
   const oldSolves = oldCaseDoc.data()?.recentCaseSolves || [];
-  return _.take([...newSolves, ...oldSolves], num);
+  const allSolves = [...newSolves, ...oldSolves];
+  return _.take(allSolves, num);
 };
 
 const calculateRates = (caseSolves, numSolves) => {

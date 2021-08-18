@@ -16,7 +16,7 @@ export const aoLastN = (durs, n) => {
 export const listAoNs = (durs, n) => {
   let dursCopy = [...durs];
   let AoNlist = [];
-  let noValueValue = "-";
+  let noValueValue = undefined;
   if (durs.length < n) return durs.map(() => noValueValue);
   while (dursCopy.length >= n) {
     AoNlist.push(aoLastN(dursCopy, n));

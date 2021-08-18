@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import useLocalStorage from "../hooks/useLocalStorage";
 import useDarkMode from "../hooks/useDarkMode";
@@ -44,40 +44,6 @@ function CaseSetDashboard(props) {
     alg: c.algs[0],
   }));
 
-  const renderTopButtons = () => {
-    return (
-      <Row>
-        <Col className="p-0">
-          <Button
-            onClick={() => setSelectedCaseSetId(null)}
-            className="m-1"
-            variant={darkMode ? "dark" : "secondary"}
-          >
-            <FontAwesomeIcon icon="chevron-left" /> Back to CaseSet Selection
-          </Button>
-        </Col>
-        <Col className="justify-content-end d-flex p-0">
-          <Button
-            onClick={onLearn}
-            className="m-1"
-            variant="info"
-            disabled={selectedCases.length === 0}
-          >
-            Learn <FontAwesomeIcon icon="chevron-right" />
-          </Button>
-          <Button
-            onClick={onTest}
-            className="m-1"
-            variant="success"
-            disabled={selectedCases.length < 2}
-          >
-            Test <FontAwesomeIcon icon="chevron-right" />
-          </Button>
-        </Col>
-      </Row>
-    );
-  };
-
   return (
     <>
       {!selectedCaseSetId && (
@@ -85,7 +51,35 @@ function CaseSetDashboard(props) {
       )}
       {selectedCaseSetId && (
         <>
-          {renderTopButtons()}
+          <Row>
+            <Col className="p-0">
+              <Button
+                onClick={() => setSelectedCaseSetId(null)}
+                className="m-1"
+                variant={darkMode ? "dark" : "secondary"}
+              >
+                <FaIcon icon="chevron-left" /> Back to CaseSet Selection
+              </Button>
+            </Col>
+            <Col className="justify-content-end d-flex p-0">
+              <Button
+                onClick={onLearn}
+                className="m-1"
+                variant="info"
+                disabled={selectedCases.length === 0}
+              >
+                Learn <FaIcon icon="chevron-right" />
+              </Button>
+              <Button
+                onClick={onTest}
+                className="m-1"
+                variant="success"
+                disabled={selectedCases.length < 2}
+              >
+                Test <FaIcon icon="chevron-right" />
+              </Button>
+            </Col>
+          </Row>
           <CaseSetTable
             initData={initData}
             caseSet={selectedCaseSet}
