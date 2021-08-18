@@ -1,13 +1,8 @@
 import { weightedRandomIndex } from "./weightedRandom";
 
 const getProbsFromCounts = (counts) => {
-  if (counts.includes(0)) {
-    const relProbs = counts.map((n) => (n === 0 ? 1 : 0));
-    return relProbs;
-  } else {
-    const relProbs = counts.map((n) => 1 / n);
-    return relProbs;
-  }
+  const zeroProb = counts.length / 2;
+  return counts.map((n) => (n === 0 ? zeroProb : 1 / n));
 };
 
 const balancedRandomIndex = (counts) => {
