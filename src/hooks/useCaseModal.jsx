@@ -68,13 +68,15 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
         const newCases = [...oldCases.filter((c) => c.id !== cas.id), newCase];
         const newCaseSet = { ...oldCaseSet, cases: newCases };
         setDocument(caseSetDocRef, newCaseSet);
+      } else {
+        const newCases = [{ alg, id: cas.id }];
+        const oldCaseSetNewCases = { ...oldCaseSet, cases: newCases };
+        setDocument(caseSetDocRef, oldCaseSetNewCases);
       }
-      setDocument(caseSetDocRef, {
-        ...oldCaseSet,
-        cases: [{ alg, id: cas.id }],
-      });
+    } else {
+      const newCaseSet = { cases: [{ alg, id: cas.id }] };
+      setDocument(caseSetDocRef, newCaseSet);
     }
-    setDocument(caseSetDocRef, { cases: [{ alg, id: cas.id }] });
     setEditing(false);
   };
 
