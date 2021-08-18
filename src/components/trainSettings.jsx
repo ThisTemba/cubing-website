@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Joi from "joi-browser";
+import _ from "lodash";
 import InputMosh from "./common/inputMosh";
 import { db, useAuthState } from "../fire";
 import { useState } from "react";
@@ -96,9 +97,10 @@ export default function TrainSettings() {
   const doSubmit = async () => {
     const userDocRef = db.collection("users").doc(user.uid);
     const userDoc = await userDocRef.get();
+    const dataToWrite = _.mapValues(data, (v) => parseFloat(v));
     let userData = userDoc.data();
     let settings = userData.settings;
-    userData.settings = { ...settings, trainSettings: data };
+    userData.settings = { ...settings, trainSettings: dataToWrite };
     userDocRef
       .set(userData)
       .then(console.log("Document written"))
