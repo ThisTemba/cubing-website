@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useMemo, useEffect, useState, useContext } from "react";
 import {
   useTable,
   useSortBy,
@@ -12,7 +12,7 @@ import CaseImage from "./common/cubing/cubeImage";
 import Checkbox from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import MultiProgressBar from "./common/multiProgressBar";
-import { useAuthState, db } from "../fire";
+import { UserContext } from "../fire";
 import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import { getCaseSetDocRef } from "../utils/writeCases";
 import useDarkMode from "../hooks/useDarkMode";
@@ -24,7 +24,7 @@ export default function CaseSetTable(props) {
   // const data = useMemo(() => caseSet.cases, []);
   const initData = caseSet.cases.map((c) => ({ ...c, alg: c.algs[0] }));
   const [data, setData] = useState(initData);
-  const user = useAuthState();
+  const { user, userDoc } = useContext(UserContext);
   const [darkMode] = useDarkMode();
   const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
     useCaseModal();
@@ -37,7 +37,8 @@ export default function CaseSetTable(props) {
     avgTPS: 2,
     numSolves: 2,
   };
-  const [trainSettings, setTrainSettings] = useState(defaultTrainSettings);
+  const trainSettings =
+    userDoc?.data()?.settings?.trainSettings || defaultTrainSettings;
 
   useEffect(() => {
     setCaseModalContent();
@@ -47,7 +48,6 @@ export default function CaseSetTable(props) {
 
   useEffect(() => {
     let unsubscribe1 = () => {};
-    let unsubscribe2 = () => {};
     if (user) {
       unsubscribe1 = getCaseSetDocRef(user, caseSet.details).onSnapshot(
         (caseSetDoc) => {
@@ -66,18 +66,9 @@ export default function CaseSetTable(props) {
           }
         }
       );
-      unsubscribe2 = db
-        .collection("users")
-        .doc(user.uid)
-        .onSnapshot((userDoc) => {
-          if (userDoc.data()?.settings?.trainSettings) {
-            setTrainSettings(userDoc.data().settings.trainSettings);
-          }
-        });
     }
     return () => {
       unsubscribe1();
-      unsubscribe2();
     };
   }, [user]);
 
@@ -233,7 +224,7 @@ export default function CaseSetTable(props) {
         sortType: sortStatus,
       },
     ],
-    [windowIsWide, trainSettings]
+    [windowIsWide]
   );
 
   const getPropNotLearnedProps = ({ column, row, isAggregated, value }) => {
