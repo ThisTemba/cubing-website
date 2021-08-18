@@ -46,7 +46,7 @@ export const getCaseStats = (recentCaseSolves, numSolves, statsCap) => {
   // by excluding this time, TPS is made slightly more accurate
   // without it, longer algorithms tend to have higher TPSes
   // TODO: This is bad for super quick solves
-  const totTimeAdjusted = totTime - numStatSolves * moveTime;
+  const totTimeAdjusted = _.sum(times) - numStatSolves * moveTime;
   const avgTPS = totAlgLen / totTimeAdjusted;
   const caseStats = {
     numSolves,
