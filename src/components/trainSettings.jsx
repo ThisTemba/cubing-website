@@ -6,15 +6,30 @@ import { db, useAuthState } from "../fire";
 import { useState } from "react";
 
 export default function TrainSettings() {
+  const defaultCaseLearnedCriteria = {
+    hRate: { threshold: 0.4, symbol: "<=" },
+    mmRate: { threshold: 0.4, symbol: "<=" },
+    cmRate: { threshold: 0.1, symbol: "<=" },
+    numSolves: { threshold: 5, symbol: ">=" },
+    avgTPS: { threshold: 3, symbol: ">=" },
+  };
+
   const [errors, setErrors] = useState({});
-  const [data, setData] = useState({
-    hRate: 0.4,
-    mmRate: 0.4,
-    cmRate: 0.1,
-    avgTPS: 2,
-    numSolves: 2,
-  });
+  const [data, setData] = useState(criteriaToData(defaultCaseLearnedCriteria));
   const user = useAuthState();
+
+  function dataToCriteria(data) {
+    const clc = defaultCaseLearnedCriteria;
+    const newclc = _.mapValues(data, (value, key) => {
+      return { threshold: value, symbol: clc[key].symbol };
+    });
+    return newclc;
+  }
+
+  function criteriaToData(criteria) {
+    const newData = _.mapValues(criteria, (value) => value.threshold);
+    return newData;
+  }
 
   useEffect(async () => {
     if (user) {
