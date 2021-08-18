@@ -143,12 +143,15 @@ export default function CaseSetTable(props) {
 
   const windowIsWide = width >= 576;
 
-  const defaultColumn = {
-    disableGroupBy: true,
-    Cell: ({ value }) => dispDecimal(value),
-    aggregate: definedAverage,
-    sortType: "number",
-  };
+  const defaultColumn = useMemo(
+    () => ({
+      disableGroupBy: true,
+      Cell: ({ value }) => dispDecimal(value),
+      aggregate: definedAverage,
+      sortType: "number",
+    }),
+    []
+  );
 
   const columns = useMemo(
     () => [
