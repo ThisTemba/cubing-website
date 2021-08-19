@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Tab from "react-bootstrap/Tab";
@@ -6,10 +6,10 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
-import useDarkMode from "../../hooks/useDarkMode";
+import useDarkMode, { DarkModeContext } from "../../hooks/useDarkMode";
 import TrainSettings from "../trainSettings";
 const SettingsPage = () => {
-  const [darkMode, setDarkMode] = useDarkMode();
+  const { darkMode, setDarkMode } = useContext(DarkModeContext);
 
   const handleChange = () => {
     setDarkMode(!darkMode);

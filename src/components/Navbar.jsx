@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Navbar as NavbarRB, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { FaIcon } from "../fontAwesome";
 import { auth, useAuthState } from "../fire";
-import useDarkMode from "../hooks/useDarkMode";
+import { DarkModeContext } from "../hooks/useDarkMode";
 
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false);
-  const [darkMode, setDarkMode] = useDarkMode();
+  const { darkMode, setDarkMode } = useContext(DarkModeContext);
 
   const collapse = () => setExpanded(false);
 
