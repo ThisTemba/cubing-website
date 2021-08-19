@@ -210,6 +210,7 @@ export default function TestPage(props) {
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
         scramble={currentScramble}
         armingTime={100}
+        initTime={solves.length ? solves[0].dur : 0}
       />
       <FeedbackCard
         currentSolve={solves[0]}
