@@ -5,7 +5,12 @@ import _ from "lodash";
 import ButtonGroupToggle from "./common/buttonGroupToggle";
 import useDarkMode from "../hooks/useDarkMode";
 
-export default function FeedbackCard({ currentIndex, solves, setSolves }) {
+export default function FeedbackCard({
+  currentIndex,
+  solves,
+  setSolves,
+  disabled: extDisabled,
+}) {
   const currentSolve = solves[currentIndex];
   const [darkMode] = useDarkMode();
 
@@ -43,7 +48,7 @@ export default function FeedbackCard({ currentIndex, solves, setSolves }) {
   ];
 
   const initial = typeof currentSolve === "undefined";
-  const disabled = initial;
+  const disabled = initial || extDisabled;
   const solveNum = initial ? "#" : solves.length - currentIndex;
   const caseName = initial ? "Case Name" : currentSolve.caseName;
   return (
