@@ -66,6 +66,7 @@ export default function TestPage(props) {
       : randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
+    document.activeElement.blur();
   };
 
   const columns = useMemo(
