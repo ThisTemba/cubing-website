@@ -24,6 +24,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
 
   const handleDelete = () => {
     setSolves(solves.length === 1 ? [] : _.tail(solves));
+    document.activeElement.blur();
   };
 
   const mistakesButtons = [
