@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Row, Table } from "react-bootstrap";
 import { useTable } from "react-table";
 import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
@@ -14,6 +14,7 @@ import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 import useDarkMode from "../../hooks/useDarkMode";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import useModal from "../../hooks/useModal";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -27,6 +28,7 @@ export default function TestPage(props) {
   const [darkMode] = useDarkMode();
   const user = useAuthState();
   const { xs } = useWindowDimensions();
+  const [ModalComponent, showModal] = useModal();
 
   useEffect(() => {
     nextCaseAndScramble();
@@ -160,6 +162,47 @@ export default function TestPage(props) {
     setSolves([solve, ...solves]);
   };
 
+  const getClickForModalProps = ({ row }) => {
+    return {
+      onClick: () => {
+        const caseSolve = row.original;
+        showModal({
+          title: caseSolve.caseName,
+          body: (
+            <>
+              <div className="text-center">
+                <CaseImage
+                  caseSetDetails={caseSetDetails}
+                  alg={caseSolve.alg}
+                  size="200"
+                />
+                <Table size={"sm"} className="mb-0">
+                  <tbody>
+                    <tr>
+                      <th>{"Name"}</th>
+                      <td>{caseSolve.caseName}</td>
+                    </tr>
+                    <tr>
+                      <th>{"Time"}</th>
+                      <td>{dispDur(caseSolve.dur)}</td>
+                    </tr>
+                    <tr>
+                      <th>Scramble</th>
+                      <td>{caseSolve.scramble}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
+            </>
+          ),
+        });
+      },
+      style: { cursor: "pointer" },
+    };
+  };
+
+  const getCellProps = (cell) => getClickForModalProps(cell);
+
   const handleNext = () => {
     nextCaseAndScramble();
     document.activeElement.blur();
@@ -211,8 +254,10 @@ export default function TestPage(props) {
           size={xs ? "sm" : ""}
           style={{ width: xs ? 500 : 700 }}
           responsive={false}
+          getCellProps={getCellProps}
         />
       </div>
+      <ModalComponent />
     </>
   );
 }
