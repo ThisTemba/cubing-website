@@ -41,9 +41,9 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
     },
   ];
 
-  const initial = typeof currentSolve === "undefined";
-  const solveNum = initial ? "#" : solves.length;
-  const caseName = initial ? "Case Name" : currentSolve.caseName;
+  const disabled = typeof currentSolve === "undefined";
+  const solveNum = disabled ? "#" : solves.length;
+  const caseName = disabled ? "Case Name" : currentSolve.caseName;
   return (
     <div className="d-flex align-items-center justify-content-center">
       <Card
@@ -53,29 +53,29 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
       >
         <Card.Body>
           <Card.Title
-            className={initial ? "text-muted" : ""}
+            className={disabled ? "text-muted" : ""}
           >{`${solveNum}. ${caseName} `}</Card.Title>
 
           <ButtonGroupToggle
             buttons={hesitationButton}
             onSelect={() => handleToggleHesitation()}
-            activeId={initial ? null : currentSolve.hesitated ? 1 : 0}
+            activeId={disabled ? null : currentSolve.hesitated ? 1 : 0}
             size="lg"
-            disabled={initial}
+            disabled={disabled}
           />
           <ButtonGroupToggle
             buttons={mistakesButtons}
             onSelect={(id) => handleSelectMistake(id)}
-            activeId={initial ? null : currentSolve.mistakes}
+            activeId={disabled ? null : currentSolve.mistakes}
             size="lg"
-            disabled={initial}
+            disabled={disabled}
           />
           <Button
             className="m-1"
             variant="danger"
             size="lg"
             onClick={handleDelete}
-            disabled={initial}
+            disabled={disabled}
           >
             <FaIcon icon="trash" />
           </Button>
