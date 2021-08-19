@@ -73,6 +73,14 @@ export default function TestPage(props) {
   const columns = useMemo(
     () => [
       {
+        Header: "#",
+        id: "row",
+        Cell: ({ row }) => {
+          const num = solves.length - row.index;
+          return num + ".";
+        },
+      },
+      {
         Header: "Name",
         accessor: "caseName",
       },
@@ -129,7 +137,7 @@ export default function TestPage(props) {
         Aggregated: ({ value }) => _.round(value, 2),
       },
     ],
-    [xs]
+    [solves, xs]
   );
   // const data = useMemo(() => solves, []);
   const data = solves;
