@@ -42,7 +42,8 @@ export default function FeedbackCard({ currentIndex, solves, setSolves }) {
     },
   ];
 
-  const disabled = typeof currentSolve === "undefined";
+  const initial = typeof currentSolve === "undefined";
+  const disabled = initial;
   const solveNum = initial ? "#" : solves.length - currentIndex;
   const caseName = initial ? "Case Name" : currentSolve.caseName;
   return (
