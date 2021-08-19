@@ -164,12 +164,14 @@ export default function TestPage(props) {
   const handlePrevious = () => {
     if (currentIndex !== solves.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      setCurrentScramble(solves[currentIndex].scramble);
     }
   };
 
   const handleNext = () => {
     if (currentIndex !== 0) {
       setCurrentIndex(currentIndex - 1);
+      setCurrentScramble(solves[currentIndex].scramble);
     } else {
       nextCaseAndScramble();
     }
