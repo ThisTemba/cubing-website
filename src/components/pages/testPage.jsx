@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { useExpanded, useGroupBy, useTable } from "react-table";
+import { useTable } from "react-table";
 import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
 import { useAuthState } from "../../fire";
@@ -78,8 +78,7 @@ export default function TestPage(props) {
         Header: "Case",
         accessor: "caseId",
         aggregate: (values) => values[0],
-        Cell: () => "",
-        Aggregated: ({ value: id }) => {
+        Cell: ({ value: id }) => {
           const cas = _.find(selectedCases, ["id", id]);
           return (
             <CaseImage
@@ -132,17 +131,7 @@ export default function TestPage(props) {
   );
   // const data = useMemo(() => solves, []);
   const data = solves;
-  const table = useTable(
-    {
-      columns,
-      data,
-      initialState: {
-        groupBy: ["caseName"],
-      },
-    },
-    useGroupBy,
-    useExpanded
-  );
+  const table = useTable({ columns, data });
 
   const handleNewCaseSolve = (solve, c) => {
     solve = {
