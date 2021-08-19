@@ -22,6 +22,7 @@ export default function TestPage(props) {
     selectedCases[0].scrambles[0]
   );
   const [solves, setSolves] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const solvesRef = useRef();
   const userRef = useRef();
   const [darkMode] = useDarkMode();
@@ -161,11 +162,17 @@ export default function TestPage(props) {
   };
 
   const handlePrevious = () => {
-    console.log(solves[0]);
+    if (currentIndex !== solves.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   const handleNext = () => {
-    nextCaseAndScramble();
+    if (currentIndex !== 0) {
+      setCurrentIndex(currentIndex - 1);
+    } else {
+      nextCaseAndScramble();
+    }
     document.activeElement.blur();
   };
 
@@ -173,6 +180,8 @@ export default function TestPage(props) {
   // TODO: if not logged in, tell them that their data won't be saved
 
   const secondary = darkMode ? "dark" : "secondary";
+  const lastSolveTime = solves.length ? solves[0].dur : 0;
+  const initTime = lastSolveTime;
 
   return (
     <>
@@ -192,7 +201,7 @@ export default function TestPage(props) {
             variant={secondary}
             size="sm"
             onClick={handlePrevious}
-            disabled={solves.length === 0}
+            disabled={solves.length === 0 || currentIndex === solves.length - 1}
           >
             <FaIcon icon="backward" />
           </Button>
@@ -210,7 +219,7 @@ export default function TestPage(props) {
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
         scramble={currentScramble}
         armingTime={100}
-        initTime={solves.length ? solves[0].dur : 0}
+        initTime={initTime}
       />
       <FeedbackCard
         currentSolve={solves[0]}
