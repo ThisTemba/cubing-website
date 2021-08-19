@@ -12,6 +12,7 @@ export default function Timer(props) {
   const timeRef = useRef();
   const onNewSolveRef = useRef(onNewSolve);
   const timerStateRef = useRef(timerState);
+  const scrambleRef = useRef(scramble);
 
   useInterval(() => setTime(time + 10), timerState === "on" ? 10 : null);
 
@@ -19,7 +20,8 @@ export default function Timer(props) {
 
   useEffect(() => {
     onNewSolveRef.current = onNewSolve;
-  }, [onNewSolve]);
+    scrambleRef.current = scramble;
+  }, [onNewSolve, scramble]);
 
   const setTimerState = (state) => {
     timerStateRef.current = state;
@@ -35,7 +37,7 @@ export default function Timer(props) {
     const dur = timeRef.current / 1000;
     const solve = {
       dateTime: new Date().toString(),
-      scramble: scramble,
+      scramble: scrambleRef.current,
       durStatic: dur,
       dur,
     };
