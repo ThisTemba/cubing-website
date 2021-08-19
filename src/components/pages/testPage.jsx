@@ -191,6 +191,7 @@ export default function TestPage(props) {
             variant={secondary}
             size="sm"
             onClick={handlePrevious}
+            disabled={solves.length === 0}
           >
             <FaIcon icon="backward" />
           </Button>
