@@ -25,6 +25,7 @@ export default function FeedbackCard({ currentIndex, solves, setSolves }) {
 
   const handleDelete = () => {
     setSolves(solves.length === 1 ? [] : _.tail(solves));
+    document.activeElement.blur();
   };
 
   const mistakesButtons = [
@@ -53,29 +54,29 @@ export default function FeedbackCard({ currentIndex, solves, setSolves }) {
       >
         <Card.Body>
           <Card.Title
-            className={initial ? "text-muted" : ""}
+            className={disabled ? "text-muted" : ""}
           >{`${solveNum}. ${caseName} `}</Card.Title>
 
           <ButtonGroupToggle
             buttons={hesitationButton}
             onSelect={() => handleToggleHesitation()}
-            activeId={initial ? null : currentSolve.hesitated ? 1 : 0}
+            activeId={disabled ? null : currentSolve.hesitated ? 1 : 0}
             size="lg"
-            disabled={initial}
+            disabled={disabled}
           />
           <ButtonGroupToggle
             buttons={mistakesButtons}
             onSelect={(id) => handleSelectMistake(id)}
-            activeId={initial ? null : currentSolve.mistakes}
+            activeId={disabled ? null : currentSolve.mistakes}
             size="lg"
-            disabled={initial}
+            disabled={disabled}
           />
           <Button
             className="m-1"
             variant="danger"
             size="lg"
             onClick={handleDelete}
-            disabled={initial}
+            disabled={disabled}
           >
             <FaIcon icon="trash" />
           </Button>
