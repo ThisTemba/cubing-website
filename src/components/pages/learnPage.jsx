@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Row, Col, Card } from "react-bootstrap";
 import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
-import useDarkMode from "../../hooks/useDarkMode";
+import DarkModeContext from "../../hooks/useDarkMode";
 
 export default function LearnPage(props) {
   const [algVisible, setAlgVisible] = useState(true);
   const [currentCase, setCurrentCase] = useState(props.selectedCases[0]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
 
   const nextIndex = (rightOrLeft) => {
     console.log(currentIndex);

@@ -1,10 +1,11 @@
+import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Alert from "react-bootstrap/Alert";
-import useDarkMode from "../../hooks/useDarkMode";
+import DarkModeContext from "../../hooks/useDarkMode";
 
 export default function CenterCard({ title, content, textBelowCard, error }) {
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
   const renderErrorAlert = (error) => {
     return (
       error && (

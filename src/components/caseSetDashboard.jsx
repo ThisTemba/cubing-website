@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import useLocalStorage from "../hooks/useLocalStorage";
-import useDarkMode from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
 import eollCaseSet from "../data/eollCaseSet";
@@ -14,7 +14,7 @@ import SelectCaseSet from "./selectCaseSet";
 import CaseSetTable from "./caseSetTable";
 
 function CaseSetDashboard(props) {
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
   const [selectedCaseSetId, setSelectedCaseSetId] = useLocalStorage(
     "selectedCaseSetId",
     null

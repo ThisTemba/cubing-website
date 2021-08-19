@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import CreatableSelect from "react-select/creatable";
@@ -9,7 +9,7 @@ import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
 import useModal from "./useModal";
 import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
-import useDarkMode from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [options, setOptions] = useState();
@@ -18,7 +18,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [caseDoc, setCaseDoc] = useState(null);
   const user = useAuthState();
   const customOption = { value: null, label: "Custom" };
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));

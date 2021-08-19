@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -6,12 +6,12 @@ import Row from "react-bootstrap/Row";
 import { FaIcon } from "../../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./cubeImage";
-import useDarkMode from "../../../hooks/useDarkMode";
+import DarkModeContext from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;
   const { title, subTitle, subSubTitle } = details;
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button

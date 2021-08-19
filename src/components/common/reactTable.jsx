@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
-import useDarkMode from "../../hooks/useDarkMode";
+import DarkModeContext from "../../hooks/useDarkMode";
 import { FaIcon } from "../../fontAwesome";
 
 // Source: https://react-table.tanstack.com/docs/examples/data-driven-classes-and-styles
@@ -13,7 +13,7 @@ export default function ReactTable({
 }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     table;
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
   // Use the state and functions returned from useTable to build your UI
 
   // Render the UI for your table

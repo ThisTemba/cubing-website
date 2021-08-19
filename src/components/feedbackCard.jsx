@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaIcon } from "../fontAwesome";
 import { Button, Card } from "react-bootstrap";
 import _ from "lodash";
 import ButtonGroupToggle from "./common/buttonGroupToggle";
-import useDarkMode from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 
 export default function FeedbackCard({ currentSolve, solves, setSolves }) {
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
 
   const handleSelectMistake = (mistakes) => {
     const newSolves = [...solves];

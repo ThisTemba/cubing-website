@@ -15,7 +15,7 @@ import MultiProgressBar from "./common/multiProgressBar";
 import { UserContext } from "../fire";
 import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import { getCaseSetDocRef } from "../utils/writeCases";
-import useDarkMode from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
@@ -25,7 +25,7 @@ export default function CaseSetTable(props) {
   const initData = caseSet.cases.map((c) => ({ ...c, alg: c.algs[0] }));
   const [data, setData] = useState(initData);
   const { user, userDoc } = useContext(UserContext);
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
   const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
     useCaseModal();
   const [caseModalId, setCaseModalId] = useState(null);
