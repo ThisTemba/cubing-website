@@ -9,7 +9,7 @@ import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
 import useModal from "./useModal";
 import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
-import { DarkModeContext } from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [options, setOptions] = useState();

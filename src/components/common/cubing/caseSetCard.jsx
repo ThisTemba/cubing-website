@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import { FaIcon } from "../../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./cubeImage";
-import { DarkModeContext } from "../../../hooks/useDarkMode";
+import DarkModeContext from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;

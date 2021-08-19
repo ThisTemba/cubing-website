@@ -3,7 +3,7 @@ import { FaIcon } from "../fontAwesome";
 import { Button, Card } from "react-bootstrap";
 import _ from "lodash";
 import ButtonGroupToggle from "./common/buttonGroupToggle";
-import { DarkModeContext } from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 
 export default function FeedbackCard({ currentSolve, solves, setSolves }) {
   const { darkMode } = useContext(DarkModeContext);

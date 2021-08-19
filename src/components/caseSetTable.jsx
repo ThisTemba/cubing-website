@@ -15,7 +15,7 @@ import MultiProgressBar from "./common/multiProgressBar";
 import { UserContext } from "../fire";
 import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import { getCaseSetDocRef } from "../utils/writeCases";
-import { DarkModeContext } from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 

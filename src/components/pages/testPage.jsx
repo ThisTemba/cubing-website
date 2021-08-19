@@ -12,7 +12,7 @@ import { dispDur } from "../../utils/displayValue";
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
-import { DarkModeContext } from "../../hooks/useDarkMode";
+import DarkModeContext from "../../hooks/useDarkMode";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import useModal from "../../hooks/useModal";
 

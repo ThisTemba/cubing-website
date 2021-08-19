@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
-import { DarkModeContext } from "../../hooks/useDarkMode";
+import DarkModeContext from "../../hooks/useDarkMode";
 import { FaIcon } from "../../fontAwesome";
 
 // Source: https://react-table.tanstack.com/docs/examples/data-driven-classes-and-styles

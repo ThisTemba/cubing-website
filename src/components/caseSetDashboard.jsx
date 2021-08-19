@@ -3,7 +3,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { DarkModeContext } from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
 import eollCaseSet from "../data/eollCaseSet";

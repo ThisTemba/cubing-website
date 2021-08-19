@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import ListGroup from "react-bootstrap/ListGroup";
-import useDarkMode, { DarkModeContext } from "../../hooks/useDarkMode";
+import DarkModeContext from "../../hooks/useDarkMode";
 import TrainSettings from "../trainSettings";
 const SettingsPage = () => {
   const { darkMode, setDarkMode } = useContext(DarkModeContext);

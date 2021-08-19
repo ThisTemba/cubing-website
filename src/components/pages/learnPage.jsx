@@ -4,7 +4,7 @@ import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
-import { DarkModeContext } from "../../hooks/useDarkMode";
+import DarkModeContext from "../../hooks/useDarkMode";
 
 export default function LearnPage(props) {
   const [algVisible, setAlgVisible] = useState(true);

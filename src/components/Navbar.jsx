@@ -3,7 +3,7 @@ import { Navbar as NavbarRB, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { FaIcon } from "../fontAwesome";
 import { auth, useAuthState } from "../fire";
-import { DarkModeContext } from "../hooks/useDarkMode";
+import DarkModeContext from "../hooks/useDarkMode";
 
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false);

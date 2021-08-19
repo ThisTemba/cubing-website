@@ -9,7 +9,7 @@ import SettingsPage from "./components/pages/settingsPage";
 import PasswordReset from "./components/passwordReset";
 import SignUp from "./components/signUp";
 import LogIn from "./components/logIn";
-import useDarkMode, { DarkModeContext } from "./hooks/useDarkMode";
+import DarkModeContext, { useDarkMode } from "./hooks/useDarkMode";
 import useUserDoc from "./hooks/useUserDoc";
 
 function App() {
