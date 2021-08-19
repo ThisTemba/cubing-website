@@ -222,7 +222,7 @@ export default function TestPage(props) {
         initTime={initTime}
       />
       <FeedbackCard
-        currentSolve={solves[0]}
+        currentIndex={currentIndex}
         solves={solves}
         setSolves={setSolves}
       />

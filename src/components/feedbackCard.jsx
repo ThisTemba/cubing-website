@@ -5,7 +5,8 @@ import _ from "lodash";
 import ButtonGroupToggle from "./common/buttonGroupToggle";
 import useDarkMode from "../hooks/useDarkMode";
 
-export default function FeedbackCard({ currentSolve, solves, setSolves }) {
+export default function FeedbackCard({ currentIndex, solves, setSolves }) {
+  const currentSolve = solves[currentIndex];
   const [darkMode] = useDarkMode();
 
   const handleSelectMistake = (mistakes) => {
@@ -41,7 +42,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
   ];
 
   const initial = typeof currentSolve === "undefined";
-  const solveNum = initial ? "#" : solves.length;
+  const solveNum = initial ? "#" : solves.length - currentIndex;
   const caseName = initial ? "Case Name" : currentSolve.caseName;
   return (
     <div className="d-flex align-items-center justify-content-center">
