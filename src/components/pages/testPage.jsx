@@ -13,6 +13,7 @@ import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 import useDarkMode from "../../hooks/useDarkMode";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -25,6 +26,7 @@ export default function TestPage(props) {
   const userRef = useRef();
   const [darkMode] = useDarkMode();
   const user = useAuthState();
+  const { xs } = useWindowDimensions();
 
   useEffect(() => {
     nextCaseAndScramble();
@@ -84,7 +86,7 @@ export default function TestPage(props) {
             <CaseImage
               alg={cas.alg}
               caseSetDetails={caseSetDetails}
-              size="65"
+              size={xs ? "40" : "60"}
             />
           );
         },
@@ -127,7 +129,7 @@ export default function TestPage(props) {
         Aggregated: ({ value }) => _.round(value, 2),
       },
     ],
-    []
+    [xs]
   );
   // const data = useMemo(() => solves, []);
   const data = solves;
@@ -204,7 +206,14 @@ export default function TestPage(props) {
         solves={solves}
         setSolves={setSolves}
       />
-      <ReactTable table={table} />
+      <div className="d-flex justify-content-center">
+        <ReactTable
+          table={table}
+          size={xs ? "sm" : ""}
+          style={{ width: xs ? 500 : 700 }}
+          responsive={false}
+        />
+      </div>
     </>
   );
 }
