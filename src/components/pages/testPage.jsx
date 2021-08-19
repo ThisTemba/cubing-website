@@ -66,7 +66,6 @@ export default function TestPage(props) {
       : randomYRot(_.sample(nextCase.scrambles));
     setCurrentCase(nextCase);
     setCurrentScramble(nextScramble);
-    document.activeElement.blur();
   };
 
   const columns = useMemo(
@@ -160,6 +159,11 @@ export default function TestPage(props) {
     setSolves([solve, ...solves]);
   };
 
+  const handleNext = () => {
+    nextCaseAndScramble();
+    document.activeElement.blur();
+  };
+
   const handleBackToDash = () => props.history.push("/train");
   // TODO: if not logged in, tell them that their data won't be saved
 
@@ -185,7 +189,7 @@ export default function TestPage(props) {
             className="m-1 pl-3 pr-3"
             variant={secondary}
             size="sm"
-            onClick={nextCaseAndScramble}
+            onClick={handleNext}
           >
             <FaIcon icon="forward" />
           </Button>
