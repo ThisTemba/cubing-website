@@ -4,8 +4,8 @@ import ScrambleDisplay from "./scrambleDisplay";
 import useInterval from "../../../hooks/useInterval";
 
 export default function Timer(props) {
-  const { scramble, armingTime, onNewSolve, disabled, time: extTime } = props;
-  const [time, _setTime] = useState(extTime * 1000 || 0);
+  const { scramble, armingTime, onNewSolve, disabled, initTime } = props;
+  const [time, _setTime] = useState(initTime * 1000 || 0);
   const [timerState, _setTimerState] = useState("ready");
   const timerRef = useRef();
   const timeoutRef = useRef();
