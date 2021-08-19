@@ -1,7 +1,7 @@
 import React from "react";
 import { getTimeString } from "../../../utils/formatTime";
 const TimeDisplay = (props) => {
-  let { timeMilliseconds } = props;
+  let { timeMilliseconds, disabled } = props;
   const displayStyle = {
     fontFamily: "Monospace",
     textAlign: "center",
@@ -12,6 +12,8 @@ const TimeDisplay = (props) => {
       ? "text-danger"
       : props.timerState === "armed"
       ? "text-success"
+      : disabled
+      ? "text-muted"
       : "";
 
   return (
