@@ -19,6 +19,7 @@ import {
   faSortDown,
   faCircle,
   faForward,
+  faBackward,
   faQuestion,
   faSun,
   faMoon,
@@ -43,6 +44,7 @@ library.add(
   faSortDown,
   faCircle,
   faForward,
+  faBackward,
   faQuestion,
   faSun,
   faMoon

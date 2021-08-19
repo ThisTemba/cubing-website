@@ -177,6 +177,9 @@ export default function TestPage(props) {
           </Button>
         </Col>
         <Col className="justify-content-end d-flex p-0">
+          <Button className="m-1 pl-3 pr-3" variant={secondary} size="sm">
+            <FaIcon icon="backward" />
+          </Button>
           <Button
             className="m-1 pl-3 pr-3"
             variant={secondary}
