@@ -12,6 +12,7 @@ export default function Timer(props) {
   const timeRef = useRef();
   const onNewSolveRef = useRef(onNewSolve);
   const timerStateRef = useRef(timerState);
+  const disabledRef = useRef(disabled);
   const scrambleRef = useRef(scramble);
 
   useInterval(() => setTime(time + 10), timerState === "on" ? 10 : null);
@@ -21,7 +22,8 @@ export default function Timer(props) {
   useEffect(() => {
     onNewSolveRef.current = onNewSolve;
     scrambleRef.current = scramble;
-  }, [onNewSolve, scramble]);
+    disabledRef.current = disabled;
+  }, [onNewSolve, scramble, disabled]);
 
   const setTimerState = (state) => {
     timerStateRef.current = state;
@@ -56,7 +58,7 @@ export default function Timer(props) {
   };
 
   const handleKeyUp = (e) => {
-    if (disabled) return;
+    if (disabledRef.current) return;
     const timerState = timerStateRef.current;
     if (e.key === " ") {
       const timerStateMap = { armed: "on", cooldown: "ready", arming: "ready" };
@@ -79,7 +81,7 @@ export default function Timer(props) {
   };
 
   const handleKeyDown = (e) => {
-    if (disabled) return;
+    if (disabledRef.current) return;
     const timerState = timerStateRef.current;
     const onNewSolve = onNewSolveRef.current;
     if (timerState === "on") {

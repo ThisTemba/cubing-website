@@ -6,6 +6,11 @@ function getWindowDimensions() {
   return {
     width,
     height,
+    xs: width < 576,
+    s: width < 768,
+    md: width < 992,
+    lg: width < 1200,
+    xl: width >= 1200,
   };
 }
 
