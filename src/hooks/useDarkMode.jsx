@@ -4,12 +4,7 @@ import { useEffect, createContext } from "react";
 export const DarkModeContext = createContext(true);
 
 export default function useDarkMode() {
-  const [darkMode, _setDarkMode] = useLocalStorage("dark-mode-enabled", true);
-
-  const setDarkMode = (value) => {
-    window.location.reload();
-    _setDarkMode(value);
-  };
+  const [darkMode, setDarkMode] = useLocalStorage("dark-mode-enabled", true);
 
   useEffect(() => {
     // Source: https://stackoverflow.com/a/19844757/3593621
