@@ -4,7 +4,7 @@ import ScrambleDisplay from "./scrambleDisplay";
 import useInterval from "../../../hooks/useInterval";
 
 export default function Timer(props) {
-  const { scramble, armingTime, onNewSolve } = props;
+  const { scramble, armingTime, onNewSolve, disabled } = props;
   const [time, _setTime] = useState(0);
   const [timerState, _setTimerState] = useState("ready");
   const timerRef = useRef();
@@ -52,6 +52,7 @@ export default function Timer(props) {
   };
 
   const handleKeyUp = (e) => {
+    if (disabled) return;
     const timerState = timerStateRef.current;
     if (e.key === " ") {
       const timerStateMap = { armed: "on", cooldown: "ready", arming: "ready" };
@@ -74,6 +75,7 @@ export default function Timer(props) {
   };
 
   const handleKeyDown = (e) => {
+    if (disabled) return;
     const timerState = timerStateRef.current;
     const onNewSolve = onNewSolveRef.current;
     if (timerState === "on") {
@@ -102,6 +104,7 @@ export default function Timer(props) {
 
     const addListener = (t, l) => document.addEventListener(t, l);
     const removeListener = (t, l) => document.removeEventListener(t, l);
+
     listeners.forEach((l) => addListener(l.type, l.listener));
     return () => {
       listeners.forEach((l) => removeListener(l.type, l.listener));
@@ -111,13 +114,18 @@ export default function Timer(props) {
   // Source: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
   return (
     <div ref={timerRef} style={{ userSelect: "none" }}>
-      <ScrambleDisplay scramble={scramble} />
-      <TimeDisplay timeMilliseconds={time} timerState={timerState} />
+      <ScrambleDisplay scramble={scramble} disabled={disabled} />
+      <TimeDisplay
+        timeMilliseconds={time}
+        timerState={timerState}
+        disabled={disabled}
+      />
     </div>
   );
 }
 
 Timer.defaultProps = {
+  disabled: false,
   armingTime: 300,
   scramble: "R U R' U'(test scramble)",
   onNewSolve: () => {},
