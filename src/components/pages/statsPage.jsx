@@ -3,11 +3,13 @@ import Table from "react-bootstrap/Table";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
+import Jumbotron from "react-bootstrap/Jumbotron";
 import Chart from "react-google-charts";
 import { useAuthState, db } from "../../fire";
 import { getSessionAverage } from "../../utils/averages";
 import { dispDur } from "../../utils/displayValue";
 import useModal from "../../hooks/useModal";
+import { Link } from "react-router-dom";
 
 export default function StatsPage() {
   const [docs, setDocs] = useState(null);
@@ -146,41 +148,67 @@ export default function StatsPage() {
   };
 
   return (
-    <Container fluid>
-      <Chart
-        width={"100%"}
-        height={"90vh"}
-        chartType="BubbleChart"
-        loader={<div>Loading Chart</div>}
-        data={chartData}
-        options={{
-          title: "Session Average vs Session Date",
-          vAxis: { title: "Session Average" },
-          hAxis: { title: "Date" },
-          bubble: { textStyle: { color: "none" } },
-          tooltip: {
-            trigger: "none",
-          },
-        }}
-        rootProps={{ "data-testid": "1" }}
-        chartEvents={[
-          {
-            eventName: "select",
-            callback: ({ chartWrapper }) => {
-              const chart = chartWrapper.getChart();
-              const selection = chart.getSelection();
-              if (selection.length === 1) {
-                const [selectedItem] = selection;
-                const row = selectedItem.row;
-                const session = docs[row];
-                console.log(session);
-                setRow(row);
-                renderSessionModal(session);
-              }
+    <Container fluid className="text-center">
+      {chartData.length >= 2 && (
+        <Chart
+          width={"100%"}
+          height={"90vh"}
+          chartType="BubbleChart"
+          loader={<div>Loading Chart</div>}
+          data={chartData}
+          options={{
+            title: "Session Average vs Session Date",
+            vAxis: { title: "Session Average" },
+            hAxis: { title: "Date" },
+            bubble: { textStyle: { color: "none" } },
+            tooltip: {
+              trigger: "none",
             },
-          },
-        ]}
-      />
+          }}
+          rootProps={{ "data-testid": "1" }}
+          chartEvents={[
+            {
+              eventName: "select",
+              callback: ({ chartWrapper }) => {
+                const chart = chartWrapper.getChart();
+                const selection = chart.getSelection();
+                if (selection.length === 1) {
+                  const [selectedItem] = selection;
+                  const row = selectedItem.row;
+                  const session = docs[row];
+                  console.log(session);
+                  setRow(row);
+                  renderSessionModal(session);
+                }
+              },
+            },
+          ]}
+        />
+      )}
+      {chartData.length <= 1 && (
+        <Jumbotron>
+          <h1>{user ? "No Data Available" : "Log in Required"}</h1>
+          <p>
+            {user
+              ? "It seems like you haven't recorded any solves yet. Head over to the Time page and..."
+              : "You need to be logged in to track and anaylze your solves"}
+          </p>
+          {user ? (
+            <Button variant="primary" as={Link} to="/time">
+              Get Solving!
+            </Button>
+          ) : (
+            <div>
+              <Button as={Link} to="/signup" className="m-1" variant="primary">
+                Sign Up
+              </Button>
+              <Button as={Link} to="/login" className="m-1" variant="secondary">
+                Log In
+              </Button>
+            </div>
+          )}
+        </Jumbotron>
+      )}
       <ModalComponent />
       <ModalComponent1 />
     </Container>
