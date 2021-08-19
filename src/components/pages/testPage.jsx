@@ -22,7 +22,6 @@ export default function TestPage(props) {
     selectedCases[0].scrambles[0]
   );
   const [solves, setSolves] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const solvesRef = useRef();
   const userRef = useRef();
   const [darkMode] = useDarkMode();
@@ -161,20 +160,8 @@ export default function TestPage(props) {
     setSolves([solve, ...solves]);
   };
 
-  const handlePrevious = () => {
-    if (currentIndex !== solves.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-      setCurrentScramble(solves[currentIndex].scramble);
-    }
-  };
-
   const handleNext = () => {
-    if (currentIndex !== 0) {
-      setCurrentIndex(currentIndex - 1);
-      setCurrentScramble(solves[currentIndex].scramble);
-    } else {
-      nextCaseAndScramble();
-    }
+    nextCaseAndScramble();
     document.activeElement.blur();
   };
 
@@ -182,8 +169,7 @@ export default function TestPage(props) {
   // TODO: if not logged in, tell them that their data won't be saved
 
   const secondary = darkMode ? "dark" : "secondary";
-  const lastSolveTime = solves.length ? solves[0].dur : 0;
-  const initTime = lastSolveTime;
+  const initTime = solves.length ? solves[0].dur : 0;
 
   return (
     <>
@@ -202,15 +188,6 @@ export default function TestPage(props) {
             className="m-1 pl-3 pr-3"
             variant={secondary}
             size="sm"
-            onClick={handlePrevious}
-            disabled={solves.length === 0 || currentIndex === solves.length - 1}
-          >
-            <FaIcon icon="backward" />
-          </Button>
-          <Button
-            className="m-1 pl-3 pr-3"
-            variant={secondary}
-            size="sm"
             onClick={handleNext}
           >
             <FaIcon icon="forward" />
@@ -222,13 +199,11 @@ export default function TestPage(props) {
         scramble={currentScramble}
         armingTime={100}
         initTime={initTime}
-        disabled={currentIndex !== 0}
       />
       <FeedbackCard
-        currentIndex={currentIndex}
+        currentSolve={solves[0]}
         solves={solves}
         setSolves={setSolves}
-        disabled={currentIndex !== 0}
       />
       <div className="d-flex justify-content-center">
         <ReactTable
