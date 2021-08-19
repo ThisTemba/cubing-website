@@ -212,7 +212,6 @@ export default function TestPage(props) {
   // TODO: if not logged in, tell them that their data won't be saved
 
   const secondary = darkMode ? "dark" : "secondary";
-  const initTime = solves.length ? solves[0].dur : 0;
 
   return (
     <>
@@ -241,7 +240,7 @@ export default function TestPage(props) {
         onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
         scramble={currentScramble}
         armingTime={100}
-        initTime={initTime}
+        initTime={solves.length ? solves[0].dur : 0}
       />
       <FeedbackCard
         currentSolve={solves[0]}
