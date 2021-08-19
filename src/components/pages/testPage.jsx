@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import React, { useEffect, useState, useMemo, useRef, useContext } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useTable } from "react-table";
 import { FaIcon } from "../../fontAwesome";
@@ -12,7 +12,7 @@ import { dispDur } from "../../utils/displayValue";
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
-import useDarkMode from "../../hooks/useDarkMode";
+import { DarkModeContext } from "../../hooks/useDarkMode";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import useModal from "../../hooks/useModal";
 
@@ -25,7 +25,7 @@ export default function TestPage(props) {
   const [solves, setSolves] = useState([]);
   const solvesRef = useRef();
   const userRef = useRef();
-  const [darkMode] = useDarkMode();
+  const { darkMode } = useContext(DarkModeContext);
   const user = useAuthState();
   const { xs } = useWindowDimensions();
   const [ModalComponent, showModal] = useModal();
