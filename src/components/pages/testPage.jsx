@@ -44,7 +44,8 @@ export default function TestPage(props) {
     };
   }, []);
 
-  const saveData = (solves, user) => {
+  const saveData = (solvesWithScrambles, user) => {
+    const solves = solvesWithScrambles.map((s) => _.omit(s, "scramble"));
     const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
     if (user) {
       writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
@@ -153,6 +154,7 @@ export default function TestPage(props) {
       tps: getSTM(c.algs[0]) / solve.dur,
       alg: c.algs[0],
       dateTime: solve.dateTime,
+      scramble: solve.scramble,
     };
     // latest solve at solves[0]
     setSolves([solve, ...solves]);
