@@ -222,11 +222,13 @@ export default function TestPage(props) {
         scramble={currentScramble}
         armingTime={100}
         initTime={initTime}
+        disabled={currentIndex !== 0}
       />
       <FeedbackCard
         currentIndex={currentIndex}
         solves={solves}
         setSolves={setSolves}
+        disabled={currentIndex !== 0}
       />
       <div className="d-flex justify-content-center">
         <ReactTable
