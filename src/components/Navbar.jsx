@@ -38,14 +38,17 @@ export default function Navbar() {
           ))}
         </Nav>
         <Nav>
-          <Button variant="link" className="text-secondary">
+          <Button
+            variant="link"
+            className="text-secondary"
+            onClick={() => {
+              setDarkMode(!darkMode);
+              document.activeElement.blur();
+            }}
+          >
             <FaIcon
-              onClick={() => {
-                setDarkMode(!darkMode);
-                document.activeElement.blur();
-              }}
-              icon={darkMode ? "moon" : "sun"}
               size="lg"
+              icon={darkMode ? "moon" : "sun"}
               color={darkMode ? "" : "#707070"}
             />
           </Button>
