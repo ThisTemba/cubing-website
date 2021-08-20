@@ -4,7 +4,6 @@ import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import BackButton from "./common/backButton";
 import useLocalStorage from "../hooks/useLocalStorage";
-import DarkModeContext from "../hooks/useDarkMode";
 import ollCaseSet from "../data/ollCaseSet";
 import pllCaseSet from "../data/pllCaseSet";
 import eollCaseSet from "../data/eollCaseSet";
@@ -15,7 +14,6 @@ import SelectCaseSet from "./selectCaseSet";
 import CaseSetTable from "./caseSetTable";
 
 function CaseSetDashboard(props) {
-  const { darkMode } = useContext(DarkModeContext);
   const [selectedCaseSetId, setSelectedCaseSetId] = useLocalStorage(
     "selectedCaseSetId",
     null
