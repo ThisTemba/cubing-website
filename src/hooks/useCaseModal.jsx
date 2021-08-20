@@ -3,7 +3,7 @@ import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
-import { useAuthState } from "../fire";
+import { UserContext } from "../fire";
 import CaseImage from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
@@ -16,7 +16,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [selectedOption, setSelectedOption] = useState();
   const [editing, setEditing] = useState(false);
   const [caseDoc, setCaseDoc] = useState(null);
-  const user = useAuthState();
+  const { user } = useContext(UserContext);
   const customOption = { value: null, label: "Custom" };
   const { darkMode } = useContext(DarkModeContext);
 

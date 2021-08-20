@@ -2,12 +2,13 @@ import React, { useState, useContext } from "react";
 import { Navbar as NavbarRB, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { FaIcon } from "../fontAwesome";
-import { auth, useAuthState } from "../fire";
+import { auth, UserContext } from "../fire";
 import DarkModeContext from "../hooks/useDarkMode";
 
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false);
   const { darkMode, setDarkMode } = useContext(DarkModeContext);
+  const { user } = useContext(UserContext);
 
   const collapse = () => setExpanded(false);
 
@@ -17,7 +18,6 @@ export default function Navbar() {
     { label: "Stats", to: "/stats" },
   ];
 
-  const user = useAuthState();
   return (
     <NavbarRB
       expand="sm"
