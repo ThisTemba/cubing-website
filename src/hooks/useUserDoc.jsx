@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuthState, usersRef } from "../fire";
 
-export default function useUserDoc() {
-  const user = useAuthState();
+export default function useUserDoc(user) {
   const [userDoc, setUserDoc] = useState(null);
   useEffect(() => {
     let unsubscribe = () => {};

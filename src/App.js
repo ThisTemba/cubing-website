@@ -14,7 +14,7 @@ import useUserDoc from "./hooks/useUserDoc";
 
 function App() {
   const user = useAuthState();
-  const userDoc = useUserDoc();
+  const userDoc = useUserDoc(user);
   const userObj = useMemo(() => ({ user, userDoc }), [user, userDoc]);
   const [darkMode, setDarkMode] = useDarkMode(true);
   const darkModeObj = useMemo(
