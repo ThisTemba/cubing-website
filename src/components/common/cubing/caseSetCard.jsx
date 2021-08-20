@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import { FaIcon } from "../../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./cubeImage";
+import MultiProgressBar from "../multiProgressBar";
 import DarkModeContext from "../../../hooks/useDarkMode";
 
 export default function CaseSetCard(props) {
@@ -16,7 +17,7 @@ export default function CaseSetCard(props) {
     <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button
         variant={darkMode ? "dark" : "light"}
-        className="m-1 border btn-block"
+        className="m-1 border btn-block p-1 pt-2"
         onClick={props.onClick}
       >
         <Card.Body className="p-2 p-sm-3">
@@ -49,6 +50,7 @@ export default function CaseSetCard(props) {
             </Col>
           </Row>
         </Card.Body>
+        {<MultiProgressBar />}
       </Button>
     </Col>
   );
