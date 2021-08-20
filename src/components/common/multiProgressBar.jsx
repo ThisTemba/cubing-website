@@ -17,5 +17,5 @@ export default function MultiProgressBar(props) {
 
 MultiProgressBar.defaultProps = {
   values: [20, 20, 60],
-  variants: ["primary", "success", "info"],
+  variants: ["success", "warning", "secondary"],
 };
