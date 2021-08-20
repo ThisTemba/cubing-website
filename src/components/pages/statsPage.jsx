@@ -18,6 +18,7 @@ export default function StatsPage() {
   const [ModalComponent, showModal, hideModal] = useModal();
   const [ModalComponent1, showModal1, hideModal1] = useModal();
   const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
@@ -60,6 +61,7 @@ export default function StatsPage() {
       ["name", "dateTime", "session average", "puzzle", "number of solves"],
       ...data,
     ];
+    setLoading(false);
     setChartData(data);
   };
 
@@ -186,7 +188,7 @@ export default function StatsPage() {
           ]}
         />
       )}
-      {chartData.length <= 1 && (
+      {chartData.length <= 1 && !loading && (
         <Jumbotron>
           <h1>{user ? "No Data Available" : "Log in Required"}</h1>
           <p>
