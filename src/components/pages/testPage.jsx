@@ -7,6 +7,7 @@ import { useAuthState } from "../../fire";
 import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
 import CaseImage from "../common/cubing/cubeImage";
+import BackButton from "../common/backButton";
 import FeedbackCard from "../feedbackCard";
 import { dispDur } from "../../utils/displayValue";
 import { writeCasesToFirebase } from "../../utils/writeCases";
@@ -217,13 +218,7 @@ export default function TestPage(props) {
     <>
       <Row>
         <Col className="p-0">
-          <Button
-            onClick={handleBackToDash}
-            variant={secondary}
-            className="m-1"
-          >
-            <FaIcon icon="chevron-left" /> Back
-          </Button>
+          <BackButton onClick={handleBackToDash} />
         </Col>
         <Col className="justify-content-end d-flex p-0">
           <Button

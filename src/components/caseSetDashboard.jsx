@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
+import BackButton from "./common/backButton";
 import useLocalStorage from "../hooks/useLocalStorage";
 import DarkModeContext from "../hooks/useDarkMode";
 import ollCaseSet from "../data/ollCaseSet";
@@ -53,13 +54,7 @@ function CaseSetDashboard(props) {
         <>
           <Row>
             <Col className="p-0">
-              <Button
-                onClick={() => setSelectedCaseSetId(null)}
-                className="m-1"
-                variant={darkMode ? "dark" : "secondary"}
-              >
-                <FaIcon icon="chevron-left" /> Back
-              </Button>
+              <BackButton onClick={() => setSelectedCaseSetId(null)} />
             </Col>
             <Col className="justify-content-end d-flex p-0">
               <Button

@@ -4,6 +4,7 @@ import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "../common/cubing/cubeImage";
 import ScrambleDisplay from "../common/cubing/scrambleDisplay";
+import BackButton from "../common/backButton";
 import DarkModeContext from "../../hooks/useDarkMode";
 
 export default function LearnPage(props) {
@@ -30,6 +31,11 @@ export default function LearnPage(props) {
     setCurrentCase(props.selectedCases[currentIndex]);
   }, [currentIndex]);
 
+  const handleBackButton = () => {
+    props.history.push("/train");
+    props.onDashboard();
+  };
+
   const renderVisibilityButton = (algVisible) => {
     return (
       <Button
@@ -48,16 +54,7 @@ export default function LearnPage(props) {
     <div className="text-center">
       <Row>
         <Col className="text-left p-0">
-          <Button
-            onClick={() => {
-              props.history.push("/train");
-              props.onDashboard();
-            }}
-            variant="secondary"
-            className="m-1"
-          >
-            <FaIcon icon="chevron-left" /> Back
-          </Button>
+          <BackButton onClick={handleBackButton} />
         </Col>
         <Col>
           <h2>Learn {`(${currentIndex + 1}/${props.selectedCases.length})`}</h2>
