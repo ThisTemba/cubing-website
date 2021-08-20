@@ -3,7 +3,7 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { useTable } from "react-table";
 import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
-import { useAuthState } from "../../fire";
+import { UserContext } from "../../fire";
 import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
 import CaseImage from "../common/cubing/cubeImage";
@@ -27,7 +27,7 @@ export default function TestPage(props) {
   const solvesRef = useRef();
   const userRef = useRef();
   const { darkMode } = useContext(DarkModeContext);
-  const user = useAuthState();
+  const { user } = useContext(UserContext);
   const { xs } = useWindowDimensions();
   const [ModalComponent, showModal] = useModal();
 

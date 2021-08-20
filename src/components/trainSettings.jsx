@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import Joi from "joi-browser";
 import _ from "lodash";
 import InputMosh from "./common/inputMosh";
-import { db, useAuthState } from "../fire";
+import { db, UserContext } from "../fire";
 import { useState } from "react";
 
 export default function TrainSettings() {
@@ -16,7 +16,7 @@ export default function TrainSettings() {
 
   const [errors, setErrors] = useState({});
   const [data, setData] = useState(criteriaToData(defaultCaseLearnedCriteria));
-  const user = useAuthState();
+  const { user } = useContext(UserContext);
 
   function dataToCriteria(data) {
     const clc = defaultCaseLearnedCriteria;

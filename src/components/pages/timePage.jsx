@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { db, useAuthState } from "../../fire";
+import { db, UserContext } from "../../fire";
 
 import { getSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -17,7 +17,7 @@ export default function TimePage() {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [scramble, nextScramble] = useStaticScrambles();
-  const user = useAuthState();
+  const { user } = useContext(UserContext);
   const pageSize = 8;
   const puzzle = "333";
 
