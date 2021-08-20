@@ -222,7 +222,7 @@ export default function TestPage(props) {
             variant={secondary}
             className="m-1"
           >
-            <FaIcon icon="chevron-left" /> Back to Dashboard
+            <FaIcon icon="chevron-left" /> Back
           </Button>
         </Col>
         <Col className="justify-content-end d-flex p-0">

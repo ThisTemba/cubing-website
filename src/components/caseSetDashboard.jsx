@@ -58,7 +58,7 @@ function CaseSetDashboard(props) {
                 className="m-1"
                 variant={darkMode ? "dark" : "secondary"}
               >
-                <FaIcon icon="chevron-left" /> Back to CaseSet Selection
+                <FaIcon icon="chevron-left" /> Back
               </Button>
             </Col>
             <Col className="justify-content-end d-flex p-0">

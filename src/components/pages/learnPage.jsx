@@ -56,7 +56,7 @@ export default function LearnPage(props) {
             variant="secondary"
             className="m-1"
           >
-            <FaIcon icon="chevron-left" /> Back to Dashboard
+            <FaIcon icon="chevron-left" /> Back
           </Button>
         </Col>
         <Col>
