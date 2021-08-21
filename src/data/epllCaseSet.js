@@ -16,10 +16,10 @@ const epllCaseSet = {
       prob: 1,
       arrows: ["U1U7-s8-black,U7U1-s8-black,U3U5-s8-black,U5U3-s8-black"],
       scrambles: [
-        "R L D2 R L D2 R2 B2 D2 B2 L2 F2 U2 R2 F2 U2",
-        "F B D2 F B D2 F2 R2 D2 R2 B2 L2 U2 F2 L2 U2",
-        "B F D2 B F D2 B2 L2 D2 L2 F2 R2 U2 B2 R2 U2",
-        "L R D2 L R D2 L2 F2 D2 F2 R2 B2 U2 L2 B2 U2",
+        "L2 B2 F2 R2 D L2 B2 F2 R2",
+        "L2 B2 F2 R2 D' L2 B2 F2 R2",
+        "L2 B2 F2 R2 D' L2 B2 F2 R2 U'",
+        "L2 B2 F2 R2 D L2 B2 F2 R2 U'",
       ],
       video:
         "https://www.youtube.com/embed/9r_HqG4zSbk?controls=0&amp;start=70",
@@ -32,10 +32,10 @@ const epllCaseSet = {
       prob: 2,
       arrows: ["U3U7-s8-black,U7U3-s8-black,U1U5-s8-black,U5U1-s8-black"],
       scrambles: [
-        "R L U2 R L' U' R2 U' R2 U' R2 U' R2 U' R2 B2 R2 B2",
-        "F B U2 F B' U R2 F2 R2 U F2 U R2 F2 R2 U F2 U'",
-        "B F U2 B F' U L2 B2 L2 U B2 U L2 B2 L2 U B2 U'",
-        "L R U2 L R' U' L2 U' L2 U' L2 U' L2 U' L2 F2 L2 F2",
+        "L2 R2 D' L2 R2 U' L2 B2 L2 R2 F2 R2",
+        "B2 R2 U B2 U' R2 B2 R2 U' R2 U R2",
+        "F2 R2 U' F2 U R2 F2 R2 U R2 U' R2",
+        "L2 R2 D L2 R2 U L2 B2 L2 R2 F2 R2",
       ],
       video:
         "https://www.youtube.com/embed/9r_HqG4zSbk?controls=0&amp;start=85",
@@ -53,10 +53,10 @@ const epllCaseSet = {
       prob: 4,
       arrows: ["U5U3-s8-black,U7U5-s8-black,U3U7-s8-black"],
       scrambles: [
-        "F2 D F2 R2 F2 D R2 F2 D2 F2 B2 L2 B2 R2 D2 R2",
-        "R2 U' B2 R2 B2 U B2 R2 B2 U2 B2 U2 R2 B2 R2 U2 B2",
-        "R2 U' F2 R2 F2 U R' L F2 D2 B2 U2 R L B2 D2",
-        "R2 D' R2 F2 R2 D R L' F2 D2 B2 U2 R' L' B2 D2",
+        "R2 U2 F2 L2 B2 D B2 L2 F2 U' R2",
+        "R2 U' F2 R2 F2 U2 F2 R2 F2 U' R2",
+        "F2 U' R2 B2 L2 D L2 B2 R2 U2 F2",
+        "R2 U' F2 L2 B2 D B2 L2 F2 U2 R2",
       ],
       video:
         "https://www.youtube.com/embed/9r_HqG4zSbk?controls=0&amp;start=18",
@@ -73,10 +73,10 @@ const epllCaseSet = {
       prob: 4,
       arrows: ["U3U5-s8-black,U5U7-s8-black,U7U3-s8-black"],
       scrambles: [
-        "F2 U' L2 F2 L2 U F2 L2 U2 L2 F2 L2 U2 F2 L2 U2 F2",
-        "F2 D' F2 R2 B2 U R D2 F2 B2 U2 L' F2 R2 U2 B2 U2",
-        "F2 D' F2 L2 F2 D F2 L2 D2 L2 B2 R2 U2 F2 R2 U2 B2",
-        "L2 U B2 L2 B2 U B2 U2 B2 U2 L2 B2 L2 U2 L2 U2",
+        "R2 U F2 L2 B2 D' B2 L2 F2 U2 R2",
+        "F2 U2 R2 B2 L2 D' L2 B2 R2 U F2",
+        "R2 U2 F2 L2 B2 D' B2 L2 F2 U R2",
+        "R2 U F2 R2 F2 U2 F2 R2 F2 U R2",
       ],
       video:
         "https://www.youtube.com/embed/9r_HqG4zSbk?controls=0&amp;start=43",
