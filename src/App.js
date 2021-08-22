@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { useAuthState, UserContext } from "./fire";
+import { useAuthState, UserContext } from "./services/firebase";
 import Navbar from "./components/Navbar";
 import TrainPage from "./components/pages/trainPage";
 import TimePage from "./components/pages/timePage";

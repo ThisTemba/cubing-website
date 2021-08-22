@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { db, UserContext } from "../../fire";
+import { db, UserContext } from "../../services/firebase";
 
 import { getSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";

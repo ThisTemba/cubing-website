@@ -12,7 +12,7 @@ import CaseImage from "./common/cubing/cubeImage";
 import Checkbox from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import MultiProgressBar from "./common/multiProgressBar";
-import { UserContext } from "../fire";
+import { UserContext } from "../services/firebase";
 import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import { getCaseSetDocRef } from "../utils/writeCases";
 import DarkModeContext from "../hooks/useDarkMode";

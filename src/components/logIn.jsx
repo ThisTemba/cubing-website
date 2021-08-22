@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../fire";
+import { auth } from "../services/firebase";
 import LoginSignUpTemplate from "./common/logInSignUpTemplate";
 
 export default function LogIn({ history }) {

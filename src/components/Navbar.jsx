@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Navbar as NavbarRB, Nav, NavDropdown, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { FaIcon } from "../fontAwesome";
-import { auth, UserContext } from "../fire";
+import { auth, UserContext } from "../services/firebase";
 import DarkModeContext from "../hooks/useDarkMode";
 
 export default function Navbar() {
