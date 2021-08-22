@@ -12,7 +12,7 @@ import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;
-  const { title, subTitle, subSubTitle } = details;
+  const { title, subTitle } = details;
   const { darkMode } = useContext(DarkModeContext);
   const { xs } = useWindowDimensions();
 
