@@ -2,8 +2,7 @@ const ocllCaseSet = {
   details: {
     id: "ocll",
     title: "OCLL",
-    subTitle: "2-Look OLL",
-    subSubTitle: "Second Look",
+    subTitle: "2-Look OLL 2",
     mask: "oll",
     view: "plan",
     numCases: 7,

@@ -2,8 +2,7 @@ const eollCaseSet = {
   details: {
     id: "eoll",
     title: "EOLL",
-    subTitle: "2-Look OLL",
-    subSubTitle: "First Look",
+    subTitle: "2-Look OLL 1",
     mask: "oell", // confusing, but deal with it
     view: "plan",
     numCases: 3,
