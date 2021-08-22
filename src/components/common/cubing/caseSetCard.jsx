@@ -6,7 +6,6 @@ import Row from "react-bootstrap/Row";
 import { FaIcon } from "../../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./cubeImage";
-import MultiProgressBar from "../multiProgressBar";
 import DarkModeContext from "../../../hooks/useDarkMode";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
