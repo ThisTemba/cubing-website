@@ -2,8 +2,7 @@ const cpllCaseSet = {
   details: {
     id: "cpll",
     title: "CPLL",
-    subTitle: "2-Look PLL",
-    subSubTitle: "First Look",
+    subTitle: "2-Look PLL 1",
     mask: "coll",
     view: "plan",
     numCases: 2,

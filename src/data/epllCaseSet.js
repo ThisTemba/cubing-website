@@ -2,8 +2,7 @@ const epllCaseSet = {
   details: {
     id: "epll",
     title: "EPLL",
-    subTitle: "2-Look PLL",
-    subSubTitle: "Second Look",
+    subTitle: "2-Look PLL 2",
     mask: "ll",
     view: "plan",
     numCases: 4,
