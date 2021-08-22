@@ -17,6 +17,7 @@ export default function CaseSetCard(props) {
   const { xs } = useWindowDimensions();
 
   const cubeImageSize = xs ? "100" : "120";
+  const notStartedColor = darkMode ? "#adb5bd" : "#495057";
 
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
@@ -47,7 +48,7 @@ export default function CaseSetCard(props) {
                 </Col>
                 {["PLL", "OLL", "EPLL"].includes(details.title) && (
                   <Col xs={12}>
-                    <span style={{ fontWeight: 600, color: "#6c757d" }}>
+                    <span style={{ fontWeight: 600, color: notStartedColor }}>
                       {_.random(20)}
                     </span>
                     {" | "}
@@ -62,7 +63,7 @@ export default function CaseSetCard(props) {
                 )}
                 {!["PLL", "OLL", "EPLL"].includes(details.title) && (
                   <Col>
-                    <span style={{ fontWeight: 600, color: "#6c757d" }}>
+                    <span style={{ fontWeight: 600, color: notStartedColor }}>
                       {_.random(20)} Cases
                     </span>
                   </Col>
