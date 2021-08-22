@@ -27,7 +27,7 @@ export const usersRef = db.collection("users");
 export const UserContext = createContext(null);
 
 export const getUserDocRef = (user) => {
-  return db.collection("users").doc(user.uid);
+  return db.collection("users").doc(user?.uid);
 };
 
 export const getCaseSetDocRef = (user, caseSetDetails) => {
