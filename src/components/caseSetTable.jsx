@@ -12,7 +12,7 @@ import CaseImage from "./common/cubing/cubeImage";
 import Checkbox from "./common/checkbox";
 import ReactTable from "./common/reactTable";
 import MultiProgressBar from "./common/multiProgressBar";
-import { UserContext, getCaseSetDocRef } from "../services/firebase";
+import { UserContext } from "../services/firebase";
 import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import DarkModeContext from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
@@ -20,9 +20,7 @@ import useWindowDimensions from "../hooks/useWindowDimensions";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
-  // const data = useMemo(() => caseSet.cases, []);
-  const initData = caseSet.cases.map((c) => ({ ...c, alg: c.algs[0] }));
-  const [data, setData] = useState(initData);
+  const [data, setData] = useState(caseSet.cases || {});
   const { user, userDoc } = useContext(UserContext);
   const { darkMode } = useContext(DarkModeContext);
   const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
@@ -46,30 +44,8 @@ export default function CaseSetTable(props) {
   }, [showing, _.find(data, ["id", caseModalId])]);
 
   useEffect(() => {
-    let unsubscribe1 = () => {};
-    if (user) {
-      unsubscribe1 = getCaseSetDocRef(user, caseSet.details).onSnapshot(
-        (caseSetDoc) => {
-          if (caseSetDoc.data()) {
-            const userCases = caseSetDoc.data().cases;
-            const combined = data.map((c) => {
-              const userCase = _.find(userCases, ["id", c.id]);
-              const caseStats = userCase?.caseStats;
-              const alg = userCase?.alg || c.alg;
-              const combinedCase = { ...c, ...caseStats, alg };
-              // Source: https://stackoverflow.com/q/46957194/3593621
-              // TL;DR can spread undefined into objects but not arrays
-              return combinedCase;
-            });
-            setData(combined);
-          }
-        }
-      );
-    }
-    return () => {
-      unsubscribe1();
-    };
-  }, [user]);
+    setData(caseSet.cases);
+  }, [caseSet]);
 
   const getPropLearned = (prop, val) => {
     const settingsValue = trainSettings[prop];
