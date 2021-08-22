@@ -61,11 +61,11 @@ export default function CaseSetCard(props) {
                   </Col>
                 )}
                 {!["PLL", "OLL", "EPLL"].includes(details.title) && (
-                  <>
-                    <Col>
-                      {typeof subSubTitle !== "undefined" ? subSubTitle : ""}
-                    </Col>
-                  </>
+                  <Col>
+                    <span style={{ fontWeight: 600, color: "#6c757d" }}>
+                      {_.random(20)} Cases
+                    </span>
+                  </Col>
                 )}
               </Row>
             </Col>
