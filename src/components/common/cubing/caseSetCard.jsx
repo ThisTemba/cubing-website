@@ -15,7 +15,7 @@ export default function CaseSetCard(props) {
   const { darkMode } = useContext(DarkModeContext);
   const { xs } = useWindowDimensions();
 
-  const cubeImageSize = xs ? "40" : "120";
+  const cubeImageSize = xs ? "100" : "120";
 
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
