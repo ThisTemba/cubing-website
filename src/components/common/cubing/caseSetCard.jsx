@@ -7,11 +7,16 @@ import { FaIcon } from "../../../fontAwesome";
 import _ from "lodash";
 import CaseImage from "./cubeImage";
 import DarkModeContext from "../../../hooks/useDarkMode";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 export default function CaseSetCard(props) {
   const { cases, details } = props.caseSet;
   const { title, subTitle, subSubTitle } = details;
   const { darkMode } = useContext(DarkModeContext);
+  const { xs } = useWindowDimensions();
+
+  const cubeImageSize = xs ? "40" : "120";
+
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button
@@ -23,7 +28,7 @@ export default function CaseSetCard(props) {
           <Row>
             <Col className="p-0 d-flex align-items-center justify-content-center">
               <CaseImage
-                size="120"
+                size={cubeImageSize}
                 alg={_.sample(cases).algs[0]}
                 caseSetDetails={details}
               ></CaseImage>
@@ -45,7 +50,10 @@ export default function CaseSetCard(props) {
               </Row>
             </Col>
             <Col className="p-0 d-flex align-items-center justify-content-center">
-              <CaseImage size="120" caseSetDetails={details}></CaseImage>
+              <CaseImage
+                size={cubeImageSize}
+                caseSetDetails={details}
+              ></CaseImage>
             </Col>
           </Row>
         </Card.Body>
