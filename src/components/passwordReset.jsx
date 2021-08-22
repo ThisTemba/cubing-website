@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { auth } from "../fire";
+import { auth } from "../services/firebase";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";

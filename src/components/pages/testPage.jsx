@@ -3,7 +3,7 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { useTable } from "react-table";
 import { FaIcon } from "../../fontAwesome";
 import _ from "lodash";
-import { UserContext } from "../../fire";
+import { UserContext } from "../../services/firebase";
 import Timer from "../common/cubing/timer";
 import ReactTable from "../common/reactTable";
 import CaseImage from "../common/cubing/cubeImage";

@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Chart from "react-google-charts";
-import { UserContext, db } from "../../fire";
+import { UserContext, db } from "../../services/firebase";
 import { getSessionAverage } from "../../utils/averages";
 import { dispDur } from "../../utils/displayValue";
 import useModal from "../../hooks/useModal";

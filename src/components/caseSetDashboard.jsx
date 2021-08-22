@@ -4,12 +4,7 @@ import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import BackButton from "./common/backButton";
 import useLocalStorage from "../hooks/useLocalStorage";
-import ollCaseSet from "../data/ollCaseSet";
-import pllCaseSet from "../data/pllCaseSet";
-import eollCaseSet from "../data/eollCaseSet";
-import ocllCaseSet from "../data/ocllCaseSet";
-import epllCaseSet from "../data/epllCaseSet";
-import cpllCaseSet from "../data/cpllCaseSet";
+import CaseSetsContext from "../hooks/useCaseSets";
 import SelectCaseSet from "./selectCaseSet";
 import CaseSetTable from "./caseSetTable";
 
@@ -19,14 +14,7 @@ function CaseSetDashboard(props) {
     null
   );
 
-  const caseSets = [
-    eollCaseSet,
-    ocllCaseSet,
-    cpllCaseSet,
-    epllCaseSet,
-    pllCaseSet,
-    ollCaseSet,
-  ];
+  const caseSets = useContext(CaseSetsContext);
   const selectedCaseSet = _(caseSets).find(["details.id", selectedCaseSetId]);
   const [selectedCases, setSelectedCases] = useState([]);
 
@@ -44,43 +32,45 @@ function CaseSetDashboard(props) {
   }));
 
   return (
-    <>
-      {!selectedCaseSetId && (
-        <SelectCaseSet caseSets={caseSets} onClick={setSelectedCaseSetId} />
-      )}
-      {selectedCaseSetId && (
-        <>
-          <Row>
-            <Col className="p-0">
-              <BackButton onClick={() => setSelectedCaseSetId(null)} />
-            </Col>
-            <Col className="justify-content-end d-flex p-0">
-              <Button
-                onClick={onLearn}
-                className="m-1"
-                variant="info"
-                disabled={selectedCases.length === 0}
-              >
-                Learn <FaIcon icon="chevron-right" />
-              </Button>
-              <Button
-                onClick={onTest}
-                className="m-1"
-                variant="success"
-                disabled={selectedCases.length < 2}
-              >
-                Test <FaIcon icon="chevron-right" />
-              </Button>
-            </Col>
-          </Row>
-          <CaseSetTable
-            initData={initData}
-            caseSet={selectedCaseSet}
-            setSelectedCases={setSelectedCases}
-          />
-        </>
-      )}
-    </>
+    caseSets && (
+      <>
+        {!selectedCaseSetId && (
+          <SelectCaseSet caseSets={caseSets} onClick={setSelectedCaseSetId} />
+        )}
+        {selectedCaseSetId && (
+          <>
+            <Row>
+              <Col className="p-0">
+                <BackButton onClick={() => setSelectedCaseSetId(null)} />
+              </Col>
+              <Col className="justify-content-end d-flex p-0">
+                <Button
+                  onClick={onLearn}
+                  className="m-1"
+                  variant="info"
+                  disabled={selectedCases.length === 0}
+                >
+                  Learn <FaIcon icon="chevron-right" />
+                </Button>
+                <Button
+                  onClick={onTest}
+                  className="m-1"
+                  variant="success"
+                  disabled={selectedCases.length < 2}
+                >
+                  Test <FaIcon icon="chevron-right" />
+                </Button>
+              </Col>
+            </Row>
+            <CaseSetTable
+              initData={initData}
+              caseSet={selectedCaseSet}
+              setSelectedCases={setSelectedCases}
+            />
+          </>
+        )}
+      </>
+    )
   );
 }
 

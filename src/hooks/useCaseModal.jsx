@@ -3,12 +3,15 @@ import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
-import { UserContext } from "../fire";
+import {
+  UserContext,
+  getCaseSetDocRef,
+  setDocument,
+} from "../services/firebase";
 import CaseImage from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
 import useModal from "./useModal";
-import { setDocument, getCaseSetDocRef } from "../utils/writeCases";
 import DarkModeContext from "../hooks/useDarkMode";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {

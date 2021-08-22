@@ -26,6 +26,21 @@ export const usersRef = db.collection("users");
 
 export const UserContext = createContext(null);
 
+export const getUserDocRef = (user) => {
+  return db.collection("users").doc(user?.uid);
+};
+
+export const getCaseSetDocRef = (user, caseSetDetails) => {
+  return getUserDocRef(user).collection("caseSets").doc(caseSetDetails.id);
+};
+
+export const setDocument = (docRef, data, logName = "Placeholder") => {
+  docRef
+    .set(data)
+    .then(() => console.log(`${logName} document successfully written!`))
+    .catch((error) => console.error("Error writing document: ", error));
+};
+
 export const useAuthState = () => {
   const [user, setUser] = useState(null);
   firebase.auth().onAuthStateChanged((user) => {

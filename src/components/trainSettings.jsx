@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import Joi from "joi-browser";
 import _ from "lodash";
 import InputMosh from "./common/inputMosh";
-import { db, UserContext } from "../fire";
+import { db, UserContext } from "../services/firebase";
 import { useState } from "react";
 
 export default function TrainSettings() {
