@@ -1,21 +1,6 @@
 import _ from "lodash";
-import { db } from "../services/firebase";
+import { getCaseSetDocRef, setDocument } from "../services/firebase";
 import { prepareCaseData } from "./caseStats";
-
-export const getUserDocRef = (user) => {
-  return db.collection("users").doc(user.uid);
-};
-
-export const getCaseSetDocRef = (user, caseSetDetails) => {
-  return getUserDocRef(user).collection("caseSets").doc(caseSetDetails.id);
-};
-
-export const setDocument = (docRef, data, name = "Placeholder") => {
-  docRef
-    .set(data)
-    .then(() => console.log(`${name} document successfully written!`))
-    .catch((error) => console.error("Error writing document: ", error));
-};
 
 const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
   const caseStatData = Promise.all(
