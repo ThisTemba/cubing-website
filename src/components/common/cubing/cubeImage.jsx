@@ -1,14 +1,25 @@
 // Source= http://cube.rider.biz/visualcube.php
-import * as SRVisualizer from "sr-visualizer";
+import { cubeSVG } from "sr-visualizer";
 import React, { useRef, useEffect } from "react";
 import _ from "lodash";
 
 const CubeImageInternal = (props) => {
   const imageRef = useRef(null);
 
-  useEffect(() => SRVisualizer.cubeSVG(imageRef.current, props), []);
+  useEffect(() => cubeSVG(imageRef.current, { ...props, colorScheme }), []);
 
   return <div ref={imageRef}></div>;
+};
+
+const Face = { U: 0, R: 1, F: 2, D: 3, L: 4, B: 5 };
+
+const colorScheme = {
+  [Face.U]: "yellow",
+  [Face.R]: "red",
+  [Face.F]: "#1F51FF", // brighter blue
+  [Face.D]: "white",
+  [Face.L]: "orange",
+  [Face.B]: "#00D800", // default green
 };
 
 export const CubeImage = (props) => {
