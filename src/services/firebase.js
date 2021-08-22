@@ -34,10 +34,10 @@ export const getCaseSetDocRef = (user, caseSetDetails) => {
   return getUserDocRef(user).collection("caseSets").doc(caseSetDetails.id);
 };
 
-export const setDocument = (docRef, data, name = "Placeholder") => {
+export const setDocument = (docRef, data, logName = "Placeholder") => {
   docRef
     .set(data)
-    .then(() => console.log(`${name} document successfully written!`))
+    .then(() => console.log(`${logName} document successfully written!`))
     .catch((error) => console.error("Error writing document: ", error));
 };
 
