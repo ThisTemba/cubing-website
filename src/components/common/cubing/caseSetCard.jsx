@@ -36,13 +36,32 @@ export default function CaseSetCard(props) {
                     {`${title} `}
                     <FaIcon icon="caret-right" />
                   </h4>
+                  <Col xs={12}>
+                    {typeof subTitle !== "undefined" ? subTitle : ""}
+                  </Col>
                 </Col>
-                <Col xs={12}>
-                  {typeof subTitle !== "undefined" ? subTitle : ""}
-                </Col>
-                <Col>
-                  {typeof subSubTitle !== "undefined" ? subSubTitle : ""}
-                </Col>
+                {["PLL", "OLL", "EPLL"].includes(details.title) && (
+                  <Col xs={12}>
+                    <span style={{ fontWeight: 600, color: "#6c757d" }}>
+                      {_.random(20)}
+                    </span>
+                    {" | "}
+                    <span style={{ fontWeight: 600, color: "#ffc107" }}>
+                      {_.random(20)}
+                    </span>
+                    {" | "}
+                    <span style={{ fontWeight: 600, color: "#28a745" }}>
+                      {_.random(20)}
+                    </span>
+                  </Col>
+                )}
+                {!["PLL", "OLL", "EPLL"].includes(details.title) && (
+                  <>
+                    <Col>
+                      {typeof subSubTitle !== "undefined" ? subSubTitle : ""}
+                    </Col>
+                  </>
+                )}
               </Row>
             </Col>
             <Col className="p-0">
@@ -50,7 +69,7 @@ export default function CaseSetCard(props) {
             </Col>
           </Row>
         </Card.Body>
-        {<MultiProgressBar />}
+        {/* {<MultiProgressBar />} */}
       </Button>
     </Col>
   );
