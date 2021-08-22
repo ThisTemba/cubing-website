@@ -102,7 +102,10 @@ export default function CaseSetTable(props) {
   };
 
   const sortStatus = (rowA, rowB) => {
-    const [sA, sB] = [rowA.values.status, rowB.values.status];
+    let [sA, sB] = [rowA.values.status, rowB.values.status];
+    const [sAtot, sBtot] = [_.sum(_.values(sA)), _.sum(_.values(sB))];
+    sA = _.mapValues(sA, (n) => n / sAtot);
+    sB = _.mapValues(sB, (n) => n / sBtot);
     const isAggregated = typeof sA === "object";
     let AisBigger;
     if (isAggregated) {
@@ -219,7 +222,13 @@ export default function CaseSetTable(props) {
         id: "status",
         accessor: getStatus,
         Cell: ({ value }) => renderStatus(value),
-        aggregate: (values) => _.countBy(values),
+        aggregate: (values) => {
+          const ret = _.countBy(values);
+          ret[0] = ret[0] || 0;
+          ret[1] = ret[1] || 0;
+          ret[2] = ret[2] || 0;
+          return ret;
+        },
         Aggregated: ({ value }) => renderAggregatedStatus(value),
         sortType: sortStatus,
       },
