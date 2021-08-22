@@ -35,12 +35,9 @@ CubeImage.defaultProps = {
 const CaseImage = (props) => {
   if (!props.caseSetDetails)
     throw new Error("CaseImage must have caseSetDetails property");
-  const alg = props.case ? props.case.algs[0] : props.alg;
-  const arrows = props.case
-    ? props.case.arrows
-      ? props.case.arrows[0]
-      : ""
-    : "";
+
+  const alg = props.case?.algs[0] || props.alg;
+  const arrows = props.case?.arrows?.[0];
   const { caseSetDetails, size } = props;
   const { mask, view } = caseSetDetails;
   const rest = { mask, view, arrows };
