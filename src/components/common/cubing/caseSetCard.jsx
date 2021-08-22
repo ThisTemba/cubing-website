@@ -41,12 +41,8 @@ export default function CaseSetCard(props) {
                     <FaIcon icon="caret-right" />
                   </h4>
                 </Col>
-                <Col xs={12}>
-                  {typeof subTitle !== "undefined" ? subTitle : ""}
-                </Col>
-                <Col>
-                  {typeof subSubTitle !== "undefined" ? subSubTitle : ""}
-                </Col>
+                <Col xs={12}>{subTitle || ""}</Col>
+                <Col>{subSubTitle || ""}</Col>
               </Row>
             </Col>
             <Col className="p-0 d-flex align-items-center justify-content-center">
