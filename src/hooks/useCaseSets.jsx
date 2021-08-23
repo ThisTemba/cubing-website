@@ -75,29 +75,33 @@ const getMergedCaseSets = (localCaseSets, snapshot, userDoc) => {
 };
 
 export function useCaseSets(user, userDoc) {
-  const [caseSets, setCaseSets] = useState(null);
+  const [caseSets, setCaseSets] = useState();
 
+  const loadingUser = typeof user === "undefined";
+  const loadingUserDoc = typeof userDoc === "undefined";
   useEffect(() => {
     let unsubscribe = () => {};
-    if (user) {
-      unsubscribe = getUserDocRef(user)
-        .collection("caseSets")
-        .onSnapshot((snapshot) => {
-          const mergedCaseSets = getMergedCaseSets(
-            localCaseSets,
-            snapshot,
-            userDoc
-          );
-          setCaseSets(mergedCaseSets);
-          console.log("updated case sets");
-        });
-    } else {
-      const mergedCaseSets = getMergedCaseSets(
-        localCaseSets,
-        undefined,
-        userDoc
-      );
-      setCaseSets(mergedCaseSets);
+    if (!loadingUser && !loadingUserDoc) {
+      if (user) {
+        unsubscribe = getUserDocRef(user)
+          .collection("caseSets")
+          .onSnapshot((snapshot) => {
+            const mergedCaseSets = getMergedCaseSets(
+              localCaseSets,
+              snapshot,
+              userDoc
+            );
+            setCaseSets(mergedCaseSets);
+            console.log("updated case sets");
+          });
+      } else {
+        const mergedCaseSets = getMergedCaseSets(
+          localCaseSets,
+          undefined,
+          userDoc
+        );
+        setCaseSets(mergedCaseSets);
+      }
     }
     return unsubscribe;
   }, [user, userDoc]);

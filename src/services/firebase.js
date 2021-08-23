@@ -43,7 +43,7 @@ export const setDoc = (docRef, data, logName = "Placeholder") => {
 };
 
 export const useAuthState = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState();
   firebase.auth().onAuthStateChanged((user) => {
     setUser(user ? user : null);
   });
