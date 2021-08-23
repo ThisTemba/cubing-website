@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import { usersRef } from "../services/firebase";
 
 export default function useUserDoc(user) {
-  const [userDoc, setUserDoc] = useState(null);
+  const [userDoc, setUserDoc] = useState();
+  const loadingUser = typeof user === "undefined";
+
   useEffect(() => {
     let unsubscribe = () => {};
-    const userDocRef = user ? usersRef.doc(user.uid) : null;
-    if (user) {
-      unsubscribe = userDocRef?.onSnapshot((userDoc) => setUserDoc(userDoc));
+    if (!loadingUser) {
+      if (user) {
+        const userDocRef = usersRef.doc(user.uid);
+        unsubscribe = userDocRef?.onSnapshot((userDoc) => setUserDoc(userDoc));
+      } else setUserDoc(null);
     }
     return unsubscribe;
   }, [user]);
