@@ -14,7 +14,7 @@ import useUserDoc from "./hooks/useUserDoc";
 import CaseSetsContext, { useCaseSets } from "./hooks/useCaseSets";
 
 function App() {
-  const user = useAuthState();
+  const { user, loading: loadingUser } = useAuthState();
   const userDoc = useUserDoc(user);
   const caseSets = useCaseSets(user, userDoc);
   const userObj = useMemo(() => ({ user, userDoc }), [user, userDoc]);
