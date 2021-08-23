@@ -41,6 +41,12 @@ export default function CaseSetCard(props) {
     );
   };
 
+  const renderTitle = (title) => (
+    <h4>
+      {title} <FaIcon icon="caret-right" />
+    </h4>
+  );
+
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button
@@ -59,12 +65,7 @@ export default function CaseSetCard(props) {
             </Col>
             <Col className="p-0 d-flex align-items-center justify-content-center">
               <Row>
-                <Col xs={12}>
-                  <h4>
-                    {`${title} `}
-                    <FaIcon icon="caret-right" />
-                  </h4>
-                </Col>
+                <Col xs={12}>{renderTitle(title)}</Col>
                 <Col xs={12}>{details.subTitle}</Col>
                 <Col xs={12}>{renderStatuses(details)}</Col>
               </Row>
