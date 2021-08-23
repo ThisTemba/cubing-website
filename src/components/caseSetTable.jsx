@@ -160,7 +160,7 @@ export default function CaseSetTable(props) {
       {
         Header: "Status",
         id: "status",
-        accessor: getStatus,
+        accessor: (cas) => getStatus(cas, userTrainSettings),
         Cell: ({ value }) => renderStatus(value),
         aggregate: (values) => {
           const ret = _.countBy(values);
