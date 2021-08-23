@@ -24,6 +24,11 @@ function App() {
     [darkMode, setDarkMode]
   );
 
+  const loadingUser = typeof user === "undefined";
+  const loadingUserDoc = typeof userDoc === "undefined";
+  const loadingCaseSets = typeof caseSets === "undefined";
+  const loading = loadingUser || loadingUserDoc || loadingCaseSets;
+
   return (
     <UserContext.Provider value={userObj}>
       <DarkModeContext.Provider value={darkModeObj}>
