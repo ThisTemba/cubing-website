@@ -16,7 +16,30 @@ export default function CaseSetCard(props) {
   const { xs } = useWindowDimensions();
 
   const cubeImageSize = xs ? "100" : "120";
-  const notStartedColor = darkMode ? "#adb5bd" : "#495057";
+
+  const renderStatuses = (details) => {
+    const counts = details.status;
+    const allLearned = counts[0] === 0 && counts[1] === 0;
+    const noneLearned = counts[1] === 0 && counts[2] === 0;
+    const green = "#28a745";
+    const yellow = darkMode ? "#ffc107" : "#daa506";
+    const gray = darkMode ? "#adb5bd" : "#495057";
+    if (allLearned)
+      return <span style={{ fontWeight: 600, color: green }}>Learned!</span>;
+    if (noneLearned)
+      return (
+        <span style={{ fontWeight: 600, color: gray }}>{counts[0]} Cases</span>
+      );
+    return (
+      <>
+        <span style={{ fontWeight: 600, color: gray }}>{counts[0]}</span>
+        {" | "}
+        <span style={{ fontWeight: 600, color: yellow }}>{counts[1]}</span>
+        {" | "}
+        <span style={{ fontWeight: 600, color: green }}>{counts[2]}</span>
+      </>
+    );
+  };
 
   return (
     <Col className="d-flex justify-content-center p-0" lg={6}>
@@ -42,31 +65,8 @@ export default function CaseSetCard(props) {
                     <FaIcon icon="caret-right" />
                   </h4>
                 </Col>
-                <Col xs={12}>
-                  {typeof subTitle !== "undefined" ? subTitle : ""}
-                </Col>
-                {["PLL", "OLL", "EPLL"].includes(details.title) && (
-                  <Col xs={12}>
-                    <span style={{ fontWeight: 600, color: notStartedColor }}>
-                      {_.random(20)}
-                    </span>
-                    {" | "}
-                    <span style={{ fontWeight: 600, color: "#ffc107" }}>
-                      {_.random(20)}
-                    </span>
-                    {" | "}
-                    <span style={{ fontWeight: 600, color: "#28a745" }}>
-                      {_.random(20)}
-                    </span>
-                  </Col>
-                )}
-                {!["PLL", "OLL", "EPLL"].includes(details.title) && (
-                  <Col>
-                    <span style={{ fontWeight: 600, color: notStartedColor }}>
-                      {_.random(20)} Cases
-                    </span>
-                  </Col>
-                )}
+                <Col xs={12}>{details.subTitle}</Col>
+                <Col xs={12}>{renderStatuses(details)}</Col>
               </Row>
             </Col>
             <Col className="p-0 d-flex align-items-center justify-content-center">
