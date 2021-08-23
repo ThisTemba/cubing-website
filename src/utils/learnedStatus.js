@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 const defaultTrainSettings = {
   hRate: 0.4,
   mmRate: 0.4,
@@ -35,4 +37,12 @@ export const getStatus = (cas, trainSettings) => {
   if (allLearned) return 2;
   if (numSolves > 0) return 1;
   return 0;
+};
+
+export const aggregateStatus = (values) => {
+  const ret = _.countBy(values);
+  ret[0] = ret[0] || 0;
+  ret[1] = ret[1] || 0;
+  ret[2] = ret[2] || 0;
+  return ret;
 };
