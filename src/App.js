@@ -12,6 +12,7 @@ import LogIn from "./components/logIn";
 import DarkModeContext, { useDarkMode } from "./hooks/useDarkMode";
 import useUserDoc from "./hooks/useUserDoc";
 import CaseSetsContext, { useCaseSets } from "./hooks/useCaseSets";
+import PageSpinner from "./components/common/pageSpinner";
 
 function App() {
   const user = useAuthState();
@@ -35,16 +36,19 @@ function App() {
         <CaseSetsContext.Provider value={caseSets}>
           <div className="App">
             <Navbar />
-            <Switch>
-              <Route path="/train" component={TrainPage} />
-              <Route path="/time" component={TimePage} />
-              <Route path="/stats" component={StatsPage} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/login" component={LogIn} />
-              <Route path="/settings" component={SettingsPage} />
-              <Route path="/password_reset" component={PasswordReset} />
-              <Redirect path="/" to="/train" />
-            </Switch>
+            {loading && <PageSpinner />}
+            {!loading && (
+              <Switch>
+                <Route path="/train" component={TrainPage} />
+                <Route path="/time" component={TimePage} />
+                <Route path="/stats" component={StatsPage} />
+                <Route path="/signup" component={SignUp} />
+                <Route path="/login" component={LogIn} />
+                <Route path="/settings" component={SettingsPage} />
+                <Route path="/password_reset" component={PasswordReset} />
+                <Redirect path="/" to="/train" />
+              </Switch>
+            )}
           </div>
         </CaseSetsContext.Provider>
       </DarkModeContext.Provider>
