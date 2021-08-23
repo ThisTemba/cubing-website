@@ -78,7 +78,6 @@ export default function CaseSetCard(props) {
             </Col>
           </Row>
         </Card.Body>
-        {/* {<MultiProgressBar />} */}
       </Button>
     </Col>
   );
