@@ -23,7 +23,9 @@ export default function TrainPage(props) {
     <Container>
       {displayDashboard && (
         <CaseSetDashboard
+          selectedCases={selectedCases}
           setSelectedCases={setSelectedCases}
+          caseSetDetails={caseSetDetails}
           setCaseSetDetails={setCaseSetDetails}
           onTest={handleTest}
           onLearn={handleLearn}
