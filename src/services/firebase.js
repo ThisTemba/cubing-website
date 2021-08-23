@@ -34,10 +34,12 @@ export const getCaseSetDocRef = (user, caseSetDetails) => {
 };
 
 export const setDoc = (docRef, data, logName = "Placeholder") => {
+  const successMsg = `${logName} document successfully written!`;
+  const errorMsg = `Error writing ${logName} document: `;
   docRef
     .set(data)
-    .then(() => console.log(`${logName} document successfully written!`))
-    .catch((error) => console.error("Error writing document: ", error));
+    .then(() => console.log(successMsg))
+    .catch((error) => console.error(errorMsg, error));
 };
 
 export const useAuthState = () => {

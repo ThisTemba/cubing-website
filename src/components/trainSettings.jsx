@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import Joi from "joi-browser";
 import _ from "lodash";
 import InputMosh from "./common/inputMosh";
-import { getUserDocRef, UserContext } from "../services/firebase";
+import { getUserDocRef, UserContext, setDoc } from "../services/firebase";
 import { useState } from "react";
 
 export default function TrainSettings() {
@@ -112,10 +112,7 @@ export default function TrainSettings() {
     let userData = userDoc.data();
     let settings = userData.settings;
     userData.settings = { ...settings, trainSettings: dataToWrite };
-    getUserDocRef(user)
-      .set(userData)
-      .then(console.log("Document written"))
-      .catch((err) => console.log(err));
+    setDoc(getUserDocRef(user), userData, "user doc with train settings");
   };
 
   return (
