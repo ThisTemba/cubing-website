@@ -44,10 +44,10 @@ export const setDoc = (docRef, data, logName = "Placeholder") => {
 
 export const useAuthState = () => {
   const [user, setUser] = useState();
-  const loading = typeof user === "undefined";
+  const loadingUser = typeof user === "undefined";
   firebase.auth().onAuthStateChanged((user) => {
     console.log("set user");
     setUser(user ? user : null);
   });
-  return { user, loading };
+  return { user, loadingUser };
 };
