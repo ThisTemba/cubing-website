@@ -3,11 +3,7 @@ import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import CreatableSelect from "react-select/creatable";
 import _ from "lodash";
-import {
-  UserContext,
-  getCaseSetDocRef,
-  setDocument,
-} from "../services/firebase";
+import { UserContext, getCaseSetDocRef, setDoc } from "../services/firebase";
 import CaseImage from "../components/common/cubing/cubeImage";
 import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
@@ -58,7 +54,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
     const userAlgs = options.filter((o) => o.deletable).map((o) => o.value);
     const alg = selectedOption.value;
     const newCaseDoc = { ...caseDoc.data(), alg, userAlgs };
-    setDocument(caseDoc.ref, newCaseDoc);
+    setDoc(caseDoc.ref, newCaseDoc);
 
     const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
     const caseSetDoc = await caseSetDocRef.get();
@@ -70,15 +66,15 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
         const newCase = oldCase ? { ...oldCase, alg } : { alg, id: cas.id };
         const newCases = [...oldCases.filter((c) => c.id !== cas.id), newCase];
         const newCaseSet = { ...oldCaseSet, cases: newCases };
-        setDocument(caseSetDocRef, newCaseSet);
+        setDoc(caseSetDocRef, newCaseSet);
       } else {
         const newCases = [{ alg, id: cas.id }];
         const oldCaseSetNewCases = { ...oldCaseSet, cases: newCases };
-        setDocument(caseSetDocRef, oldCaseSetNewCases);
+        setDoc(caseSetDocRef, oldCaseSetNewCases);
       }
     } else {
       const newCaseSet = { cases: [{ alg, id: cas.id }] };
-      setDocument(caseSetDocRef, newCaseSet);
+      setDoc(caseSetDocRef, newCaseSet);
     }
     setEditing(false);
   };

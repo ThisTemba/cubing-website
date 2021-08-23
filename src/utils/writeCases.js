@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { getCaseSetDocRef, setDocument } from "../services/firebase";
+import { getCaseSetDocRef, setDoc } from "../services/firebase";
 import { prepareCaseData } from "./caseStats";
 
 const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
@@ -9,7 +9,7 @@ const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
       const oldDoc = await caseDocRef.get();
       const newSolves = _.filter(solves, ["caseId", caseId]);
       const data = prepareCaseData(newSolves, oldDoc);
-      setDocument(caseDocRef, data, "CaseDoc");
+      setDoc(caseDocRef, data, "CaseDoc");
       return { id: caseId, caseStats: data.caseStats };
     })
   );
@@ -37,7 +37,7 @@ const writeCasesToCaseSetDoc = async (newCases, caseSetDocRef) => {
       cases = newCases;
     }
   }
-  setDocument(caseSetDocRef, { cases }, "CaseSetDoc");
+  setDoc(caseSetDocRef, { cases }, "CaseSetDoc");
 };
 
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {

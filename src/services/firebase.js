@@ -33,7 +33,7 @@ export const getCaseSetDocRef = (user, caseSetDetails) => {
   return getUserDocRef(user).collection("caseSets").doc(caseSetDetails.id);
 };
 
-export const setDocument = (docRef, data, logName = "Placeholder") => {
+export const setDoc = (docRef, data, logName = "Placeholder") => {
   docRef
     .set(data)
     .then(() => console.log(`${logName} document successfully written!`))
