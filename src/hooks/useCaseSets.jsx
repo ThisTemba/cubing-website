@@ -63,10 +63,11 @@ const getCaseSetStatus = (cases, userDoc) => {
 const getMergedCaseSets = (localCaseSets, snapshot, userDoc) => {
   const mergedCaseSets = localCaseSets.map((localCaseSet) => {
     const id = localCaseSet.details.id;
-    const remoteCaseSet = _.find(snapshot.docs, ["id", id])?.data();
+    const remoteCaseSet = _.find(snapshot?.docs, ["id", id])?.data();
     const mergedCaseSet = remoteCaseSet
       ? mergeCaseSet(localCaseSet, remoteCaseSet)
       : prepareLocalCaseSet(localCaseSet);
+    console.log(mergedCaseSet);
     const caseSetStatus = getCaseSetStatus(mergedCaseSet.cases, userDoc);
     mergedCaseSet.details.status = caseSetStatus;
     return mergedCaseSet;
@@ -91,6 +92,13 @@ export function useCaseSets(user, userDoc) {
           setCaseSets(mergedCaseSets);
           console.log("updated case sets");
         });
+    } else {
+      const mergedCaseSets = getMergedCaseSets(
+        localCaseSets,
+        undefined,
+        userDoc
+      );
+      setCaseSets(mergedCaseSets);
     }
     return unsubscribe;
   }, [user, userDoc]);
