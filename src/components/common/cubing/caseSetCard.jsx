@@ -51,7 +51,7 @@ export default function CaseSetCard(props) {
     <Col className="d-flex justify-content-center p-0" lg={6}>
       <Button
         variant={darkMode ? "dark" : "light"}
-        className="m-1 border btn-block p-1 pt-2"
+        className="m-1 border btn-block"
         onClick={props.onClick}
       >
         <Card.Body className="p-2 p-sm-3">
