@@ -17,6 +17,11 @@ import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import DarkModeContext from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import {
+  getPropLearned,
+  getStatus,
+  aggregateStatus,
+} from "../utils/learnedStatus";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -27,15 +32,8 @@ export default function CaseSetTable(props) {
     useCaseModal();
   const [caseModalId, setCaseModalId] = useState(null);
   const { width } = useWindowDimensions();
-  const defaultTrainSettings = {
-    hRate: 0.4,
-    mmRate: 0.4,
-    cmRate: 0.1,
-    avgTPS: 2,
-    numSolves: 5,
-  };
-  const trainSettings =
-    userDoc?.data()?.settings?.trainSettings || defaultTrainSettings;
+
+  const userTrainSettings = userDoc?.data()?.settings?.trainSettings;
 
   useEffect(() => {
     setCaseModalContent();
@@ -46,35 +44,6 @@ export default function CaseSetTable(props) {
   useEffect(() => {
     setData(caseSet.cases);
   }, [caseSet]);
-
-  const getPropLearned = (prop, val) => {
-    const settingsValue = trainSettings[prop];
-    const map = {
-      hRate: { symbol: "<" },
-      mmRate: { symbol: "<" },
-      cmRate: { symbol: "<" },
-      avgTPS: { symbol: ">" },
-      numSolves: { symbol: ">" },
-    };
-    if (typeof map[prop] === "undefined") return null;
-    if (map[prop].symbol === ">") {
-      return val >= settingsValue;
-    } else if (map[prop].symbol === "<") {
-      return val <= settingsValue;
-    } else throw new Error("symbol not recognized");
-  };
-
-  const getStatus = ({ hRate, mmRate, cmRate, avgTPS, numSolves }) => {
-    const allLearned =
-      getPropLearned("hRate", hRate) &&
-      getPropLearned("cmRate", cmRate) &&
-      getPropLearned("mmRate", mmRate) &&
-      getPropLearned("avgTPS", avgTPS) &&
-      getPropLearned("numSolves", numSolves);
-    if (allLearned) return 2;
-    if (numSolves > 0) return 1;
-    return 0;
-  };
 
   const sortStatus = (rowA, rowB) => {
     let [sA, sB] = [rowA.values.status, rowB.values.status];
@@ -195,15 +164,9 @@ export default function CaseSetTable(props) {
       {
         Header: "Status",
         id: "status",
-        accessor: getStatus,
+        accessor: (cas) => getStatus(cas, userTrainSettings),
         Cell: ({ value }) => renderStatus(value),
-        aggregate: (values) => {
-          const ret = _.countBy(values);
-          ret[0] = ret[0] || 0;
-          ret[1] = ret[1] || 0;
-          ret[2] = ret[2] || 0;
-          return ret;
-        },
+        aggregate: aggregateStatus,
         Aggregated: ({ value }) => renderAggregatedStatus(value),
         sortType: sortStatus,
       },
@@ -212,7 +175,7 @@ export default function CaseSetTable(props) {
   );
 
   const getPropNotLearnedProps = ({ column, row, isAggregated, value }) => {
-    const propLearned = getPropLearned(column.id, value);
+    const propLearned = getPropLearned(column.id, value, userTrainSettings);
     if (propLearned === null) return;
     const hasSolves = row.original?.numSolves;
     if (hasSolves && !isAggregated && !propLearned) {

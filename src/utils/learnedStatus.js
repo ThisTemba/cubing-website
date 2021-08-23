@@ -1,52 +1,48 @@
 import _ from "lodash";
 
-const opMap = {
-  "<=": (a, b) => a <= b,
-  ">=": (a, b) => a >= b,
+const defaultTrainSettings = {
+  hRate: 0.4,
+  mmRate: 0.4,
+  cmRate: 0.1,
+  avgTPS: 2,
+  numSolves: 5,
 };
 
-export function getStatLearned(statObj, CaseLearnedCriteria) {
-  if (typeof statObj !== "object") throw new Error("statObj must be an object");
-  const [statName, statValue] = _.toPairs(statObj)[0];
-  if (_(CaseLearnedCriteria).has(statName)) {
-    const { symbol, threshold } = CaseLearnedCriteria[statName];
-    return opMap[symbol](statValue, threshold);
-  } else return null;
-}
+export const getPropLearned = (prop, val, userTrainSettings) => {
+  const trainSettings = userTrainSettings || defaultTrainSettings;
+  const settingsValue = trainSettings[prop];
+  const map = {
+    hRate: { symbol: "<" },
+    mmRate: { symbol: "<" },
+    cmRate: { symbol: "<" },
+    avgTPS: { symbol: ">" },
+    numSolves: { symbol: ">" },
+  };
+  if (typeof map[prop] === "undefined") return null;
+  if (map[prop].symbol === ">") {
+    return val >= settingsValue;
+  } else if (map[prop].symbol === "<") {
+    return val <= settingsValue;
+  } else throw new Error("symbol not recognized");
+};
 
-export function getCaseLearned(cas, CaseLearnedCriteria) {
-  if (!CaseLearnedCriteria) return;
-  const learnedbools = Object.keys(CaseLearnedCriteria).map((key) => {
-    return getStatLearned({ [key]: cas[key] }, CaseLearnedCriteria);
-  });
-  return !_.some(learnedbools, (b) => b === false);
-}
+export const getStatus = (cas, trainSettings) => {
+  const { hRate, mmRate, cmRate, avgTPS, numSolves } = cas;
+  const allLearned =
+    getPropLearned("hRate", hRate, trainSettings) &&
+    getPropLearned("cmRate", cmRate, trainSettings) &&
+    getPropLearned("mmRate", mmRate, trainSettings) &&
+    getPropLearned("avgTPS", avgTPS, trainSettings) &&
+    getPropLearned("numSolves", numSolves, trainSettings);
+  if (allLearned) return 2;
+  if (numSolves > 0) return 1;
+  return 0;
+};
 
-export function getStatus(cas, CaseLearnedCriteria) {
-  const learned = getCaseLearned(cas, CaseLearnedCriteria);
-  const hasSolves = cas.numSolves > 0;
-  return learned ? 2 : hasSolves ? 1 : 0;
-}
-
-export function aggregateStatus(values) {
-  return _.countBy(values);
-}
-
-export function sortStatusSingle(sA, sB) {
-  return sA > sB ? 1 : -1;
-}
-
-export function sortStatusAggregated(statusCountsA, statusCountsB) {
-  const totalA = _.sum(_.values(statusCountsA));
-  const totalB = _.sum(_.values(statusCountsB));
-  const sB = _.mapValues(statusCountsB, (s) => s / totalB);
-  const sA = _.mapValues(statusCountsA, (s) => s / totalA);
-  const AisBigger = sA[2] !== sB[2] ? sA[2] > sB[2] : sA[1] > sB[1];
-  return AisBigger ? 1 : -1;
-}
-
-export function sortStatus(sA, sB) {
-  return typeof sA === "object"
-    ? sortStatusAggregated(sA, sB)
-    : sortStatusSingle(sA, sB);
-}
+export const aggregateStatus = (values) => {
+  const ret = _.countBy(values);
+  ret[0] = ret[0] || 0;
+  ret[1] = ret[1] || 0;
+  ret[2] = ret[2] || 0;
+  return ret;
+};
