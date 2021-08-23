@@ -67,7 +67,6 @@ const getMergedCaseSets = (localCaseSets, snapshot, userDoc) => {
     const mergedCaseSet = remoteCaseSet
       ? mergeCaseSet(localCaseSet, remoteCaseSet)
       : prepareLocalCaseSet(localCaseSet);
-    console.log(mergedCaseSet);
     const caseSetStatus = getCaseSetStatus(mergedCaseSet.cases, userDoc);
     mergedCaseSet.details.status = caseSetStatus;
     return mergedCaseSet;
