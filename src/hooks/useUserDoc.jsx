@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAuthState, usersRef } from "../services/firebase";
+import { usersRef } from "../services/firebase";
 
 export default function useUserDoc(user) {
   const [userDoc, setUserDoc] = useState(null);
