@@ -63,7 +63,6 @@ function CaseSetDashboard(props) {
               </Col>
             </Row>
             <CaseSetTable
-              initData={initData}
               caseSet={selectedCaseSet}
               setSelectedCases={setSelectedCases}
             />
