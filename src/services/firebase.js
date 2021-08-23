@@ -15,11 +15,10 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// EXPORTS
+// EXPORTS (mostly)
 export default firebase;
 
-export const db = firebase.firestore();
-
+const db = firebase.firestore();
 export const auth = firebase.auth();
 
 export const usersRef = db.collection("users");

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { auth, db } from "../services/firebase";
+import { auth, getUserDocRef } from "../services/firebase";
 import LoginSignUpTemplate from "./common/logInSignUpTemplate";
 
 export default function SignUp({ history }) {
@@ -10,20 +10,19 @@ export default function SignUp({ history }) {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        newUserDocument(userCredential.user.uid, email);
+        newUserDocument(userCredential.user, email);
         history.push("/");
       })
       .catch((error) => setError(error));
   };
 
-  const newUserDocument = (uid, email) => {
-    db.collection("users")
-      .doc(uid)
+  const newUserDocument = (user, email) => {
+    getUserDocRef(user)
       .set({
         email,
       })
       .then(() => {
-        console.log("Document written with ID: ", uid);
+        console.log("Document written with ID: ", user.uid);
       })
       .catch((error) => {
         console.error("Error adding document: ", error);

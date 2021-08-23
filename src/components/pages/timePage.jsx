@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { db, UserContext } from "../../services/firebase";
+import { getUserDocRef, UserContext } from "../../services/firebase";
 
 import { getSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -26,8 +26,7 @@ export default function TimePage() {
   }, []);
 
   const saveCurrentSession = (session) => {
-    db.collection("users")
-      .doc(user.uid)
+    getUserDocRef(user)
       .collection("sessions")
       .add(session)
       .then((docRef) => {

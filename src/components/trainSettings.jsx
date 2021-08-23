@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import Joi from "joi-browser";
 import _ from "lodash";
 import InputMosh from "./common/inputMosh";
-import { db, UserContext } from "../services/firebase";
+import { getUserDocRef, UserContext } from "../services/firebase";
 import { useState } from "react";
 
 export default function TrainSettings() {
@@ -16,7 +16,7 @@ export default function TrainSettings() {
 
   const [errors, setErrors] = useState({});
   const [data, setData] = useState(criteriaToData(defaultCaseLearnedCriteria));
-  const { user } = useContext(UserContext);
+  const { user, userDoc } = useContext(UserContext);
 
   function dataToCriteria(data) {
     const clc = defaultCaseLearnedCriteria;
@@ -32,13 +32,11 @@ export default function TrainSettings() {
   }
 
   useEffect(async () => {
-    if (user) {
-      const userDocRef = db.collection("users").doc(user.uid);
-      const userDoc = await userDocRef.get();
+    if (userDoc) {
       const trainSettings = userDoc.data()?.settings?.trainSettings;
       if (trainSettings) setData(trainSettings);
     }
-  }, [user]);
+  }, [userDoc]);
 
   const schema = {
     hRate: Joi.number().required().min(0).max(1).label("Max hRate"),
@@ -110,13 +108,11 @@ export default function TrainSettings() {
   };
 
   const doSubmit = async () => {
-    const userDocRef = db.collection("users").doc(user.uid);
-    const userDoc = await userDocRef.get();
     const dataToWrite = _.mapValues(data, (v) => parseFloat(v));
     let userData = userDoc.data();
     let settings = userData.settings;
     userData.settings = { ...settings, trainSettings: dataToWrite };
-    userDocRef
+    getUserDocRef(user)
       .set(userData)
       .then(console.log("Document written"))
       .catch((err) => console.log(err));
