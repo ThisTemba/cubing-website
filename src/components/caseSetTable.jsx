@@ -17,7 +17,11 @@ import { dispDur, dispDecimal, dispOverline } from "../utils/displayValue";
 import DarkModeContext from "../hooks/useDarkMode";
 import useCaseModal from "../hooks/useCaseModal";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import { getPropLearned, getStatus } from "../utils/learnedStatus";
+import {
+  getPropLearned,
+  getStatus,
+  aggregateStatus,
+} from "../utils/learnedStatus";
 
 export default function CaseSetTable(props) {
   const { caseSet } = props;
@@ -162,13 +166,7 @@ export default function CaseSetTable(props) {
         id: "status",
         accessor: (cas) => getStatus(cas, userTrainSettings),
         Cell: ({ value }) => renderStatus(value),
-        aggregate: (values) => {
-          const ret = _.countBy(values);
-          ret[0] = ret[0] || 0;
-          ret[1] = ret[1] || 0;
-          ret[2] = ret[2] || 0;
-          return ret;
-        },
+        aggregate: aggregateStatus,
         Aggregated: ({ value }) => renderAggregatedStatus(value),
         sortType: sortStatus,
       },
