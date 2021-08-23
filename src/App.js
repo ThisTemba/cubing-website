@@ -35,19 +35,21 @@ function App() {
       <DarkModeContext.Provider value={darkModeObj}>
         <CaseSetsContext.Provider value={caseSets}>
           <div className="App">
-            <Navbar />
             {loading && <PageSpinner />}
             {!loading && (
-              <Switch>
-                <Route path="/train" component={TrainPage} />
-                <Route path="/time" component={TimePage} />
-                <Route path="/stats" component={StatsPage} />
-                <Route path="/signup" component={SignUp} />
-                <Route path="/login" component={LogIn} />
-                <Route path="/settings" component={SettingsPage} />
-                <Route path="/password_reset" component={PasswordReset} />
-                <Redirect path="/" to="/train" />
-              </Switch>
+              <>
+                <Navbar />
+                <Switch>
+                  <Route path="/train" component={TrainPage} />
+                  <Route path="/time" component={TimePage} />
+                  <Route path="/stats" component={StatsPage} />
+                  <Route path="/signup" component={SignUp} />
+                  <Route path="/login" component={LogIn} />
+                  <Route path="/settings" component={SettingsPage} />
+                  <Route path="/password_reset" component={PasswordReset} />
+                  <Redirect path="/" to="/train" />
+                </Switch>
+              </>
             )}
           </div>
         </CaseSetsContext.Provider>
