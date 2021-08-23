@@ -14,15 +14,13 @@ function CaseSetDashboard(props) {
   const caseSets = useContext(CaseSetsContext);
   const selectedCaseSet = _(caseSets).find(["details.id", caseSetDetails?.id]);
 
-  const selecting = !caseSetDetails;
-
   return (
     caseSets && (
       <>
-        {selecting && (
+        {!selectedCaseSet && (
           <SelectCaseSet caseSets={caseSets} onClick={setCaseSetDetails} />
         )}
-        {!selecting && (
+        {selectedCaseSet && (
           <>
             <Row>
               <Col className="p-0">
