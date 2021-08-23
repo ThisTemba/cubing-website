@@ -26,7 +26,7 @@ import {
 export default function CaseSetTable(props) {
   const { caseSet } = props;
   const [data, setData] = useState(caseSet.cases || {});
-  const { user, userDoc } = useContext(UserContext);
+  const { userDoc } = useContext(UserContext);
   const { darkMode } = useContext(DarkModeContext);
   const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
     useCaseModal();
