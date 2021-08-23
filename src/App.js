@@ -31,14 +31,14 @@ function App() {
           <div className="App">
             <Navbar />
             <Switch>
-              <Route path="/time" component={TimePage} />
               <Route path="/train" component={TrainPage} />
+              <Route path="/time" component={TimePage} />
               <Route path="/stats" component={StatsPage} />
               <Route path="/signup" component={SignUp} />
               <Route path="/login" component={LogIn} />
               <Route path="/settings" component={SettingsPage} />
               <Route path="/password_reset" component={PasswordReset} />
-              <Redirect path="/" to="/time" />
+              <Redirect path="/" to="/train" />
             </Switch>
           </div>
         </CaseSetsContext.Provider>

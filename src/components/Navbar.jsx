@@ -13,8 +13,8 @@ export default function Navbar() {
   const collapse = () => setExpanded(false);
 
   const navLinks = [
-    { label: "Time", to: "/time" },
     { label: "Train", to: "/train" },
+    { label: "Time", to: "/time" },
     { label: "Stats", to: "/stats" },
   ];
 
