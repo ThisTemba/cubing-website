@@ -15,8 +15,8 @@ import CaseSetsContext, { useCaseSets } from "./hooks/useCaseSets";
 
 function App() {
   const user = useAuthState();
-  const caseSets = useCaseSets(user);
   const userDoc = useUserDoc(user);
+  const caseSets = useCaseSets(user, userDoc);
   const userObj = useMemo(() => ({ user, userDoc }), [user, userDoc]);
   const [darkMode, setDarkMode] = useDarkMode(true);
   const darkModeObj = useMemo(

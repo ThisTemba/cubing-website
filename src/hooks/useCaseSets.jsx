@@ -7,6 +7,7 @@ import eollCaseSet from "../data/eollCaseSet";
 import ocllCaseSet from "../data/ocllCaseSet";
 import epllCaseSet from "../data/epllCaseSet";
 import cpllCaseSet from "../data/cpllCaseSet";
+import { aggregateStatus, getStatus } from "../utils/learnedStatus";
 
 const CaseSetsContext = createContext(null);
 export default CaseSetsContext;
@@ -52,19 +53,28 @@ const prepareLocalCaseSet = (localCaseSet) => {
   return { cases: newCases, details };
 };
 
-const getMergedCaseSets = (localCaseSets, snapshot) => {
+const getCaseSetStatus = (cases, userDoc) => {
+  const userTrainSettings = userDoc?.data()?.settings?.trainSettings;
+  const statuses = cases.map((c) => getStatus(c, userTrainSettings));
+  const counts = aggregateStatus(statuses);
+  return counts;
+};
+
+const getMergedCaseSets = (localCaseSets, snapshot, userDoc) => {
   const mergedCaseSets = localCaseSets.map((localCaseSet) => {
     const id = localCaseSet.details.id;
     const remoteCaseSet = _.find(snapshot.docs, ["id", id])?.data();
     const mergedCaseSet = remoteCaseSet
       ? mergeCaseSet(localCaseSet, remoteCaseSet)
       : prepareLocalCaseSet(localCaseSet);
+    const caseSetStatus = getCaseSetStatus(mergedCaseSet.cases, userDoc);
+    mergedCaseSet.details.status = caseSetStatus;
     return mergedCaseSet;
   });
   return mergedCaseSets;
 };
 
-export function useCaseSets(user) {
+export function useCaseSets(user, userDoc) {
   const [caseSets, setCaseSets] = useState(null);
 
   useEffect(() => {
@@ -73,13 +83,17 @@ export function useCaseSets(user) {
       unsubscribe = getUserDocRef(user)
         .collection("caseSets")
         .onSnapshot((snapshot) => {
-          const mergedCaseSets = getMergedCaseSets(localCaseSets, snapshot);
+          const mergedCaseSets = getMergedCaseSets(
+            localCaseSets,
+            snapshot,
+            userDoc
+          );
           setCaseSets(mergedCaseSets);
           console.log("updated case sets");
         });
     }
     return unsubscribe;
-  }, [user]);
+  }, [user, userDoc]);
 
   return caseSets;
 }
