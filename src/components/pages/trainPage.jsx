@@ -18,11 +18,6 @@ export default function TrainPage(props) {
     setDisplayDashboard(false);
   };
 
-  useEffect(() => {
-    // console.table(selectedCases);
-    // console.log(caseSetDetails);
-  }, [selectedCases]);
-
   return (
     // <Container className="border">
     <Container>
