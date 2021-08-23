@@ -1,5 +1,5 @@
 import React from "react";
-import GridLoader from "react-spinners/GridLoader";
+import BeatLoader from "react-spinners/BeatLoader";
 
 export default function PageSpinner() {
   return (
@@ -7,7 +7,7 @@ export default function PageSpinner() {
       className="d-flex justify-content-center align-items-center"
       style={{ height: "60vh" }}
     >
-      <GridLoader speedMultiplier={0.5} color="#999999aa" />
+      <BeatLoader speedMultiplier={1.5} color="#999999aa" />
     </div>
   );
 }
