@@ -39,25 +39,39 @@ export default function TrainPage(props) {
       <Switch>
         <Route
           path="/train/test"
-          component={(props) => (
-            <TestPage
-              onDashboard={() => setDisplayDashboard(true)}
-              selectedCases={selectedCases}
-              caseSetDetails={caseSetDetails}
-              {...props}
-            />
-          )}
+          component={(props) => {
+            if (selectedCases.length)
+              return (
+                <TestPage
+                  onDashboard={() => setDisplayDashboard(true)}
+                  selectedCases={selectedCases}
+                  caseSetDetails={caseSetDetails}
+                  {...props}
+                />
+              );
+            else {
+              props.history.push("/train");
+              return null;
+            }
+          }}
         />
         <Route
           path="/train/learn"
-          component={(props) => (
-            <LearnPage
-              onDashboard={() => setDisplayDashboard(true)}
-              selectedCases={selectedCases}
-              caseSetDetails={caseSetDetails}
-              {...props}
-            />
-          )}
+          component={(props) => {
+            if (selectedCases.length)
+              return (
+                <LearnPage
+                  onDashboard={() => setDisplayDashboard(true)}
+                  selectedCases={selectedCases}
+                  caseSetDetails={caseSetDetails}
+                  {...props}
+                />
+              );
+            else {
+              props.history.push("/train");
+              return null;
+            }
+          }}
         />
       </Switch>
     </Container>
