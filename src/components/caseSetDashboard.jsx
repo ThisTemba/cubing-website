@@ -1,47 +1,32 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
 import _ from "lodash";
 import BackButton from "./common/backButton";
-import useLocalStorage from "../hooks/useLocalStorage";
 import CaseSetsContext from "../hooks/useCaseSets";
 import SelectCaseSet from "./selectCaseSet";
 import CaseSetTable from "./caseSetTable";
 
 function CaseSetDashboard(props) {
-  const [selectedCaseSetId, setSelectedCaseSetId] = useLocalStorage(
-    "selectedCaseSetId",
-    null
-  );
-
-  const caseSets = useContext(CaseSetsContext);
-  const selectedCaseSet = _(caseSets).find(["details.id", selectedCaseSetId]);
-  const [selectedCases, setSelectedCases] = useState([]);
-
-  useEffect(() => {
-    props.setSelectedCases(selectedCases);
-    if (selectedCaseSet !== undefined) {
-      props.setCaseSetDetails(selectedCaseSet.details);
-    }
-  }, [selectedCases]);
-
+  const { caseSetDetails, setCaseSetDetails } = props;
+  const { selectedCases, setSelectedCases } = props;
   const { onTest, onLearn } = props;
-  const initData = selectedCaseSet?.cases.map((c) => ({
-    ...c,
-    alg: c.algs[0],
-  }));
+  const caseSets = useContext(CaseSetsContext);
+  const selectedCaseSet = _(caseSets).find(["details.id", caseSetDetails?.id]);
+
+  const selecting = !caseSetDetails;
 
   return (
     caseSets && (
       <>
-        {!selectedCaseSetId && (
-          <SelectCaseSet caseSets={caseSets} onClick={setSelectedCaseSetId} />
+        {selecting && (
+          <SelectCaseSet caseSets={caseSets} onClick={setCaseSetDetails} />
         )}
-        {selectedCaseSetId && (
+        {!selecting && (
           <>
             <Row>
               <Col className="p-0">
-                <BackButton onClick={() => setSelectedCaseSetId(null)} />
+                <BackButton onClick={() => setCaseSetDetails(null)} />
               </Col>
               <Col className="justify-content-end d-flex p-0">
                 <Button
@@ -63,7 +48,6 @@ function CaseSetDashboard(props) {
               </Col>
             </Row>
             <CaseSetTable
-              initData={initData}
               caseSet={selectedCaseSet}
               setSelectedCases={setSelectedCases}
             />

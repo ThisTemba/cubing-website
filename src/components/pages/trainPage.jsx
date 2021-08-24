@@ -6,9 +6,9 @@ import TestPage from "./testPage";
 import LearnPage from "./learnPage";
 
 export default function TrainPage(props) {
-  const [selectedCases, setSelectedCases] = useState();
+  const [selectedCases, setSelectedCases] = useState([]);
   const [displayDashboard, setDisplayDashboard] = useState(true);
-  const [caseSetDetails, setCaseSetDetails] = useState();
+  const [caseSetDetails, setCaseSetDetails] = useState(null);
   const handleTest = () => {
     props.history.push("/train/test");
     setDisplayDashboard(false);
@@ -23,7 +23,9 @@ export default function TrainPage(props) {
     <Container>
       {displayDashboard && (
         <CaseSetDashboard
+          selectedCases={selectedCases}
           setSelectedCases={setSelectedCases}
+          caseSetDetails={caseSetDetails}
           setCaseSetDetails={setCaseSetDetails}
           onTest={handleTest}
           onLearn={handleLearn}
