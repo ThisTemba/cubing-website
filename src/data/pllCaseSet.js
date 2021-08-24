@@ -315,10 +315,10 @@ const pllCaseSet = {
       prob: 4,
       arrows: [],
       scrambles: [
-        "R2 B2 F2 U B2 D' R2 D R2 U' F2 R2",
-        "B2 L2 R2 U L2 D' B2 D B2 U' R2 B2",
-        "F2 L2 R2 U R2 D' F2 D F2 U' L2 F2",
-        "L2 B2 F2 U F2 D' L2 D L2 U' B2 L2",
+        "L2 B2 D F2 D' F2 U F2 U' B2 F2 L2",
+        "B2 R2 D L2 D' L2 U L2 U' L2 R2 B2",
+        "F2 L2 D R2 D' R2 U R2 U' L2 R2 F2",
+        "R2 F2 D B2 D' B2 U B2 U' B2 F2 R2",
       ],
       algs: [
         "R2 U R' U R' U' R U' R2 U' D R' U R D'",
@@ -332,10 +332,10 @@ const pllCaseSet = {
       prob: 4,
       arrows: [],
       scrambles: [
-        "L2 B2 D F2 D' F2 U F2 U' B2 F2 L2",
-        "B2 R2 D L2 D' L2 U L2 U' L2 R2 B2",
-        "F2 L2 D R2 D' R2 U R2 U' L2 R2 F2",
-        "R2 F2 D B2 D' B2 U B2 U' B2 F2 R2",
+        "R2 B2 F2 U B2 D' R2 D R2 U' F2 R2",
+        "B2 L2 R2 U L2 D' B2 D B2 U' R2 B2",
+        "F2 L2 R2 U R2 D' F2 D F2 U' L2 F2",
+        "L2 B2 F2 U F2 D' L2 D L2 U' B2 L2",
       ],
       algs: [
         "R' U' R U D' R2 U R' U R U' R U' R2 D",
