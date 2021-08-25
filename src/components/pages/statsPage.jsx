@@ -64,6 +64,7 @@ export default function StatsPage() {
     ];
     const globalStats = {};
     bests.forEach((key) => {
+      if (docs.filter((d) => d.stats?.[key] !== undefined).length === 0) return;
       const doc = _.minBy(docs, (doc) => doc?.stats.bestSingle);
       globalStats[key] = {
         date: doc?.dateTime,
