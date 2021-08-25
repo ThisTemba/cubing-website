@@ -56,8 +56,7 @@ export default function StatsPage() {
   const renderJumbo = (docs) => {
     console.log(docs?.length);
     return (
-      docs?.length === 0 &&
-      !loading && (
+      docs?.length === 0 && (
         <Jumbotron>
           <h1>{user ? "No Data Available" : "Log in Required"}</h1>
           <p>
