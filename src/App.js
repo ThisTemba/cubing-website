@@ -64,7 +64,7 @@ function App() {
                 emailDefaultValue={user?.email}
                 primaryColor={darkMode ? "#343a40" : "#dee2e6"}
                 hoverBorderColor={darkMode ? "#343a40" : "#dee2e6"}
-                textColor={darkMode ? "#f8f9fa" : "#212529"}
+                textColor={darkMode ? "#dee2e6" : "#212529"}
               />
             )}
           </div>
