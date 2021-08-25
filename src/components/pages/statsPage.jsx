@@ -178,9 +178,9 @@ export default function StatsPage() {
     );
   };
 
-  return (
-    <Container fluid className="text-center">
-      {chartData.length >= 2 && (
+  const renderGoogleChart = () => {
+    return (
+      chartData.length >= 2 && (
         <Chart
           width={"100%"}
           height={"90vh"}
@@ -215,7 +215,13 @@ export default function StatsPage() {
             },
           ]}
         />
-      )}
+      )
+    );
+  };
+
+  return (
+    <Container fluid className="text-center">
+      {renderGoogleChart()}
       {renderJumbo()}
       <ModalComponent />
       <ModalComponent1 />
