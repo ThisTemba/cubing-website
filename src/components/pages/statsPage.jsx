@@ -148,6 +148,36 @@ export default function StatsPage() {
     });
   };
 
+  const renderJumbo = () => {
+    return (
+      chartData.length <= 1 &&
+      !loading && (
+        <Jumbotron>
+          <h1>{user ? "No Data Available" : "Log in Required"}</h1>
+          <p>
+            {user
+              ? "It seems like you haven't recorded any solves yet. Head over to the Time page and..."
+              : "You need to be logged in to track and anaylze your solves"}
+          </p>
+          {user ? (
+            <Button variant="primary" as={Link} to="/time">
+              Get Solving!
+            </Button>
+          ) : (
+            <div>
+              <Button as={Link} to="/signup" className="m-1" variant="primary">
+                Sign Up
+              </Button>
+              <Button as={Link} to="/login" className="m-1" variant="secondary">
+                Log In
+              </Button>
+            </div>
+          )}
+        </Jumbotron>
+      )
+    );
+  };
+
   return (
     <Container fluid className="text-center">
       {chartData.length >= 2 && (
@@ -186,30 +216,7 @@ export default function StatsPage() {
           ]}
         />
       )}
-      {chartData.length <= 1 && !loading && (
-        <Jumbotron>
-          <h1>{user ? "No Data Available" : "Log in Required"}</h1>
-          <p>
-            {user
-              ? "It seems like you haven't recorded any solves yet. Head over to the Time page and..."
-              : "You need to be logged in to track and anaylze your solves"}
-          </p>
-          {user ? (
-            <Button variant="primary" as={Link} to="/time">
-              Get Solving!
-            </Button>
-          ) : (
-            <div>
-              <Button as={Link} to="/signup" className="m-1" variant="primary">
-                Sign Up
-              </Button>
-              <Button as={Link} to="/login" className="m-1" variant="secondary">
-                Log In
-              </Button>
-            </div>
-          )}
-        </Jumbotron>
-      )}
+      {renderJumbo()}
       <ModalComponent />
       <ModalComponent1 />
     </Container>
