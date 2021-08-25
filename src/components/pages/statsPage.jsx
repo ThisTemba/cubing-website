@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 export default function StatsPage() {
   const { user } = useContext(UserContext);
   const [docs, setDocs] = useState();
-  const [chartData, setChartData] = useState([]);
+  const [statsData, setStatsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function StatsPage() {
       };
     });
 
-    setChartData({ globalStats, data });
+    setStatsData({ globalStats, data });
   };
 
   const _Jumbo = ({ title, body, buttons }) => {
@@ -115,7 +115,10 @@ export default function StatsPage() {
 
   return (
     !loading && (
-      <Container className="text-center">{renderJumbo(docs)}</Container>
+      <Container className="text-center">
+        {renderJumbo(docs)}
+        {JSON.stringify(statsData.globalStats)}
+      </Container>
     )
   );
 }
