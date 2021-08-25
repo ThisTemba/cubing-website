@@ -46,13 +46,13 @@ export default function SolveList({
     //Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString
     const options = { hour: "2-digit", minute: "2-digit" };
     return (
-      <div className="">
+      <>
         {`Solve Time: ${dispDur(s.dur)} \n\n`} <br />
         {`Scramble: ${s.scramble}`} <br />
         {`Date: ${dateTime.toLocaleDateString()}`} <br />
         {`Time: ${dateTime.toLocaleTimeString([], options)}`} <br />
         {`Penalty: ${s.penalty || "None"}`}
-      </div>
+      </>
     );
   };
 
