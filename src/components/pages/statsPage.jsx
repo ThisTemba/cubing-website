@@ -57,35 +57,43 @@ export default function StatsPage() {
     setChartData(data);
   };
 
+  const _Jumbo = ({ title, body, buttons }) => {
+    return (
+      <Jumbotron>
+        <h1>{title}</h1>
+        <p>{body}</p>
+        {buttons.map((b) => (
+          <Button as={Link} to={b.to} variant={b.variant}>
+            {b.text}
+          </Button>
+        ))}
+      </Jumbotron>
+    );
+  };
+
   const renderJumbo = (docs) => {
     console.log(docs);
     console.log(docs?.length);
     if (docs?.length > 0) return;
     if (user)
       return (
-        <Jumbotron>
-          <h1>No Data Available</h1>
-          <p>
-            It seems like you haven't recorded any solves yet. Head over to the
-            Time page and...
-          </p>
-          <Button as={Link} to="/time" className="m-1" variant="primary">
-            Get Solving!
-          </Button>
-        </Jumbotron>
+        <_Jumbo
+          title="No Data Available"
+          body="It seems like you haven't recorded any solves yet. Head over to the
+    Time page and..."
+          buttons={[{ text: "Get Solving!", to: "/time", variant: "primary" }]}
+        />
       );
     else
       return (
-        <Jumbotron>
-          <h1>Log in Required</h1>
-          <p>You need to be logged in to track and anaylze your solves</p>
-          <Button as={Link} to="/signup" className="m-1" variant="primary">
-            Sign Up
-          </Button>
-          <Button as={Link} to="/login" className="m-1" variant="secondary">
-            Log In
-          </Button>
-        </Jumbotron>
+        <_Jumbo
+          title="Log in Required"
+          body="You need to be logged in to track and anaylze your solves"
+          buttons={[
+            { text: "Sign Up", to: "/signup", variant: "primary" },
+            { text: "Log In", to: "/login", variant: "secondary" },
+          ]}
+        />
       );
   };
 
