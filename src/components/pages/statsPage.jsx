@@ -48,17 +48,12 @@ export default function StatsPage() {
   };
 
   const getChartData = (docs) => {
-    let data = docs.map((d) => [
-      d.name,
-      getDate(d.dateTime),
-      d.stats.sessionAverage, // sessions with an average of DNF will not appear
-      d.puzzle,
-      d.stats.numSolves,
-    ]);
-    data = [
-      ["name", "dateTime", "session average", "puzzle", "number of solves"],
-      ...data,
-    ];
+    let data = docs.map((d) => ({
+      name: d.name,
+      dateTime: getDate(d.dateTime),
+      sessionAverage: d.stats.sessionAverage, // sessions with an average of DNF will not appear
+      numSolves: d.stats.numSolves,
+    }));
     setChartData(data);
   };
 
@@ -66,84 +61,6 @@ export default function StatsPage() {
     let date = new Date();
     date.setTime(Date.parse(dateString));
     return date;
-  };
-
-  const renderModalBody = (session) => {
-    console.log("avg:", getSessionAverage(session.solves));
-    return (
-      <div>
-        <Table striped bordered size="sm">
-          <tbody>
-            <tr>
-              <td>Total Solves</td>
-              <td>{session.stats.numSolves}</td>
-            </tr>
-            <tr>
-              <td>Session Average</td>
-              <td>{dispDur(session.stats.sessionAverage)}</td>
-            </tr>
-            <tr>
-              <td>Best Single</td>
-              <td>{dispDur(session.stats.bestSingle)}</td>
-            </tr>
-          </tbody>
-        </Table>
-        All stats:
-        <ListGroup>
-          {Object.keys(session.stats).map((k) => (
-            <ListGroup.Item key={k}>
-              {k}: {session.stats[k]}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </div>
-    );
-  };
-
-  const deleteSession = (id) => {
-    getUserDocRef(user)
-      .collection("sessions")
-      .doc(id)
-      .delete()
-      .then(() => {
-        console.log("Document successfully deleted!");
-        hideModal();
-      })
-      .catch((error) => {
-        console.error("Error removing document: ", error);
-      });
-  };
-
-  const renderSessionModal = (session) => {
-    showModal({
-      title: `Session Date: ${session.name}`,
-      body: renderModalBody(session),
-      footer: (
-        <Button
-          variant="danger"
-          onClick={() => {
-            hideModal();
-            showModal1({
-              title: "Are you sure?",
-              body: "This will permanently delete this session (you may have to refresh the page to see changes)",
-              footer: (
-                <Button
-                  variant="danger"
-                  onClick={() => {
-                    hideModal1();
-                    deleteSession(session.id);
-                  }}
-                >
-                  Permanently Delete Session
-                </Button>
-              ),
-            });
-          }}
-        >
-          Delete Session
-        </Button>
-      ),
-    });
   };
 
   const renderJumbo = () => {
@@ -176,49 +93,8 @@ export default function StatsPage() {
     );
   };
 
-  const renderGoogleChart = () => {
-    return (
-      chartData.length >= 2 && (
-        <Chart
-          width={"100%"}
-          height={"90vh"}
-          chartType="BubbleChart"
-          data={chartData}
-          options={{
-            title: "Session Average vs Session Date",
-            vAxis: { title: "Session Average" },
-            hAxis: { title: "Date" },
-            bubble: { textStyle: { color: "none" } },
-            tooltip: {
-              trigger: "none",
-            },
-          }}
-          rootProps={{ "data-testid": "1" }}
-          chartEvents={[
-            {
-              eventName: "select",
-              callback: ({ chartWrapper }) => {
-                const chart = chartWrapper.getChart();
-                const selection = chart.getSelection();
-                if (selection.length === 1) {
-                  const [selectedItem] = selection;
-                  const row = selectedItem.row;
-                  const session = docs[row];
-                  console.log(session);
-                  setRow(row);
-                  renderSessionModal(session);
-                }
-              },
-            },
-          ]}
-        />
-      )
-    );
-  };
-
   return (
     <Container fluid className="text-center">
-      {renderGoogleChart()}
       {renderJumbo()}
       <ModalComponent />
       <ModalComponent1 />
