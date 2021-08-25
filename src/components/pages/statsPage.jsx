@@ -6,9 +6,9 @@ import { UserContext, getUserDocRef } from "../../services/firebase";
 import { Link } from "react-router-dom";
 
 export default function StatsPage() {
+  const { user } = useContext(UserContext);
   const [docs, setDocs] = useState();
   const [chartData, setChartData] = useState([]);
-  const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
