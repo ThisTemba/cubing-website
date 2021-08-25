@@ -28,6 +28,7 @@ export default function StatsPage() {
 
   useEffect(() => {
     if (docs) getChartData(docs);
+    setLoading(false);
   }, [docs]);
 
   useEffect(() => {
@@ -60,7 +61,6 @@ export default function StatsPage() {
       ["name", "dateTime", "session average", "puzzle", "number of solves"],
       ...data,
     ];
-    setLoading(false);
     setChartData(data);
   };
 
