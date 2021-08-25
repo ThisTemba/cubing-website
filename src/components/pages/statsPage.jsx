@@ -69,7 +69,7 @@ export default function StatsPage() {
             It seems like you haven't recorded any solves yet. Head over to the
             Time page and...
           </p>
-          <Button variant="primary" as={Link} to="/time">
+          <Button as={Link} to="/time" className="m-1" variant="primary">
             Get Solving!
           </Button>
         </Jumbotron>
