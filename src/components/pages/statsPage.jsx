@@ -15,11 +15,11 @@ export default function StatsPage() {
     let unsubscribe = () => {};
     const userLoading = typeof user === "undefined";
     if (!userLoading) {
-    if (user) {
-      unsubscribe = readSessions((docs) => {
-        setDocs(docs);
-        getChartData(docs);
-      });
+      if (user) {
+        unsubscribe = readSessions((docs) => {
+          setDocs(docs);
+          getChartData(docs);
+        });
       } else {
         setDocs(null);
       }
@@ -60,33 +60,35 @@ export default function StatsPage() {
   };
 
   const renderJumbo = (docs) => {
+    console.log(docs);
     console.log(docs?.length);
-    return (
-      docs?.length === 0 && (
+    if (docs?.length > 0) return;
+    if (user)
+      return (
         <Jumbotron>
-          <h1>{user ? "No Data Available" : "Log in Required"}</h1>
+          <h1>No Data Available</h1>
           <p>
-            {user
-              ? "It seems like you haven't recorded any solves yet. Head over to the Time page and..."
-              : "You need to be logged in to track and anaylze your solves"}
+            It seems like you haven't recorded any solves yet. Head over to the
+            Time page and...
           </p>
-          {user ? (
-            <Button variant="primary" as={Link} to="/time">
-              Get Solving!
-            </Button>
-          ) : (
-            <div>
-              <Button as={Link} to="/signup" className="m-1" variant="primary">
-                Sign Up
-              </Button>
-              <Button as={Link} to="/login" className="m-1" variant="secondary">
-                Log In
-              </Button>
-            </div>
-          )}
+          <Button variant="primary" as={Link} to="/time">
+            Get Solving!
+          </Button>
         </Jumbotron>
-      )
-    );
+      );
+    else
+      return (
+        <Jumbotron>
+          <h1>Log in Required</h1>
+          <p>You need to be logged in to track and anaylze your solves</p>
+          <Button as={Link} to="/signup" className="m-1" variant="primary">
+            Sign Up
+          </Button>
+          <Button as={Link} to="/login" className="m-1" variant="secondary">
+            Log In
+          </Button>
+        </Jumbotron>
+      );
   };
 
   return (
