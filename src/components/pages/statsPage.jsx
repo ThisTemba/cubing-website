@@ -45,8 +45,8 @@ export default function StatsPage() {
     let data = docs.map((d) => ({
       name: d.name,
       dateTime: d.dateTime,
-      sessionAverage: d.stats.sessionAverage, // sessions with an average of DNF will not appear
-      numSolves: d.stats.numSolves,
+      sessionAverage: d.stats?.sessionAverage, // sessions with an average of DNF will not appear
+      numSolves: d.stats?.numSolves,
     }));
     setChartData(data);
   };
