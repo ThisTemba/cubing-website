@@ -17,15 +17,17 @@ export default function StatsPage() {
       unsubscribe = readSessions((docs) => {
         setDocs(docs);
         getChartData(docs);
-        console.log(docs);
       });
     }
+    return unsubscribe;
+  }, [user]);
+
+  useEffect(() => {
     const userLoading = typeof user === "undefined";
     const docsLoading = typeof docs === "undefined";
     const statsLoading = userLoading || docsLoading;
     setLoading(statsLoading);
-    return unsubscribe;
-  }, [user]);
+  }, [user, docs]);
 
   const readSessions = (callback) => {
     const unsubscribe = getUserDocRef(user)
@@ -51,9 +53,10 @@ export default function StatsPage() {
     setChartData(data);
   };
 
-  const renderJumbo = () => {
+  const renderJumbo = (docs) => {
+    console.log(docs?.length);
     return (
-      chartData.length <= 1 &&
+      docs?.length === 0 &&
       !loading && (
         <Jumbotron>
           <h1>{user ? "No Data Available" : "Log in Required"}</h1>
@@ -82,8 +85,8 @@ export default function StatsPage() {
   };
 
   return (
-    <Container fluid className="text-center">
-      {renderJumbo()}
-    </Container>
+    !loading && (
+      <Container className="text-center">{renderJumbo(docs)}</Container>
+    )
   );
 }
