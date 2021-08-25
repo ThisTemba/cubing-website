@@ -1,22 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
-import Table from "react-bootstrap/Table";
-import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Chart from "react-google-charts";
 import { UserContext, getUserDocRef } from "../../services/firebase";
-import { getSessionAverage } from "../../utils/averages";
-import { dispDur } from "../../utils/displayValue";
-import useModal from "../../hooks/useModal";
 import { Link } from "react-router-dom";
 
 export default function StatsPage() {
   const [docs, setDocs] = useState();
-  const [row, setRow] = useState(null);
   const [chartData, setChartData] = useState([]);
-  const [ModalComponent, showModal, hideModal] = useModal();
-  const [ModalComponent1, showModal1, hideModal1] = useModal();
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
 
