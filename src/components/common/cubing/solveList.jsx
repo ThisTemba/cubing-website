@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Pagination from "../pagination";
@@ -6,6 +6,7 @@ import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
 import { dispDur } from "../../../utils/displayValue";
 import useModal from "../../../hooks/useModal";
+import DarkModeContext from "../../../hooks/useDarkMode";
 import { FaIcon } from "../../../fontAwesome";
 
 export default function SolveList({
@@ -22,6 +23,7 @@ export default function SolveList({
     { label: "DNF", penalty: "DNF" },
     { label: "Reset", penalty: "" },
   ];
+  const { darkMode } = useContext(DarkModeContext);
 
   const getProcessedSolves = (solves) => {
     if (solves) {
@@ -55,6 +57,7 @@ export default function SolveList({
   };
 
   const renderPenaltyButtons = (dateTime) => {
+    const color = darkMode ? "#adadad" : "#343a40";
     return (
       <div>
         {penaltyButtons.map((button) => (
@@ -62,6 +65,7 @@ export default function SolveList({
             key={button.penalty}
             variant="link"
             size="sm"
+            style={{ color }}
             onClick={() => onPenalty(dateTime, button.penalty)}
           >
             {button.label}
@@ -70,6 +74,7 @@ export default function SolveList({
         <Button
           size="sm"
           variant="link"
+          style={{ color }}
           onClick={() => onDeleteSolve(dateTime)}
         >
           <FaIcon icon="trash" />
