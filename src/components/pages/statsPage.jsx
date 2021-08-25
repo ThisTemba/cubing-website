@@ -13,11 +13,16 @@ export default function StatsPage() {
 
   useEffect(() => {
     let unsubscribe = () => {};
+    const userLoading = typeof user === "undefined";
+    if (!userLoading) {
     if (user) {
       unsubscribe = readSessions((docs) => {
         setDocs(docs);
         getChartData(docs);
       });
+      } else {
+        setDocs(null);
+      }
     }
     return unsubscribe;
   }, [user]);
@@ -27,6 +32,7 @@ export default function StatsPage() {
     const docsLoading = typeof docs === "undefined";
     const statsLoading = userLoading || docsLoading;
     setLoading(statsLoading);
+    console.log(docsLoading, userLoading);
   }, [user, docs]);
 
   const readSessions = (callback) => {
