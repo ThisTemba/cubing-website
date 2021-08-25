@@ -12,7 +12,7 @@ export default function StatsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = () => {};
+    let unsubscribe = () => {};
     if (user) {
       unsubscribe = readSessions((docs) => {
         setDocs(docs);
