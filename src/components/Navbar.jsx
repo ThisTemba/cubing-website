@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <NavbarRB
       expand="sm"
-      className="mb-2 navbar-themed"
+      className="mb-2 navbar-themed text-center"
       onToggle={() => setExpanded(!expanded)}
       expanded={expanded}
     >
