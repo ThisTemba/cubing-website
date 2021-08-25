@@ -21,8 +21,9 @@ export default function StatsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const unsubscribe = () => {};
     if (user) {
-      readSessions((docs) => {
+      unsubscribe = readSessions((docs) => {
         setDocs(docs);
         getChartData(docs);
       });
@@ -31,10 +32,11 @@ export default function StatsPage() {
     const docsLoading = typeof docs === "undefined";
     const statsLoading = userLoading || docsLoading;
     setLoading(statsLoading);
+    return unsubscribe;
   }, [user, docs]);
 
   const readSessions = (callback) => {
-    getUserDocRef(user)
+    const unsubscribe = getUserDocRef(user)
       .collection("sessions")
       .get()
       .then((querySnapshot) => {
@@ -45,6 +47,7 @@ export default function StatsPage() {
         });
         callback(docs);
       });
+    return unsubscribe;
   };
 
   const getChartData = (docs) => {
