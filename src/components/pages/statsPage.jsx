@@ -12,7 +12,7 @@ import useModal from "../../hooks/useModal";
 import { Link } from "react-router-dom";
 
 export default function StatsPage() {
-  const [docs, setDocs] = useState(null);
+  const [docs, setDocs] = useState();
   const [row, setRow] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [ModalComponent, showModal, hideModal] = useModal();
@@ -22,14 +22,16 @@ export default function StatsPage() {
 
   useEffect(() => {
     if (user) {
-      readSessions((docs) => setDocs(docs));
+      readSessions((docs) => {
+        setDocs(docs);
+        getChartData(docs);
+      });
     }
-  }, [user]);
-
-  useEffect(() => {
-    if (docs) getChartData(docs);
-    setLoading(false);
-  }, [docs]);
+    const userLoading = typeof user === "undefined";
+    const docsLoading = typeof docs === "undefined";
+    const statsLoading = userLoading || docsLoading;
+    setLoading(statsLoading);
+  }, [user, docs]);
 
   useEffect(() => {
     // console.log(row);
@@ -155,7 +157,6 @@ export default function StatsPage() {
           width={"100%"}
           height={"90vh"}
           chartType="BubbleChart"
-          loader={<div>Loading Chart</div>}
           data={chartData}
           options={{
             title: "Session Average vs Session Date",
