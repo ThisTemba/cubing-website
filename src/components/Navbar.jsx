@@ -51,6 +51,8 @@ export default function Navbar() {
       <NavbarRB.Brand as={Link} to="/">
         Cubing Website
       </NavbarRB.Brand>
+      {xs && <div></div>}
+      {xs && <div></div>}
       {xs && renderDarkModeToggle()}
       <NavbarRB.Toggle aria-controls="basic-navbar-nav" />
       <NavbarRB.Collapse id="basic-navbar-nav">
