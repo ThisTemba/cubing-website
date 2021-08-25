@@ -29,9 +29,8 @@ export default function StatsPage() {
   const readSessions = (callback) => {
     const unsubscribe = getUserDocRef(user)
       .collection("sessions")
-      .get()
-      .then((querySnapshot) => {
-        let docs = querySnapshot.docs;
+      .onSnapshot((snapshot) => {
+        let docs = snapshot.docs;
         docs = docs.map((d) => {
           const sessionWithId = { id: d.id, ...d.data() };
           return sessionWithId;
