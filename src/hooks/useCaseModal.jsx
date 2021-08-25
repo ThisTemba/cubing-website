@@ -9,6 +9,7 @@ import DeletableOption from "../components/common/deletableOption";
 import CenterModalHeader from "../components/common/centerModalHeader";
 import useModal from "./useModal";
 import DarkModeContext from "../hooks/useDarkMode";
+import { dispDur, dispDecimal } from "../utils/displayValue";
 
 const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const [options, setOptions] = useState();
@@ -101,12 +102,16 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
   const handleChange = (option) => setSelectedOption(option);
 
   const statCols = [
-    { key: "hRate", Header: <FaIcon icon="spinner" /> },
-    { key: "nmRate", Header: <FaIcon icon="check" /> },
-    { key: "mmRate", Header: <FaIcon icon="minus" /> },
-    { key: "cmRate", Header: <FaIcon icon="times" /> },
-    { key: "avgTime", Header: "Mean Time" },
-    { key: "numSolves", Header: "Num Solves" },
+    { key: "hRate", Header: <FaIcon icon="spinner" />, Cell: dispDecimal },
+    { key: "nmRate", Header: <FaIcon icon="check" />, Cell: dispDecimal },
+    { key: "mmRate", Header: <FaIcon icon="minus" />, Cell: dispDecimal },
+    { key: "cmRate", Header: <FaIcon icon="times" />, Cell: dispDecimal },
+    { key: "avgTime", Header: "Mean Time", Cell: dispDur },
+    {
+      key: "numSolves",
+      Header: "Num Solves",
+      Cell: (value) => dispDecimal(value, 0),
+    },
   ];
 
   const dropdownDarkTheme = (theme) => ({
@@ -194,7 +199,7 @@ const CaseModalContent = ({ cas, caseSetDetails, hideModal }) => {
                       return (
                         <tr>
                           <th>{c.Header}</th>
-                          <td>{cas[c.key]}</td>
+                          <td>{c.Cell(cas[c.key])}</td>
                         </tr>
                       );
                     })}
