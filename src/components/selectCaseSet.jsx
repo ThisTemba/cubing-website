@@ -4,7 +4,7 @@ import CaseSetCard from "./common/cubing/caseSetCard";
 
 export default function SelectCaseSet({ caseSets, onClick }) {
   return (
-    <Row className="">
+    <Row>
       {caseSets.map((c) => {
         const { id } = c.details;
         return (
