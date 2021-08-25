@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import Pagination from "../pagination";
 import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
@@ -57,20 +58,22 @@ export default function SolveList({
     return (
       <div>
         {penaltyButtons.map((button) => (
-          <button
+          <Button
             key={button.penalty}
-            className="btn btn-sm btn-link"
+            variant="link"
+            size="sm"
             onClick={() => onPenalty(dateTime, button.penalty)}
           >
             {button.label}
-          </button>
+          </Button>
         ))}
-        <button
-          className="btn btn-sm btn-danger"
+        <Button
+          size="sm"
+          variant="link"
           onClick={() => onDeleteSolve(dateTime)}
         >
           <FaIcon icon="trash" />
-        </button>
+        </Button>
       </div>
     );
   };
