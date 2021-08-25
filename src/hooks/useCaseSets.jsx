@@ -86,21 +86,12 @@ export function useCaseSets(user, userDoc) {
         unsubscribe = getUserDocRef(user)
           .collection("caseSets")
           .onSnapshot((snapshot) => {
-            const mergedCaseSets = getMergedCaseSets(
-              localCaseSets,
-              snapshot,
-              userDoc
-            );
-            setCaseSets(mergedCaseSets);
-            console.log("updated case sets");
+            const merged = getMergedCaseSets(localCaseSets, snapshot, userDoc);
+            setCaseSets(merged);
           });
       } else {
-        const mergedCaseSets = getMergedCaseSets(
-          localCaseSets,
-          undefined,
-          userDoc
-        );
-        setCaseSets(mergedCaseSets);
+        const merged = getMergedCaseSets(localCaseSets, undefined, userDoc);
+        setCaseSets(merged);
       }
     }
     return unsubscribe;
