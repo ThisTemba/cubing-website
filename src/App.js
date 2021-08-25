@@ -12,7 +12,10 @@ import LogIn from "./components/logIn";
 import DarkModeContext, { useDarkMode } from "./hooks/useDarkMode";
 import useUserDoc from "./hooks/useUserDoc";
 import CaseSetsContext, { useCaseSets } from "./hooks/useCaseSets";
+import useWindowDimensions from "./hooks/useWindowDimensions";
 import PageSpinner from "./components/common/pageSpinner";
+import Feedback from "feeder-react-feedback"; // import Feedback component
+import "feeder-react-feedback/dist/feeder-react-feedback.css";
 
 function App() {
   const user = useAuthState();
@@ -24,6 +27,8 @@ function App() {
     () => ({ darkMode, setDarkMode }),
     [darkMode, setDarkMode]
   );
+
+  const { xs } = useWindowDimensions();
 
   const loadingUser = typeof user === "undefined";
   const loadingUserDoc = typeof userDoc === "undefined";
@@ -50,6 +55,17 @@ function App() {
                   <Redirect path="/" to="/train" />
                 </Switch>
               </>
+            )}
+            {!xs && (
+              <Feedback
+                projectId="61258e09ac9cf500049e116b"
+                feedbackTypes={["bug", "idea", "other"]}
+                email={true}
+                emailDefaultValue={user?.email}
+                primaryColor={darkMode ? "#343a40" : "#dee2e6"}
+                hoverBorderColor={darkMode ? "#343a40" : "#dee2e6"}
+                textColor={darkMode ? "#dee2e6" : "#212529"}
+              />
             )}
           </div>
         </CaseSetsContext.Provider>
