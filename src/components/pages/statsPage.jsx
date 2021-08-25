@@ -50,17 +50,11 @@ export default function StatsPage() {
   const getChartData = (docs) => {
     let data = docs.map((d) => ({
       name: d.name,
-      dateTime: getDate(d.dateTime),
+      dateTime: d.dateTime,
       sessionAverage: d.stats.sessionAverage, // sessions with an average of DNF will not appear
       numSolves: d.stats.numSolves,
     }));
     setChartData(data);
-  };
-
-  const getDate = (dateString) => {
-    let date = new Date();
-    date.setTime(Date.parse(dateString));
-    return date;
   };
 
   const renderJumbo = () => {
