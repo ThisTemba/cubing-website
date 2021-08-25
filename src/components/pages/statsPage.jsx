@@ -18,7 +18,7 @@ export default function StatsPage() {
       if (user) {
         unsubscribe = readSessions((docs) => {
           setDocs(docs);
-          getChartData(docs);
+          getStatsData(docs);
         });
       } else setDocs(null);
     }
@@ -47,7 +47,7 @@ export default function StatsPage() {
     return unsubscribe;
   };
 
-  const getChartData = (docs) => {
+  const getStatsData = (docs) => {
     let data = docs.map((d) => ({
       name: d.name,
       dateTime: d.dateTime,
