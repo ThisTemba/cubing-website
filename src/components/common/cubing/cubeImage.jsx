@@ -1,6 +1,7 @@
 // Source= http://cube.rider.biz/visualcube.php
 import { cubeSVG } from "sr-visualizer";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useContext } from "react";
+import DarkModeContext from "../../../hooks/useDarkMode";
 import _ from "lodash";
 
 const CubeImageInternal = (props) => {
@@ -35,12 +36,15 @@ CubeImage.defaultProps = {
 const CaseImage = (props) => {
   if (!props.caseSetDetails)
     throw new Error("CaseImage must have caseSetDetails property");
+  const { darkMode } = useContext(DarkModeContext);
 
+  const maskColor = props.maskColor || darkMode ? "#404044" : "#666";
+  const cubeColor = darkMode ? "#000" : "#181818";
   const alg = props.case?.algs[0] || props.alg;
   const arrows = props.case?.arrows?.[0];
   const { caseSetDetails, size } = props;
   const { mask, view } = caseSetDetails;
-  const rest = { mask, view, arrows };
+  const rest = { mask, view, arrows, maskColor, cubeColor };
   return (
     <CubeImage case={alg ? alg : ""} height={size} width={size} {...rest} />
   );
