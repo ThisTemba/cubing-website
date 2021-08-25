@@ -33,10 +33,6 @@ export default function StatsPage() {
     setLoading(statsLoading);
   }, [user, docs]);
 
-  useEffect(() => {
-    // console.log(row);
-  }, [row]);
-
   const readSessions = (callback) => {
     getUserDocRef(user)
       .collection("sessions")
