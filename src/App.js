@@ -57,18 +57,18 @@ function App() {
                   <Route path="/password_reset" component={PasswordReset} />
                   <Redirect path="/" to="/train" />
                 </Switch>
+                {!xs && (
+                  <Feedback
+                    projectId="61258e09ac9cf500049e116b"
+                    feedbackTypes={["bug", "idea", "other"]}
+                    email={true}
+                    emailDefaultValue={user?.email}
+                    primaryColor={darkMode ? "#343a40" : "#dee2e6"}
+                    hoverBorderColor={darkMode ? "#343a40" : "#dee2e6"}
+                    textColor={darkMode ? "#dee2e6" : "#212529"}
+                  />
+                )}
               </>
-            )}
-            {!xs && (
-              <Feedback
-                projectId="61258e09ac9cf500049e116b"
-                feedbackTypes={["bug", "idea", "other"]}
-                email={true}
-                emailDefaultValue={user?.email}
-                primaryColor={darkMode ? "#343a40" : "#dee2e6"}
-                hoverBorderColor={darkMode ? "#343a40" : "#dee2e6"}
-                textColor={darkMode ? "#dee2e6" : "#212529"}
-              />
             )}
           </div>
         </CaseSetsContext.Provider>
