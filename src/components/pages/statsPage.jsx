@@ -84,8 +84,6 @@ export default function StatsPage() {
   return (
     <Container fluid className="text-center">
       {renderJumbo()}
-      <ModalComponent />
-      <ModalComponent1 />
     </Container>
   );
 }
