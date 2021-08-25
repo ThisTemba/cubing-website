@@ -86,8 +86,8 @@ export default function SolveList({
   const processedSolves = getProcessedSolves(solves);
   return (
     <div className="row justify-content-center">
-      <div className="col" style={{ maxWidth: "800px" }}>
-        <Table bordered size="sm">
+      <div className="col" style={{ maxWidth: "600px" }}>
+        <Table size="sm">
           <thead>
             <tr>
               <th scope="col">#</th>
