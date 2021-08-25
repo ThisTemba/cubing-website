@@ -1,21 +1,24 @@
 import { useMemo } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { useAuthState, UserContext } from "./services/firebase";
-import Navbar from "./components/Navbar";
+import Feedback from "feeder-react-feedback"; // import Feedback component
+import "feeder-react-feedback/dist/feeder-react-feedback.css";
+
 import TrainPage from "./components/pages/trainPage";
 import TimePage from "./components/pages/timePage";
 import StatsPage from "./components/pages/statsPage";
 import SettingsPage from "./components/pages/settingsPage";
-import PasswordReset from "./components/passwordReset";
+
+import Navbar from "./components/Navbar";
 import SignUp from "./components/signUp";
 import LogIn from "./components/logIn";
+import PasswordReset from "./components/passwordReset";
+import PageSpinner from "./components/common/pageSpinner";
+
 import useUserDoc from "./hooks/useUserDoc";
 import DarkModeContext, { useDarkMode } from "./hooks/useDarkMode";
 import CaseSetsContext, { useCaseSets } from "./hooks/useCaseSets";
 import useWindowDimensions from "./hooks/useWindowDimensions";
-import PageSpinner from "./components/common/pageSpinner";
-import Feedback from "feeder-react-feedback"; // import Feedback component
-import "feeder-react-feedback/dist/feeder-react-feedback.css";
+import { useAuthState, UserContext } from "./services/firebase";
 
 function App() {
   const user = useAuthState();
