@@ -4,11 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 import { FaIcon } from "../fontAwesome";
 import { auth, UserContext } from "../services/firebase";
 import DarkModeContext from "../hooks/useDarkMode";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false);
   const { darkMode, setDarkMode } = useContext(DarkModeContext);
   const { user } = useContext(UserContext);
+  const { xs } = useWindowDimensions();
 
   const collapse = () => setExpanded(false);
 
@@ -17,6 +19,27 @@ export default function Navbar() {
     { label: "Time", to: "/time" },
     { label: "Stats", to: "/stats" },
   ];
+
+  const renderDarkModeToggle = () => {
+    return (
+      <div className="">
+        <Button
+          variant="link"
+          className="text-secondary"
+          onClick={() => {
+            setDarkMode(!darkMode);
+            document.activeElement.blur();
+          }}
+        >
+          <FaIcon
+            size="lg"
+            icon={darkMode ? "moon" : "sun"}
+            color={darkMode ? "" : "#707070"}
+          />
+        </Button>
+      </div>
+    );
+  };
 
   return (
     <NavbarRB
@@ -28,6 +51,7 @@ export default function Navbar() {
       <NavbarRB.Brand as={Link} to="/">
         Cubing Website
       </NavbarRB.Brand>
+      {xs && renderDarkModeToggle()}
       <NavbarRB.Toggle aria-controls="basic-navbar-nav" />
       <NavbarRB.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -38,20 +62,8 @@ export default function Navbar() {
           ))}
         </Nav>
         <Nav>
-          <Button
-            variant="link"
-            className="text-secondary"
-            onClick={() => {
-              setDarkMode(!darkMode);
-              document.activeElement.blur();
-            }}
-          >
-            <FaIcon
-              size="lg"
-              icon={darkMode ? "moon" : "sun"}
-              color={darkMode ? "" : "#707070"}
-            />
-          </Button>
+          {!xs && renderDarkModeToggle()}
+
           {user && (
             <NavDropdown title={user.email} id="basic-nav-dropdown">
               <NavDropdown.Item as={NavLink} to="/settings" onClick={collapse}>
