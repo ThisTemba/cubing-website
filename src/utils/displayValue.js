@@ -1,4 +1,3 @@
-import _ from "lodash";
 import { getTimeString } from "./formatTime";
 
 const undefinedValue = "-";
@@ -10,7 +9,7 @@ export const dispDur = (dur) => {
 
 export const dispDecimal = (number, n = 2) => {
   if (typeof number === "undefined") return undefinedValue;
-  return _.round(number, n);
+  return number.toFixed(n);
 };
 
 export const dispOverline = (string) => {
