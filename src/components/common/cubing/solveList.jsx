@@ -83,7 +83,30 @@ export default function SolveList({
     );
   };
 
-  const processedSolves = getProcessedSolves(solves);
+  const renderTableBody = (solves) => {
+    return solves.map((s) => (
+      <tr key={s.dateTime} className="align-middle">
+        <th scope="row">{s.solveNumber + ". "}</th>
+        <td
+          className="hover-shadow"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            showModal({
+              title: `Solve ${s.solveNumber}`,
+              body: getModalBody(s),
+            });
+          }}
+        >
+          {dispDur(s.dur)}
+          {s.penalty === "+2" ? "+" : ""}
+        </td>
+        <td>{s.ao5}</td>
+        <td>{s.ao12}</td>
+        <td>{renderPenaltyButtons(s.dateTime)}</td>
+      </tr>
+    ));
+  };
+
   return (
     <div className="row justify-content-center">
       <div className="col" style={{ maxWidth: "600px" }}>
@@ -97,29 +120,7 @@ export default function SolveList({
               <th scope="col"></th>
             </tr>
           </thead>
-          <tbody>
-            {processedSolves.map((s) => (
-              <tr key={s.dateTime} className="align-middle">
-                <th scope="row">{s.solveNumber + ". "}</th>
-                <td
-                  className="hover-shadow"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    showModal({
-                      title: `Solve ${s.solveNumber}`,
-                      body: getModalBody(s),
-                    });
-                  }}
-                >
-                  {dispDur(s.dur)}
-                  {s.penalty === "+2" ? "+" : ""}
-                </td>
-                <td>{s.ao5}</td>
-                <td>{s.ao12}</td>
-                <td>{renderPenaltyButtons(s.dateTime)}</td>
-              </tr>
-            ))}
-          </tbody>
+          <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
         </Table>
         <Pagination
           itemsCount={solves.length}
