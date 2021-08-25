@@ -17,6 +17,7 @@ export default function StatsPage() {
       unsubscribe = readSessions((docs) => {
         setDocs(docs);
         getChartData(docs);
+        console.log(docs);
       });
     }
     const userLoading = typeof user === "undefined";
@@ -24,7 +25,7 @@ export default function StatsPage() {
     const statsLoading = userLoading || docsLoading;
     setLoading(statsLoading);
     return unsubscribe;
-  }, [user, docs]);
+  }, [user]);
 
   const readSessions = (callback) => {
     const unsubscribe = getUserDocRef(user)
