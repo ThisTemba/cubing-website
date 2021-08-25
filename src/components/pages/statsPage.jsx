@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Jumbotron from "react-bootstrap/Jumbotron";
+import _ from "lodash";
 import { UserContext, getUserDocRef } from "../../services/firebase";
 import { Link } from "react-router-dom";
 
@@ -54,7 +55,23 @@ export default function StatsPage() {
       sessionAverage: d.stats?.sessionAverage, // sessions with an average of DNF will not appear
       numSolves: d.stats?.numSolves,
     }));
-    setChartData(data);
+    const bests = [
+      "bestSingle",
+      "bestAo5",
+      "bestAo12",
+      "bestAo50",
+      "bestAo100",
+    ];
+    const globalStats = {};
+    bests.forEach((key) => {
+      const doc = _.minBy(docs, (doc) => doc?.stats.bestSingle);
+      globalStats[key] = {
+        date: doc?.dateTime,
+        value: doc?.stats[key],
+      };
+    });
+
+    setChartData({ globalStats, data });
   };
 
   const _Jumbo = ({ title, body, buttons }) => {
@@ -72,8 +89,6 @@ export default function StatsPage() {
   };
 
   const renderJumbo = (docs) => {
-    console.log(docs);
-    console.log(docs?.length);
     if (docs?.length > 0) return;
     if (user)
       return (
