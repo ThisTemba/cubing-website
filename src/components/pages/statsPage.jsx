@@ -20,9 +20,7 @@ export default function StatsPage() {
           setDocs(docs);
           getChartData(docs);
         });
-      } else {
-        setDocs(null);
-      }
+      } else setDocs(null);
     }
     return unsubscribe;
   }, [user]);
