@@ -71,6 +71,10 @@ export default function SessionsChart({ data, globalStats }) {
   const showBests = false;
   const sideMargin = 100;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
+
+  const getYMax = (dataMax) => {
+    return Math.ceil(dataMax / 10) * 10;
+  };
   return (
     <div style={{ height: "600px" }}>
       <ResponsiveContainer width="100%" height="100%">
@@ -80,8 +84,8 @@ export default function SessionsChart({ data, globalStats }) {
           <YAxis
             dataKey="sessionAverage"
             type="number"
-            tickCount={7}
             allowDecimals={false}
+            domain={[0, getYMax]}
           />
           <ZAxis dataKey="numSolves" range={[minNumSolves, maxNumSolves]} />
           <ReferenceLine x="Page C" stroke="red" label="Max PV PAGE" />
