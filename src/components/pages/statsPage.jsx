@@ -43,7 +43,7 @@ export default function StatsPage() {
   const readSessions = (callback) => {
     const unsubscribe = getUserDocRef(user)
       .collection("sessions")
-      .orderBy("sessionNum", "asc")
+      .orderBy("timeStamp", "asc")
       .onSnapshot((snapshot) => {
         let docs = snapshot.docs;
         docs = docs.map((d) => {
@@ -110,7 +110,7 @@ export default function StatsPage() {
     let cb50 = sessions[0].bestAo50;
     let cb100 = sessions[0].bestAo100;
     const data = sessions.map((sesh, i) => {
-      const { sessionNum, sessionAverage, dateTime } = sesh;
+      const { sessionAverage, dateTime } = sesh;
       const { stats: statsRaw } = sesh;
       const rangeEB = [
         statsRaw.sessionAverage - statsRaw.bestSingle,
@@ -155,7 +155,7 @@ export default function StatsPage() {
       }
       const dataPoint = {
         dateTime,
-        sessionNum,
+        sessionNum: i + 1,
         sessionAverage: _.round(sessionAverage, 2),
         bestSingle,
         bestAo5,
