@@ -5,13 +5,13 @@ import {
   XAxis,
   YAxis,
   ZAxis,
-  Scatter,
   CartesianGrid,
   ReferenceLine,
   ErrorBar,
   ReferenceDot,
-  ComposedChart,
+  LineChart,
   Line,
+  Legend,
 } from "recharts";
 
 const renderReferenceLine = (best, label) => {
@@ -44,33 +44,19 @@ const renderErrorBar = (key, width, primary) => {
       dataKey={key}
       width={0}
       strokeWidth={width}
-      stroke={primary + "70"}
+      stroke={primary + "50"}
       direction="y"
     />
   );
 };
 
-const renderBests = (globalStats) => {
-  const { bestSingle, bestAo5, bestAo12, bestAo50, bestAo100 } = globalStats;
-
-  return (
-    <>
-      {renderReferenceLine(bestSingle, "Best Single")}
-      {renderReferenceLine(bestAo5, "Best Ao5")}
-      {renderReferenceLine(bestAo12, "Best Ao12")}
-      {renderReferenceLine(bestAo50, "Best Ao50")}
-      {renderReferenceLine(bestAo100, "Best Ao100")}
-    </>
-  );
-};
-
-export default function SessionsChart({ data, globalStats }) {
-  const primary = "#198754";
+export default function SessionsChart({ statsData }) {
+  const { globalStats, data } = statsData;
   const { minNumSolves, maxNumSolves } = globalStats;
 
-  const showBests = false;
-  const sideMargin = 100;
+  const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
+  console.log(data);
 
   const getYMax = (dataMax) => {
     return Math.ceil(dataMax / 10) * 10;
@@ -78,32 +64,94 @@ export default function SessionsChart({ data, globalStats }) {
   return (
     <div style={{ height: "600px" }}>
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart width={500} height={300} data={data} margin={margin}>
+        <LineChart width={500} height={300} data={data} margin={margin}>
           <CartesianGrid strokeDasharray={[3, 3]} />
-          <XAxis dataKey="sessionNum" type="number" />
+          <XAxis
+            dataKey="sessionNum"
+            type="number"
+            label={{
+              value: "Session Number",
+              position: "insideBottomRight",
+              offset: -5,
+            }}
+          />
           <YAxis
             dataKey="sessionAverage"
             type="number"
+            tickCount={7}
             allowDecimals={false}
             domain={[0, getYMax]}
+            label={{ value: "Time", angle: -90, position: "insideLeft" }}
           />
           <ZAxis dataKey="numSolves" range={[minNumSolves, maxNumSolves]} />
           <ReferenceLine x="Page C" stroke="red" label="Max PV PAGE" />
 
-          {showBests && renderBests(globalStats)}
+          <Legend />
+
           <Line
+            name="Best Ao100"
             type="monotone"
-            dataKey="sessionAverage"
-            stroke={primary + "90"}
+            dataKey="bestAo100"
             strokeWidth={2}
+            stroke="#4285f4"
             dot={false}
           />
-          <Scatter type="monotone" data={data} fill={primary} strokeWidth={2}>
+          <Line
+            name="Best Ao50"
+            type="monotone"
+            dataKey="bestAo50"
+            strokeWidth={2}
+            stroke="#db4437"
+            dot={false}
+          />
+          <Line
+            name="Best Ao12"
+            type="monotone"
+            dataKey="bestAo12"
+            strokeWidth={2}
+            stroke="#f4b400"
+            dot={false}
+          />
+          <Line
+            name="Best Ao5"
+            type="monotone"
+            dataKey="bestAo5"
+            strokeWidth={2}
+            stroke="#0f9d58"
+            dot={false}
+          />
+          <Line
+            name="Best Single"
+            type="monotone"
+            dataKey="bestSingle"
+            strokeWidth={2}
+            stroke="#ab47bc"
+            dot={false}
+          />
+          {/* <Line
+            name="Session Average"
+            type="monotone"
+            dataKey="sessionAverage"
+            strokeWidth={2}
+            stroke={primary + "20"}
+            dot={false}
+          >
             {renderErrorBar("rangeEB", 1, primary)}
             {renderErrorBar("iqrEB", 4, primary)}
-          </Scatter>
-          <Tooltip cursor={{ strokeDasharray: [3, 3] }} />
-        </ComposedChart>
+          </Line> */}
+
+          {/* <Scatter
+            type="monotone"
+            data={data}
+            fill={primary}
+            strokeWidth={2}
+          ></Scatter> */}
+          {/* <Tooltip
+            cursor={{ strokeDasharray: [3, 3] }}
+            content={<SessionsChartTooltip />}
+          /> */}
+          <Tooltip />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );

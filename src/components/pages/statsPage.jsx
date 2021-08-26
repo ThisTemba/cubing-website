@@ -85,8 +85,8 @@ export default function StatsPage() {
     return globalStats;
   };
 
-  const getStatsData = (sessions) => {
-    let data = sessions.map((sesh) => {
+  const getStatsData = (oldSessions) => {
+    let sessions = oldSessions.map((sesh) => {
       const { sessionAverage, bestSingle, worstSingle } = sesh.stats;
       const rangeEB = [
         sessionAverage - bestSingle,
@@ -95,16 +95,79 @@ export default function StatsPage() {
       const durs = sesh.solves.map((s) => s.dur);
       const Q2 = getQ2(durs);
       const iqrEB = [Q2 - getQ1(durs), getQ3(durs) - Q2];
+      const stats = _.mapValues(sesh.stats, (s) => _.round(s, 2));
       return {
         ...sesh,
-        ...sesh.stats,
+        ...stats,
         rangeEB,
         iqrEB,
       };
     });
-    const globalStats = getGlobalStats(sessions);
-
-    setStatsData({ globalStats, data });
+    let cbs = sessions[0].bestSingle;
+    let cb5 = sessions[0].bestAo5;
+    let cb12 = sessions[0].bestAo12;
+    let cb50 = sessions[0].bestAo50;
+    let cb100 = sessions[0].bestAo100;
+    const data = sessions.map((sesh, i) => {
+      const { sessionNum, sessionAverage } = sesh;
+      const { stats: statsRaw } = sesh;
+      const rangeEB = [
+        statsRaw.sessionAverage - statsRaw.bestSingle,
+        statsRaw.worstSingle - statsRaw.sessionAverage,
+      ];
+      const durs = sesh.solves.map((s) => s.dur);
+      const Q2 = getQ2(durs);
+      const iqrEB = [Q2 - getQ1(durs), getQ3(durs) - Q2];
+      const stats = _.mapValues(sesh.stats, (s) => _.round(s, 2));
+      const bestSingle = cbs
+        ? stats.bestSingle < cbs
+          ? stats.bestSingle
+          : cbs
+        : stats.bestSingle;
+      const bestAo5 = cb5
+        ? stats.bestAo5 < cb5
+          ? stats.bestAo5
+          : cb5
+        : stats.bestAo5;
+      const bestAo12 = cb12
+        ? stats.bestAo12 < cb12
+          ? stats.bestAo12
+          : cb12
+        : stats.bestAo12;
+      const bestAo50 = cb50
+        ? stats.bestAo50 < cb50
+          ? stats.bestAo50
+          : cb50
+        : stats.bestAo50;
+      const bestAo100 = cb100
+        ? stats.bestAo100 < cb100
+          ? stats.bestAo100
+          : cb100
+        : stats.bestAo100;
+      cbs = bestSingle;
+      cb5 = bestAo5;
+      cb12 = bestAo12;
+      cb50 = bestAo50;
+      cb100 = bestAo100;
+      if (cb100) {
+        console.log();
+      }
+      const dataPoint = {
+        sessionNum,
+        sessionAverage: _.round(sessionAverage, 2),
+        bestSingle,
+        bestAo5,
+        bestAo12,
+        bestAo50,
+        bestAo100,
+        rangeEB,
+        iqrEB,
+      };
+      return dataPoint;
+    });
+    console.log(data);
+    const globalStats = getGlobalStats(oldSessions);
+    setStatsData({ globalStats, sessions, data });
   };
 
   const _Jumbo = ({ title, body, buttons }) => {
@@ -151,14 +214,11 @@ export default function StatsPage() {
         {renderJumbo(docs)}
         <Card>
           <Card.Header>
-            <Card.Title>Session Average Time vs Session Number</Card.Title>
+            <Card.Title>Personal Bests</Card.Title>
           </Card.Header>
 
           <Card.Body>
-            <SessionsChart
-              data={statsData.data}
-              globalStats={statsData.globalStats}
-            />
+            <SessionsChart statsData={statsData} />
           </Card.Body>
         </Card>
       </Container>
