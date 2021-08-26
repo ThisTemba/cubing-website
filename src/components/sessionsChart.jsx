@@ -12,7 +12,7 @@ import {
 } from "recharts";
 
 export default function SessionsChart({ statsData }) {
-  const { globalStats, data } = statsData;
+  const { data } = statsData;
 
   const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
