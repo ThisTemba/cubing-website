@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { UserContext, getUserDocRef } from "../../services/firebase";
+import firebase, { UserContext, getUserDocRef } from "../../services/firebase";
 
 import { getSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -45,6 +45,7 @@ export default function TimePage() {
         " " +
         dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
       dateTime: dateTime.toString(),
       puzzle: puzzle,
       solves: solves,
