@@ -74,6 +74,7 @@ export default function SessionsChart({ statsData }) {
               position: "insideBottomRight",
               offset: -5,
             }}
+            name="session"
           />
           <YAxis
             dataKey="sessionAverage"
@@ -82,6 +83,7 @@ export default function SessionsChart({ statsData }) {
             allowDecimals={false}
             domain={[0, getYMax]}
             label={{ value: "Time", angle: -90, position: "insideLeft" }}
+            unit="s"
           />
           <ZAxis dataKey="numSolves" range={[minNumSolves, maxNumSolves]} />
           <ReferenceLine x="Page C" stroke="red" label="Max PV PAGE" />
@@ -150,7 +152,14 @@ export default function SessionsChart({ statsData }) {
             cursor={{ strokeDasharray: [3, 3] }}
             content={<SessionsChartTooltip />}
           /> */}
-          <Tooltip />
+          <Tooltip
+            formatter={(value) => value + "s"}
+            labelFormatter={(label, other) => {
+              const dateTime = other[0]?.payload.dateTime;
+              const date = new Date(dateTime).toLocaleDateString();
+              return "Session " + label + ": " + date;
+            }}
+          />
         </LineChart>
       </ResponsiveContainer>
     </div>
