@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
+import { Button, Container, Card } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import _ from "lodash";
 import { UserContext, getUserDocRef } from "../../services/firebase";
 import { Link } from "react-router-dom";
+import SessionsChart from "../sessionsChart";
 import { mockSessions } from "../../data/mockSessionData";
+import { getQ1, getQ2, getQ3 } from "../../utils/quantiles";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
@@ -53,13 +54,7 @@ export default function StatsPage() {
     return unsubscribe;
   };
 
-  const getStatsData = (docs) => {
-    let data = docs.map((d) => ({
-      name: d.name,
-      dateTime: d.dateTime,
-      sessionAverage: d.stats?.sessionAverage, // sessions with an average of DNF will not appear
-      numSolves: d.stats?.numSolves,
-    }));
+  const getGlobalStats = (sessions) => {
     const bests = [
       "bestSingle",
       "bestAo5",
@@ -69,13 +64,45 @@ export default function StatsPage() {
     ];
     const globalStats = {};
     bests.forEach((key) => {
-      if (docs.filter((d) => d.stats?.[key] !== undefined).length === 0) return;
-      const doc = _.minBy(docs, (doc) => doc?.stats.bestSingle);
+      if (
+        sessions.filter((sesh) => sesh.stats?.[key] !== undefined).length === 0
+      )
+        return;
+      const sesh = _.minBy(sessions, (sesh) => sesh?.stats[key]);
       globalStats[key] = {
-        date: doc?.dateTime,
-        value: doc?.stats[key],
+        sessionNum: sesh?.sessionNum,
+        dur: sesh?.stats[key],
       };
     });
+    globalStats.maxNumSolves = _.maxBy(
+      sessions,
+      "stats.numSolves"
+    ).stats.numSolves;
+    globalStats.minNumSolves = _.minBy(
+      sessions,
+      "stats.numSolves"
+    ).stats.numSolves;
+    return globalStats;
+  };
+
+  const getStatsData = (sessions) => {
+    let data = sessions.map((sesh) => {
+      const { sessionAverage, bestSingle, worstSingle } = sesh.stats;
+      const rangeEB = [
+        sessionAverage - bestSingle,
+        worstSingle - sessionAverage,
+      ];
+      const durs = sesh.solves.map((s) => s.dur);
+      const Q2 = getQ2(durs);
+      const iqrEB = [Q2 - getQ1(durs), getQ3(durs) - Q2];
+      return {
+        ...sesh,
+        ...sesh.stats,
+        rangeEB,
+        iqrEB,
+      };
+    });
+    const globalStats = getGlobalStats(sessions);
 
     setStatsData({ globalStats, data });
   };
@@ -122,7 +149,18 @@ export default function StatsPage() {
     !loading && (
       <Container className="text-center">
         {renderJumbo(docs)}
-        {JSON.stringify(statsData.globalStats)}
+        <Card>
+          <Card.Header>
+            <Card.Title>Session Average Time vs Session Number</Card.Title>
+          </Card.Header>
+
+          <Card.Body>
+            <SessionsChart
+              data={statsData.data}
+              globalStats={statsData.globalStats}
+            />
+          </Card.Body>
+        </Card>
       </Container>
     )
   );
