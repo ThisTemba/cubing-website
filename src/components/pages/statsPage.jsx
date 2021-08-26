@@ -31,7 +31,6 @@ export default function StatsPage() {
     const docsLoading = typeof docs === "undefined";
     const statsLoading = userLoading || docsLoading;
     setLoading(statsLoading);
-    console.log(docsLoading, userLoading);
   }, [user, docs]);
 
   const readSessions = (callback) => {
