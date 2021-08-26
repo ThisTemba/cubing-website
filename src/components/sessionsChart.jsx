@@ -1,7 +1,6 @@
 import React from "react";
 import {
   ResponsiveContainer,
-  ScatterChart,
   Tooltip,
   XAxis,
   YAxis,
