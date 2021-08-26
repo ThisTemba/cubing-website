@@ -13,7 +13,6 @@ import {
   ComposedChart,
   Line,
 } from "recharts";
-import { dispDur } from "../utils/displayValue";
 
 const renderReferenceLine = (best, label) => {
   return (
@@ -81,7 +80,6 @@ export default function SessionsChart({ data, globalStats }) {
             dataKey="sessionAverage"
             type="number"
             tickCount={7}
-            tickFormatter={dispDur}
             allowDecimals={false}
           />
           <ZAxis dataKey="numSolves" range={[minNumSolves, maxNumSolves]} />
