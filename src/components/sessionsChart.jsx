@@ -56,6 +56,8 @@ export default function SessionsChart({ data, globalStats }) {
   const primary = "#198754";
   const { bestSingle, bestAo5, bestAo12, bestAo50, bestAo100 } = globalStats;
   const { minNumSolves, maxNumSolves } = globalStats;
+
+  const showBests = false;
   const margin = { top: 20, right: 20, left: 20, bottom: 20 };
   return (
     <div style={{ height: "600px" }}>
@@ -73,11 +75,11 @@ export default function SessionsChart({ data, globalStats }) {
           <ZAxis dataKey="numSolves" range={[minNumSolves, maxNumSolves]} />
           <ReferenceLine x="Page C" stroke="red" label="Max PV PAGE" />
 
-          {/* {renderReferenceLine(bestSingle, "Best Single")}
-          {renderReferenceLine(bestAo5, "Best Ao5")}
-          {renderReferenceLine(bestAo12, "Best Ao12")}
-          {renderReferenceLine(bestAo50, "Best Ao50")}
-        {renderReferenceLine(bestAo100, "Best Ao100")} */}
+          {showBests && renderReferenceLine(bestSingle, "Best Single")}
+          {showBests && renderReferenceLine(bestAo5, "Best Ao5")}
+          {showBests && renderReferenceLine(bestAo12, "Best Ao12")}
+          {showBests && renderReferenceLine(bestAo50, "Best Ao50")}
+          {showBests && renderReferenceLine(bestAo100, "Best Ao100")}
           <Line
             type="monotone"
             dataKey="sessionAverage"
