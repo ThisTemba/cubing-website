@@ -14,24 +14,24 @@ export default function StatsPage() {
   const [statsData, setStatsData] = useState(mockSessions);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setDocs(mockSessions);
-    getStatsData(mockSessions);
-  }, []);
-
   // useEffect(() => {
-  //   let unsubscribe = () => {};
-  //   const userLoading = typeof user === "undefined";
-  //   if (!userLoading) {
-  //     if (user) {
-  //       unsubscribe = readSessions((docs) => {
-  //         setDocs(docs);
-  //         getStatsData(docs);
-  //       });
-  //     } else setDocs(null);
-  //   }
-  //   return unsubscribe;
-  // }, [user]);
+  //   setDocs(mockSessions);
+  //   getStatsData(mockSessions);
+  // }, []);
+
+  useEffect(() => {
+    let unsubscribe = () => {};
+    const userLoading = typeof user === "undefined";
+    if (!userLoading) {
+      if (user) {
+        unsubscribe = readSessions((docs) => {
+          setDocs(docs);
+          getStatsData(docs);
+        });
+      } else setDocs(null);
+    }
+    return unsubscribe;
+  }, [user]);
 
   useEffect(() => {
     const userLoading = typeof user === "undefined";
@@ -43,6 +43,7 @@ export default function StatsPage() {
   const readSessions = (callback) => {
     const unsubscribe = getUserDocRef(user)
       .collection("sessions")
+      .orderBy("sessionNum", "asc")
       .onSnapshot((snapshot) => {
         let docs = snapshot.docs;
         docs = docs.map((d) => {
