@@ -5,26 +5,32 @@ import Jumbotron from "react-bootstrap/Jumbotron";
 import _ from "lodash";
 import { UserContext, getUserDocRef } from "../../services/firebase";
 import { Link } from "react-router-dom";
+import { mockSessions } from "../../data/mockSessionData";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
   const [docs, setDocs] = useState();
-  const [statsData, setStatsData] = useState([]);
+  const [statsData, setStatsData] = useState(mockSessions);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let unsubscribe = () => {};
-    const userLoading = typeof user === "undefined";
-    if (!userLoading) {
-      if (user) {
-        unsubscribe = readSessions((docs) => {
-          setDocs(docs);
-          getStatsData(docs);
-        });
-      } else setDocs(null);
-    }
-    return unsubscribe;
-  }, [user]);
+    setDocs(mockSessions);
+    getStatsData(mockSessions);
+  }, []);
+
+  // useEffect(() => {
+  //   let unsubscribe = () => {};
+  //   const userLoading = typeof user === "undefined";
+  //   if (!userLoading) {
+  //     if (user) {
+  //       unsubscribe = readSessions((docs) => {
+  //         setDocs(docs);
+  //         getStatsData(docs);
+  //       });
+  //     } else setDocs(null);
+  //   }
+  //   return unsubscribe;
+  // }, [user]);
 
   useEffect(() => {
     const userLoading = typeof user === "undefined";
