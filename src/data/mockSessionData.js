@@ -7,7 +7,15 @@ const getNewSession = (solves, sessionNum) => {
   const dateTime = new Date(date);
   const name = "Session " + sessionNum;
   const puzzle = "333";
-  const newSession = { solves, stats, date, dateTime, name, puzzle };
+  const newSession = {
+    sessionNum,
+    solves,
+    stats,
+    date,
+    dateTime,
+    name,
+    puzzle,
+  };
   return newSession;
 };
 
@@ -35,6 +43,7 @@ export function processSolves(solves) {
 
 export const mockSessions = [
   {
+    sessionNum: 1,
     solves: [
       {
         num: 1,
@@ -205,6 +214,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 2,
     solves: [
       {
         num: 1,
@@ -327,6 +337,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 3,
     solves: [
       {
         num: 1,
@@ -651,6 +662,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 4,
     solves: [
       {
         num: 1,
@@ -1074,6 +1086,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 5,
     solves: [
       {
         num: 1,
@@ -1202,6 +1215,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 6,
     solves: [
       {
         num: 1,
@@ -1519,6 +1533,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 7,
     solves: [
       {
         num: 1,
@@ -1781,6 +1796,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 8,
     solves: [
       {
         num: 1,
@@ -1958,6 +1974,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 9,
     solves: [
       {
         num: 1,
@@ -2388,6 +2405,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 10,
     solves: [
       {
         num: 1,
@@ -2705,6 +2723,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 11,
     solves: [
       {
         num: 1,
@@ -2840,6 +2859,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 12,
     solves: [
       {
         num: 1,
@@ -3003,6 +3023,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 13,
     solves: [
       {
         num: 1,
@@ -3405,6 +3426,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 14,
     solves: [
       {
         num: 1,
@@ -3653,6 +3675,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 15,
     solves: [
       {
         num: 1,
@@ -4273,6 +4296,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 16,
     solves: [
       {
         num: 1,
@@ -5323,6 +5347,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 17,
     solves: [
       {
         num: 1,
@@ -6561,6 +6586,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 18,
     solves: [
       {
         num: 1,
@@ -6788,6 +6814,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 19,
     solves: [
       {
         num: 1,
@@ -7070,6 +7097,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 20,
     solves: [
       {
         num: 1,
@@ -7326,6 +7354,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 21,
     solves: [
       {
         num: 1,
@@ -7711,6 +7740,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 22,
     solves: [
       {
         num: 1,
@@ -8737,6 +8767,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 23,
     solves: [
       {
         num: 1,
@@ -9830,6 +9861,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 24,
     solves: [
       {
         num: 1,
@@ -10571,6 +10603,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 25,
     solves: [
       {
         num: 1,
@@ -10693,6 +10726,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 26,
     solves: [
       {
         num: 1,
@@ -10899,6 +10933,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 27,
     solves: [
       {
         num: 1,
@@ -11021,6 +11056,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 28,
     solves: [
       {
         num: 1,
@@ -11270,6 +11306,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 29,
     solves: [
       {
         num: 1,
@@ -11518,6 +11555,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 30,
     solves: [
       {
         num: 1,
@@ -11787,6 +11825,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 31,
     solves: [
       {
         num: 1,
@@ -11978,6 +12017,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 32,
     solves: [
       {
         num: 1,
@@ -12106,6 +12146,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 33,
     solves: [
       {
         num: 1,
@@ -12403,6 +12444,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 34,
     solves: [
       {
         num: 1,
@@ -12801,6 +12843,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 35,
     solves: [
       {
         num: 1,
@@ -13689,6 +13732,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 36,
     solves: [
       {
         num: 1,
@@ -14113,6 +14157,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 37,
     solves: [
       {
         num: 1,
@@ -14487,6 +14532,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 38,
     solves: [
       {
         num: 1,
@@ -14734,6 +14780,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 39,
     solves: [
       {
         num: 1,
@@ -14939,6 +14986,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 40,
     solves: [
       {
         num: 1,
@@ -15215,6 +15263,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 41,
     solves: [
       {
         num: 1,
@@ -15434,6 +15483,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 42,
     solves: [
       {
         num: 1,
@@ -15625,6 +15675,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 43,
     solves: [
       {
         num: 1,
@@ -15755,6 +15806,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 44,
     solves: [
       {
         num: 1,
@@ -15988,6 +16040,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 45,
     solves: [
       {
         num: 1,
@@ -16708,6 +16761,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 46,
     solves: [
       {
         num: 1,
@@ -16808,6 +16862,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 47,
     solves: [
       {
         num: 1,
@@ -16965,6 +17020,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 48,
     solves: [
       {
         num: 1,
@@ -17773,6 +17829,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 49,
     solves: [
       {
         num: 1,
@@ -17937,6 +17994,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 50,
     solves: [
       {
         num: 1,
@@ -18333,6 +18391,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 51,
     solves: [
       {
         num: 1,
@@ -18503,6 +18562,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 52,
     solves: [
       {
         num: 1,
@@ -18701,6 +18761,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 53,
     solves: [
       {
         num: 1,
@@ -18908,6 +18969,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 54,
     solves: [
       {
         num: 1,
@@ -19016,6 +19078,7 @@ export const mockSessions = [
     puzzle: "333",
   },
   {
+    sessionNum: 55,
     solves: [
       {
         num: 1,
