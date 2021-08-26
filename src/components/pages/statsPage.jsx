@@ -109,7 +109,7 @@ export default function StatsPage() {
     let cb50 = sessions[0].bestAo50;
     let cb100 = sessions[0].bestAo100;
     const data = sessions.map((sesh, i) => {
-      const { sessionNum, sessionAverage } = sesh;
+      const { sessionNum, sessionAverage, dateTime } = sesh;
       const { stats: statsRaw } = sesh;
       const rangeEB = [
         statsRaw.sessionAverage - statsRaw.bestSingle,
@@ -153,6 +153,7 @@ export default function StatsPage() {
         console.log();
       }
       const dataPoint = {
+        dateTime,
         sessionNum,
         sessionAverage: _.round(sessionAverage, 2),
         bestSingle,
