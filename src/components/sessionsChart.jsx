@@ -69,7 +69,8 @@ export default function SessionsChart({ data, globalStats }) {
   const { minNumSolves, maxNumSolves } = globalStats;
 
   const showBests = false;
-  const margin = { top: 20, right: 20, left: 20, bottom: 20 };
+  const sideMargin = 100;
+  const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
   return (
     <div style={{ height: "600px" }}>
       <ResponsiveContainer width="100%" height="100%">
