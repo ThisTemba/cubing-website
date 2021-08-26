@@ -19,7 +19,13 @@ export default function SessionsChart({ statsData }) {
   console.log(data);
 
   const getYMax = (dataMax) => {
-    return Math.ceil(dataMax / 10) * 10;
+    return Math.ceil(dataMax / 5) * 5;
+    // return Math.ceil(dataMax);
+  };
+
+  const getYMin = (dataMin) => {
+    return Math.floor(dataMin / 5) * 5;
+    // return Math.floor(dataMin);
   };
 
   const renderLine = (name, dataKey, stroke) => {
@@ -52,13 +58,14 @@ export default function SessionsChart({ statsData }) {
               position: "insideBottomRight",
               offset: -5,
             }}
+            tickCount={7}
+            allowDecimals={false}
             name="session"
           />
           <YAxis
             type="number"
-            dataKey="sessionAverage"
-            tickCount={7}
-            domain={[0, getYMax]}
+            tickCount={11}
+            domain={[getYMin, getYMax]}
             label={{ value: "Time", angle: -90, position: "insideLeft" }}
             unit="s"
           />
