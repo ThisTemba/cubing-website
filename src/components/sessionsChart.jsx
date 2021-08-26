@@ -30,7 +30,7 @@ export default function SessionsChart({ statsData }) {
 
   const renderLine = (name, dataKey, stroke) => {
     const props = { name, dataKey, stroke };
-    return <Line type="monotone" strokeWidth={2} dot={false} {...props} />;
+    return <Line type="monotone" strokeWidth={2} dot={true} {...props} />;
   };
 
   const renderLines = () => {
