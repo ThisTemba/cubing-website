@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
+  ZAxis,
   CartesianGrid,
   ReferenceLine,
-  LineChart,
+  ComposedChart,
   Line,
+  Scatter,
   Legend,
+  ErrorBar,
+  ReferenceDot,
 } from "recharts";
+import DarkModeContext from "../hooks/useDarkMode";
 
 export default function SessionsChart({ statsData }) {
-  const { data } = statsData;
+  const { sessions, globalStats } = statsData;
+  const { darkMode } = useContext(DarkModeContext);
+
+  const primaryColor = "#4285f4";
+  const gridColor = darkMode ? "#6c757d" : "#ced4da";
+  const axesColor = darkMode ? "#ced4da" : "#495057";
+  const dotColor = darkMode ? "#212529" : "#FFFFFF";
+  const errorBarColor = darkMode ? primaryColor + "70" : primaryColor + "50";
 
   const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
-  console.log(data);
+  console.log(sessions);
 
   const getYMax = (dataMax) => {
     return Math.ceil(dataMax / 5) * 5;
@@ -30,7 +42,7 @@ export default function SessionsChart({ statsData }) {
 
   const renderLine = (name, dataKey, stroke) => {
     const props = { name, dataKey, stroke };
-    return <Line type="monotone" strokeWidth={2} dot={true} {...props} />;
+    return <Scatter type="monotone" strokeWidth={2} dot={true} {...props} />;
   };
 
   const renderLines = () => {
@@ -45,42 +57,90 @@ export default function SessionsChart({ statsData }) {
     );
   };
 
+  const renderErrorBar = (key, width) => {
+    return (
+      <ErrorBar
+        dataKey={key}
+        width={0}
+        strokeWidth={width}
+        stroke={errorBarColor}
+        direction="y"
+      />
+    );
+  };
+
   return (
-    <div style={{ height: "600px" }}>
+    <div style={{ height: "500px" }}>
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart width={500} height={300} data={data} margin={margin}>
-          <CartesianGrid strokeDasharray={[3, 3]} />
+        <ComposedChart width={500} height={300} data={sessions} margin={margin}>
+          <CartesianGrid strokeDasharray={[3, 3]} stroke={gridColor} />
           <XAxis
             type="number"
             dataKey="sessionNum"
             label={{
               value: "Session Number",
-              position: "insideBottomRight",
+              position: "insideBottom",
               offset: -5,
+              fill: axesColor,
             }}
             tickCount={7}
             allowDecimals={false}
-            name="session"
+            stroke={axesColor}
+            name="Session Number"
           />
           <YAxis
             type="number"
             tickCount={11}
             domain={[getYMin, getYMax]}
-            label={{ value: "Time", angle: -90, position: "insideLeft" }}
+            dataKey="sessionAverage"
+            label={{
+              value: "Session Average",
+              angle: -90,
+              position: "insideLeft",
+              fill: axesColor,
+            }}
+            stroke={axesColor}
             unit="s"
+            name="Session Average"
           />
-          {renderLines()}
+          <ZAxis
+            type="number"
+            dataKey="numSolves"
+            stroke={axesColor}
+            range={[10, 200]}
+          />
+          <Scatter
+            // type="monotone"
+            // strokeWidth={2}
+            // dot={{ stroke: primaryColor, strokeWidth: 2, fill: dotColor }}
+            name="Session Average"
+            data={sessions}
+            fill={primaryColor}
+            // stroke={primaryColor}
+          >
+            {/* {renderErrorBar("rangeEB", 1)} */}
+            {renderErrorBar("iqrEB", 4)}
+          </Scatter>
+          <Line
+            type="monotone"
+            strokeWidth={0}
+            // dot={{ stroke: primaryColor, strokeWidth: 2, fill: dotColor }}
 
-          <Legend />
+            dot={false}
+            activeDot={false}
+            name="Session Average"
+            dataKey="sessionAverage"
+            stroke={primaryColor}
+          />
+          <ReferenceDot x={10} y={10} r={20} fill="red" />
           <Tooltip
-            formatter={(value) => value + "s"}
             labelFormatter={(label, other) => {
               const dateTime = other[0]?.payload.dateTime;
               const date = new Date(dateTime).toLocaleDateString();
               return "Session " + label + ": " + date;
             }}
           />
-        </LineChart>
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );

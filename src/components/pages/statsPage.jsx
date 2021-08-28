@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Button, Container, Card } from "react-bootstrap";
+import { Button, Container, Card, Table } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import _ from "lodash";
 import { UserContext, getUserDocRef } from "../../services/firebase";
@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import SessionsChart from "../sessionsChart";
 import { mockSessions } from "../../data/mockSessionData";
 import { getQ1, getQ2, getQ3 } from "../../utils/quantiles";
+import { dispDur } from "../../utils/displayValue";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
@@ -14,24 +15,24 @@ export default function StatsPage() {
   const [statsData, setStatsData] = useState(mockSessions);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   setDocs(mockSessions);
-  //   getStatsData(mockSessions);
-  // }, []);
-
   useEffect(() => {
-    let unsubscribe = () => {};
-    const userLoading = typeof user === "undefined";
-    if (!userLoading) {
-      if (user) {
-        unsubscribe = readSessions((docs) => {
-          setDocs(docs);
-          getStatsData(docs);
-        });
-      } else setDocs(null);
-    }
-    return unsubscribe;
-  }, [user]);
+    setDocs(mockSessions);
+    getStatsData(mockSessions);
+  }, []);
+
+  // useEffect(() => {
+  //   let unsubscribe = () => {};
+  //   const userLoading = typeof user === "undefined";
+  //   if (!userLoading) {
+  //     if (user) {
+  //       unsubscribe = readSessions((docs) => {
+  //         setDocs(docs);
+  //         getStatsData(docs);
+  //       });
+  //     } else setDocs(null);
+  //   }
+  //   return unsubscribe;
+  // }, [user]);
 
   useEffect(() => {
     const userLoading = typeof user === "undefined";
@@ -65,14 +66,13 @@ export default function StatsPage() {
     ];
     const globalStats = {};
     bests.forEach((key) => {
-      if (
-        sessions.filter((sesh) => sesh.stats?.[key] !== undefined).length === 0
-      )
+      if (sessions.filter((sesh) => sesh?.[key] !== undefined).length === 0)
         return;
-      const sesh = _.minBy(sessions, (sesh) => sesh?.stats[key]);
+      const sesh = _.minBy(sessions, (sesh) => sesh?.[key]);
       globalStats[key] = {
+        date: sesh?.date,
+        dur: sesh?.[key],
         sessionNum: sesh?.sessionNum,
-        dur: sesh?.stats[key],
       };
     });
     globalStats.maxNumSolves = _.maxBy(
@@ -87,7 +87,7 @@ export default function StatsPage() {
   };
 
   const getStatsData = (oldSessions) => {
-    let sessions = oldSessions.map((sesh) => {
+    let sessions = oldSessions.map((sesh, i) => {
       const { sessionAverage, bestSingle, worstSingle } = sesh.stats;
       const rangeEB = [
         sessionAverage - bestSingle,
@@ -98,6 +98,7 @@ export default function StatsPage() {
       const iqrEB = [Q2 - getQ1(durs), getQ3(durs) - Q2];
       const stats = _.mapValues(sesh.stats, (s) => _.round(s, 2));
       return {
+        sessionNum: i + 1,
         ...sesh,
         ...stats,
         rangeEB,
@@ -167,8 +168,8 @@ export default function StatsPage() {
       };
       return dataPoint;
     });
-    console.log(data);
-    const globalStats = getGlobalStats(oldSessions);
+    const globalStats = getGlobalStats(sessions);
+    console.log(JSON.stringify(sessions));
     setStatsData({ globalStats, sessions, data });
   };
 
@@ -209,14 +210,47 @@ export default function StatsPage() {
         />
       );
   };
+  console.log(statsData);
+  const bests = ["bestAo100", "bestAo50", "bestAo12", "bestAo5", "bestSingle"];
 
   return (
     !loading && (
       <Container className="text-center">
         {renderJumbo(docs)}
-        <Card>
+        <Card className="m-2">
           <Card.Header>
-            <Card.Title>Personal Bests</Card.Title>
+            <Card.Title className="m-1">Personal Bests</Card.Title>
+          </Card.Header>
+
+          <Card.Body>
+            <Table responsive>
+              <tr>
+                <th>Ao100</th>
+                <th>Ao50</th>
+                <th>Ao12</th>
+                <th>Ao5</th>
+                <th>Single</th>
+              </tr>
+              <tr>
+                {bests.map((b) => {
+                  const time = dispDur(statsData.globalStats[b]?.dur);
+                  return <td>{time}</td>;
+                })}
+              </tr>
+              <tr style={{ fontSize: 14 }}>
+                {bests.map((b) => {
+                  const date = statsData.globalStats[b]?.date;
+                  return <td>{date}</td>;
+                })}
+              </tr>
+            </Table>
+          </Card.Body>
+        </Card>
+        <Card className="m-2">
+          <Card.Header>
+            <Card.Title className="m-1">
+              Session Average vs Session Number
+            </Card.Title>
           </Card.Header>
 
           <Card.Body>
