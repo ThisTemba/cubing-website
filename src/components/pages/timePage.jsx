@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import { UserContext, getUserDocRef } from "../../services/firebase";
 
-import { getSessionStats } from "../../utils/sessionStats";
+import { getSessionStats, newGetSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useStaticScrambles from "../../hooks/useStaticScrambles";
 
@@ -37,6 +37,10 @@ export default function TimePage() {
       });
   };
 
+  const newSaveCurrentSession = (session) => {
+    console.log(session);
+  };
+
   const getNewSession = (solves = []) => {
     const dateTime = new Date();
     return {
@@ -61,7 +65,9 @@ export default function TimePage() {
     const hasSolves = session.solves.length > 0;
     if (hasSolves) {
       const stats = getSessionStats(session);
+      const newStats = newGetSessionStats(session);
       saveCurrentSession({ ...session, stats });
+      newSaveCurrentSession({ ...session, ...newStats });
     }
     setSession(getNewSession());
     document.activeElement.blur(); // remove focus from new session button
