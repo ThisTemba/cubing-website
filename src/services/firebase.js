@@ -37,7 +37,7 @@ export const getMainSessionGroupDocRef = (user) => {
   return getUserDocRef(user)
     .collection("puzzles")
     .doc("3x3")
-    .collection("events")
+    .collection("sessionGroups")
     .doc("main");
 };
 
