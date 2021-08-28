@@ -48,13 +48,16 @@ export default function TimePage() {
     const sessionGroupDocRef = getMainSessionGroupDocRef(user);
 
     // Save to sessionDoc
-    sessionGroupDocRef.collection("sessions").add(session);
+    const sessionDocRef = await sessionGroupDocRef
+      .collection("sessions")
+      .add(session);
 
     // Read sessionGroupDoc
-    const sessionGroup = (await sessionGroupDocRef.get()).data();
+    const sessionGroup = (await sessionGroupDocRef.get()).data() || {};
 
     // Prepare Data
     const newSession = _.omit(session, "solves");
+    newSession.id = sessionDocRef.id;
     if (sessionGroup.sessions) {
       sessionGroup.sessions = [...sessionGroup?.sessions, newSession];
     } else sessionGroup.sessions = [newSession];
