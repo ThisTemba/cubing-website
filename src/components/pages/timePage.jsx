@@ -1,7 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { UserContext, getUserDocRef } from "../../services/firebase";
+import {
+  UserContext,
+  getUserDocRef,
+  getMainSessionGroupDocRef,
+  setDoc,
+} from "../../services/firebase";
+
+import _ from "lodash";
 
 import { getSessionStats, newGetSessionStats } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -37,8 +44,23 @@ export default function TimePage() {
       });
   };
 
-  const newSaveCurrentSession = (session) => {
-    console.log(session);
+  const newSaveCurrentSession = async (session) => {
+    const sessionGroupDocRef = getMainSessionGroupDocRef(user);
+
+    // Save to sessionDoc
+    sessionGroupDocRef.collection("sessions").add(session);
+
+    // Read sessionGroupDoc
+    const sessionGroup = (await sessionGroupDocRef.get()).data();
+
+    // Prepare Data
+    const newSession = _.omit(session, "solves");
+    if (sessionGroup.sessions) {
+      sessionGroup.sessions = [...sessionGroup?.sessions, newSession];
+    } else sessionGroup.sessions = [newSession];
+
+    // Write to sessionGroupDoc
+    setDoc(sessionGroupDocRef, sessionGroup);
   };
 
   const getNewSession = (solves = []) => {
