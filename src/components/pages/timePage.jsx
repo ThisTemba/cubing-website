@@ -46,7 +46,6 @@ export default function TimePage() {
         dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
       dateTime: dateTime.toString(),
-      puzzle: puzzle,
       solves: solves,
     };
   };
