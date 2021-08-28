@@ -63,7 +63,7 @@ export default function TimePage() {
     } else sessionGroup.sessions = [newSession];
 
     // Write to sessionGroupDoc
-    setDoc(sessionGroupDocRef, sessionGroup);
+    setDoc(sessionGroupDocRef, sessionGroup, "Session Group");
   };
 
   const getNewSession = (solves = []) => {
