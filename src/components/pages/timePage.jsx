@@ -1,9 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import { UserContext, getUserDocRef } from "../../services/firebase";
+import {
+  UserContext,
+  getUserDocRef,
+  getMainSessionGroupDocRef,
+  setDoc,
+} from "../../services/firebase";
 
-import { getSessionStats } from "../../utils/sessionStats";
+import _ from "lodash";
+
+import {
+  getSessionStats,
+  newGetSessionStats,
+  getSessionGroupStats,
+} from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useStaticScrambles from "../../hooks/useStaticScrambles";
 
@@ -37,6 +48,30 @@ export default function TimePage() {
       });
   };
 
+  const newSaveCurrentSession = async (session) => {
+    const sessionGroupDocRef = getMainSessionGroupDocRef(user);
+
+    // Save to sessionDoc
+    const sessionDocRef = await sessionGroupDocRef
+      .collection("sessions")
+      .add(session);
+
+    // Read sessionGroupDoc
+    let sessionGroup = (await sessionGroupDocRef.get()).data() || {};
+
+    // Prepare Data
+    const newSession = _.omit(session, "solves");
+    newSession.id = sessionDocRef.id;
+    if (sessionGroup.sessions) {
+      sessionGroup.sessions = [...sessionGroup?.sessions, newSession];
+    } else sessionGroup.sessions = [newSession];
+    const sessionGroupStats = getSessionGroupStats(sessionGroup.sessions);
+    sessionGroup = _.merge(sessionGroup, sessionGroupStats);
+
+    // Write to sessionGroupDoc
+    setDoc(sessionGroupDocRef, sessionGroup, "Session Group");
+  };
+
   const getNewSession = (solves = []) => {
     const dateTime = new Date();
     return {
@@ -46,7 +81,6 @@ export default function TimePage() {
         dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
       dateTime: dateTime.toString(),
-      puzzle: puzzle,
       solves: solves,
     };
   };
@@ -61,7 +95,9 @@ export default function TimePage() {
     const hasSolves = session.solves.length > 0;
     if (hasSolves) {
       const stats = getSessionStats(session);
+      const newStats = newGetSessionStats(session);
       saveCurrentSession({ ...session, stats });
+      newSaveCurrentSession({ ...session, ...newStats });
     }
     setSession(getNewSession());
     document.activeElement.blur(); // remove focus from new session button

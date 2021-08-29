@@ -33,6 +33,14 @@ export const getCaseSetDocRef = (user, caseSetDetails) => {
   return getUserDocRef(user).collection("caseSets").doc(caseSetDetails.id);
 };
 
+export const getMainSessionGroupDocRef = (user) => {
+  return getUserDocRef(user)
+    .collection("puzzles")
+    .doc("3x3")
+    .collection("sessionGroups")
+    .doc("main");
+};
+
 export const setDoc = (docRef, data, logName = "Placeholder") => {
   const successMsg = `${logName} document successfully written!`;
   const errorMsg = `Error writing ${logName} document: `;
