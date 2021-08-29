@@ -21,12 +21,21 @@ export default function StatsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      readSessions((docs) => {
-        setDocs(docs);
-        getChartData(docs);
-      });
+    let unsubscribe = () => {};
+    const userLoading = typeof user === "undefined";
+    if (!userLoading) {
+      if (user) {
+        unsubscribe = readSessions((docs) => {
+          setDocs(docs);
+          getChartData(docs);
+          console.log("read db");
+        });
+      } else setDocs(null);
     }
+    return unsubscribe;
+  }, [user]);
+
+  useEffect(() => {
     const userLoading = typeof user === "undefined";
     const docsLoading = typeof docs === "undefined";
     const statsLoading = userLoading || docsLoading;
