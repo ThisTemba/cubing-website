@@ -33,7 +33,7 @@ export const newGetSessionStats = ({ solves }) => {
   // Always
   const numSolves = durs.length;
   const sessionAverage = getSessionAverage(durs);
-  const bests = { Single: Math.min(...durs) };
+  const bests = { single: Math.min(...durs) };
   const quartiles = { q1: getQ1(durs), q2: getQ2(durs), q3: getQ3(durs) };
 
   let stats = { sessionAverage, numSolves, bests, quartiles };
@@ -41,7 +41,7 @@ export const newGetSessionStats = ({ solves }) => {
   // Conditionally
   let averagesToGet = [5, 12, 50, 100];
   averagesToGet = averagesToGet.filter((n) => n <= solves.length);
-  averagesToGet.forEach((n) => (bests[`Ao${n}`] = bestAoN(durs, n)));
+  averagesToGet.forEach((n) => (bests[`ao${n}`] = bestAoN(durs, n)));
 
   // TODO: add quartiles if there is enough data
   return stats;
