@@ -47,7 +47,6 @@ export default function TimePage() {
       date: dateTime.toLocaleDateString(),
       timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
       dateTime: dateTime.toString(),
-      puzzle: puzzle,
       solves: solves,
     };
   };
