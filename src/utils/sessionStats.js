@@ -1,5 +1,6 @@
 import { getSessionAverage, bestAoN } from "./averages";
 import { getQ1, getQ2, getQ3 } from "../utils/quartiles";
+import _ from "lodash";
 
 export const getSessionStats = ({ solves }) => {
   if (!solves.length) throw new Error("session has no solves");
@@ -45,4 +46,46 @@ export const newGetSessionStats = ({ solves }) => {
 
   // TODO: add quartiles if there is enough data
   return stats;
+};
+
+export const getSessionGroupBestFromSesion = (sesh, bestName) => {
+  const sessionGroupBest = {
+    dur: sesh.bests[bestName],
+    dateTime: sesh.dateTime,
+    sessionId: sesh.id,
+  };
+  return sessionGroupBest;
+};
+
+export const updateSessionGroupBest = (bests, sesh, bestName) => {
+  const sessionBest = sesh.bests[bestName];
+  const currentBest = bests[bestName]?.dur;
+  if (sessionBest) {
+    const newBest = currentBest && sessionBest < currentBest;
+    const noCurrentBest = !currentBest;
+    if (newBest || noCurrentBest) {
+      return getSessionGroupBestFromSesion(sesh, bestName);
+    }
+  }
+  return bests[bestName];
+};
+
+export const getSessionGroupBests = (sessions) => {
+  const bests = {};
+  sessions.forEach((sesh) => {
+    Object.keys(sesh.bests).forEach((bestName) => {
+      bests[bestName] = updateSessionGroupBest(bests, sesh, bestName);
+    });
+  });
+  return bests;
+};
+
+export const getSessionGroupStats = (sessions) => {
+  const numSolves = _.sumBy(sessions, "numSolves");
+  const numSessions = sessions.length;
+
+  const bests = getSessionGroupBests(sessions);
+
+  const sessionGroupStats = { numSolves, numSessions, bests };
+  return sessionGroupStats;
 };
