@@ -6,7 +6,7 @@ import { UserContext, getUserDocRef } from "../../services/firebase";
 import { Link } from "react-router-dom";
 import SessionsChart from "../sessionsChart";
 import { mockSessions } from "../../data/mockSessionData";
-import { getQ1, getQ2, getQ3 } from "../../utils/quantiles";
+import { getQ1, getQ2, getQ3 } from "../../utils/quartiles";
 import { dispDur } from "../../utils/displayValue";
 
 export default function StatsPage() {

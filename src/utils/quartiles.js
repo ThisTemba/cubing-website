@@ -1,6 +1,4 @@
-//Source: https://stackoverflow.com/a/55297611/3593621
-import _ from "lodash";
-
+// sort array ascending
 const asc = (arr) => arr.sort((a, b) => a - b);
 
 const quantile = (arr, q) => {
