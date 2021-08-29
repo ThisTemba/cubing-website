@@ -10,7 +10,11 @@ import {
 
 import _ from "lodash";
 
-import { getSessionStats, newGetSessionStats } from "../../utils/sessionStats";
+import {
+  getSessionStats,
+  newGetSessionStats,
+  getSessionGroupStats,
+} from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import useStaticScrambles from "../../hooks/useStaticScrambles";
 
@@ -53,7 +57,7 @@ export default function TimePage() {
       .add(session);
 
     // Read sessionGroupDoc
-    const sessionGroup = (await sessionGroupDocRef.get()).data() || {};
+    let sessionGroup = (await sessionGroupDocRef.get()).data() || {};
 
     // Prepare Data
     const newSession = _.omit(session, "solves");
@@ -61,6 +65,8 @@ export default function TimePage() {
     if (sessionGroup.sessions) {
       sessionGroup.sessions = [...sessionGroup?.sessions, newSession];
     } else sessionGroup.sessions = [newSession];
+    const sessionGroupStats = getSessionGroupStats(sessionGroup.sessions);
+    sessionGroup = _.merge(sessionGroup, sessionGroupStats);
 
     // Write to sessionGroupDoc
     setDoc(sessionGroupDocRef, sessionGroup, "Session Group");
