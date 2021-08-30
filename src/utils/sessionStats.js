@@ -1,5 +1,5 @@
 import { getSessionAverage, bestAoN } from "./averages";
-import { getQ1, getQ2, getQ3 } from "../utils/quartiles";
+import { getQ1, getQ2, getQ3 } from "../utils/quantiles";
 import _ from "lodash";
 
 export const getSessionStats = ({ solves }) => {
