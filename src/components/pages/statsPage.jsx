@@ -5,7 +5,6 @@ import _ from "lodash";
 import { UserContext } from "../../services/firebase";
 import { Link } from "react-router-dom";
 import SessionsChart from "../sessionsChart";
-import { mockSessions } from "../../data/mockSessionData";
 import { dispDur } from "../../utils/displayValue";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 
