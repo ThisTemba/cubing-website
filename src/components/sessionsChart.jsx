@@ -23,6 +23,10 @@ export default function SessionsChart({ sessionGroup }) {
   const [SessionModal, _showSessionModal, hideSessionModal] = useModal();
   const [ConfirmModal, _showConfirmModal, hideConfirmModal] = useModal();
 
+  sessionGroup.sessions = sessionGroup.sessions.filter(
+    (sesh) => sesh.sessionAverage !== Infinity
+  );
+
   const sessions = sessionGroup.sessions.map((sesh, i) => {
     const { quartiles, sessionAverage } = sesh;
     const sessionNum = i + 1;
