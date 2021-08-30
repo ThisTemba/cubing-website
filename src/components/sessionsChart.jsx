@@ -78,8 +78,7 @@ export default function SessionsChart({ sessionGroup }) {
             angle: -90,
             ...labelCommon,
           }}
-          tickCount={16}
-          domain={[getYMin, getYMax]}
+          domain={["auto", "auto"]}
           tickFormatter={(value) => dispDur(value)}
           unit="s"
           {...common}
