@@ -15,10 +15,14 @@ import {
 import DarkModeContext from "../hooks/useDarkMode";
 import { dispDur } from "../utils/displayValue";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import { Card, Table } from "react-bootstrap";
+import { Card, Table, Button } from "react-bootstrap";
+import useModal from "../hooks/useModal";
 
 export default function SessionsChart({ sessionGroup }) {
   const { xs } = useWindowDimensions();
+  const [SessionModal, _showSessionModal, hideSessionModal] = useModal();
+  const [ConfirmModal, _showConfirmModal, hideConfirmModal] = useModal();
+
   const sessions = sessionGroup.sessions.map((sesh, i) => {
     const { quartiles, sessionAverage } = sesh;
     const sessionNum = i + 1;
@@ -117,10 +121,85 @@ export default function SessionsChart({ sessionGroup }) {
     } else return <></>;
   };
 
+  const renderSessionModalBody = (sesh) => {
+    const rows = [
+      { name: "Total Solves", value: sesh.numSolves },
+      { name: "Session Average", value: dispDur(sesh.sessionAverage) },
+      { name: "Best Single", value: dispDur(sesh.bests.single) },
+    ];
+    return (
+      <Table>
+        <tbody>
+          {rows.map((row) => (
+            <tr>
+              <td>{row.name}</td>
+              <td>{row.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+    );
+  };
+
+  const deleteSession = (sesh) => {
+    console.log("deleted!");
+  };
+
+  const showConfirmModal = (sesh) => {
+    _showConfirmModal({
+      title: "Are you sure?",
+      body: (
+        <div className="text-center">
+          This will permanently delete this session.
+        </div>
+      ),
+      footer: (
+        <Button
+          variant="danger"
+          onClick={() => {
+            hideConfirmModal();
+            deleteSession(sesh.id);
+          }}
+        >
+          Delete
+        </Button>
+      ),
+    });
+  };
+
+  const showSessionModal = (sesh) => {
+    _showSessionModal({
+      title: `Session ${sesh.sessionNum} - ${sesh.date}`,
+      body: renderSessionModalBody(sesh),
+      footer: (
+        <Button
+          variant="danger"
+          onClick={() => {
+            hideSessionModal();
+            showConfirmModal(sesh);
+          }}
+        >
+          Delete Session
+        </Button>
+      ),
+    });
+  };
+
   return (
     <div style={{ height: xs ? "300px" : "500px" }}>
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart width={500} height={300} data={sessions} margin={margin}>
+        <ComposedChart
+          width={500}
+          height={300}
+          data={sessions}
+          margin={margin}
+          onClick={({ activePayload }) => {
+            const sesh = activePayload[0].payload;
+            console.log(sesh);
+            showSessionModal(sesh);
+          }}
+          style={{ cursor: "pointer" }}
+        >
           <CartesianGrid strokeDasharray={[3, 3]} stroke={gridColor} />
           {renderAxes()}
           <Scatter name="Session Average" data={sessions} fill={primaryColor}>
@@ -149,6 +228,8 @@ export default function SessionsChart({ sessionGroup }) {
           )}
         </ComposedChart>
       </ResponsiveContainer>
+      <SessionModal />
+      <ConfirmModal />
     </div>
   );
 }
