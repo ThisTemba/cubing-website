@@ -30,10 +30,11 @@ export default function SessionsChart({ sessionGroup }) {
   });
   const { darkMode } = useContext(DarkModeContext);
 
-  const primaryColor = "#4285f4";
-  const gridColor = darkMode ? "#6c757d" : "#ced4da";
-  const axesColor = darkMode ? "#ced4da" : "#495057";
-  const errorBarColor = darkMode ? primaryColor + "70" : primaryColor + "50";
+  const gray = { 400: "#ced4da", 600: "#6c757d", 700: "#495057" };
+  const primaryColor = darkMode ? "#967bb6" : "#af94cf";
+  const gridColor = darkMode ? gray[700] : gray[400];
+  const axesColor = darkMode ? gray[400] : gray[700];
+  const errorBarColor = darkMode ? primaryColor + "80" : primaryColor + "50";
 
   const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
