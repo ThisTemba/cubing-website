@@ -15,6 +15,7 @@ import {
 import DarkModeContext from "../hooks/useDarkMode";
 import { dispDur } from "../utils/displayValue";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import { Card, Table } from "react-bootstrap";
 
 export default function SessionsChart({ sessionGroup }) {
   const { xs } = useWindowDimensions();
@@ -88,6 +89,41 @@ export default function SessionsChart({ sessionGroup }) {
     );
   };
 
+  const renderTooltip = ({ active, payload, label }) => {
+    if (active) {
+      const sesh = payload?.[0]?.payload;
+      const { sessionNum, sessionAverage, numSolves, dateTime, quartiles } =
+        sesh;
+      const { q1, q3 } = quartiles;
+      const date = new Date(dateTime).toLocaleDateString();
+      const cellStyle = { borderColor: darkMode ? "#495057" : "" };
+      return (
+        <Card style={{ background: darkMode ? "#343a40" : "#fcfdfe" }}>
+          <span className="m-1">
+            Session {sessionNum}: {date}
+          </span>
+
+          <Table size="sm">
+            <tr>
+              <td style={cellStyle}>Num Solves: </td>
+              <td style={cellStyle}>{numSolves}</td>
+            </tr>
+            <tr>
+              <td style={cellStyle}>Session Average: </td>
+              <td style={cellStyle}>{dispDur(sessionAverage)}</td>
+            </tr>
+            <tr>
+              <td style={cellStyle}>Middle 50% </td>
+              <td style={cellStyle}>
+                {dispDur(q3)} - {dispDur(q1)}
+              </td>
+            </tr>
+          </Table>
+        </Card>
+      );
+    } else return <></>;
+  };
+
   return (
     <div style={{ height: "500px" }}>
       <ResponsiveContainer width="100%" height="100%">
@@ -114,6 +150,7 @@ export default function SessionsChart({ sessionGroup }) {
                 const date = new Date(dateTime).toLocaleDateString();
                 return "Session " + label + ": " + date;
               }}
+              content={renderTooltip}
             />
           )}
         </ComposedChart>
