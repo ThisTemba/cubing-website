@@ -15,8 +15,10 @@ import {
   ReferenceDot,
 } from "recharts";
 import DarkModeContext from "../hooks/useDarkMode";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 export default function SessionsChart({ sessionGroup }) {
+  const { xs } = useWindowDimensions();
   const sessions = sessionGroup.sessions.map((sesh, i) => {
     const { quartiles, sessionAverage } = sesh;
     const sessionNum = i + 1;
@@ -143,13 +145,15 @@ export default function SessionsChart({ sessionGroup }) {
             stroke={primaryColor}
           />
           <ReferenceDot x={10} y={10} r={20} fill="red" />
-          <Tooltip
-            labelFormatter={(label, other) => {
-              const dateTime = other[0]?.payload.dateTime;
-              const date = new Date(dateTime).toLocaleDateString();
-              return "Session " + label + ": " + date;
-            }}
-          />
+          {!xs && (
+            <Tooltip
+              labelFormatter={(label, other) => {
+                const dateTime = other[0]?.payload.dateTime;
+                const date = new Date(dateTime).toLocaleDateString();
+                return "Session " + label + ": " + date;
+              }}
+            />
+          )}
         </ComposedChart>
       </ResponsiveContainer>
     </div>
