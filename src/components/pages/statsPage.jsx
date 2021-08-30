@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Container, Card, Table } from "react-bootstrap";
+import { Button, Container, Card } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import _ from "lodash";
 import { UserContext } from "../../services/firebase";
@@ -8,6 +8,7 @@ import SessionsChart from "../sessionsChart";
 import { dispDur } from "../../utils/displayValue";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import BestsTable from "../bestsTable";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
@@ -52,59 +53,6 @@ export default function StatsPage() {
         />
       );
   };
-  const bests = [
-    { label: "Ao100", key: "ao100" },
-    { label: "Ao50", key: "ao50" },
-    { label: "Ao12", key: "ao12" },
-    { label: "Ao5", key: "ao5" },
-    { label: "Single", key: "single" },
-  ];
-  const renderBestsTable = (bests) => {
-    if (!xs)
-      return (
-        <Table responsive>
-          <tr>
-            {bests.map((b) => {
-              return <th>{b.label}</th>;
-            })}
-          </tr>
-          <tr>
-            {bests.map((b) => {
-              const time = dispDur(sessionGroup.bests[b.key]?.dur);
-              return <td>{time}</td>;
-            })}
-          </tr>
-          <tr style={{ fontSize: 14 }}>
-            {bests.map((b) => {
-              const dateTime = sessionGroup.bests[b.key]?.dateTime;
-              const date = dateTime
-                ? new Date(dateTime).toLocaleDateString()
-                : "";
-              return <td>{date}</td>;
-            })}
-          </tr>
-        </Table>
-      );
-    else
-      return (
-        <Table size="sm">
-          {bests.map((b) => {
-            const time = dispDur(sessionGroup.bests[b.key]?.dur);
-            const dateTime = sessionGroup.bests[b.key]?.dateTime;
-            const date = dateTime
-              ? new Date(dateTime).toLocaleDateString()
-              : "";
-            return (
-              <tr>
-                <th>{b.label}</th>
-                <td>{time}</td>
-                <td style={{ fontSize: 14 }}>{date}</td>
-              </tr>
-            );
-          })}
-        </Table>
-      );
-  };
 
   return (
     !loading && (
@@ -117,7 +65,9 @@ export default function StatsPage() {
               <Card.Header>
                 <Card.Title className="m-1">Personal Bests</Card.Title>
               </Card.Header>
-              <Card.Body>{renderBestsTable(bests)}</Card.Body>
+              <Card.Body>
+                <BestsTable bests={sessionGroup.bests} />
+              </Card.Body>
             </Card>
             <Card className="mt-2 mb-2">
               <Card.Header>
