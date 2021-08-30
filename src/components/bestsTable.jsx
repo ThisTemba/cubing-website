@@ -4,6 +4,9 @@ import { dispDur } from "../utils/displayValue";
 
 const BestsTable = ({ bests }) => {
   const { xs } = useWindowDimensions();
+  const getDate = (dateTime) => {
+    return dateTime ? new Date(dateTime).toLocaleDateString() : "-";
+  };
   const bestsToDisplay = [
     { label: "Ao100", key: "ao100" },
     { label: "Ao50", key: "ao50" },
@@ -28,9 +31,7 @@ const BestsTable = ({ bests }) => {
         <tr style={{ fontSize: 14 }}>
           {bestsToDisplay.map((b) => {
             const dateTime = bests[b.key]?.dateTime;
-            const date = dateTime
-              ? new Date(dateTime).toLocaleDateString()
-              : "";
+            const date = getDate(dateTime);
             return <td>{date}</td>;
           })}
         </tr>
@@ -42,7 +43,7 @@ const BestsTable = ({ bests }) => {
         {bestsToDisplay.map((b) => {
           const time = dispDur(bests[b.key]?.dur);
           const dateTime = bests[b.key]?.dateTime;
-          const date = dateTime ? new Date(dateTime).toLocaleDateString() : "";
+          const date = getDate(dateTime);
           return (
             <tr>
               <th>{b.label}</th>
