@@ -90,6 +90,7 @@ export default function SessionsChart({ sessionGroup }) {
               position: "insideBottom",
               offset: -5,
               fill: axesColor,
+              style: { textAnchor: "middle" },
             }}
             tickCount={7}
             allowDecimals={false}
@@ -106,6 +107,7 @@ export default function SessionsChart({ sessionGroup }) {
               angle: -90,
               position: "insideLeft",
               fill: axesColor,
+              style: { textAnchor: "middle" },
             }}
             stroke={axesColor}
             unit="s"
