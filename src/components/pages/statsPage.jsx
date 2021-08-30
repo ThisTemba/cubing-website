@@ -103,7 +103,7 @@ export default function StatsPage() {
               </Card.Header>
 
               <Card.Body>
-                {/* <SessionsChart sessionGroup={sessionGroup} /> */}
+                <SessionsChart sessionGroup={sessionGroup} />
               </Card.Body>
             </Card>
           </>

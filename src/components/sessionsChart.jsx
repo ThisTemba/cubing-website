@@ -16,8 +16,16 @@ import {
 } from "recharts";
 import DarkModeContext from "../hooks/useDarkMode";
 
-export default function SessionsChart({ statsData }) {
-  const { sessions, globalStats } = statsData;
+export default function SessionsChart({ sessionGroup }) {
+  const sessions = sessionGroup.sessions.map((sesh, i) => {
+    const { quartiles, sessionAverage } = sesh;
+    const sessionNum = i + 1;
+    const iqrEB = [
+      sessionAverage - quartiles.q1,
+      quartiles.q3 - sessionAverage,
+    ];
+    return { ...sesh, iqrEB, sessionNum };
+  });
   const { darkMode } = useContext(DarkModeContext);
 
   const primaryColor = "#4285f4";
