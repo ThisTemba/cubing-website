@@ -63,17 +63,15 @@ export default function StatsPage() {
               <Card.Header>
                 <Card.Title className="m-1">Personal Bests</Card.Title>
               </Card.Header>
-              <Card.Body>
+              <Card.Body className={xs ? "p-0" : ""}>
                 <BestsTable bests={sessionGroup.bests} />
               </Card.Body>
             </Card>
             <Card className="mt-2 mb-2">
               <Card.Header>
-                <Card.Title className="m-1">
-                  Session Average vs Session Number
-                </Card.Title>
+                <Card.Title className="m-1">Sessions</Card.Title>
               </Card.Header>
-              <Card.Body>
+              <Card.Body className={xs ? "p-2" : ""}>
                 <SessionsChart sessionGroup={sessionGroup} />
               </Card.Body>
             </Card>
