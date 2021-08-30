@@ -30,7 +30,6 @@ export default function TimePage() {
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
   const pageSize = 8;
-  const puzzle = "333";
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
