@@ -6,11 +6,9 @@ import {
   YAxis,
   ZAxis,
   CartesianGrid,
-  ReferenceLine,
   ComposedChart,
   Line,
   Scatter,
-  Legend,
   ErrorBar,
   ReferenceDot,
 } from "recharts";
@@ -34,29 +32,11 @@ export default function SessionsChart({ sessionGroup }) {
   const primaryColor = "#4285f4";
   const gridColor = darkMode ? "#6c757d" : "#ced4da";
   const axesColor = darkMode ? "#ced4da" : "#495057";
-  const dotColor = darkMode ? "#212529" : "#FFFFFF";
   const errorBarColor = darkMode ? primaryColor + "70" : primaryColor + "50";
 
   const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
   console.log(sessions);
-
-  const renderLine = (name, dataKey, stroke) => {
-    const props = { name, dataKey, stroke };
-    return <Scatter type="monotone" strokeWidth={2} dot={true} {...props} />;
-  };
-
-  const renderLines = () => {
-    return (
-      <>
-        {renderLine("Best Ao100", "bestAo100", "#4285f4")}
-        {renderLine("Best Ao50", "bestAo50", "#db4437")}
-        {renderLine("Best Ao12", "bestAo12", "#f4b400")}
-        {renderLine("Best Ao5", "bestAo5", "#0f9d58")}
-        {renderLine("Best Single", "bestSingle", "#ab47bc")}
-      </>
-    );
-  };
 
   const renderErrorBar = (key, width) => {
     return (
