@@ -35,8 +35,17 @@ export const newGetSessionStats = ({ solves }) => {
   const numSolves = durs.length;
   const sessionAverage = getSessionAverage(durs);
   const bests = { single: Math.min(...durs) };
-  const quartiles = { q1: getQ1(durs), q2: getQ2(durs), q3: getQ3(durs) };
-  const percentiles = { p10: getP10(durs), p90: getP90(durs) };
+
+  const cleanDurs = durs.filter((dur) => dur !== Infinity);
+  const quartiles = {
+    q1: getQ1(cleanDurs),
+    q2: getQ2(cleanDurs),
+    q3: getQ3(cleanDurs),
+  };
+  const percentiles = {
+    p10: getP10(cleanDurs),
+    p90: getP90(cleanDurs),
+  };
 
   let stats = { sessionAverage, numSolves, bests, quartiles, percentiles };
 
