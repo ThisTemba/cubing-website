@@ -15,6 +15,7 @@ import {
   ReferenceDot,
 } from "recharts";
 import DarkModeContext from "../hooks/useDarkMode";
+import { dispDur } from "../utils/displayValue";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
 export default function SessionsChart({ sessionGroup }) {
@@ -39,16 +40,6 @@ export default function SessionsChart({ sessionGroup }) {
   const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
   console.log(sessions);
-
-  const getYMax = (dataMax) => {
-    return Math.ceil(dataMax / 5) * 5;
-    // return Math.ceil(dataMax);
-  };
-
-  const getYMin = (dataMin) => {
-    return Math.floor(dataMin / 5) * 5;
-    // return Math.floor(dataMin);
-  };
 
   const renderLine = (name, dataKey, stroke) => {
     const props = { name, dataKey, stroke };
@@ -79,65 +70,57 @@ export default function SessionsChart({ sessionGroup }) {
     );
   };
 
+  const renderAxes = () => {
+    const getYMax = (dataMax) => Math.ceil(dataMax / 5) * 5;
+    const getYMin = (dataMin) => Math.floor(dataMin / 5) * 5;
+    const common = { type: "number", stroke: axesColor };
+    const labelCommon = { style: { textAnchor: "middle" }, fill: axesColor };
+
+    return (
+      <>
+        <XAxis
+          dataKey="sessionNum"
+          name="Session Number"
+          label={{
+            value: "Session Number",
+            position: "bottom",
+            ...labelCommon,
+          }}
+          allowDecimals={false}
+          {...common}
+        />
+        <YAxis
+          dataKey="sessionAverage"
+          name="Session Average"
+          label={{
+            value: "Session Average",
+            position: "left",
+            angle: -90,
+            ...labelCommon,
+          }}
+          tickCount={16}
+          domain={[getYMin, getYMax]}
+          tickFormatter={(value) => dispDur(value)}
+          unit="s"
+          {...common}
+        />
+        <ZAxis dataKey="numSolves" range={[10, 200]} {...common} />
+      </>
+    );
+  };
+
   return (
     <div style={{ height: "500px" }}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart width={500} height={300} data={sessions} margin={margin}>
           <CartesianGrid strokeDasharray={[3, 3]} stroke={gridColor} />
-          <XAxis
-            type="number"
-            dataKey="sessionNum"
-            label={{
-              value: "Session Number",
-              position: "insideBottom",
-              offset: -5,
-              fill: axesColor,
-              style: { textAnchor: "middle" },
-            }}
-            tickCount={7}
-            allowDecimals={false}
-            stroke={axesColor}
-            name="Session Number"
-          />
-          <YAxis
-            type="number"
-            tickCount={11}
-            domain={[getYMin, getYMax]}
-            dataKey="sessionAverage"
-            label={{
-              value: "Session Average",
-              angle: -90,
-              position: "insideLeft",
-              fill: axesColor,
-              style: { textAnchor: "middle" },
-            }}
-            stroke={axesColor}
-            unit="s"
-            name="Session Average"
-          />
-          <ZAxis
-            type="number"
-            dataKey="numSolves"
-            stroke={axesColor}
-            range={[10, 200]}
-          />
-          <Scatter
-            // type="monotone"
-            // strokeWidth={2}
-            // dot={{ stroke: primaryColor, strokeWidth: 2, fill: dotColor }}
-            name="Session Average"
-            data={sessions}
-            fill={primaryColor}
-            // stroke={primaryColor}
-          >
-            {/* {renderErrorBar("rangeEB", 1)} */}
+          {renderAxes()}
+          <Scatter name="Session Average" data={sessions} fill={primaryColor}>
             {renderErrorBar("iqrEB", 4)}
           </Scatter>
           <Line
             type="monotone"
             strokeWidth={0}
-            // dot={{ stroke: primaryColor, strokeWidth: 2, fill: dotColor }}
-
             dot={false}
             activeDot={false}
             name="Session Average"
