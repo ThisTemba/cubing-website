@@ -53,13 +53,15 @@ export default function StatsPage() {
       );
   };
 
+  const statCardClassName = xs ? "mt-3 mb-3" : "mb-2 mt-2";
+
   return (
     !loading && (
       <Container className="text-center">
         {!sessionGroup && renderJumbo()}
         {sessionGroup && (
           <>
-            <Card className="mt-2 mb-2">
+            <Card className={statCardClassName}>
               <Card.Header>
                 <Card.Title className="m-1">Personal Bests</Card.Title>
               </Card.Header>
@@ -67,7 +69,7 @@ export default function StatsPage() {
                 <BestsTable bests={sessionGroup.bests} />
               </Card.Body>
             </Card>
-            <Card className="mt-2 mb-2">
+            <Card className={statCardClassName}>
               <Card.Header>
                 <Card.Title className="m-1">Sessions</Card.Title>
               </Card.Header>
