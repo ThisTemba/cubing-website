@@ -196,10 +196,9 @@ export default function SessionsChart({ sessionGroup }) {
           height={300}
           data={sessions}
           margin={margin}
-          onClick={({ activePayload }) => {
-            const sesh = activePayload[0].payload;
-            console.log(sesh);
-            showSessionModal(sesh);
+          onClick={(props) => {
+            const sesh = props?.activePayload[0]?.payload;
+            sesh && showSessionModal(sesh);
           }}
           style={{ cursor: "pointer" }}
         >
