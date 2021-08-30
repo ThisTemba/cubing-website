@@ -5,7 +5,6 @@ import _ from "lodash";
 import { UserContext } from "../../services/firebase";
 import { Link } from "react-router-dom";
 import SessionsChart from "../sessionsChart";
-import { dispDur } from "../../utils/displayValue";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import BestsTable from "../bestsTable";
@@ -58,7 +57,6 @@ export default function StatsPage() {
     !loading && (
       <Container className="text-center">
         {!sessionGroup && renderJumbo()}
-
         {sessionGroup && (
           <>
             <Card className="mt-2 mb-2">
@@ -75,7 +73,6 @@ export default function StatsPage() {
                   Session Average vs Session Number
                 </Card.Title>
               </Card.Header>
-
               <Card.Body>
                 <SessionsChart sessionGroup={sessionGroup} />
               </Card.Body>
