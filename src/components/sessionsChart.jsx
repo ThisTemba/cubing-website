@@ -81,11 +81,11 @@ export default function SessionsChart({ sessionGroup }) {
             ...labelCommon,
           }}
           domain={["auto", "auto"]}
-          tickFormatter={(value) => dispDur(value)}
+          tickFormatter={(value) => (xs ? value : dispDur(value))}
           unit="s"
           {...common}
         />
-        <ZAxis dataKey="numSolves" range={[10, 200]} {...common} />
+        <ZAxis dataKey="numSolves" range={[50, 400]} {...common} />
       </>
     );
   };
@@ -100,24 +100,16 @@ export default function SessionsChart({ sessionGroup }) {
       const cellStyle = { borderColor: darkMode ? "#495057" : "" };
       return (
         <Card style={{ background: darkMode ? "#343a40" : "#fcfdfe" }}>
-          <span className="m-1">
-            Session {sessionNum}: {date}
-          </span>
+          <span className="m-2">Date: {date}</span>
 
           <Table size="sm">
             <tr>
-              <td style={cellStyle}>Num Solves: </td>
+              <td style={cellStyle}>Solves: </td>
               <td style={cellStyle}>{numSolves}</td>
             </tr>
             <tr>
-              <td style={cellStyle}>Session Average: </td>
+              <td style={cellStyle}>Average: </td>
               <td style={cellStyle}>{dispDur(sessionAverage)}</td>
-            </tr>
-            <tr>
-              <td style={cellStyle}>Middle 50% </td>
-              <td style={cellStyle}>
-                {dispDur(q3)} - {dispDur(q1)}
-              </td>
             </tr>
           </Table>
         </Card>
@@ -126,7 +118,7 @@ export default function SessionsChart({ sessionGroup }) {
   };
 
   return (
-    <div style={{ height: "500px" }}>
+    <div style={{ height: xs ? "300px" : "500px" }}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart width={500} height={300} data={sessions} margin={margin}>
           <CartesianGrid strokeDasharray={[3, 3]} stroke={gridColor} />
