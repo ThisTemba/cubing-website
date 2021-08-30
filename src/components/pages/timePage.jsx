@@ -60,7 +60,7 @@ export default function TimePage() {
     let sessionGroup = (await sessionGroupDocRef.get()).data() || {};
 
     // Prepare Data
-    const newSession = _.omit(session, "solves");
+    const newSession = _.omit(session, "solves", "timeStamp");
     newSession.id = sessionDocRef.id;
     if (sessionGroup.sessions) {
       sessionGroup.sessions = [...sessionGroup?.sessions, newSession];
