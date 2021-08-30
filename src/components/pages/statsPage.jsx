@@ -7,12 +7,14 @@ import { Link } from "react-router-dom";
 import SessionsChart from "../sessionsChart";
 import { dispDur } from "../../utils/displayValue";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
   const sessionGroupDoc = useMainSessionGroup(user);
   const sessionGroup = sessionGroupDoc?.data();
   const loading = typeof sessionGroupDoc === "undefined";
+  const { xs } = useWindowDimensions();
 
   const _Jumbo = ({ title, body, buttons }) => {
     return (
@@ -57,6 +59,52 @@ export default function StatsPage() {
     { label: "Ao5", key: "ao5" },
     { label: "Single", key: "single" },
   ];
+  const renderBestsTable = (bests) => {
+    if (!xs)
+      return (
+        <Table responsive>
+          <tr>
+            {bests.map((b) => {
+              return <th>{b.label}</th>;
+            })}
+          </tr>
+          <tr>
+            {bests.map((b) => {
+              const time = dispDur(sessionGroup.bests[b.key]?.dur);
+              return <td>{time}</td>;
+            })}
+          </tr>
+          <tr style={{ fontSize: 14 }}>
+            {bests.map((b) => {
+              const dateTime = sessionGroup.bests[b.key]?.dateTime;
+              const date = dateTime
+                ? new Date(dateTime).toLocaleDateString()
+                : "";
+              return <td>{date}</td>;
+            })}
+          </tr>
+        </Table>
+      );
+    else
+      return (
+        <Table size="sm">
+          {bests.map((b) => {
+            const time = dispDur(sessionGroup.bests[b.key]?.dur);
+            const dateTime = sessionGroup.bests[b.key]?.dateTime;
+            const date = dateTime
+              ? new Date(dateTime).toLocaleDateString()
+              : "";
+            return (
+              <tr>
+                <th>{b.label}</th>
+                <td>{time}</td>
+                <td style={{ fontSize: 14 }}>{date}</td>
+              </tr>
+            );
+          })}
+        </Table>
+      );
+  };
 
   return (
     !loading && (
@@ -69,30 +117,7 @@ export default function StatsPage() {
               <Card.Header>
                 <Card.Title className="m-1">Personal Bests</Card.Title>
               </Card.Header>
-              <Card.Body>
-                <Table responsive>
-                  <tr>
-                    {bests.map((b) => {
-                      return <th>{b.label}</th>;
-                    })}
-                  </tr>
-                  <tr>
-                    {bests.map((b) => {
-                      const time = dispDur(sessionGroup.bests[b.key]?.dur);
-                      return <td>{time}</td>;
-                    })}
-                  </tr>
-                  <tr style={{ fontSize: 14 }}>
-                    {bests.map((b) => {
-                      const dateTime = sessionGroup.bests[b.key]?.dateTime;
-                      const date = dateTime
-                        ? new Date(dateTime).toLocaleDateString()
-                        : "";
-                      return <td>{date}</td>;
-                    })}
-                  </tr>
-                </Table>
-              </Card.Body>
+              <Card.Body>{renderBestsTable(bests)}</Card.Body>
             </Card>
             <Card className="mt-2 mb-2">
               <Card.Header>
