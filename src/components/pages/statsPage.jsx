@@ -65,7 +65,7 @@ export default function StatsPage() {
 
         {sessionGroup && (
           <>
-            <Card className="m-2">
+            <Card className="mt-2 mb-2">
               <Card.Header>
                 <Card.Title className="m-1">Personal Bests</Card.Title>
               </Card.Header>
@@ -94,7 +94,7 @@ export default function StatsPage() {
                 </Table>
               </Card.Body>
             </Card>
-            <Card className="m-2">
+            <Card className="mt-2 mb-2">
               <Card.Header>
                 <Card.Title className="m-1">
                   Session Average vs Session Number
