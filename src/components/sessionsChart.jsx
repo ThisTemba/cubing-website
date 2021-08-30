@@ -17,9 +17,13 @@ import { dispDur } from "../utils/displayValue";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { Card, Table, Button } from "react-bootstrap";
 import useModal from "../hooks/useModal";
+import deleteSession from "../utils/deleteSession";
+import { UserContext } from "../services/firebase";
 
 export default function SessionsChart({ sessionGroup }) {
   const { xs } = useWindowDimensions();
+  const { darkMode } = useContext(DarkModeContext);
+  const { user } = useContext(UserContext);
   const [SessionModal, _showSessionModal, hideSessionModal] = useModal();
   const [ConfirmModal, _showConfirmModal, hideConfirmModal] = useModal();
 
@@ -36,7 +40,6 @@ export default function SessionsChart({ sessionGroup }) {
     ];
     return { ...sesh, iqrEB, sessionNum };
   });
-  const { darkMode } = useContext(DarkModeContext);
 
   const gray = { 400: "#ced4da", 600: "#6c757d", 700: "#495057" };
   const primaryColor = darkMode ? "#967bb6" : "#af94cf";
@@ -148,10 +151,6 @@ export default function SessionsChart({ sessionGroup }) {
     );
   };
 
-  const deleteSession = (sesh) => {
-    console.log("deleted!");
-  };
-
   const showConfirmModal = (sesh) => {
     _showConfirmModal({
       title: "Are you sure?",
@@ -165,7 +164,7 @@ export default function SessionsChart({ sessionGroup }) {
           variant="danger"
           onClick={() => {
             hideConfirmModal();
-            deleteSession(sesh.id);
+            deleteSession(sesh.id, user);
           }}
         >
           Delete
