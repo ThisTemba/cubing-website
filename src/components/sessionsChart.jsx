@@ -122,10 +122,13 @@ export default function SessionsChart({ sessionGroup }) {
   };
 
   const renderSessionModalBody = (sesh) => {
+    const p10 = sesh.percentiles?.p10;
+    const p90 = sesh.percentiles?.p90;
     const rows = [
       { name: "Total Solves", value: sesh.numSolves },
       { name: "Session Average", value: dispDur(sesh.sessionAverage) },
       { name: "Best Single", value: dispDur(sesh.bests.single) },
+      { name: "80% between", value: `${dispDur(p10)} and ${dispDur(p90)}` },
     ];
     return (
       <Table>
