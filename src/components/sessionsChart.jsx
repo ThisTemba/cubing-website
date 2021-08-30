@@ -152,6 +152,7 @@ export default function SessionsChart({ sessionGroup }) {
                 return "Session " + label + ": " + date;
               }}
               content={renderTooltip}
+              animationDuration={200}
             />
           )}
         </ComposedChart>
