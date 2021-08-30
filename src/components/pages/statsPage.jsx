@@ -179,7 +179,7 @@ export default function StatsPage() {
         <h1>{title}</h1>
         <p>{body}</p>
         {buttons.map((b) => (
-          <Button as={Link} to={b.to} variant={b.variant}>
+          <Button as={Link} to={b.to} variant={b.variant} className="m-1">
             {b.text}
           </Button>
         ))}
