@@ -214,7 +214,6 @@ export default function SessionsChart({ sessionGroup }) {
             dataKey="sessionAverage"
             stroke={primaryColor}
           />
-          <ReferenceDot x={10} y={10} r={20} fill="red" />
           {!xs && (
             <Tooltip
               labelFormatter={(label, other) => {
