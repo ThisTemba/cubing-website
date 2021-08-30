@@ -13,7 +13,7 @@ const BestsTable = ({ bests }) => {
   ];
   if (!xs)
     return (
-      <Table responsive>
+      <Table className="m-0">
         <tr>
           {bestsToDisplay.map((b) => {
             return <th>{b.label}</th>;
@@ -38,7 +38,7 @@ const BestsTable = ({ bests }) => {
     );
   else
     return (
-      <Table size="sm">
+      <Table className="m-0">
         {bestsToDisplay.map((b) => {
           const time = dispDur(bests[b.key]?.dur);
           const dateTime = bests[b.key]?.dateTime;
