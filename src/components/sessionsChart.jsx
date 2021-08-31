@@ -32,32 +32,35 @@ export default function SessionsChart({ sessionGroup }) {
   );
 
   const sessions = sessionGroup.sessions.map((sesh, i) => {
-    const { quartiles, sessionAverage } = sesh;
+    const { quartiles, sessionAverage, percentiles } = sesh;
+    const { q1, q3 } = quartiles;
     const sessionNum = i + 1;
-    const iqrEB = [
-      sessionAverage - quartiles.q1,
-      quartiles.q3 - sessionAverage,
+    const iqrEB = [sessionAverage - q1, q3 - sessionAverage];
+    const msbEB = [
+      sessionAverage - (percentiles?.p10 || q1),
+      (percentiles?.p90 || q3) - sessionAverage,
     ];
-    return { ...sesh, iqrEB, sessionNum };
+    return { ...sesh, iqrEB, msbEB, sessionNum };
   });
 
   const gray = { 400: "#ced4da", 600: "#6c757d", 700: "#495057" };
   const primaryColor = darkMode ? "#967bb6" : "#af94cf";
   const gridColor = darkMode ? gray[700] : gray[400];
   const axesColor = darkMode ? gray[400] : gray[700];
-  const errorBarColor = darkMode ? primaryColor + "80" : primaryColor + "50";
+  const iqrEBcolor = darkMode ? primaryColor + "80" : primaryColor + "50";
+  const msbEBcolor = darkMode ? primaryColor + "80" : primaryColor + "50";
 
   const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
   console.log(sessions);
 
-  const renderErrorBar = (key, width) => {
+  const renderErrorBar = (key, width, color) => {
     return (
       <ErrorBar
         dataKey={key}
         width={0}
         strokeWidth={width}
-        stroke={errorBarColor}
+        stroke={color}
         direction="y"
       />
     );
@@ -131,11 +134,21 @@ export default function SessionsChart({ sessionGroup }) {
   const renderSessionModalBody = (sesh) => {
     const p10 = sesh.percentiles?.p10;
     const p90 = sesh.percentiles?.p90;
+    const q1 = sesh.quartiles?.q1;
+    const q3 = sesh.quartiles?.q3;
+
     const rows = [
       { name: "Total Solves", value: sesh.numSolves },
       { name: "Session Average", value: dispDur(sesh.sessionAverage) },
       { name: "Best Single", value: dispDur(sesh.bests.single) },
-      { name: "80% between", value: `${dispDur(p10)} and ${dispDur(p90)}` },
+      {
+        name: "50% of solves between",
+        value: `${dispDur(q1)} and ${dispDur(q3)}`,
+      },
+      {
+        name: "90% of solves between",
+        value: `${dispDur(p10)} and ${dispDur(p90)}`,
+      },
     ];
     return (
       <Table>
@@ -208,7 +221,8 @@ export default function SessionsChart({ sessionGroup }) {
           <CartesianGrid strokeDasharray={[3, 3]} stroke={gridColor} />
           {renderAxes()}
           <Scatter name="Session Average" data={sessions} fill={primaryColor}>
-            {renderErrorBar("iqrEB", 4)}
+            {renderErrorBar("iqrEB", 6, iqrEBcolor)}
+            {renderErrorBar("msbEB", 2, msbEBcolor)}
           </Scatter>
           <Line
             type="monotone"
