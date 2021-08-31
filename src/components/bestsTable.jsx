@@ -60,11 +60,15 @@ const BestsTable = ({ bests }) => {
             return <td>{time}</td>;
           })}
         </tr>
-        <tr style={{ fontSize: 14 }}>
+        <tr>
           {bestsToDisplay.map((b) => {
             const dateTime = bests[b.key]?.dateTime;
             const date = getDate(dateTime);
-            return <td>{date}</td>;
+            return (
+              <td>
+                <small className="text-muted">{date}</small>
+              </td>
+            );
           })}
         </tr>
       </Table>
@@ -80,7 +84,9 @@ const BestsTable = ({ bests }) => {
             <tr>
               <th>{b.label}</th>
               <td>{time}</td>
-              <td style={{ fontSize: 14 }}>{date}</td>
+              <td>
+                <small className="text-muted">{date}</small>
+              </td>
             </tr>
           );
         })}
