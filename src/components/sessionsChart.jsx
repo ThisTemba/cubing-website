@@ -224,12 +224,12 @@ export default function SessionsChart({ sessionGroup }) {
           <span className="m-2"> {date}</span>
           <Table size="sm" className="m-0">
             <tr>
-              <td style={cellStyle}>Solves: </td>
-              <td style={cellStyle}>{numSolves}</td>
-            </tr>
-            <tr>
               <td style={cellStyle}>Average: </td>
               <td style={cellStyle}>{dispDur(sessionAverage)}</td>
+            </tr>
+            <tr>
+              <td style={cellStyle}>Solves: </td>
+              <td style={cellStyle}>{numSolves}</td>
             </tr>
           </Table>
         </Card>
