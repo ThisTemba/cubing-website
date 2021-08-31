@@ -17,24 +17,29 @@ const BestsTable = ({ bests }) => {
     {
       label: "Ao100",
       key: "ao100",
-      tooltip: "Average of 100 excludes the best 5 and worst 5 solves",
+      tooltip: "Average of 100 excludes the best 5 solves and worst 5 solves",
     },
     {
       label: "Ao50",
       key: "ao50",
-      tooltip: "Average of 50 excludes the best 3 and worst 3 solves",
+      tooltip: "Average of 50 excludes the best 3 solves and worst 3 solves",
     },
     {
       label: "Ao12",
       key: "ao12",
-      tooltip: "Average of 12 excludes the best and worst solves",
+      tooltip: "Average of 12 excludes the best solve and worst solve",
     },
     {
       label: "Ao5",
       key: "ao5",
-      tooltip: "Average of 5 excludes the best and worst solves",
+      tooltip: "Average of 5 excludes the best solve and worst solve",
     },
-    { label: "Single", key: "single", tooltip: "The best solve on record" },
+    {
+      label: "Single",
+      key: "single",
+      tooltip:
+        "The single fastest solve (normally on a lucky scramble, but still worth bragging about)",
+    },
   ];
   if (!xs)
     return (
