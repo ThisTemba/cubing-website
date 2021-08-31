@@ -10,7 +10,6 @@ import {
   Line,
   Scatter,
   ErrorBar,
-  ReferenceDot,
 } from "recharts";
 import DarkModeContext from "../hooks/useDarkMode";
 import { dispDur } from "../utils/displayValue";
