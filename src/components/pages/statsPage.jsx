@@ -55,12 +55,13 @@ export default function StatsPage() {
   };
 
   const statCardClassName = xs ? "mt-2 mb-3" : "mb-2 mt-2";
+  const hasData = sessionGroup?.sessions?.length > 0;
 
   return (
     !loading && (
       <Container className="text-center">
-        {!sessionGroup && renderJumbo()}
-        {sessionGroup && (
+        {!hasData && renderJumbo()}
+        {hasData && (
           <Row>
             <Col xs={12} lg={6}>
               <Card className={statCardClassName}>
