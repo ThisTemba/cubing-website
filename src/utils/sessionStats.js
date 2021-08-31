@@ -1,6 +1,7 @@
 import { getSessionAverage, bestAoN } from "./averages";
 import { getP10, getP90, getQ1, getQ2, getQ3 } from "../utils/quantiles";
 import _ from "lodash";
+import standardDeviation from "./standardDeviation";
 
 export const getSessionStats = ({ solves }) => {
   if (!solves.length) throw new Error("session has no solves");
@@ -36,18 +37,34 @@ export const newGetSessionStats = ({ solves }) => {
   const sessionAverage = getSessionAverage(durs);
   const bests = { single: Math.min(...durs) };
 
-  const cleanDurs = durs.filter((dur) => dur !== Infinity);
+  const nonDNFDurs = durs.filter((dur) => dur !== Infinity);
   const quartiles = {
-    q1: getQ1(cleanDurs),
-    q2: getQ2(cleanDurs),
-    q3: getQ3(cleanDurs),
+    q1: getQ1(nonDNFDurs),
+    q2: getQ2(nonDNFDurs),
+    q3: getQ3(nonDNFDurs),
   };
   const percentiles = {
-    p10: getP10(cleanDurs),
-    p90: getP90(cleanDurs),
+    p10: getP10(nonDNFDurs),
+    p90: getP90(nonDNFDurs),
   };
+  const mean = _.mean(nonDNFDurs);
+  const sd = standardDeviation(nonDNFDurs);
+  const numNonDNFSolves = nonDNFDurs.length;
+  const worstSingle = Math.max(...durs);
+  const worstNonDNFSingle = Math.max(...nonDNFDurs);
+  const worsts = { single: worstSingle, nonDNFSingle: worstNonDNFSingle };
 
-  let stats = { sessionAverage, numSolves, bests, quartiles, percentiles };
+  let stats = {
+    sessionAverage,
+    numSolves,
+    numNonDNFSolves,
+    bests,
+    worsts,
+    quartiles,
+    percentiles,
+    mean,
+    sd,
+  };
 
   // Conditionally
   let averagesToGet = [5, 12, 50, 100];
@@ -92,6 +109,7 @@ export const getSessionGroupBests = (sessions) => {
 
 export const getSessionGroupStats = (sessions) => {
   const numSolves = _.sumBy(sessions, "numSolves");
+  const numNonDNFSolves = _.sumBy(sessions, "numNonDNFSolves");
   const numSessions = sessions.length;
 
   const bests = getSessionGroupBests(sessions);
