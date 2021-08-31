@@ -47,8 +47,8 @@ export default function SessionsChart({ sessionGroup }) {
   const primaryColor = darkMode ? "#967bb6" : "#af94cf";
   const gridColor = darkMode ? gray[700] : gray[400];
   const axesColor = darkMode ? gray[400] : gray[700];
-  const iqrEBcolor = darkMode ? primaryColor + "80" : primaryColor + "50";
-  const msbEBcolor = darkMode ? primaryColor + "80" : primaryColor + "50";
+  const iqrEBcolor = darkMode ? primaryColor + "80" : primaryColor + "60";
+  const msbEBcolor = darkMode ? primaryColor + "80" : primaryColor + "60";
 
   const sideMargin = 20;
   const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
