@@ -105,15 +105,12 @@ export default function SessionsChart({ sessionGroup }) {
   const renderTooltip = ({ active, payload, label }) => {
     if (active) {
       const sesh = payload?.[0]?.payload;
-      const { sessionNum, sessionAverage, numSolves, dateTime, quartiles } =
-        sesh;
-      const { q1, q3 } = quartiles;
+      const { sessionAverage, numSolves, dateTime, quartiles } = sesh;
       const date = new Date(dateTime).toLocaleDateString();
       const cellStyle = { borderColor: darkMode ? "#495057" : "" };
       return (
         <Card style={{ background: darkMode ? "#343a40" : "#fcfdfe" }}>
           <span className="m-2"> {date}</span>
-
           <Table size="sm">
             <tr>
               <td style={cellStyle}>Solves: </td>
