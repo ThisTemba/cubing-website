@@ -95,8 +95,8 @@ export default function SessionsChart({ sessionGroup }) {
             ...labelCommon,
           }}
           domain={["auto", "auto"]}
-          tickFormatter={(value) => (xs ? value : dispDur(value))}
-          unit="s"
+          tickFormatter={(value) => (xs ? value : dispDur(value).slice(0, -3))}
+          allowDecimals={false}
           {...common}
         />
         <ZAxis dataKey="numSolves" range={[50, 400]} {...common} />
