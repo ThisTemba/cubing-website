@@ -44,6 +44,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
   const disabled = typeof currentSolve === "undefined";
   const solveNum = disabled ? "#" : solves.length;
   const caseName = disabled ? "Case Name" : currentSolve.caseName;
+  const commonProps = { size: "lg", disabled };
   return (
     <div className="d-flex align-items-center justify-content-center">
       <Card
@@ -60,22 +61,19 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
             buttons={hesitationButton}
             onSelect={() => handleToggleHesitation()}
             activeId={disabled ? null : currentSolve.hesitated ? 1 : 0}
-            size="lg"
-            disabled={disabled}
+            {...commonProps}
           />
           <ButtonGroupToggle
             buttons={mistakesButtons}
             onSelect={(id) => handleSelectMistake(id)}
             activeId={disabled ? null : currentSolve.mistakes}
-            size="lg"
-            disabled={disabled}
+            {...commonProps}
           />
           <Button
             className="m-1"
             variant="danger"
-            size="lg"
             onClick={handleDelete}
-            disabled={disabled}
+            {...commonProps}
           >
             <FaIcon icon="trash" />
           </Button>
