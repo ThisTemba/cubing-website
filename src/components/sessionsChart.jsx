@@ -67,8 +67,6 @@ export default function SessionsChart({ sessionGroup }) {
   };
 
   const renderAxes = () => {
-    const getYMax = (dataMax) => Math.ceil(dataMax / 5) * 5;
-    const getYMin = (dataMin) => Math.floor(dataMin / 5) * 5;
     const common = { type: "number", stroke: axesColor };
     const labelCommon = { style: { textAnchor: "middle" }, fill: axesColor };
 
