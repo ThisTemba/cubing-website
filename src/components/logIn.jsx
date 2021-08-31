@@ -9,7 +9,7 @@ export default function LogIn({ history }) {
   const handleSubmit = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => history.push("/"))
+      .then(() => history.goBack())
       .catch((error) => setError(error));
   };
 
