@@ -14,7 +14,13 @@ import {
 import DarkModeContext from "../hooks/useDarkMode";
 import { dispDur } from "../utils/displayValue";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import { Card, Table, Button } from "react-bootstrap";
+import {
+  Card,
+  Table,
+  Button,
+  OverlayTrigger,
+  Tooltip as RBTooltip,
+} from "react-bootstrap";
 import useModal from "../hooks/useModal";
 import deleteSession from "../utils/deleteSession";
 import { UserContext } from "../services/firebase";
@@ -74,6 +80,12 @@ export default function SessionsChart({ sessionGroup }) {
 
     bestsToDisplay = bestsToDisplay.filter((b) => sesh.bests[b.key]);
 
+    const renderTooltip = (props, message) => (
+      <RBTooltip id="button-RBTooltip" {...props}>
+        {message}
+      </RBTooltip>
+    );
+
     const rows = [
       { name: "Number of Solves", value: sesh.numSolves },
       { name: "Session Average", value: dispDur(sesh.sessionAverage) },
@@ -93,7 +105,15 @@ export default function SessionsChart({ sessionGroup }) {
           value: (
             <span>
               {dispDur(sesh.bests[b.key])}{" "}
-              {isGlobalBest && <FaIcon icon="star" color={color} />}
+              {isGlobalBest && (
+                <OverlayTrigger
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={(props) => renderTooltip(props, `PB ${b.label}`)}
+                >
+                  <FaIcon icon="star" color={color} />
+                </OverlayTrigger>
+              )}
             </span>
           ),
         };
