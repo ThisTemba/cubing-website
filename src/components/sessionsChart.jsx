@@ -93,7 +93,7 @@ export default function SessionsChart({ sessionGroup }) {
       }),
     ];
     return (
-      <Table>
+      <Table size={xs ? "sm" : ""}>
         <colgroup>
           <col span="1" style={{ width: "45%" }} />
           <col span="1" style={{ width: "55%" }} />
