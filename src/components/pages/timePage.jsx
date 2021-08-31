@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import {
+import firebase, {
   UserContext,
   getUserDocRef,
   getMainSessionGroupDocRef,
@@ -30,7 +30,6 @@ export default function TimePage() {
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
   const pageSize = 8;
-  const puzzle = "333";
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
@@ -60,7 +59,7 @@ export default function TimePage() {
     let sessionGroup = (await sessionGroupDocRef.get()).data() || {};
 
     // Prepare Data
-    const newSession = _.omit(session, "solves");
+    const newSession = _.omit(session, "solves", "timeStamp");
     newSession.id = sessionDocRef.id;
     if (sessionGroup.sessions) {
       sessionGroup.sessions = [...sessionGroup?.sessions, newSession];
@@ -80,6 +79,7 @@ export default function TimePage() {
         " " +
         dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
       dateTime: dateTime.toString(),
       solves: solves,
     };

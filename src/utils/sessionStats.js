@@ -1,5 +1,5 @@
 import { getSessionAverage, bestAoN } from "./averages";
-import { getQ1, getQ2, getQ3 } from "../utils/quartiles";
+import { getP10, getP90, getQ1, getQ2, getQ3 } from "../utils/quantiles";
 import _ from "lodash";
 
 export const getSessionStats = ({ solves }) => {
@@ -35,9 +35,19 @@ export const newGetSessionStats = ({ solves }) => {
   const numSolves = durs.length;
   const sessionAverage = getSessionAverage(durs);
   const bests = { single: Math.min(...durs) };
-  const quartiles = { q1: getQ1(durs), q2: getQ2(durs), q3: getQ3(durs) };
 
-  let stats = { sessionAverage, numSolves, bests, quartiles };
+  const cleanDurs = durs.filter((dur) => dur !== Infinity);
+  const quartiles = {
+    q1: getQ1(cleanDurs),
+    q2: getQ2(cleanDurs),
+    q3: getQ3(cleanDurs),
+  };
+  const percentiles = {
+    p10: getP10(cleanDurs),
+    p90: getP90(cleanDurs),
+  };
+
+  let stats = { sessionAverage, numSolves, bests, quartiles, percentiles };
 
   // Conditionally
   let averagesToGet = [5, 12, 50, 100];
