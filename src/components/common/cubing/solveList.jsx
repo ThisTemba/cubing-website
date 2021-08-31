@@ -1,22 +1,13 @@
 import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import Pagination from "../pagination";
-import paginate from "../../../utils/paginate";
 import { listAoNs } from "../../../utils/averages";
 import { dispDur } from "../../../utils/displayValue";
 import useModal from "../../../hooks/useModal";
 import DarkModeContext from "../../../hooks/useDarkMode";
 import { FaIcon } from "../../../fontAwesome";
 
-export default function SolveList({
-  solves,
-  onPenalty,
-  onDeleteSolve,
-  pageSize,
-  currentPage,
-  onPageChange,
-}) {
+export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [ModalComponent, showModal] = useModal();
   const penaltyButtons = [
     { label: "+2", penalty: "+2" },
@@ -36,8 +27,7 @@ export default function SolveList({
         return { ...s, ao5, ao12 };
       });
       const orderedSolves = [...solves].reverse();
-      const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
-      return paginatedSolves;
+      return orderedSolves;
     } else return [];
   };
 
@@ -122,12 +112,6 @@ export default function SolveList({
           </thead>
           <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
         </Table>
-        <Pagination
-          itemsCount={solves.length}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-        />
         <ModalComponent />
       </div>
     </div>

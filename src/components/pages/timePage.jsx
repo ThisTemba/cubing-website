@@ -26,10 +26,8 @@ export default function TimePage() {
     name: null,
     solves: [],
   });
-  const [currentPage, setCurrentPage] = useState(1);
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
-  const pageSize = 8;
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
@@ -141,9 +139,6 @@ export default function TimePage() {
         solves={session.solves}
         onDeleteSolve={handleDeleteSolve}
         onPenalty={handlePenalty}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={(p) => setCurrentPage(p)}
       />
     </Container>
   );
