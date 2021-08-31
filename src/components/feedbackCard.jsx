@@ -28,9 +28,24 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
   };
 
   const mistakesButtons = [
-    { content: <FaIcon icon="check" />, id: 0, color: "success" },
-    { content: <FaIcon icon="minus" />, id: 1, color: "warning" },
-    { content: <FaIcon icon="times" />, id: 2, color: "danger" },
+    {
+      content: <FaIcon icon="check" />,
+      id: 0,
+      color: "success",
+      tooltip: "No Mistakes",
+    },
+    {
+      content: <FaIcon icon="minus" />,
+      id: 1,
+      color: "warning",
+      tooltip: "Minor Mistakes",
+    },
+    {
+      content: <FaIcon icon="times" />,
+      id: 2,
+      color: "danger",
+      tooltip: "Critical Mistakes",
+    },
   ];
 
   const hesitationButton = [
@@ -38,6 +53,7 @@ export default function FeedbackCard({ currentSolve, solves, setSolves }) {
       content: <FaIcon icon="spinner" />,
       id: 1,
       color: darkMode ? "light" : "dark",
+      tooltip: "Hesitated",
     },
   ];
 
