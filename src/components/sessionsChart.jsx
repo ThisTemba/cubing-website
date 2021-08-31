@@ -94,6 +94,10 @@ export default function SessionsChart({ sessionGroup }) {
     ];
     return (
       <Table>
+        <colgroup>
+          <col span="1" style={{ width: "45%" }} />
+          <col span="1" style={{ width: "55%" }} />
+        </colgroup>
         <tbody>
           {rows.map((row) => (
             <tr>
