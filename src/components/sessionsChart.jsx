@@ -82,7 +82,7 @@ export default function SessionsChart({ sessionGroup }) {
         value: `${dispDur(q1)} and ${dispDur(q3)}`,
       },
       {
-        name: "90% of solves between",
+        name: "80% of solves between",
         value: `${dispDur(p10)} and ${dispDur(p90)}`,
       },
       ...bestsToDisplay.map((b) => {
