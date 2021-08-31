@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Container, Card } from "react-bootstrap";
+import { Button, Container, Card, Col, Row } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import _ from "lodash";
 import { UserContext } from "../../services/firebase";
@@ -8,6 +8,7 @@ import SessionsChart from "../sessionsChart";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import BestsTable from "../bestsTable";
+import StatsOverviewTable from "../statsOverviewTable";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
@@ -53,31 +54,45 @@ export default function StatsPage() {
       );
   };
 
-  const statCardClassName = xs ? "mt-3 mb-3" : "mb-2 mt-2";
+  const statCardClassName = xs ? "mt-2 mb-3" : "mb-2 mt-2";
 
   return (
     !loading && (
       <Container className="text-center">
         {!sessionGroup && renderJumbo()}
         {sessionGroup && (
-          <>
-            <Card className={statCardClassName}>
-              <Card.Header>
-                <Card.Title className="m-1">Personal Bests</Card.Title>
-              </Card.Header>
-              <Card.Body className={xs ? "p-0" : ""}>
-                <BestsTable bests={sessionGroup.bests} />
-              </Card.Body>
-            </Card>
-            <Card className={statCardClassName}>
-              <Card.Header>
-                <Card.Title className="m-1">Sessions</Card.Title>
-              </Card.Header>
-              <Card.Body className={xs ? "p-2" : ""}>
-                <SessionsChart sessionGroup={sessionGroup} />
-              </Card.Body>
-            </Card>
-          </>
+          <Row>
+            <Col xs={12} lg={6}>
+              <Card className={statCardClassName}>
+                <Card.Header>
+                  <Card.Title className="m-1">Personal Bests</Card.Title>
+                </Card.Header>
+                <Card.Body className={xs ? "p-0" : ""}>
+                  <BestsTable bests={sessionGroup.bests} />
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col xs={12} lg={6}>
+              <Card className={statCardClassName}>
+                <Card.Header>
+                  <Card.Title className="m-1">Totals</Card.Title>
+                </Card.Header>
+                <Card.Body className={xs ? "p-0" : ""}>
+                  <StatsOverviewTable sessionGroup={sessionGroup} />
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col xs={12}>
+              <Card className={statCardClassName}>
+                <Card.Header>
+                  <Card.Title className="m-1">Sessions</Card.Title>
+                </Card.Header>
+                <Card.Body className={xs ? "p-2" : ""}>
+                  <SessionsChart sessionGroup={sessionGroup} />
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
         )}
       </Container>
     )
