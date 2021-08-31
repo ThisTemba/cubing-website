@@ -51,79 +51,11 @@ export default function SessionsChart({ sessionGroup }) {
   const msbEBcolor = darkMode ? primaryColor + "80" : primaryColor + "60";
 
   const sideMargin = 20;
-  const margin = { top: 20, right: sideMargin, left: sideMargin, bottom: 20 };
-  console.log(sessions);
-
-  const renderErrorBar = (key, width, color) => {
-    return (
-      <ErrorBar
-        dataKey={key}
-        width={0}
-        strokeWidth={width}
-        stroke={color}
-        direction="y"
-      />
-    );
-  };
-
-  const renderAxes = () => {
-    const common = { type: "number", stroke: axesColor };
-    const labelCommon = { style: { textAnchor: "middle" }, fill: axesColor };
-
-    return (
-      <>
-        <XAxis
-          dataKey="sessionNum"
-          name="Session Number"
-          label={{
-            value: "Session Number",
-            position: "bottom",
-            ...labelCommon,
-          }}
-          allowDecimals={false}
-          {...common}
-        />
-        <YAxis
-          dataKey="sessionAverage"
-          name="Session Average"
-          label={{
-            value: "Session Average Time",
-            position: "left",
-            angle: -90,
-            ...labelCommon,
-          }}
-          domain={["auto", "auto"]}
-          tickFormatter={(value) => (xs ? value : dispDur(value).slice(0, -3))}
-          allowDecimals={false}
-          {...common}
-        />
-        <ZAxis dataKey="numSolves" range={[50, 400]} {...common} />
-      </>
-    );
-  };
-
-  const renderTooltip = ({ active, payload, label }) => {
-    if (active) {
-      const sesh = payload?.[0]?.payload;
-      const { sessionAverage, numSolves, dateTime, quartiles } = sesh;
-      const date = new Date(dateTime).toLocaleDateString();
-      const cellStyle = { borderColor: darkMode ? "#495057" : "" };
-      return (
-        <Card style={{ background: darkMode ? "#343a40" : "#fcfdfe" }}>
-          <span className="m-2"> {date}</span>
-          <Table size="sm">
-            <tr>
-              <td style={cellStyle}>Solves: </td>
-              <td style={cellStyle}>{numSolves}</td>
-            </tr>
-            <tr>
-              <td style={cellStyle}>Average: </td>
-              <td style={cellStyle}>{dispDur(sessionAverage)}</td>
-            </tr>
-          </Table>
-        </Card>
-      );
-    } else return <></>;
+  const chartMargins = {
+    top: 20,
+    right: sideMargin,
+    left: sideMargin,
+    bottom: 20,
   };
 
   const renderSessionModalBody = (sesh) => {
@@ -214,6 +146,78 @@ export default function SessionsChart({ sessionGroup }) {
     });
   };
 
+  const renderErrorBar = (key, width, color) => {
+    return (
+      <ErrorBar
+        dataKey={key}
+        width={0}
+        strokeWidth={width}
+        stroke={color}
+        direction="y"
+      />
+    );
+  };
+
+  const renderAxes = () => {
+    const common = { type: "number", stroke: axesColor };
+    const labelCommon = { style: { textAnchor: "middle" }, fill: axesColor };
+
+    return (
+      <>
+        <XAxis
+          dataKey="sessionNum"
+          name="Session Number"
+          label={{
+            value: "Session Number",
+            position: "bottom",
+            ...labelCommon,
+          }}
+          allowDecimals={false}
+          {...common}
+        />
+        <YAxis
+          dataKey="sessionAverage"
+          name="Session Average"
+          label={{
+            value: "Session Average Time",
+            position: "insideLeft",
+            angle: -90,
+            ...labelCommon,
+          }}
+          domain={["auto", "auto"]}
+          tickFormatter={(value) => (xs ? value : dispDur(value).slice(0, -3))}
+          allowDecimals={false}
+          {...common}
+        />
+        <ZAxis dataKey="numSolves" range={[50, 400]} {...common} />
+      </>
+    );
+  };
+
+  const renderTooltip = ({ active, payload, label }) => {
+    if (active) {
+      const sesh = payload?.[0]?.payload;
+      const { sessionAverage, numSolves, dateTime, quartiles } = sesh;
+      const date = new Date(dateTime).toLocaleDateString();
+      const cellStyle = { borderColor: darkMode ? "#495057" : "" };
+      return (
+        <Card style={{ background: darkMode ? "#343a40" : "#fcfdfe" }}>
+          <span className="m-2"> {date}</span>
+          <Table size="sm">
+            <tr>
+              <td style={cellStyle}>Solves: </td>
+              <td style={cellStyle}>{numSolves}</td>
+            </tr>
+            <tr>
+              <td style={cellStyle}>Average: </td>
+              <td style={cellStyle}>{dispDur(sessionAverage)}</td>
+            </tr>
+          </Table>
+        </Card>
+      );
+    } else return <></>;
+  };
+
   return (
     <div style={{ height: xs ? "300px" : "500px" }}>
       <ResponsiveContainer width="100%" height="100%">
@@ -221,7 +225,7 @@ export default function SessionsChart({ sessionGroup }) {
           width={500}
           height={300}
           data={sessions}
-          margin={margin}
+          margin={chartMargins}
           onClick={(props) => {
             const sesh = props?.activePayload[0]?.payload;
             sesh && showSessionModal(sesh);
