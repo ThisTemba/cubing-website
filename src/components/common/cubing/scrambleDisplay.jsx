@@ -6,7 +6,7 @@ const ScrambleDisplay = (props) => {
   const displayStyle = {
     fontFamily: "Monospace",
     textAlign: "center",
-    fontSize: xs ? "19px" : "30px",
+    fontSize: xs ? "24px" : "30px",
   };
   const disabledText = disabled ? " text-muted" : "";
   const className = "text-center m-3" + disabledText;
