@@ -137,10 +137,19 @@ export default function SessionsChart({ sessionGroup }) {
     const q1 = sesh.quartiles?.q1;
     const q3 = sesh.quartiles?.q3;
 
+    let bestsToDisplay = [
+      { label: "Ao100", key: "ao100" },
+      { label: "Ao50", key: "ao50" },
+      { label: "Ao12", key: "ao12" },
+      { label: "Ao5", key: "ao5" },
+      { label: "Single", key: "single" },
+    ];
+
+    bestsToDisplay = bestsToDisplay.filter((b) => sesh.bests[b.key]);
+
     const rows = [
-      { name: "Total Solves", value: sesh.numSolves },
+      { name: "Number of Solves", value: sesh.numSolves },
       { name: "Session Average", value: dispDur(sesh.sessionAverage) },
-      { name: "Best Single", value: dispDur(sesh.bests.single) },
       {
         name: "50% of solves between",
         value: `${dispDur(q1)} and ${dispDur(q3)}`,
@@ -149,6 +158,12 @@ export default function SessionsChart({ sessionGroup }) {
         name: "90% of solves between",
         value: `${dispDur(p10)} and ${dispDur(p90)}`,
       },
+      ...bestsToDisplay.map((b) => {
+        return {
+          name: `Best ${b.label}`,
+          value: dispDur(sesh.bests[b.key]),
+        };
+      }),
     ];
     return (
       <Table>
