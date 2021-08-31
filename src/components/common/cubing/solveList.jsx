@@ -115,8 +115,8 @@ export default function SolveList({
             <tr>
               <th scope="col">#</th>
               <th scope="col">Time</th>
-              <th scope="col">ao5</th>
-              <th scope="col">ao12</th>
+              <th scope="col">Ao5</th>
+              <th scope="col">Ao12</th>
               <th scope="col"></th>
             </tr>
           </thead>
