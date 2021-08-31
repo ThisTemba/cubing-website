@@ -212,11 +212,17 @@ export default function SessionsChart({ sessionGroup }) {
       const sesh = payload?.[0]?.payload;
       const { sessionAverage, numSolves, dateTime, quartiles } = sesh;
       const date = new Date(dateTime).toLocaleDateString();
-      const cellStyle = { borderColor: darkMode ? "#495057" : "" };
+      const cellStyle = {
+        borderColor: darkMode ? "#495057" : "",
+        paddingLeft: 15,
+        paddingRight: 15,
+        paddingTop: 7,
+        paddingBottom: 7,
+      };
       return (
         <Card style={{ background: darkMode ? "#343a40" : "#fcfdfe" }}>
           <span className="m-2"> {date}</span>
-          <Table size="sm">
+          <Table size="sm" className="m-0">
             <tr>
               <td style={cellStyle}>Solves: </td>
               <td style={cellStyle}>{numSolves}</td>
