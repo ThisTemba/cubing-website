@@ -1,23 +1,36 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
+import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
 
 const ButtonGroupToggle = ({ buttons, color, activeId, onSelect, ...rest }) => {
   const getButtonVariant = (activeButtonId, button) => {
     color = button.color || color;
     return activeButtonId === button.id ? `${color}` : `outline-${color}`;
   };
+
+  const renderTooltip = (props, message) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {message}
+    </Tooltip>
+  );
+
   return (
     <div className="btn-group  m-1" role="group">
       {buttons.map((button) => {
         return (
-          <Button
-            variant={getButtonVariant(activeId, button)}
-            onClick={() => onSelect(button.id)}
-            key={button.id}
-            {...rest}
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: button.tooltip ? 700 : Infinity, hide: 300 }}
+            overlay={(props) => renderTooltip(props, button.tooltip)}
           >
-            {button.content}
-          </Button>
+            <Button
+              variant={getButtonVariant(activeId, button)}
+              onClick={() => onSelect(button.id)}
+              key={button.id}
+              {...rest}
+            >
+              {button.content}
+            </Button>
+          </OverlayTrigger>
         );
       })}
     </div>
