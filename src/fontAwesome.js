@@ -23,6 +23,7 @@ import {
   faQuestion,
   faSun,
   faMoon,
+  faStar,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -47,7 +48,8 @@ library.add(
   faBackward,
   faQuestion,
   faSun,
-  faMoon
+  faMoon,
+  faStar
 );
 
 export { FontAwesomeIcon as FaIcon };

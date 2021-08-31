@@ -19,6 +19,7 @@ import { Card, Table, Button } from "react-bootstrap";
 import useModal from "../hooks/useModal";
 import deleteSession from "../utils/deleteSession";
 import { UserContext } from "../services/firebase";
+import { FaIcon } from "../fontAwesome";
 
 export default function SessionsChart({ sessionGroup }) {
   const { xs } = useWindowDimensions();
@@ -86,12 +87,20 @@ export default function SessionsChart({ sessionGroup }) {
         value: `${dispDur(p10)} and ${dispDur(p90)}`,
       },
       ...bestsToDisplay.map((b) => {
+        const isGlobalBest = sesh.id === sessionGroup.bests[b.key].sessionId;
+        const color = darkMode ? "gold" : "orange";
         return {
           name: `Best ${b.label}`,
-          value: dispDur(sesh.bests[b.key]),
+          value: (
+            <span>
+              {dispDur(sesh.bests[b.key])}{" "}
+              {isGlobalBest && <FaIcon icon="star" color={color} />}
+            </span>
+          ),
         };
       }),
     ];
+
     return (
       <Table size={xs ? "sm" : ""}>
         <colgroup>
