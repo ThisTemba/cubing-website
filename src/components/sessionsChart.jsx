@@ -89,7 +89,7 @@ export default function SessionsChart({ sessionGroup }) {
           dataKey="sessionAverage"
           name="Session Average"
           label={{
-            value: "Session Average",
+            value: "Session Average Time",
             position: "left",
             angle: -90,
             ...labelCommon,
@@ -114,7 +114,7 @@ export default function SessionsChart({ sessionGroup }) {
       const cellStyle = { borderColor: darkMode ? "#495057" : "" };
       return (
         <Card style={{ background: darkMode ? "#343a40" : "#fcfdfe" }}>
-          <span className="m-2">Date: {date}</span>
+          <span className="m-2"> {date}</span>
 
           <Table size="sm">
             <tr>
