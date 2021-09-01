@@ -7,6 +7,7 @@ import DarkModeContext from "../../../hooks/useDarkMode";
 import { FaIcon } from "../../../fontAwesome";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [ModalComponent, showModal] = useModal();
@@ -16,6 +17,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     { label: "Reset", penalty: "" },
   ];
   const { darkMode } = useContext(DarkModeContext);
+  const { xs } = useWindowDimensions();
 
   const getProcessedSolves = (solves) => {
     if (solves) {
@@ -97,11 +99,15 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
       </tr>
     ));
   };
+
   return (
     <>
-      <Card style={{ height: 500, maxWidth: 600 }} className="mr-auto ml-auto">
-        <Card.Body>
-          <SimpleBar style={{ maxHeight: 450, maxWidth: 600 }}>
+      <Card
+        style={{ height: xs ? 300 : 500, maxWidth: 600 }}
+        className="mr-auto ml-auto"
+      >
+        <Card.Body className={xs ? "p-0 pt-1" : ""}>
+          <SimpleBar style={{ maxHeight: xs ? 290 : 450, maxWidth: 600 }}>
             <Table size="sm">
               <thead>
                 <tr>
