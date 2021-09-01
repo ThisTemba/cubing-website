@@ -5,30 +5,32 @@ import _ from "lodash";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 
+Date.prototype.addDays = function (days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
+
+const renderTooltip = (props, message) => (
+  <Tooltip content id="button-tooltip" {...props}>
+    <span>{message}</span>
+  </Tooltip>
+);
+
+const formatDate = (date) => {
+  const firstSix = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+  const lastSix = ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthNames = [...firstSix, ...lastSix];
+
+  let day = date.getDate();
+  let monthName = monthNames[date.getMonth()];
+  let year = date.getFullYear();
+
+  return `${monthName} ${day}, ${year}`;
+};
+
 export default function ActivityChart({ sessions, numDays }) {
   const { darkMode } = useContext(DarkModeContext);
-
-  const renderTooltip = (props, message) => (
-    <Tooltip content id="button-tooltip" {...props}>
-      <span>{message}</span>
-    </Tooltip>
-  );
-  const formatDate = (date) => {
-    const firstSix = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-    const lastSix = ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const monthNames = [...firstSix, ...lastSix];
-
-    let day = date.getDate();
-    let monthName = monthNames[date.getMonth()];
-    let year = date.getFullYear();
-
-    return `${monthName} ${day}, ${year}`;
-  };
-  Date.prototype.addDays = function (days) {
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
-  };
 
   const endDate = new Date();
   const startDate = new Date().addDays(-numDays);
@@ -56,45 +58,45 @@ export default function ActivityChart({ sessions, numDays }) {
         const dataDate = new Date(item.date).toDateString();
         return thisDate === dataDate;
       });
-      console.log(valueWithSolves);
       if (valueWithSolves) values.push(valueWithSolves);
       else values.push({ date: dateTime, count: 0, numSolves: 0 });
     }
     return values;
   };
 
+  const transformDayElement = (element, value) => {
+    const date = value ? formatDate(new Date(value.date)) : null;
+    let message;
+    if (value) message = `${value.numSolves} solves on ${date}`;
+    else message = "No Solves";
+    return (
+      <OverlayTrigger
+        placement="top"
+        delay={{ show: 0, hide: 0 }}
+        overlay={(props) => renderTooltip(props, message)}
+      >
+        {cloneElement(element)}
+      </OverlayTrigger>
+    );
+  };
+
+  const classForValue = (value) => {
+    const theme = darkMode ? "dark" : "light";
+    if (!value) return `${theme}-0`;
+    else return `${theme}-${value.count}`;
+  };
+
+  const values = getHeatmapValues(sessions);
+
   return (
     <CalendarHeatmap
-      endDate={endDate}
-      startDate={startDate}
-      values={getHeatmapValues(sessions)}
-      classForValue={(value) => {
-        const theme = darkMode ? "dark" : "light";
-        if (!value) return `${theme}-0`;
-        else return `${theme}-${value.count}`;
-      }}
       className="m-0 p-0"
       gutterSize={2}
-      tooltipDataAttrs={(value) => {
-        return {
-          "data-tip": ` has count: ${value.date}`,
-        };
-      }}
-      transformDayElement={(element, value) => {
-        const date = value ? formatDate(new Date(value.date)) : null;
-        let message;
-        if (value) message = `${value.numSolves} solves on ${date}`;
-        else message = "No Solves";
-        return (
-          <OverlayTrigger
-            placement="top"
-            delay={{ show: 0, hide: 0 }}
-            overlay={(props) => renderTooltip(props, message)}
-          >
-            {cloneElement(element)}
-          </OverlayTrigger>
-        );
-      }}
+      endDate={endDate}
+      startDate={startDate}
+      values={values}
+      classForValue={classForValue}
+      transformDayElement={transformDayElement}
     />
   );
 }
