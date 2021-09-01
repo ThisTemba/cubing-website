@@ -2,11 +2,9 @@ import React, { useContext } from "react";
 import DarkModeContext from "../hooks/useDarkMode";
 import _ from "lodash";
 import CalendarHeatmap from "react-calendar-heatmap";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 
-export default function ActivityChart({ sessions }) {
+export default function ActivityChart({ sessions, numDays }) {
   const { darkMode } = useContext(DarkModeContext);
-  const { xs } = useWindowDimensions();
   const groupedByDate = _.groupBy(sessions, "date");
 
   const absCounts = Object.keys(groupedByDate).map((date) => {
@@ -22,7 +20,7 @@ export default function ActivityChart({ sessions }) {
     return { ...item, count: Math.ceil((item.count * 4) / maxDailySolves) };
   });
   const endDate = new Date();
-  const startDate = new Date().setDate(endDate.getDate() - (xs ? 130 : 365));
+  const startDate = new Date().setDate(endDate.getDate() - numDays);
   return (
     <CalendarHeatmap
       endDate={endDate}
