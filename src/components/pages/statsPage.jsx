@@ -55,7 +55,8 @@ export default function StatsPage() {
       );
   };
 
-  const statCardClassName = xs ? "mt-2 mb-2" : "m-2";
+  const statCardClass = xs ? "mt-2 mb-2" : "m-2";
+  const cardTitleClass = "m-1";
   const hasData = sessionGroup?.sessions?.length > 0;
   const colStyle = { padding: 0 };
 
@@ -66,9 +67,11 @@ export default function StatsPage() {
         {hasData && (
           <Row noGutters>
             <Col xs={12} lg={6} style={colStyle}>
-              <Card className={statCardClassName}>
+              <Card className={statCardClass}>
                 <Card.Header>
-                  <Card.Title className="m-1">Personal Bests</Card.Title>
+                  <Card.Title className={cardTitleClass}>
+                    Personal Bests
+                  </Card.Title>
                 </Card.Header>
                 <Card.Body className={xs ? "p-0" : ""}>
                   <BestsTable bests={sessionGroup.bests} />
@@ -76,20 +79,19 @@ export default function StatsPage() {
               </Card>
             </Col>
             <Col xs={12} lg={6} style={colStyle}>
-              <Card className={statCardClassName}>
+              <Card className={statCardClass}>
                 <Card.Header>
-                  <Card.Title className="m-1">Totals</Card.Title>
+                  <Card.Title className={cardTitleClass}>Totals</Card.Title>
                 </Card.Header>
                 <Card.Body className={xs ? "p-0" : ""}>
                   <StatsOverviewTable sessionGroup={sessionGroup} />
                 </Card.Body>
               </Card>
             </Col>
-
             <Col xs={12} style={colStyle}>
-              <Card className={statCardClassName}>
+              <Card className={statCardClass}>
                 <Card.Header>
-                  <Card.Title className="m-1">Activity</Card.Title>
+                  <Card.Title className={cardTitleClass}>Activity</Card.Title>
                 </Card.Header>
                 <Card.Body className="pl-4 pr-4">
                   <ActivityChart
@@ -100,9 +102,9 @@ export default function StatsPage() {
               </Card>
             </Col>
             <Col xs={12} style={colStyle}>
-              <Card className={statCardClassName}>
+              <Card className={statCardClass}>
                 <Card.Header>
-                  <Card.Title className="m-1">Sessions</Card.Title>
+                  <Card.Title className={cardTitleClass}>Sessions</Card.Title>
                 </Card.Header>
                 <Card.Body className={xs ? "p-2" : ""}>
                   <SessionsChart sessionGroup={sessionGroup} />
