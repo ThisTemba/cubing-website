@@ -52,7 +52,9 @@ export default function ActivityChart({ sessions, numDays }) {
     for (let i = 0; i < numDays; i++) {
       const dateTime = new Date(startDate.getTime()).addDays(i + 1);
       const valueWithSolves = _.find(countsByDate, (item) => {
-        return new Date(item.date).toDateString() === dateTime.toDateString();
+        const thisDate = dateTime.toDateString();
+        const dataDate = new Date(item.date).toDateString();
+        return thisDate === dataDate;
       });
       console.log(valueWithSolves);
       if (valueWithSolves) values.push(valueWithSolves);
