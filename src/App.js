@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Feedback from "feeder-react-feedback"; // import Feedback component
 import "feeder-react-feedback/dist/feeder-react-feedback.css";
+import "./App.css";
 
 import TrainPage from "./components/pages/trainPage";
 import TimePage from "./components/pages/timePage";

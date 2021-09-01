@@ -9,6 +9,8 @@ import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import BestsTable from "../bestsTable";
 import StatsOverviewTable from "../statsOverviewTable";
+import CalendarHeatmap from "react-calendar-heatmap";
+import "react-calendar-heatmap/dist/styles.css";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
@@ -60,6 +62,22 @@ export default function StatsPage() {
   return (
     !loading && (
       <Container className="text-center">
+        <CalendarHeatmap
+          startDate={new Date("2016-01-01")}
+          endDate={new Date("2017-01-01")}
+          showWeekdayLabels
+          values={[
+            { date: "2016-02-01", count: 4 },
+            { date: "2016-03-22", count: 1 },
+            { date: "2016-03-23", count: 2 },
+          ]}
+          classForValue={(value) => {
+            if (!value) {
+              return "color-scale-0";
+            }
+            return `color-scale-${value.count}`;
+          }}
+        />
         {!hasData && renderJumbo()}
         {hasData && (
           <Row>
