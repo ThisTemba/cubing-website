@@ -94,7 +94,7 @@ export default function StatsPage() {
                 <Card.Body className="pl-4 pr-4">
                   <ActivityChart
                     sessions={sessionGroup.sessions}
-                    numDays={xs ? 130 : md ? 170 : 365}
+                    numDays={xs ? 93 : md ? 170 : 365}
                   />
                 </Card.Body>
               </Card>
