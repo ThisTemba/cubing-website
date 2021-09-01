@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import DarkModeContext from "../hooks/useDarkMode";
 import _ from "lodash";
 import CalendarHeatmap from "react-calendar-heatmap";
+import "react-calendar-heatmap/dist/styles.css";
 
 export default function ActivityChart({ sessions, numDays }) {
   const { darkMode } = useContext(DarkModeContext);
