@@ -24,27 +24,42 @@ export default function ActivityChart({ sessions, numDays }) {
 
     return `${monthName} ${day}, ${year}`;
   };
+  Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  };
+
+  const endDate = new Date();
+  const startDate = new Date().addDays(-numDays);
 
   const getHeatmapValues = (sessions) => {
     const groupedByDate = _.groupBy(sessions, "date");
-    const absCounts = Object.keys(groupedByDate).map((date) => {
+    const numSolvesByDate = Object.keys(groupedByDate).map((date) => {
       const sessions = groupedByDate?.[date];
       const numSolves = _.sumBy(sessions, "numSolves");
       const dateTime = sessions[0].dateTime;
       return { date: dateTime, numSolves };
     });
-    const maxDailySolves = _.maxBy(absCounts, "numSolves").numSolves;
-    const values = absCounts.map((item) => {
+    const maxDailySolves = _.maxBy(numSolvesByDate, "numSolves").numSolves;
+    const countsByDate = numSolvesByDate.map((item) => {
       return {
         ...item,
         count: Math.ceil((item.numSolves * 4) / maxDailySolves),
       };
     });
+    let values = [];
+    for (let i = 0; i < numDays; i++) {
+      const dateTime = new Date(startDate.getTime()).addDays(i + 1);
+      const valueWithSolves = _.find(countsByDate, (item) => {
+        return new Date(item.date).toDateString() === dateTime.toDateString();
+      });
+      console.log(valueWithSolves);
+      if (valueWithSolves) values.push(valueWithSolves);
+      else values.push({ date: dateTime, count: 0, numSolves: 0 });
+    }
     return values;
   };
-
-  const endDate = new Date();
-  const startDate = new Date().setDate(endDate.getDate() - numDays);
 
   return (
     <CalendarHeatmap
