@@ -128,9 +128,13 @@ export default function TimePage() {
   return (
     <Container fluid className="text-center">
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
-      {user && session.solves.length !== 0 && (
+      {user && (
         <h3>
-          <Button size="sm" onClick={handleNewSession}>
+          <Button
+            size="sm"
+            onClick={handleNewSession}
+            disabled={session.solves.length === 0}
+          >
             End Session
           </Button>
         </h3>
