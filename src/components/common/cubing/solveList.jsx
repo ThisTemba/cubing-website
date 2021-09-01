@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
+import { Table, Button, Card } from "react-bootstrap";
 import { listAoNs } from "../../../utils/averages";
 import { dispDur } from "../../../utils/displayValue";
 import useModal from "../../../hooks/useModal";
 import DarkModeContext from "../../../hooks/useDarkMode";
 import { FaIcon } from "../../../fontAwesome";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [ModalComponent, showModal] = useModal();
@@ -96,24 +97,27 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
       </tr>
     ));
   };
-
   return (
-    <div className="row justify-content-center">
-      <div className="col" style={{ maxWidth: "600px" }}>
-        <Table size="sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Time</th>
-              <th scope="col">Ao5</th>
-              <th scope="col">Ao12</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
-        </Table>
-        <ModalComponent />
-      </div>
-    </div>
+    <>
+      <Card style={{ height: 500, maxWidth: 600 }} className="mr-auto ml-auto">
+        <Card.Body>
+          <SimpleBar style={{ maxHeight: 450, maxWidth: 600 }}>
+            <Table size="sm">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Ao5</th>
+                  <th scope="col">Ao12</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
+            </Table>
+          </SimpleBar>
+        </Card.Body>
+      </Card>
+      <ModalComponent />
+    </>
   );
 }
