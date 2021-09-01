@@ -9,13 +9,14 @@ import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import BestsTable from "../bestsTable";
 import StatsOverviewTable from "../statsOverviewTable";
+import ActivityChart from "../activityChart";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
   const sessionGroupDoc = useMainSessionGroup(user);
   const sessionGroup = sessionGroupDoc?.data();
   const loading = typeof sessionGroupDoc === "undefined";
-  const { xs } = useWindowDimensions();
+  const { xs, md } = useWindowDimensions();
 
   const _Jumbo = ({ title, body, buttons }) => {
     return (
@@ -54,16 +55,17 @@ export default function StatsPage() {
       );
   };
 
-  const statCardClassName = xs ? "mt-2 mb-3" : "mb-2 mt-2";
+  const statCardClassName = xs ? "mt-2 mb-2" : "m-2";
   const hasData = sessionGroup?.sessions?.length > 0;
+  const colStyle = { padding: 0 };
 
   return (
     !loading && (
       <Container className="text-center">
         {!hasData && renderJumbo()}
         {hasData && (
-          <Row>
-            <Col xs={12} lg={6}>
+          <Row noGutters>
+            <Col xs={12} lg={6} style={colStyle}>
               <Card className={statCardClassName}>
                 <Card.Header>
                   <Card.Title className="m-1">Personal Bests</Card.Title>
@@ -73,7 +75,7 @@ export default function StatsPage() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={12} lg={6}>
+            <Col xs={12} lg={6} style={colStyle}>
               <Card className={statCardClassName}>
                 <Card.Header>
                   <Card.Title className="m-1">Totals</Card.Title>
@@ -83,7 +85,21 @@ export default function StatsPage() {
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={12}>
+
+            <Col xs={12} style={colStyle}>
+              <Card className={statCardClassName}>
+                <Card.Header>
+                  <Card.Title className="m-1">Activity</Card.Title>
+                </Card.Header>
+                <Card.Body className="pl-4 pr-4">
+                  <ActivityChart
+                    sessions={sessionGroup.sessions}
+                    numDays={xs ? 93 : md ? 170 : 365}
+                  />
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col xs={12} style={colStyle}>
               <Card className={statCardClassName}>
                 <Card.Header>
                   <Card.Title className="m-1">Sessions</Card.Title>
