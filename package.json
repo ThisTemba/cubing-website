@@ -23,6 +23,7 @@
     "react-spinners": "^0.11.0",
     "react-table": "^7.7.0",
     "recharts": "^2.1.2",
+    "simplebar-react": "^2.3.5",
     "sr-visualizer": "^1.0.11",
     "web-vitals": "^1.1.2"
   },

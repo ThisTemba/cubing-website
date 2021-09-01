@@ -1,22 +1,15 @@
 import React, { useContext } from "react";
-import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
-import Pagination from "../pagination";
-import paginate from "../../../utils/paginate";
+import { Table, Button, Card } from "react-bootstrap";
 import { listAoNs } from "../../../utils/averages";
 import { dispDur } from "../../../utils/displayValue";
 import useModal from "../../../hooks/useModal";
 import DarkModeContext from "../../../hooks/useDarkMode";
 import { FaIcon } from "../../../fontAwesome";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
-export default function SolveList({
-  solves,
-  onPenalty,
-  onDeleteSolve,
-  pageSize,
-  currentPage,
-  onPageChange,
-}) {
+export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [ModalComponent, showModal] = useModal();
   const penaltyButtons = [
     { label: "+2", penalty: "+2" },
@@ -24,6 +17,7 @@ export default function SolveList({
     { label: "Reset", penalty: "" },
   ];
   const { darkMode } = useContext(DarkModeContext);
+  const { xs } = useWindowDimensions();
 
   const getProcessedSolves = (solves) => {
     if (solves) {
@@ -36,8 +30,7 @@ export default function SolveList({
         return { ...s, ao5, ao12 };
       });
       const orderedSolves = [...solves].reverse();
-      const paginatedSolves = paginate(orderedSolves, currentPage, pageSize);
-      return paginatedSolves;
+      return orderedSolves;
     } else return [];
   };
 
@@ -108,28 +101,29 @@ export default function SolveList({
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="col" style={{ maxWidth: "600px" }}>
-        <Table size="sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Time</th>
-              <th scope="col">Ao5</th>
-              <th scope="col">Ao12</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
-        </Table>
-        <Pagination
-          itemsCount={solves.length}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={onPageChange}
-        />
-        <ModalComponent />
-      </div>
-    </div>
+    <>
+      <Card
+        style={{ height: xs ? 300 : 500, maxWidth: 600 }}
+        className="mr-auto ml-auto"
+      >
+        <Card.Body className={xs ? "p-0 pt-1" : ""}>
+          <SimpleBar style={{ maxHeight: xs ? 290 : 450, maxWidth: 600 }}>
+            <Table size="sm">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Ao5</th>
+                  <th scope="col">Ao12</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
+            </Table>
+          </SimpleBar>
+        </Card.Body>
+      </Card>
+      <ModalComponent />
+    </>
   );
 }

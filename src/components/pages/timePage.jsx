@@ -26,10 +26,8 @@ export default function TimePage() {
     name: null,
     solves: [],
   });
-  const [currentPage, setCurrentPage] = useState(1);
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
-  const pageSize = 8;
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
@@ -130,9 +128,13 @@ export default function TimePage() {
   return (
     <Container fluid className="text-center">
       <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
-      {user && session.solves.length !== 0 && (
+      {user && (
         <h3>
-          <Button size="sm" onClick={handleNewSession}>
+          <Button
+            size="sm"
+            onClick={handleNewSession}
+            disabled={session.solves.length === 0}
+          >
             End Session
           </Button>
         </h3>
@@ -141,9 +143,6 @@ export default function TimePage() {
         solves={session.solves}
         onDeleteSolve={handleDeleteSolve}
         onPenalty={handlePenalty}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        onPageChange={(p) => setCurrentPage(p)}
       />
     </Container>
   );
