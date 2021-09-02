@@ -53,7 +53,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     const color = darkMode ? "#adadad" : "#343a40";
     return (
       <div>
-        {penaltyButtons.map((button) => (
+        {/* {penaltyButtons.map((button) => (
           <Button
             key={button.penalty}
             variant="link"
@@ -63,7 +63,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
           >
             {button.label}
           </Button>
-        ))}
+        ))} */}
         <Button
           size="sm"
           variant="link"
@@ -93,8 +93,8 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
           {dispDur(s.dur)}
           {s.penalty === "+2" ? "+" : ""}
         </td>
-        <td>{s.ao5}</td>
-        <td>{s.ao12}</td>
+        {/* <td>{s.ao5}</td> */}
+        {/* <td>{s.ao12}</td> */}
         <td>{renderPenaltyButtons(s.dateTime)}</td>
       </tr>
     ));
@@ -102,27 +102,20 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   return (
     <>
-      <Card
-        style={{ height: xs ? 300 : 500, maxWidth: 600 }}
-        className="mr-auto ml-auto"
-      >
-        <Card.Body className={xs ? "p-0 pt-1" : ""}>
-          <SimpleBar style={{ maxHeight: xs ? 290 : 450, maxWidth: 600 }}>
-            <Table size="sm">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Ao5</th>
-                  <th scope="col">Ao12</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
-            </Table>
-          </SimpleBar>
-        </Card.Body>
-      </Card>
+      <SimpleBar style={{ maxHeight: xs ? 290 : 260, maxWidth: 600 }}>
+        <Table size="sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Time</th>
+              {/* <th scope="col">Ao5</th> */}
+              {/* <th scope="col">Ao12</th> */}
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
+        </Table>
+      </SimpleBar>
       <ModalComponent />
     </>
   );
