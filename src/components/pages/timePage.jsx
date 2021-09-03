@@ -191,7 +191,7 @@ export default function TimePage() {
         className="text-center"
         style={{
           position: "fixed",
-          bottom: "5%",
+          bottom: "2%",
           left: "50%",
           transform: "translate(-50%)",
         }}
