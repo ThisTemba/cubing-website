@@ -124,17 +124,17 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             size="sm"
             variant="link"
             style={{ color }}
-          onClick={() => {
-            setSelectedSolveDateTime(s.dateTime);
-            showModal({
-              title: `Solve ${s.solveNumber}`,
-              body: getModalBody(s),
-            });
-            document.activeElement.blur();
-          }}
-        >
-          {dispDur(s.dur)}
-          {s.penalty === "+2" ? "+" : ""}
+            onClick={() => {
+              setSelectedSolveDateTime(s.dateTime);
+              showModal({
+                title: `Solve ${s.solveNumber}`,
+                body: getModalBody(s),
+              });
+              document.activeElement.blur();
+            }}
+          >
+            {dispDur(s.dur)}
+            {s.penalty === "+2" ? "+" : ""}
           </Button>
         </td>
         <td className="align-middle">{renderPenaltyButtons(s.dateTime)}</td>
