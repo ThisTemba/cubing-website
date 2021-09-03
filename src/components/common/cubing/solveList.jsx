@@ -69,7 +69,10 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             <td>
               <ButtonGroupToggle
                 buttons={penaltyButtons2}
-                activeId=""
+                activeId={s.penalty}
+                onSelect={(id) => {
+                  onPenalty(s.dateTime, id);
+                }}
               ></ButtonGroupToggle>
             </td>
           </tr>
