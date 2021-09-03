@@ -4,6 +4,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import _ from "lodash";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
@@ -30,6 +31,7 @@ const formatDate = (date) => {
 };
 
 export default function ActivityChart({ sessions, numDays }) {
+  const { xs } = useWindowDimensions();
   const { darkMode } = useContext(DarkModeContext);
 
   const endDate = new Date();
@@ -89,14 +91,15 @@ export default function ActivityChart({ sessions, numDays }) {
   const values = getHeatmapValues(sessions);
 
   return (
-    <CalendarHeatmap
-      className="m-0 p-0"
-      gutterSize={2}
-      endDate={endDate}
-      startDate={startDate}
-      values={values}
-      classForValue={classForValue}
-      transformDayElement={transformDayElement}
-    />
+    <div className={xs ? "m-3" : ""}>
+      <CalendarHeatmap
+        gutterSize={2}
+        endDate={endDate}
+        startDate={startDate}
+        values={values}
+        classForValue={classForValue}
+        transformDayElement={transformDayElement}
+      />
+    </div>
   );
 }
