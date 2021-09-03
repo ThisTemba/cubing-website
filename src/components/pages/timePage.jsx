@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Button, Container, Col, Row, Card } from "react-bootstrap";
 import firebase, {
   UserContext,
@@ -170,12 +170,6 @@ export default function TimePage() {
           armingTime={100}
           scramble={scramble}
         />
-
-        {/* <SolveList
-          solves={session.solves}
-          onDeleteSolve={handleDeleteSolve}
-          onPenalty={handlePenalty}
-        /> */}
       </Container>
       <Container
         className="text-center"
