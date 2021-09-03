@@ -141,7 +141,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   return (
     <>
       <SimpleBar style={{ maxHeight: xs ? 290 : 260, maxWidth: 600 }}>
-        <Table size="sm">
+        <Table className="m-0">
           <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
         </Table>
       </SimpleBar>
