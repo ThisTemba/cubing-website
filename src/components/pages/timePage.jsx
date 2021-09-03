@@ -21,6 +21,7 @@ import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import SessionBestsTable from "../sessionBestsTable";
 import RainbowProgressBar from "../rainbowProgressBar";
+import ColCard from "../common/colCard";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", {
@@ -135,17 +136,6 @@ export default function TimePage() {
     { end: 100, color: "#dc3545" },
   ];
 
-  const ColCard = (props) => {
-    const cardStyles = { height: 337 };
-    return (
-      <Col md={props.size} className="p-0">
-        <Card className="m-2" style={cardStyles}>
-          <Card.Body>{props.children}</Card.Body>
-        </Card>
-      </Col>
-    );
-  };
-
   return (
     <>
       <Container className="text-center">
@@ -176,17 +166,17 @@ export default function TimePage() {
           </h3>
         )}
         <Row>
-          <ColCard size={3}>
+          <ColCard colProps={{ md: 3 }} cardStyle={{ height: 337 }}>
             <SolveList
               solves={session.solves}
               onDeleteSolve={handleDeleteSolve}
               onPenalty={handlePenalty}
             />
           </ColCard>
-          <ColCard size={6}>
+          <ColCard colProps={{ md: 6 }} cardStyle={{ height: 337 }}>
             <RainbowProgressBar stages={rainbowStages} value={numSolves} />
           </ColCard>
-          <ColCard size={3}>
+          <ColCard colProps={{ md: 3 }} cardStyle={{ height: 337 }}>
             <SessionBestsTable session={session} />
           </ColCard>
         </Row>
