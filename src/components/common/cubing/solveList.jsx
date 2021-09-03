@@ -142,15 +142,6 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     <>
       <SimpleBar style={{ maxHeight: xs ? 290 : 260, maxWidth: 600 }}>
         <Table size="sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Time</th>
-              {/* <th scope="col">Ao5</th> */}
-              {/* <th scope="col">Ao12</th> */}
-              <th scope="col"></th>
-            </tr>
-          </thead>
           <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
         </Table>
       </SimpleBar>
