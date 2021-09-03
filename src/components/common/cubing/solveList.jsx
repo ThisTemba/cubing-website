@@ -78,16 +78,18 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   const renderTableBody = (solves) => {
     return solves.map((s) => (
-      <tr key={s.dateTime} className="align-middle">
+      <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
         <th scope="row">{s.solveNumber + ". "}</th>
         <td
-          className="hover-shadow"
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: "pointer",
+          }}
           onClick={() => {
             showModal({
               title: `Solve ${s.solveNumber}`,
               body: getModalBody(s),
             });
+            document.activeElement.blur();
           }}
         >
           {dispDur(s.dur)}
