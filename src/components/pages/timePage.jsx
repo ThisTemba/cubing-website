@@ -161,7 +161,7 @@ export default function TimePage() {
     },
   ];
 
-  const cardStyles = { height: 320 };
+  const cardStyles = { height: 337 };
   const durs = session.solves.map((s) => s.dur);
   const bests = {
     single: _.min(durs),
