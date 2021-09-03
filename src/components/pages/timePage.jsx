@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Button, Container, Col, Row, Card, Table } from "react-bootstrap";
+import { Button, Container, Col, Row, Card } from "react-bootstrap";
 import firebase, {
   UserContext,
   getUserDocRef,
@@ -7,7 +7,6 @@ import firebase, {
   setDoc,
 } from "../../services/firebase";
 import { RadialBarChart, RadialBar, PolarAngleAxis } from "recharts";
-import { bestAoN } from "../../utils/averages";
 
 import _ from "lodash";
 
@@ -22,7 +21,7 @@ import useStaticScrambles from "../../hooks/useStaticScrambles";
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import DarkModeContext from "../../hooks/useDarkMode";
-import { dispDur } from "../../utils/displayValue";
+import SessionBestsTable from "../sessionBestsTable";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", {
@@ -162,15 +161,6 @@ export default function TimePage() {
   ];
 
   const cardStyles = { height: 337 };
-  const durs = session.solves.map((s) => s.dur);
-  const bests = {
-    single: _.min(durs),
-    Ao5: durs.length >= 5 ? bestAoN(durs, 5) : undefined,
-    Ao12: durs.length >= 12 ? bestAoN(durs, 12) : undefined,
-    Ao25: durs.length >= 25 ? bestAoN(durs, 25) : undefined,
-    Ao50: durs.length >= 50 ? bestAoN(durs, 50) : undefined,
-    Ao100: durs.length >= 100 ? bestAoN(durs, 100) : undefined,
-  };
 
   return (
     <>
@@ -253,32 +243,7 @@ export default function TimePage() {
           <Col md={3} className="p-0">
             <Card className="m-2" style={cardStyles}>
               <Card.Body>
-                <Table>
-                  <tr>
-                    <th>Single</th>
-                    <td>{dispDur(bests.single)}</td>
-                  </tr>
-                  <tr>
-                    <th>Ao5</th>
-                    <td>{dispDur(bests.Ao5)}</td>
-                  </tr>
-                  <tr>
-                    <th>Ao12</th>
-                    <td>{dispDur(bests.Ao12)}</td>
-                  </tr>
-                  <tr>
-                    <th>Ao25</th>
-                    <td>{dispDur(bests.Ao25)}</td>
-                  </tr>
-                  <tr>
-                    <th>Ao50</th>
-                    <td>{dispDur(bests.Ao50)}</td>
-                  </tr>
-                  <tr>
-                    <th>Ao100</th>
-                    <td>{dispDur(bests.Ao100)}</td>
-                  </tr>
-                </Table>
+                <SessionBestsTable session={session} />
               </Card.Body>
             </Card>
           </Col>
