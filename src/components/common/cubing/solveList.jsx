@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Table, Button, Card } from "react-bootstrap";
 import { listAoNs } from "../../../utils/averages";
 import { dispDur } from "../../../utils/displayValue";
@@ -11,7 +11,8 @@ import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import ButtonGroupToggle from "../buttonGroupToggle";
 
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
-  const [ModalComponent, showModal] = useModal();
+  const [ModalComponent, showModal, unused, setModalContent] = useModal();
+  const [selectedSolveDateTime, setSelectedSolveDateTime] = useState(null);
   const penaltyButtons = [
     { label: "None", penalty: "" },
     { label: "+2", penalty: "+2" },
@@ -24,6 +25,17 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   ];
   const { darkMode } = useContext(DarkModeContext);
   const { xs } = useWindowDimensions();
+
+  useEffect(() => {
+    const s = solves.find((s) => s.dateTime === selectedSolveDateTime);
+    if (s) {
+      const content = {
+        title: `Solve ${s?.solveNumber}`,
+        body: getModalBody(s),
+      };
+      setModalContent(content);
+    }
+  }, [solves]);
 
   const getProcessedSolves = (solves) => {
     if (solves) {
@@ -120,6 +132,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             cursor: "pointer",
           }}
           onClick={() => {
+            setSelectedSolveDateTime(s.dateTime);
             showModal({
               title: `Solve ${s.solveNumber}`,
               body: getModalBody(s),
