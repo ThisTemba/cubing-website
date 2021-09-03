@@ -30,21 +30,6 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     }
   }, [solves]);
 
-  const getProcessedSolves = (solves) => {
-    if (solves) {
-      const durs = solves.map((s) => s.dur);
-      const ao5s = listAoNs(durs, 5);
-      const ao12s = listAoNs(durs, 12);
-      solves = solves.map((s, i) => {
-        const ao5 = dispDur(ao5s[i]);
-        const ao12 = dispDur(ao12s[i]);
-        return { ...s, ao5, ao12 };
-      });
-      const orderedSolves = [...solves].reverse();
-      return orderedSolves;
-    } else return [];
-  };
-
   const renderPenaltyButtons = (s) => {
     const penaltyButtons = [
       { content: "None", id: "", color: "success" },
@@ -92,52 +77,54 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     );
   };
 
-  const renderTableBody = (solves) => {
+  const renderSolveListTable = (solves) => {
     return solves.map((s) => (
-      <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
-        <th scope="row" className="align-middle">
-          {s.solveNumber + ". "}
-        </th>
-        <td className="align-middle">
-          <Button
-            className="m-0 p-0 border-0"
-            size="sm"
-            variant="link"
-            style={{ neutralColor: buttonsColor }}
-            onClick={() => {
-              setSelectedSolveDateTime(s.dateTime);
-              showModal({
-                title: `Solve ${s.solveNumber}`,
-                body: getModalBody(s),
-              });
-              document.activeElement.blur();
-            }}
-          >
-            {dispDur(s.dur)}
-            {s.penalty === "+2" ? "+" : ""}
-          </Button>
-        </td>
-        <td className="align-middle">
-          <Button
-            className="m-0 p-0 border-0"
-            size="sm"
-            variant="link"
-            style={{ color: buttonsColor }}
-            onClick={() => onDeleteSolve(s.dateTime)}
-          >
-            <FaIcon icon="trash" />
-          </Button>
-        </td>
-      </tr>
+      <Table className="m-0">
+        <tbody>
+          <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
+            <th scope="row" className="align-middle">
+              {s.solveNumber + ". "}
+            </th>
+            <td className="align-middle">
+              <Button
+                className="m-0 p-0 border-0"
+                size="sm"
+                variant="link"
+                style={{ neutralColor: buttonsColor }}
+                onClick={() => {
+                  setSelectedSolveDateTime(s.dateTime);
+                  showModal({
+                    title: `Solve ${s.solveNumber}`,
+                    body: getModalBody(s),
+                  });
+                  document.activeElement.blur();
+                }}
+              >
+                {dispDur(s.dur)}
+                {s.penalty === "+2" ? "+" : ""}
+              </Button>
+            </td>
+            <td className="align-middle">
+              <Button
+                className="m-0 p-0 border-0"
+                size="sm"
+                variant="link"
+                style={{ color: buttonsColor }}
+                onClick={() => onDeleteSolve(s.dateTime)}
+              >
+                <FaIcon icon="trash" />
+              </Button>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
     ));
   };
 
   return (
     <>
       <SimpleBar style={{ maxHeight: xs ? 290 : 297, maxWidth: 600 }}>
-        <Table className="m-0">
-          <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
-        </Table>
+        {renderSolveListTable([...solves].reverse())}
       </SimpleBar>
       <ModalComponent />
     </>
