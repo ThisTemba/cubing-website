@@ -66,7 +66,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
           </colgroup>
           <tr>
             <th>Solve Time</th>
-            <td>{dispDur(s.dur)}</td>
+            <td>{dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}</td>
           </tr>
           <tr>
             <th>Scramble</th>
