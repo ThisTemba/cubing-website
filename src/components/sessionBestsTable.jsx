@@ -27,7 +27,10 @@ export default function SessionBestsTable({ session }) {
     current: dispDur(currents[value]),
   }));
   return (
-    <Table borderless>
+    <Table
+      borderless
+      className={session.solves.length === 0 ? "text-muted" : ""}
+    >
       <tr>
         <th></th>
         <th>Best</th>
