@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Table, Button, Card } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
+
+import { FaIcon } from "../../../fontAwesome";
 import { listAoNs } from "../../../utils/averages";
 import { dispDur } from "../../../utils/displayValue";
 import useModal from "../../../hooks/useModal";
 import DarkModeContext from "../../../hooks/useDarkMode";
-import { FaIcon } from "../../../fontAwesome";
-import SimpleBar from "simplebar-react";
-import "simplebar/dist/simplebar.min.css";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import ButtonGroupToggle from "../buttonGroupToggle";
 import TimeDisplay from "./timeDisplay";
@@ -18,18 +19,12 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const { xs } = useWindowDimensions();
   const buttonsColor = darkMode ? "#adadad" : "#343a40";
 
-  const penaltyButtons2 = [
-    { content: "None", id: "", color: "success" },
-    { content: "+2", id: "+2", color: "warning" },
-    { content: "DNF", id: "DNF", color: "danger" },
-  ];
-
   useEffect(() => {
-    const s = solves.find((s) => s.dateTime === selectedSolveDateTime);
-    if (s) {
+    const solve = solves.find((s) => s.dateTime === selectedSolveDateTime);
+    if (solve) {
       const content = {
-        title: `Solve ${s?.solveNumber}`,
-        body: getModalBody(s),
+        title: `Solve ${solve?.solveNumber}`,
+        body: getModalBody(solve),
       };
       setModalContent(content);
     }
@@ -50,9 +45,31 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     } else return [];
   };
 
+  const renderPenaltyButtons = (s) => {
+    const penaltyButtons = [
+      { content: "None", id: "", color: "success" },
+      { content: "+2", id: "+2", color: "warning" },
+      { content: "DNF", id: "DNF", color: "danger" },
+    ];
+    return (
+      <ButtonGroupToggle
+        buttons={penaltyButtons}
+        activeId={s.penalty}
+        onSelect={(id) => {
+          onPenalty(s.dateTime, id);
+        }}
+      ></ButtonGroupToggle>
+    );
+  };
+
   const getModalBody = (s) => {
-    const dateTime = new Date(s.dateTime);
-    const options = { hour: "2-digit", minute: "2-digit" };
+    const timeOptions = { hour: "2-digit", minute: "2-digit" };
+    const time = new Date(s.dateTime).toLocaleTimeString([], timeOptions);
+    const rows = [
+      { label: "Scramble", value: s.scramble },
+      { label: "Time", value: time },
+      { label: "Penalty", value: renderPenaltyButtons(s) },
+    ];
     return (
       <>
         <TimeDisplay
@@ -64,28 +81,12 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             <col span="1" style={{ width: "30%" }} />
             <col span="1" style={{ width: "70%" }} />
           </colgroup>
-          <tr>
-            <th className="align-middle">Scramble</th>
-            <td className="align-middle">{s.scramble}</td>
-          </tr>
-          <tr>
-            <th className="align-middle">Time</th>
-            <td className="align-middle">
-              {dateTime.toLocaleTimeString([], options)}
-            </td>
-          </tr>
-          <tr>
-            <th className="align-middle">Penalty</th>
-            <td className="align-middle">
-              <ButtonGroupToggle
-                buttons={penaltyButtons2}
-                activeId={s.penalty}
-                onSelect={(id) => {
-                  onPenalty(s.dateTime, id);
-                }}
-              ></ButtonGroupToggle>
-            </td>
-          </tr>
+          {rows.map((row) => (
+            <tr>
+              <th className="align-middle">{row.label}</th>
+              <td className="align-middle">{row.value}</td>
+            </tr>
+          ))}
         </Table>
       </>
     );
