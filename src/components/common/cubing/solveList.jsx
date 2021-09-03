@@ -14,18 +14,15 @@ import TimeDisplay from "./timeDisplay";
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [ModalComponent, showModal, unused, setModalContent] = useModal();
   const [selectedSolveDateTime, setSelectedSolveDateTime] = useState(null);
-  const penaltyButtons = [
-    { label: "None", penalty: "" },
-    { label: "+2", penalty: "+2" },
-    { label: "DNF", penalty: "DNF" },
-  ];
+  const { darkMode } = useContext(DarkModeContext);
+  const { xs } = useWindowDimensions();
+  const buttonsColor = darkMode ? "#adadad" : "#343a40";
+
   const penaltyButtons2 = [
     { content: "None", id: "", color: "success" },
     { content: "+2", id: "+2", color: "warning" },
     { content: "DNF", id: "DNF", color: "danger" },
   ];
-  const { darkMode } = useContext(DarkModeContext);
-  const { xs } = useWindowDimensions();
 
   useEffect(() => {
     const s = solves.find((s) => s.dateTime === selectedSolveDateTime);
@@ -94,25 +91,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     );
   };
 
-  const renderPenaltyButtons = (dateTime) => {
-    const color = darkMode ? "#adadad" : "#343a40";
-    return (
-      <div>
-        <Button
-          className="m-0 p-0 border-0"
-          size="sm"
-          variant="link"
-          style={{ color }}
-          onClick={() => onDeleteSolve(dateTime)}
-        >
-          <FaIcon icon="trash" />
-        </Button>
-      </div>
-    );
-  };
-
   const renderTableBody = (solves) => {
-    const color = darkMode ? "#adadad" : "#343a40";
     return solves.map((s) => (
       <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
         <th scope="row" className="align-middle">
@@ -123,7 +102,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             className="m-0 p-0 border-0"
             size="sm"
             variant="link"
-            style={{ color }}
+            style={{ neutralColor: buttonsColor }}
             onClick={() => {
               setSelectedSolveDateTime(s.dateTime);
               showModal({
@@ -137,7 +116,17 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             {s.penalty === "+2" ? "+" : ""}
           </Button>
         </td>
-        <td className="align-middle">{renderPenaltyButtons(s.dateTime)}</td>
+        <td className="align-middle">
+          <Button
+            className="m-0 p-0 border-0"
+            size="sm"
+            variant="link"
+            style={{ color: buttonsColor }}
+            onClick={() => onDeleteSolve(s.dateTime)}
+          >
+            <FaIcon icon="trash" />
+          </Button>
+        </td>
       </tr>
     ));
   };
