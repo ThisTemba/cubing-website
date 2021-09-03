@@ -59,26 +59,30 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     const options = { hour: "2-digit", minute: "2-digit" };
     return (
       <>
-        <Table className="text-center">
+        <Table className="text-center m-0">
           <colgroup>
             <col span="1" style={{ width: "30%" }} />
             <col span="1" style={{ width: "70%" }} />
           </colgroup>
           <tr>
-            <th>Solve Time</th>
-            <td>{dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}</td>
+            <th className="align-middle">Solve Time</th>
+            <td className="align-middle">
+              {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
+            </td>
           </tr>
           <tr>
-            <th>Scramble</th>
-            <td>{s.scramble}</td>
+            <th className="align-middle">Scramble</th>
+            <td className="align-middle">{s.scramble}</td>
           </tr>
           <tr>
-            <th>Time</th>
-            <td>{dateTime.toLocaleTimeString([], options)}</td>
+            <th className="align-middle">Time</th>
+            <td className="align-middle">
+              {dateTime.toLocaleTimeString([], options)}
+            </td>
           </tr>
           <tr>
-            <th>Penalty</th>
-            <td>
+            <th className="align-middle">Penalty</th>
+            <td className="align-middle">
               <ButtonGroupToggle
                 buttons={penaltyButtons2}
                 activeId={s.penalty}
