@@ -101,7 +101,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
               <th className="align-middle">{s.solveNumber + "."}</th>
               <td className="align-middle ">
-                <Button {...btnProps} onClick={(s) => onClickTime(s)}>
+                <Button {...btnProps} onClick={() => onClickTime(s)}>
                   {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
                 </Button>
               </td>
