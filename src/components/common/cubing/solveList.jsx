@@ -78,14 +78,15 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   };
 
   const renderSolveListTable = (solves) => {
-    return solves.map((s) => (
-      <Table className="m-0">
+    const reverseSolves = [...solves].reverse();
+    return reverseSolves.map((s) => (
+      <Table className="m-0 ">
         <tbody>
           <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
             <th scope="row" className="align-middle">
               {s.solveNumber + ". "}
             </th>
-            <td className="align-middle">
+            <td className="align-middle ">
               <Button
                 className="m-0 p-0 border-0"
                 size="sm"
@@ -124,7 +125,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   return (
     <>
       <SimpleBar style={{ maxHeight: xs ? 290 : 297, maxWidth: 600 }}>
-        {renderSolveListTable([...solves].reverse())}
+        {renderSolveListTable(solves)}
       </SimpleBar>
       <ModalComponent />
     </>
