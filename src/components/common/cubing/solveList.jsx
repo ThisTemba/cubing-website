@@ -93,20 +93,6 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             </td>
           </tr>
         </Table>
-
-        {/* {penaltyButtons.map((button) => (
-          <>
-            <Button
-              key={button.penalty}
-              variant="link"
-              size="sm"
-              style={{ color }}
-              onClick={() => onPenalty(dateTime, button.penalty)}
-            >
-              {button.label}
-            </Button>
-          </>
-        ))} */}
       </>
     );
   };
