@@ -99,6 +99,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     return (
       <div>
         <Button
+          className="m-0 p-0 border-0"
           size="sm"
           variant="link"
           style={{ color }}
@@ -111,12 +112,18 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   };
 
   const renderTableBody = (solves) => {
+    const color = darkMode ? "#adadad" : "#343a40";
     return solves.map((s) => (
       <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
         <th scope="row" className="align-middle">
           {s.solveNumber + ". "}
         </th>
         <td className="align-middle">
+          <Button
+            className="m-0 p-0 border-0"
+            size="sm"
+            variant="link"
+            style={{ color }}
           onClick={() => {
             setSelectedSolveDateTime(s.dateTime);
             showModal({
@@ -128,6 +135,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
         >
           {dispDur(s.dur)}
           {s.penalty === "+2" ? "+" : ""}
+          </Button>
         </td>
         <td className="align-middle">{renderPenaltyButtons(s.dateTime)}</td>
       </tr>
