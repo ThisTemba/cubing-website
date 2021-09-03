@@ -7,15 +7,22 @@ import _ from "lodash";
 
 export default function useModal() {
   const [show, setShow] = useState(false);
+  const [animation, setAnimation] = useState(true);
   const { darkMode } = useContext(DarkModeContext);
-  const [content, setContent] = useState({
+  const [content, _setContent] = useState({
     title: "Modal Title",
     body: "Modal Body",
     footer: "",
   });
 
+  const setContent = (content) => {
+    _setContent(content);
+    setAnimation(false);
+  };
+
   const showModal = (content) => {
-    if (content) setContent(content);
+    if (content) _setContent(content);
+    setAnimation(true);
     setShow(true);
   };
 
@@ -28,7 +35,7 @@ export default function useModal() {
   const ModalComponent = () => {
     if (_.has(content, "title") && _.has(content, "body"))
       return (
-        <Modal show={show} onHide={hideModal}>
+        <Modal show={show} onHide={hideModal} animation={animation}>
           <CenterModalHeader
             title={content.title}
             onClose={hideModal}
