@@ -20,7 +20,6 @@ export default function Timer(props) {
   useEffect(() => setTime(initTime * 1000 || 0), [initTime]);
 
   const handleChangeFocus = () => {
-    console.log("focus changed");
     const activeClassName = document.activeElement.className;
     if (activeClassName === "frf-modal-input") disabledRef.current = true;
     else disabledRef.current = false; // Will cause issues with using disabled
