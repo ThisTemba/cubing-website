@@ -8,13 +8,19 @@ import { FaIcon } from "../../../fontAwesome";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import ButtonGroupToggle from "../buttonGroupToggle";
 
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [ModalComponent, showModal] = useModal();
   const penaltyButtons = [
+    { label: "None", penalty: "" },
     { label: "+2", penalty: "+2" },
     { label: "DNF", penalty: "DNF" },
-    { label: "Reset", penalty: "" },
+  ];
+  const penaltyButtons2 = [
+    { content: "None", id: "", color: "success" },
+    { content: "+2", id: "+2", color: "warning" },
+    { content: "DNF", id: "DNF", color: "danger" },
   ];
   const { darkMode } = useContext(DarkModeContext);
   const { xs } = useWindowDimensions();
@@ -36,15 +42,52 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   const getModalBody = (s) => {
     const dateTime = new Date(s.dateTime);
+    const color = darkMode ? "#adadad" : "#343a40";
     //Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString
     const options = { hour: "2-digit", minute: "2-digit" };
     return (
       <>
-        {`Solve Time: ${dispDur(s.dur)} \n\n`} <br />
-        {`Scramble: ${s.scramble}`} <br />
-        {`Date: ${dateTime.toLocaleDateString()}`} <br />
-        {`Time: ${dateTime.toLocaleTimeString([], options)}`} <br />
-        {`Penalty: ${s.penalty || "None"}`}
+        <Table className="text-center">
+          <colgroup>
+            <col span="1" style={{ width: "30%" }} />
+            <col span="1" style={{ width: "70%" }} />
+          </colgroup>
+          <tr>
+            <th>Solve Time</th>
+            <td>{dispDur(s.dur)}</td>
+          </tr>
+          <tr>
+            <th>Scramble</th>
+            <td>{s.scramble}</td>
+          </tr>
+          <tr>
+            <th>Time</th>
+            <td>{dateTime.toLocaleTimeString([], options)}</td>
+          </tr>
+          <tr>
+            <th>Penalty</th>
+            <td>
+              <ButtonGroupToggle
+                buttons={penaltyButtons2}
+                activeId=""
+              ></ButtonGroupToggle>
+            </td>
+          </tr>
+        </Table>
+
+        {/* {penaltyButtons.map((button) => (
+          <>
+            <Button
+              key={button.penalty}
+              variant="link"
+              size="sm"
+              style={{ color }}
+              onClick={() => onPenalty(dateTime, button.penalty)}
+            >
+              {button.label}
+            </Button>
+          </>
+        ))} */}
       </>
     );
   };
@@ -53,17 +96,6 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     const color = darkMode ? "#adadad" : "#343a40";
     return (
       <div>
-        {/* {penaltyButtons.map((button) => (
-          <Button
-            key={button.penalty}
-            variant="link"
-            size="sm"
-            style={{ color }}
-            onClick={() => onPenalty(dateTime, button.penalty)}
-          >
-            {button.label}
-          </Button>
-        ))} */}
         <Button
           size="sm"
           variant="link"
