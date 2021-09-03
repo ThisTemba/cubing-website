@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import { Button, Container, Col, Row, Card } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import firebase, {
   UserContext,
   getUserDocRef,
