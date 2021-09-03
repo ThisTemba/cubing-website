@@ -19,7 +19,6 @@ import useStaticScrambles from "../../hooks/useStaticScrambles";
 
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
-import DarkModeContext from "../../hooks/useDarkMode";
 import SessionBestsTable from "../sessionBestsTable";
 import RainbowProgressBar from "../rainbowProgressBar";
 
@@ -30,7 +29,6 @@ export default function TimePage() {
   });
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
-  const { darkMode } = useContext(DarkModeContext);
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
@@ -129,7 +127,6 @@ export default function TimePage() {
   };
   const numSolves = session.solves.length;
 
-  const cardStyles = { height: 337 };
   const rainbowStages = [
     { end: 5, color: "#0d6efd" },
     { end: 12, color: "#6610f2" },
@@ -137,6 +134,17 @@ export default function TimePage() {
     { end: 50, color: "#d63384" },
     { end: 100, color: "#dc3545" },
   ];
+
+  const ColCard = (props) => {
+    const cardStyles = { height: 337 };
+    return (
+      <Col md={props.size} className="p-0">
+        <Card className="m-2" style={cardStyles}>
+          <Card.Body>{props.children}</Card.Body>
+        </Card>
+      </Col>
+    );
+  };
 
   return (
     <>
@@ -168,31 +176,19 @@ export default function TimePage() {
           </h3>
         )}
         <Row>
-          <Col md={3} className="p-0">
-            <Card className="m-2" style={cardStyles}>
-              <Card.Body>
-                <SolveList
-                  solves={session.solves}
-                  onDeleteSolve={handleDeleteSolve}
-                  onPenalty={handlePenalty}
-                />
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={6} className="p-0">
-            <Card className="m-2" style={cardStyles}>
-              <Card.Body>
-                <RainbowProgressBar stages={rainbowStages} value={numSolves} />
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={3} className="p-0">
-            <Card className="m-2" style={cardStyles}>
-              <Card.Body>
-                <SessionBestsTable session={session} />
-              </Card.Body>
-            </Card>
-          </Col>
+          <ColCard size={3}>
+            <SolveList
+              solves={session.solves}
+              onDeleteSolve={handleDeleteSolve}
+              onPenalty={handlePenalty}
+            />
+          </ColCard>
+          <ColCard size={6}>
+            <RainbowProgressBar stages={rainbowStages} value={numSolves} />
+          </ColCard>
+          <ColCard size={3}>
+            <SessionBestsTable session={session} />
+          </ColCard>
         </Row>
       </Container>
     </>
