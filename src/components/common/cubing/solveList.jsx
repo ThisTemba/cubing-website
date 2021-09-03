@@ -130,8 +130,11 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const renderTableBody = (solves) => {
     return solves.map((s) => (
       <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
-        <th scope="row">{s.solveNumber + ". "}</th>
+        <th scope="row" className="align-middle">
+          {s.solveNumber + ". "}
+        </th>
         <td
+          className="align-middle"
           style={{
             cursor: "pointer",
           }}
@@ -147,9 +150,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
           {dispDur(s.dur)}
           {s.penalty === "+2" ? "+" : ""}
         </td>
-        {/* <td>{s.ao5}</td> */}
-        {/* <td>{s.ao12}</td> */}
-        <td>{renderPenaltyButtons(s.dateTime)}</td>
+        <td className="align-middle">{renderPenaltyButtons(s.dateTime)}</td>
       </tr>
     ));
   };
