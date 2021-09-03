@@ -6,7 +6,6 @@ import firebase, {
   getMainSessionGroupDocRef,
   setDoc,
 } from "../../services/firebase";
-import { RadialBarChart, RadialBar, PolarAngleAxis } from "recharts";
 
 import _ from "lodash";
 
@@ -22,6 +21,7 @@ import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
 import DarkModeContext from "../../hooks/useDarkMode";
 import SessionBestsTable from "../sessionBestsTable";
+import RainbowProgressBar from "../rainbowProgressBar";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", {
@@ -129,38 +129,14 @@ export default function TimePage() {
   };
   const numSolves = session.solves.length;
 
-  const barValue = (start, end, numSolves) => {
-    return numSolves < end
-      ? numSolves >= start
-        ? (numSolves - start) / (end - start)
-        : 0
-      : 1;
-  };
-
-  const data = [
-    {
-      numSolves: barValue(0, 5, numSolves),
-      fill: "#0d6efd",
-    },
-    {
-      numSolves: barValue(5, 12, numSolves),
-      fill: "#6610f2",
-    },
-    {
-      numSolves: barValue(12, 25, numSolves),
-      fill: "#6f42c1",
-    },
-    {
-      numSolves: barValue(25, 50, numSolves),
-      fill: "#d63384",
-    },
-    {
-      numSolves: barValue(50, 100, numSolves),
-      fill: "#dc3545",
-    },
-  ];
-
   const cardStyles = { height: 337 };
+  const rainbowStages = [
+    { end: 5, color: "#0d6efd" },
+    { end: 12, color: "#6610f2" },
+    { end: 25, color: "#6f42c1" },
+    { end: 50, color: "#d63384" },
+    { end: 100, color: "#dc3545" },
+  ];
 
   return (
     <>
@@ -206,31 +182,7 @@ export default function TimePage() {
           <Col md={6} className="p-0">
             <Card className="m-2" style={cardStyles}>
               <Card.Body>
-                <RadialBarChart
-                  width={512}
-                  height={450}
-                  innerRadius="20%"
-                  outerRadius="100%"
-                  data={data}
-                  startAngle={180}
-                  endAngle={0}
-                >
-                  <PolarAngleAxis
-                    type="number"
-                    domain={[0, 1]}
-                    dataKey={"pct"}
-                    angleAxisId={0}
-                    tick={false}
-                  />
-                  <RadialBar
-                    margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-                    background={{ fill: darkMode ? "#343a40" : "#e9ecef" }}
-                    minAngle={15}
-                    maxAngle={180}
-                    clockWise={true}
-                    dataKey="numSolves"
-                  />
-                </RadialBarChart>
+                <RainbowProgressBar stages={rainbowStages} value={numSolves} />
               </Card.Body>
             </Card>
           </Col>
