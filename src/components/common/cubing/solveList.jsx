@@ -116,11 +116,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
         <th scope="row" className="align-middle">
           {s.solveNumber + ". "}
         </th>
-        <td
-          className="align-middle"
-          style={{
-            cursor: "pointer",
-          }}
+        <td className="align-middle">
           onClick={() => {
             setSelectedSolveDateTime(s.dateTime);
             showModal({
