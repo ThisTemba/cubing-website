@@ -78,40 +78,34 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   const renderSolveListTable = (solves) => {
     const reverseSolves = [...solves].reverse();
+    const btnProps = {
+      className: "m-0 p-0 border-0",
+      variant: "link",
+      size: "sm",
+      style: { color: buttonsColor },
+    };
+
+    const onClickTime = (s) => {
+      setSelectedSolveDateTime(s.dateTime);
+      showModal({
+        title: `Solve ${s.solveNumber}`,
+        body: getModalBody(s),
+      });
+      document.activeElement.blur();
+    };
+
     return reverseSolves.map((s) => (
       <Table className="m-0 ">
         <tbody>
           <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
-            <th scope="row" className="align-middle">
-              {s.solveNumber + ". "}
-            </th>
+            <th className="align-middle">{s.solveNumber + "."}</th>
             <td className="align-middle ">
-              <Button
-                className="m-0 p-0 border-0"
-                size="sm"
-                variant="link"
-                style={{ neutralColor: buttonsColor }}
-                onClick={() => {
-                  setSelectedSolveDateTime(s.dateTime);
-                  showModal({
-                    title: `Solve ${s.solveNumber}`,
-                    body: getModalBody(s),
-                  });
-                  document.activeElement.blur();
-                }}
-              >
-                {dispDur(s.dur)}
-                {s.penalty === "+2" ? "+" : ""}
+              <Button {...btnProps} onClick={(s) => onClickTime(s)}>
+                {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
               </Button>
             </td>
             <td className="align-middle">
-              <Button
-                className="m-0 p-0 border-0"
-                size="sm"
-                variant="link"
-                style={{ color: buttonsColor }}
-                onClick={() => onDeleteSolve(s.dateTime)}
-              >
+              <Button {...btnProps} onClick={() => onDeleteSolve(s.dateTime)}>
                 <FaIcon icon="trash" />
               </Button>
             </td>
