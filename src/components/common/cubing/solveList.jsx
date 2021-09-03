@@ -77,7 +77,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   };
 
   const renderSolveListTable = (solves) => {
-    const reverseSolves = [...solves].reverse();
+    const reversedSolves = [...solves].reverse();
     const btnProps = {
       className: "m-0 p-0 border-0",
       variant: "link",
@@ -94,25 +94,27 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
       document.activeElement.blur();
     };
 
-    return reverseSolves.map((s) => (
+    return (
       <Table className="m-0 ">
         <tbody>
-          <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
-            <th className="align-middle">{s.solveNumber + "."}</th>
-            <td className="align-middle ">
-              <Button {...btnProps} onClick={(s) => onClickTime(s)}>
-                {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
-              </Button>
-            </td>
-            <td className="align-middle">
-              <Button {...btnProps} onClick={() => onDeleteSolve(s.dateTime)}>
-                <FaIcon icon="trash" />
-              </Button>
-            </td>
-          </tr>
+          {reversedSolves.map((s) => (
+            <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
+              <th className="align-middle">{s.solveNumber + "."}</th>
+              <td className="align-middle ">
+                <Button {...btnProps} onClick={(s) => onClickTime(s)}>
+                  {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
+                </Button>
+              </td>
+              <td className="align-middle">
+                <Button {...btnProps} onClick={() => onDeleteSolve(s.dateTime)}>
+                  <FaIcon icon="trash" />
+                </Button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </Table>
-    ));
+    );
   };
 
   return (
