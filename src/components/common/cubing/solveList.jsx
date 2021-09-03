@@ -123,7 +123,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   return (
     <>
-      <SimpleBar style={{ maxHeight: xs ? 290 : 297, maxWidth: 600 }}>
+      <SimpleBar style={{ maxHeight: xs ? 290 : 297 }}>
         {renderSolveListTable(solves)}
       </SimpleBar>
       <ModalComponent />
