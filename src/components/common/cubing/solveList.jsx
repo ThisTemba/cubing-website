@@ -23,7 +23,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     if (solve) {
       const content = {
         title: `Solve ${solve?.solveNumber}`,
-        body: getModalBody(solve),
+        body: renderModalBody(solve),
       };
       setModalContent(content);
     }
@@ -46,7 +46,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     );
   };
 
-  const getModalBody = (s) => {
+  const renderModalBody = (s) => {
     const timeOptions = { hour: "2-digit", minute: "2-digit" };
     const time = new Date(s.dateTime).toLocaleTimeString([], timeOptions);
     const rows = [
@@ -89,7 +89,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
       setSelectedSolveDateTime(s.dateTime);
       showModal({
         title: `Solve ${s.solveNumber}`,
-        body: getModalBody(s),
+        body: renderModalBody(s),
       });
       document.activeElement.blur();
     };
