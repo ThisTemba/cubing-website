@@ -9,6 +9,7 @@ import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import ButtonGroupToggle from "../buttonGroupToggle";
+import TimeDisplay from "./timeDisplay";
 
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [ModalComponent, showModal, unused, setModalContent] = useModal();
@@ -54,22 +55,18 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   const getModalBody = (s) => {
     const dateTime = new Date(s.dateTime);
-    const color = darkMode ? "#adadad" : "#343a40";
-    //Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString
     const options = { hour: "2-digit", minute: "2-digit" };
     return (
       <>
+        <TimeDisplay
+          formattedTime={dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
+          fontSize={100}
+        ></TimeDisplay>
         <Table className="text-center m-0">
           <colgroup>
             <col span="1" style={{ width: "30%" }} />
             <col span="1" style={{ width: "70%" }} />
           </colgroup>
-          <tr>
-            <th className="align-middle">Solve Time</th>
-            <td className="align-middle">
-              {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
-            </td>
-          </tr>
           <tr>
             <th className="align-middle">Scramble</th>
             <td className="align-middle">{s.scramble}</td>
