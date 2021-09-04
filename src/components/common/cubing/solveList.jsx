@@ -97,21 +97,47 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     return (
       <Table className={"m-0 " + (noSolves ? "text-muted" : "")}>
         <tbody>
-          {reversedSolves.map((s) => (
-            <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
-              <th className="align-middle">{s.solveNumber + "."}</th>
-              <td className="align-middle ">
-                <Button {...btnProps} onClick={() => onClickTime(s)}>
-                  {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
-                </Button>
-              </td>
-              <td className="align-middle">
-                <Button {...btnProps} onClick={() => onDeleteSolve(s.dateTime)}>
-                  <FaIcon icon="trash" />
-                </Button>
-              </td>
-            </tr>
-          ))}
+          {!noSolves &&
+            reversedSolves.map((s) => (
+              <tr
+                key={s.dur + s.dateTime + s.scramble}
+                className="align-middle"
+              >
+                <th className="align-middle">{s.solveNumber + "."}</th>
+                <td className="align-middle">
+                  <Button {...btnProps} onClick={() => onClickTime(s)}>
+                    {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
+                  </Button>
+                </td>
+                <td className="align-middle">
+                  <Button
+                    {...btnProps}
+                    onClick={() => onDeleteSolve(s.dateTime)}
+                  >
+                    <FaIcon icon="trash" />
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          {noSolves && (
+            <>
+              {[6, 5, 4, 3, 2, 1].map((n) => (
+                <tr>
+                  <th className="align-middle">{n}.</th>
+                  <td className="align-middle">
+                    <Button {...btnProps} disabled>
+                      -
+                    </Button>
+                  </td>
+                  <td className="align-middle">
+                    <Button {...btnProps} disabled>
+                      <FaIcon icon="trash" />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </>
+          )}
         </tbody>
       </Table>
     );
