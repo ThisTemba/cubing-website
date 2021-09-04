@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
-import { RadialBarChart, RadialBar, PolarAngleAxis } from "recharts";
+import {
+  RadialBarChart,
+  RadialBar,
+  PolarAngleAxis,
+  ResponsiveContainer,
+} from "recharts";
 import DarkModeContext from "../hooks/useDarkMode";
 
 export default function RainbowProgressBar({ value: currentValue, stages }) {
@@ -24,23 +29,23 @@ export default function RainbowProgressBar({ value: currentValue, stages }) {
   });
 
   return (
-    <RadialBarChart
-      width={512}
-      height={512}
-      innerRadius="20%"
-      outerRadius="100%"
-      data={data}
-      startAngle={180}
-      endAngle={0}
-    >
-      <PolarAngleAxis type="number" domain={[0, 1]} tick={false} />
-      <RadialBar
-        margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-        background={{ fill: darkMode ? "#343a40" : "#e9ecef" }}
-        clockWise={true}
-        dataKey="value"
-      />
-    </RadialBarChart>
+    <ResponsiveContainer width="100%" height="180%">
+      <RadialBarChart
+        innerRadius="20%"
+        outerRadius="100%"
+        data={data}
+        startAngle={180}
+        endAngle={0}
+      >
+        <PolarAngleAxis type="number" domain={[0, 1]} tick={false} />
+        <RadialBar
+          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          background={{ fill: darkMode ? "#343a40" : "#e9ecef" }}
+          clockWise={true}
+          dataKey="value"
+        />
+      </RadialBarChart>
+    </ResponsiveContainer>
   );
 }
 
