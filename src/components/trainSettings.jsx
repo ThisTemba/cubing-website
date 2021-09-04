@@ -4,6 +4,7 @@ import _ from "lodash";
 import InputMosh from "./common/inputMosh";
 import { UserContext, getUserDocRef, setDoc } from "../services/firebase";
 import { useState } from "react";
+import { Alert } from "react-bootstrap";
 
 export default function TrainSettings() {
   const defaultCaseLearnedCriteria = {
@@ -17,6 +18,7 @@ export default function TrainSettings() {
   const [errors, setErrors] = useState({});
   const [data, setData] = useState(criteriaToData(defaultCaseLearnedCriteria));
   const { user, userDoc } = useContext(UserContext);
+  const [showAlert, setShowAlert] = useState(false);
 
   function dataToCriteria(data) {
     const clc = defaultCaseLearnedCriteria;
@@ -113,10 +115,20 @@ export default function TrainSettings() {
     let settings = userData.settings;
     userData.settings = { ...settings, trainSettings: dataToWrite };
     setDoc(getUserDocRef(user), userData, "user doc with train settings");
+    setShowAlert(true);
   };
 
   return (
     <div>
+      {showAlert && (
+        <Alert
+          variant="success"
+          onClose={() => setShowAlert(false)}
+          dismissible
+        >
+          <p className="m-1">Settings updated successfully!</p>
+        </Alert>
+      )}
       <form onSubmit={handleSubmit}>
         {renderInput("hRate", "Max hesitation rate")}
         {renderInput("mmRate", "Max minor mistake rate")}
