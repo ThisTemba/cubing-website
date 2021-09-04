@@ -93,7 +93,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     };
     const noSolves = solves.length === 0;
     return (
-      <Table className={"m-0 " + (noSolves ? "text-muted" : "")}>
+      <Table className={"m-0 " + (noSolves ? "text-muted" : "")} borderless>
         <tbody>
           {!noSolves &&
             reversedSolves.map((s) => (
@@ -132,7 +132,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   return (
     <>
-      <SimpleBar style={{ maxHeight: xs ? 150 : 300 }}>
+      <SimpleBar style={{ maxHeight: xs ? 150 : 288 }}>
         {renderSolveListTable(solves)}
       </SimpleBar>
       <ModalComponent />

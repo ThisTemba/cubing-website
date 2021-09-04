@@ -170,7 +170,7 @@ export default function TimePage() {
         <Row>
           <ColCard
             colProps={{ xs: xs ? 12 : 6, lg: 3 }}
-            cardStyle={{ height: xs ? 150 : 340 }}
+            cardStyle={{ height: xs ? 150 : 330 }}
           >
             <SolveList
               solves={session.solves}
@@ -179,7 +179,7 @@ export default function TimePage() {
             />
           </ColCard>
           {!md && (
-            <ColCard colProps={{ lg: 6 }} cardStyle={{ height: 340 }}>
+            <ColCard colProps={{ lg: 6 }} cardStyle={{ height: 330 }}>
               <RainbowProgressBar
                 stages={rainbowStages}
                 value={session.solves.length}
@@ -187,7 +187,7 @@ export default function TimePage() {
             </ColCard>
           )}
           {!xs && (
-            <ColCard colProps={{ xs: 6, lg: 3 }} cardStyle={{ height: 340 }}>
+            <ColCard colProps={{ xs: 6, lg: 3 }} cardStyle={{ height: 330 }}>
               <SessionBestsTable session={session} />
             </ColCard>
           )}
