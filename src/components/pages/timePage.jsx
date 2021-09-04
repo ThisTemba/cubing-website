@@ -98,7 +98,8 @@ export default function TimePage() {
     if (hasSolves) {
       const stats = getSessionStats(session);
       const newStats = newGetSessionStats(session);
-      saveCurrentSession({ ...session, stats });
+      saveCurrentSession({ ...session, stats }); // This guy is a backup
+      // delete once you're comfortable with the new method
       newSaveCurrentSession({ ...session, ...newStats });
     }
     setSession(getNewSession());
