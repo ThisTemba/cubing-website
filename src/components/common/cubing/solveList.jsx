@@ -117,7 +117,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
           {noSolves && (
             <>
               {(xs ? [3, 2, 1] : [6, 5, 4, 3, 2, 1]).map((n) => (
-                <tr>
+                <tr style={{ userSelect: "none" }}>
                   <th className="align-middle">{n}.</th>
                   <td className="align-middle">-</td>
                   <td className="align-middle">

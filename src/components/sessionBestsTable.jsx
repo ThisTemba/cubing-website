@@ -30,6 +30,7 @@ export default function SessionBestsTable({ session }) {
     <Table
       borderless
       className={session.solves.length === 0 ? "text-muted" : ""}
+      style={session.solves.length === 0 ? { userSelect: "none" } : {}}
     >
       <tr>
         <th></th>
