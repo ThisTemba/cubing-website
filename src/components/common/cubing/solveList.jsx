@@ -16,7 +16,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const [selectedSolveDateTime, setSelectedSolveDateTime] = useState(null);
   const { darkMode } = useContext(DarkModeContext);
   const { xs } = useWindowDimensions();
-  const buttonsColor = darkMode ? "#adadad" : "#343a40";
+  const buttonsColor = darkMode ? "#d3d3d3" : "#212529";
 
   useEffect(() => {
     const solve = solves.find((s) => s.dateTime === selectedSolveDateTime);
@@ -79,9 +79,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
   const renderSolveListTable = (solves) => {
     const reversedSolves = [...solves].reverse();
     const btnProps = {
-      className: "m-0 p-0 border-0",
-      variant: "link",
-      size: "sm",
+      href: "javascript:;",
       style: { color: buttonsColor },
     };
 
@@ -105,17 +103,14 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
               >
                 <th className="align-middle">{s.solveNumber + "."}</th>
                 <td className="align-middle">
-                  <Button {...btnProps} onClick={() => onClickTime(s)}>
+                  <a {...btnProps} onClick={() => onClickTime(s)}>
                     {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
-                  </Button>
+                  </a>
                 </td>
                 <td className="align-middle">
-                  <Button
-                    {...btnProps}
-                    onClick={() => onDeleteSolve(s.dateTime)}
-                  >
-                    <FaIcon icon="trash" />
-                  </Button>
+                  <a {...btnProps} onClick={() => onDeleteSolve(s.dateTime)}>
+                    <FaIcon icon="trash" size="sm" />
+                  </a>
                 </td>
               </tr>
             ))}
@@ -124,15 +119,9 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
               {[6, 5, 4, 3, 2, 1].map((n) => (
                 <tr>
                   <th className="align-middle">{n}.</th>
+                  <td className="align-middle">-</td>
                   <td className="align-middle">
-                    <Button {...btnProps} disabled>
-                      -
-                    </Button>
-                  </td>
-                  <td className="align-middle">
-                    <Button {...btnProps} disabled>
-                      <FaIcon icon="trash" />
-                    </Button>
+                    <FaIcon icon="trash" size="sm" />
                   </td>
                 </tr>
               ))}
