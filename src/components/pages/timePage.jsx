@@ -128,7 +128,6 @@ export default function TimePage() {
     setSession({ ...session, solves });
     document.activeElement.blur();
   };
-  const numSolves = session.solves.length;
 
   const rainbowStages = [
     { end: 5, color: "#0d6efd" },
@@ -181,7 +180,10 @@ export default function TimePage() {
           </ColCard>
           {!md && (
             <ColCard colProps={{ lg: 6 }} cardStyle={{ height: 340 }}>
-              <RainbowProgressBar stages={rainbowStages} value={numSolves} />
+              <RainbowProgressBar
+                stages={rainbowStages}
+                value={session.solves.length}
+              />
             </ColCard>
           )}
           {!xs && (
