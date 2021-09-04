@@ -15,7 +15,7 @@ import {
   getSessionGroupStats,
 } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
-import useStaticScrambles from "../../hooks/useStaticScrambles";
+import useRandomScrambles from "../../hooks/useRandomScrambles";
 
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
@@ -29,7 +29,7 @@ export default function TimePage() {
     name: null,
     solves: [],
   });
-  const [scramble, nextScramble] = useStaticScrambles();
+  const [scramble, nextScramble] = useRandomScrambles();
   const { user } = useContext(UserContext);
   const { xs, md, lg } = useWindowDimensions();
 
