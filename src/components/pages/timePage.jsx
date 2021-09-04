@@ -31,7 +31,7 @@ export default function TimePage() {
   });
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
-  const { xs } = useWindowDimensions();
+  const { xs, md, lg } = useWindowDimensions();
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
@@ -151,10 +151,11 @@ export default function TimePage() {
         className="text-center"
         style={{
           position: "fixed",
-          bottom: xs ? "-8px" : "2%", // -8px is the ColCard margin mb-2
+          bottom: xs ? "-8px" : lg ? "0%" : "2%", // -8px is the ColCard margin mb-2
           left: "50%",
           transform: "translate(-50%)",
         }}
+        fluid="xl"
       >
         {user && (
           <h3>
@@ -168,20 +169,23 @@ export default function TimePage() {
           </h3>
         )}
         <Row>
-          <ColCard colProps={{ md: 3 }} cardStyle={{ height: xs ? 150 : 340 }}>
+          <ColCard
+            colProps={{ xs: xs ? 12 : 6, lg: 3 }}
+            cardStyle={{ height: xs ? 150 : 340 }}
+          >
             <SolveList
               solves={session.solves}
               onDeleteSolve={handleDeleteSolve}
               onPenalty={handlePenalty}
             />
           </ColCard>
-          {!xs && (
-            <ColCard colProps={{ md: 6 }} cardStyle={{ height: 340 }}>
+          {!md && (
+            <ColCard colProps={{ lg: 6 }} cardStyle={{ height: 340 }}>
               <RainbowProgressBar stages={rainbowStages} value={numSolves} />
             </ColCard>
           )}
           {!xs && (
-            <ColCard colProps={{ md: 3 }} cardStyle={{ height: 340 }}>
+            <ColCard colProps={{ xs: 6, lg: 3 }} cardStyle={{ height: 340 }}>
               <SessionBestsTable session={session} />
             </ColCard>
           )}
