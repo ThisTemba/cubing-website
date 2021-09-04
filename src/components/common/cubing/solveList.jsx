@@ -120,9 +120,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
                 <tr style={{ userSelect: "none" }}>
                   <th className="align-middle">{n}.</th>
                   <td className="align-middle">-</td>
-                  <td className="align-middle">
-                    <FaIcon icon="trash" size="sm" />
-                  </td>
+                  <td className="align-middle">-</td>
                 </tr>
               ))}
             </>
