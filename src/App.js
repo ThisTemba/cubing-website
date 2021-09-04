@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Feedback from "feeder-react-feedback"; // import Feedback component
 import "feeder-react-feedback/dist/feeder-react-feedback.css";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
 import "./App.css";
 
 import TrainPage from "./components/pages/trainPage";
@@ -43,35 +45,37 @@ function App() {
     <UserContext.Provider value={userObj}>
       <DarkModeContext.Provider value={darkModeObj}>
         <CaseSetsContext.Provider value={caseSets}>
-          <div className="App">
-            {loading && <PageSpinner />}
-            {!loading && (
-              <>
-                <Navbar />
-                <Switch>
-                  <Route path="/train" component={TrainPage} />
-                  <Route path="/time" component={TimePage} />
-                  <Route path="/stats" component={StatsPage} />
-                  <Route path="/signup" component={SignUp} />
-                  <Route path="/login" component={LogIn} />
-                  <Route path="/settings" component={SettingsPage} />
-                  <Route path="/password_reset" component={PasswordReset} />
-                  <Redirect path="/" to="/train" />
-                </Switch>
-                {!xs && (
-                  <Feedback
-                    projectId="61258e09ac9cf500049e116b"
-                    feedbackTypes={["bug", "idea", "other"]}
-                    email={true}
-                    emailDefaultValue={user?.email}
-                    primaryColor={darkMode ? "#343a40" : "#dee2e6"}
-                    hoverBorderColor={darkMode ? "#343a40" : "#dee2e6"}
-                    textColor={darkMode ? "#dee2e6" : "#212529"}
-                  />
-                )}
-              </>
-            )}
-          </div>
+          <SimpleBar style={{ maxHeight: xs ? "" : "100vh" }}>
+            <div className="App">
+              {loading && <PageSpinner />}
+              {!loading && (
+                <>
+                  <Navbar />
+                  <Switch>
+                    <Route path="/train" component={TrainPage} />
+                    <Route path="/time" component={TimePage} />
+                    <Route path="/stats" component={StatsPage} />
+                    <Route path="/signup" component={SignUp} />
+                    <Route path="/login" component={LogIn} />
+                    <Route path="/settings" component={SettingsPage} />
+                    <Route path="/password_reset" component={PasswordReset} />
+                    <Redirect path="/" to="/train" />
+                  </Switch>
+                  {!xs && (
+                    <Feedback
+                      projectId="61258e09ac9cf500049e116b"
+                      feedbackTypes={["bug", "idea", "other"]}
+                      email={true}
+                      emailDefaultValue={user?.email}
+                      primaryColor={darkMode ? "#343a40" : "#dee2e6"}
+                      hoverBorderColor={darkMode ? "#343a40" : "#dee2e6"}
+                      textColor={darkMode ? "#dee2e6" : "#212529"}
+                    />
+                  )}
+                </>
+              )}
+            </div>
+          </SimpleBar>
         </CaseSetsContext.Provider>
       </DarkModeContext.Provider>
     </UserContext.Provider>
