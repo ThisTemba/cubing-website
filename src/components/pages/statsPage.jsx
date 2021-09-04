@@ -64,7 +64,7 @@ export default function StatsPage() {
         {!hasData && renderJumbo()}
         {hasData && (
           <Row noGutters>
-            <ColCard colProps={{ xs: 12, lg: 6 }} title={"PersonalBests"}>
+            <ColCard colProps={{ xs: 12, lg: 6 }} title={"Personal Bests"}>
               <BestsTable bests={sessionGroup.bests} />
             </ColCard>
             <ColCard colProps={{ xs: 12, lg: 6 }} title={"Totals"}>
