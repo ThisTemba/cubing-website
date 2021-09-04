@@ -93,9 +93,9 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
       });
       document.activeElement.blur();
     };
-
+    const noSolves = solves.length === 0;
     return (
-      <Table className="m-0 ">
+      <Table className={"m-0 " + (noSolves ? "text-muted" : "")}>
         <tbody>
           {reversedSolves.map((s) => (
             <tr key={s.dur + s.dateTime + s.scramble} className="align-middle">
