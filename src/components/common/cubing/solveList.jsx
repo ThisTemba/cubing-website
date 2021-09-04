@@ -116,7 +116,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
             ))}
           {noSolves && (
             <>
-              {[6, 5, 4, 3, 2, 1].map((n) => (
+              {(xs ? [3, 2, 1] : [6, 5, 4, 3, 2, 1]).map((n) => (
                 <tr>
                   <th className="align-middle">{n}.</th>
                   <td className="align-middle">-</td>
@@ -134,7 +134,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   return (
     <>
-      <SimpleBar style={{ maxHeight: xs ? 290 : 297 }}>
+      <SimpleBar style={{ maxHeight: xs ? 150 : 300 }}>
         {renderSolveListTable(solves)}
       </SimpleBar>
       <ModalComponent />

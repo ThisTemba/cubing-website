@@ -22,6 +22,7 @@ import SolveList from "../common/cubing/solveList";
 import SessionBestsTable from "../sessionBestsTable";
 import RainbowProgressBar from "../rainbowProgressBar";
 import ColCard from "../common/colCard";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", {
@@ -30,6 +31,7 @@ export default function TimePage() {
   });
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
+  const { xs } = useWindowDimensions();
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
@@ -149,7 +151,7 @@ export default function TimePage() {
         className="text-center"
         style={{
           position: "fixed",
-          bottom: "2%",
+          bottom: xs ? "-8px" : "2%", // -8px is the ColCard margin mb-2
           left: "50%",
           transform: "translate(-50%)",
         }}
@@ -166,19 +168,23 @@ export default function TimePage() {
           </h3>
         )}
         <Row>
-          <ColCard colProps={{ md: 3 }} cardStyle={{ height: 337 }}>
+          <ColCard colProps={{ md: 3 }} cardStyle={{ height: xs ? 150 : 340 }}>
             <SolveList
               solves={session.solves}
               onDeleteSolve={handleDeleteSolve}
               onPenalty={handlePenalty}
             />
           </ColCard>
-          <ColCard colProps={{ md: 6 }} cardStyle={{ height: 337 }}>
-            <RainbowProgressBar stages={rainbowStages} value={numSolves} />
-          </ColCard>
-          <ColCard colProps={{ md: 3 }} cardStyle={{ height: 337 }}>
-            <SessionBestsTable session={session} />
-          </ColCard>
+          {!xs && (
+            <ColCard colProps={{ md: 6 }} cardStyle={{ height: 340 }}>
+              <RainbowProgressBar stages={rainbowStages} value={numSolves} />
+            </ColCard>
+          )}
+          {!xs && (
+            <ColCard colProps={{ md: 3 }} cardStyle={{ height: 340 }}>
+              <SessionBestsTable session={session} />
+            </ColCard>
+          )}
         </Row>
       </Container>
     </>
