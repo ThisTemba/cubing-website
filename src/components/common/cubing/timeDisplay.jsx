@@ -8,7 +8,7 @@ const TimeDisplay = (props) => {
     fontFamily: "Monospace",
     textAlign: "center",
     padding: xs ? "30px" : "",
-    fontSize: fontSize,
+    fontSize: fontSize ? fontSize : xs ? 100 : 130,
   };
   const className =
     props.timerState === "arming"
@@ -31,10 +31,6 @@ const TimeDisplay = (props) => {
       {valueToDisplay}
     </h1>
   );
-};
-
-TimeDisplay.defaultProps = {
-  fontSize: 100,
 };
 
 export default TimeDisplay;
