@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
+import React, { useEffect, useContext } from "react";
+import { Button, Container, Row } from "react-bootstrap";
 import firebase, {
   UserContext,
   getUserDocRef,
@@ -20,6 +19,10 @@ import useStaticScrambles from "../../hooks/useStaticScrambles";
 
 import Timer from "../common/cubing/timer";
 import SolveList from "../common/cubing/solveList";
+import SessionBestsTable from "../sessionBestsTable";
+import RainbowProgressBar from "../rainbowProgressBar";
+import ColCard from "../common/colCard";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage("session", {
@@ -28,6 +31,7 @@ export default function TimePage() {
   });
   const [scramble, nextScramble] = useStaticScrambles();
   const { user } = useContext(UserContext);
+  const { xs, md, lg } = useWindowDimensions();
 
   useEffect(() => {
     if (session.name === null) handleNewSession();
@@ -125,25 +129,70 @@ export default function TimePage() {
     document.activeElement.blur();
   };
 
+  const rainbowStages = [
+    { end: 5, color: "#0d6efd" },
+    { end: 12, color: "#6610f2" },
+    { end: 25, color: "#6f42c1" },
+    { end: 50, color: "#d63384" },
+    { end: 100, color: "#dc3545" },
+  ];
+
   return (
-    <Container fluid className="text-center">
-      <Timer onNewSolve={handleNewSolve} armingTime={250} scramble={scramble} />
-      {user && (
-        <h3>
-          <Button
-            size="sm"
-            onClick={handleNewSession}
-            disabled={session.solves.length === 0}
+    <>
+      <Container className="text-center">
+        <Timer
+          onNewSolve={handleNewSolve}
+          armingTime={250}
+          scramble={scramble}
+        />
+      </Container>
+      <Container
+        className="text-center"
+        style={{
+          position: "fixed",
+          bottom: xs ? "-8px" : lg ? "0%" : "2%", // -8px is the ColCard margin mb-2
+          left: "50%",
+          transform: "translate(-50%)",
+        }}
+        fluid="xl"
+      >
+        {user && (
+          <h3>
+            <Button
+              size="sm"
+              onClick={handleNewSession}
+              disabled={session.solves.length === 0}
+            >
+              End Session
+            </Button>
+          </h3>
+        )}
+        <Row>
+          <ColCard
+            colProps={{ xs: xs ? 12 : 6, lg: 3 }}
+            cardStyle={{ height: xs ? 150 : 340 }}
           >
-            End Session
-          </Button>
-        </h3>
-      )}
-      <SolveList
-        solves={session.solves}
-        onDeleteSolve={handleDeleteSolve}
-        onPenalty={handlePenalty}
-      />
-    </Container>
+            <SolveList
+              solves={session.solves}
+              onDeleteSolve={handleDeleteSolve}
+              onPenalty={handlePenalty}
+            />
+          </ColCard>
+          {!md && (
+            <ColCard colProps={{ lg: 6 }} cardStyle={{ height: 340 }}>
+              <RainbowProgressBar
+                stages={rainbowStages}
+                value={session.solves.length}
+              />
+            </ColCard>
+          )}
+          {!xs && (
+            <ColCard colProps={{ xs: 6, lg: 3 }} cardStyle={{ height: 340 }}>
+              <SessionBestsTable session={session} />
+            </ColCard>
+          )}
+        </Row>
+      </Container>
+    </>
   );
 }

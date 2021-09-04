@@ -2,13 +2,13 @@ import React from "react";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { getTimeString } from "../../../utils/formatTime";
 const TimeDisplay = (props) => {
-  let { timeMilliseconds, disabled } = props;
+  let { timeMilliseconds, disabled, formattedTime, fontSize } = props;
   const { xs } = useWindowDimensions();
   const displayStyle = {
     fontFamily: "Monospace",
     textAlign: "center",
-    fontSize: "100px",
     padding: xs ? "30px" : "",
+    fontSize: fontSize,
   };
   const className =
     props.timerState === "arming"
@@ -19,11 +19,22 @@ const TimeDisplay = (props) => {
       ? "text-muted"
       : "";
 
+  const valueToDisplay =
+    typeof timeMilliseconds !== "undefined"
+      ? getTimeString(timeMilliseconds)
+      : typeof formattedTime !== undefined
+      ? formattedTime
+      : "";
+
   return (
     <h1 style={displayStyle} className={className}>
-      {getTimeString(timeMilliseconds)}
+      {valueToDisplay}
     </h1>
   );
+};
+
+TimeDisplay.defaultProps = {
+  fontSize: 100,
 };
 
 export default TimeDisplay;

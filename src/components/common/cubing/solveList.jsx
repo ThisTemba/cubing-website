@@ -1,128 +1,142 @@
-import React, { useContext } from "react";
-import { Table, Button, Card } from "react-bootstrap";
-import { listAoNs } from "../../../utils/averages";
+import React, { useContext, useState, useEffect } from "react";
+import { Table, Button } from "react-bootstrap";
+import SimpleBar from "simplebar-react";
+import "simplebar/dist/simplebar.min.css";
+
+import { FaIcon } from "../../../fontAwesome";
 import { dispDur } from "../../../utils/displayValue";
 import useModal from "../../../hooks/useModal";
 import DarkModeContext from "../../../hooks/useDarkMode";
-import { FaIcon } from "../../../fontAwesome";
-import SimpleBar from "simplebar-react";
-import "simplebar/dist/simplebar.min.css";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import ButtonGroupToggle from "../buttonGroupToggle";
+import TimeDisplay from "./timeDisplay";
 
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
-  const [ModalComponent, showModal] = useModal();
-  const penaltyButtons = [
-    { label: "+2", penalty: "+2" },
-    { label: "DNF", penalty: "DNF" },
-    { label: "Reset", penalty: "" },
-  ];
+  const [ModalComponent, showModal, unused, setModalContent] = useModal();
+  const [selectedSolveDateTime, setSelectedSolveDateTime] = useState(null);
   const { darkMode } = useContext(DarkModeContext);
   const { xs } = useWindowDimensions();
+  const buttonsColor = darkMode ? "#d3d3d3" : "#212529";
 
-  const getProcessedSolves = (solves) => {
-    if (solves) {
-      const durs = solves.map((s) => s.dur);
-      const ao5s = listAoNs(durs, 5);
-      const ao12s = listAoNs(durs, 12);
-      solves = solves.map((s, i) => {
-        const ao5 = dispDur(ao5s[i]);
-        const ao12 = dispDur(ao12s[i]);
-        return { ...s, ao5, ao12 };
-      });
-      const orderedSolves = [...solves].reverse();
-      return orderedSolves;
-    } else return [];
+  useEffect(() => {
+    const solve = solves.find((s) => s.dateTime === selectedSolveDateTime);
+    if (solve) {
+      const content = {
+        title: `Solve ${solve?.solveNumber}`,
+        body: renderModalBody(solve),
+      };
+      setModalContent(content);
+    }
+  }, [solves]);
+
+  const renderPenaltyButtons = (s) => {
+    const penaltyButtons = [
+      { content: "None", id: "", color: "success" },
+      { content: "+2", id: "+2", color: "warning" },
+      { content: "DNF", id: "DNF", color: "danger" },
+    ];
+    return (
+      <ButtonGroupToggle
+        buttons={penaltyButtons}
+        activeId={s.penalty}
+        onSelect={(id) => {
+          onPenalty(s.dateTime, id);
+        }}
+      ></ButtonGroupToggle>
+    );
   };
 
-  const getModalBody = (s) => {
-    const dateTime = new Date(s.dateTime);
-    //Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString
-    const options = { hour: "2-digit", minute: "2-digit" };
+  const renderModalBody = (s) => {
+    const timeOptions = { hour: "2-digit", minute: "2-digit" };
+    const time = new Date(s.dateTime).toLocaleTimeString([], timeOptions);
+    const rows = [
+      { label: "Scramble", value: s.scramble },
+      { label: "Time", value: time },
+      { label: "Penalty", value: renderPenaltyButtons(s) },
+    ];
     return (
       <>
-        {`Solve Time: ${dispDur(s.dur)} \n\n`} <br />
-        {`Scramble: ${s.scramble}`} <br />
-        {`Date: ${dateTime.toLocaleDateString()}`} <br />
-        {`Time: ${dateTime.toLocaleTimeString([], options)}`} <br />
-        {`Penalty: ${s.penalty || "None"}`}
+        <TimeDisplay
+          formattedTime={dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
+          fontSize={100}
+        ></TimeDisplay>
+        <Table className="text-center m-0">
+          <colgroup>
+            <col span="1" style={{ width: "30%" }} />
+            <col span="1" style={{ width: "70%" }} />
+          </colgroup>
+          {rows.map((row) => (
+            <tr>
+              <th className="align-middle">{row.label}</th>
+              <td className="align-middle">{row.value}</td>
+            </tr>
+          ))}
+        </Table>
       </>
     );
   };
 
-  const renderPenaltyButtons = (dateTime) => {
-    const color = darkMode ? "#adadad" : "#343a40";
-    return (
-      <div>
-        {penaltyButtons.map((button) => (
-          <Button
-            key={button.penalty}
-            variant="link"
-            size="sm"
-            style={{ color }}
-            onClick={() => onPenalty(dateTime, button.penalty)}
-          >
-            {button.label}
-          </Button>
-        ))}
-        <Button
-          size="sm"
-          variant="link"
-          style={{ color }}
-          onClick={() => onDeleteSolve(dateTime)}
-        >
-          <FaIcon icon="trash" />
-        </Button>
-      </div>
-    );
-  };
+  const renderSolveListTable = (solves) => {
+    const reversedSolves = [...solves].reverse();
+    const btnProps = {
+      href: "javascript:;",
+      style: { color: buttonsColor },
+    };
 
-  const renderTableBody = (solves) => {
-    return solves.map((s) => (
-      <tr key={s.dateTime} className="align-middle">
-        <th scope="row">{s.solveNumber + ". "}</th>
-        <td
-          className="hover-shadow"
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            showModal({
-              title: `Solve ${s.solveNumber}`,
-              body: getModalBody(s),
-            });
-          }}
-        >
-          {dispDur(s.dur)}
-          {s.penalty === "+2" ? "+" : ""}
-        </td>
-        <td>{s.ao5}</td>
-        <td>{s.ao12}</td>
-        <td>{renderPenaltyButtons(s.dateTime)}</td>
-      </tr>
-    ));
+    const onClickTime = (s) => {
+      setSelectedSolveDateTime(s.dateTime);
+      showModal({
+        title: `Solve ${s.solveNumber}`,
+        body: renderModalBody(s),
+      });
+      document.activeElement.blur();
+    };
+    const noSolves = solves.length === 0;
+    return (
+      <Table className={"m-0 " + (noSolves ? "text-muted" : "")}>
+        <tbody>
+          {!noSolves &&
+            reversedSolves.map((s) => (
+              <tr
+                key={s.dur + s.dateTime + s.scramble}
+                className="align-middle"
+              >
+                <th className="align-middle">{s.solveNumber + "."}</th>
+                <td className="align-middle">
+                  <a {...btnProps} onClick={() => onClickTime(s)}>
+                    {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
+                  </a>
+                </td>
+                <td className="align-middle">
+                  <a {...btnProps} onClick={() => onDeleteSolve(s.dateTime)}>
+                    <FaIcon icon="trash" size="sm" />
+                  </a>
+                </td>
+              </tr>
+            ))}
+          {noSolves && (
+            <>
+              {(xs ? [3, 2, 1] : [6, 5, 4, 3, 2, 1]).map((n) => (
+                <tr style={{ userSelect: "none" }}>
+                  <th className="align-middle">{n}.</th>
+                  <td className="align-middle">-</td>
+                  <td className="align-middle">
+                    <FaIcon icon="trash" size="sm" />
+                  </td>
+                </tr>
+              ))}
+            </>
+          )}
+        </tbody>
+      </Table>
+    );
   };
 
   return (
     <>
-      <Card
-        style={{ height: xs ? 300 : 500, maxWidth: 600 }}
-        className="mr-auto ml-auto"
-      >
-        <Card.Body className={xs ? "p-0 pt-1" : ""}>
-          <SimpleBar style={{ maxHeight: xs ? 290 : 450, maxWidth: 600 }}>
-            <Table size="sm">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Time</th>
-                  <th scope="col">Ao5</th>
-                  <th scope="col">Ao12</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>{renderTableBody(getProcessedSolves(solves))}</tbody>
-            </Table>
-          </SimpleBar>
-        </Card.Body>
-      </Card>
+      <SimpleBar style={{ maxHeight: xs ? 150 : 300 }}>
+        {renderSolveListTable(solves)}
+      </SimpleBar>
       <ModalComponent />
     </>
   );
