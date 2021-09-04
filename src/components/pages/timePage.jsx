@@ -142,7 +142,7 @@ export default function TimePage() {
       <Container className="text-center">
         <Timer
           onNewSolve={handleNewSolve}
-          armingTime={100}
+          armingTime={250}
           scramble={scramble}
         />
       </Container>
