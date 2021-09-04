@@ -59,8 +59,8 @@ const SettingsPage = () => {
               {settings.map((s) => (
                 <Tab.Pane eventKey={s.key}>
                   <Card>
-                    <Card.Header>
-                      <Card.Title>{s.name}</Card.Title>
+                    <Card.Header className="text-center">
+                      <Card.Title className="m-1">{s.name}</Card.Title>
                     </Card.Header>
                     <Card.Body>{s.content}</Card.Body>
                   </Card>
