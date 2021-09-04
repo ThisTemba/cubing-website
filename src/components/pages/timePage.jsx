@@ -127,7 +127,7 @@ export default function TimePage() {
 
   return (
     <Container fluid className="text-center">
-      <Timer onNewSolve={handleNewSolve} armingTime={100} scramble={scramble} />
+      <Timer onNewSolve={handleNewSolve} armingTime={250} scramble={scramble} />
       {user && (
         <h3>
           <Button
