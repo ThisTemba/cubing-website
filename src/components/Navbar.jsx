@@ -22,22 +22,20 @@ export default function Navbar() {
 
   const renderDarkModeToggle = () => {
     return (
-      <div className="">
-        <Button
-          variant="link"
-          className="text-secondary"
-          onClick={() => {
-            setDarkMode(!darkMode);
-            document.activeElement.blur();
-          }}
-        >
-          <FaIcon
-            size="lg"
-            icon={darkMode ? "moon" : "sun"}
-            color={darkMode ? "" : "#707070"}
-          />
-        </Button>
-      </div>
+      <Button
+        variant="link"
+        className="text-secondary"
+        onClick={() => {
+          setDarkMode(!darkMode);
+          document.activeElement.blur();
+        }}
+      >
+        <FaIcon
+          size="lg"
+          icon={darkMode ? "moon" : "sun"}
+          color={darkMode ? "" : "#707070"}
+        />
+      </Button>
     );
   };
 
