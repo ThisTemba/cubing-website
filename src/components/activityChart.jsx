@@ -1,10 +1,10 @@
 import React, { useContext, cloneElement } from "react";
 import DarkModeContext from "../hooks/useDarkMode";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import _ from "lodash";
 import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import CustomTooltip from "./common/customTooltip";
 
 CalendarHeatmap.prototype.getHeight = function () {
   return (
@@ -17,12 +17,6 @@ Date.prototype.addDays = function (days) {
   date.setDate(date.getDate() + days);
   return date;
 };
-
-const renderTooltip = (props, message) => (
-  <Tooltip content id="button-tooltip" {...props}>
-    <span>{message}</span>
-  </Tooltip>
-);
 
 const formatDate = (date) => {
   const firstSix = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
@@ -78,13 +72,9 @@ export default function ActivityChart({ sessions, numDays }) {
     if (value) message = `${value.numSolves} solves on ${date}`;
     else message = "No Solves";
     return (
-      <OverlayTrigger
-        placement="top"
-        delay={{ show: 0, hide: 0 }}
-        overlay={(props) => renderTooltip(props, message)}
-      >
+      <CustomTooltip message={message} instant>
         {cloneElement(element)}
-      </OverlayTrigger>
+      </CustomTooltip>
     );
   };
 

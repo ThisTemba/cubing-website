@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import CustomTooltip from "./customTooltip";
 
 const ButtonGroupToggle = ({ buttons, color, activeId, onSelect, ...rest }) => {
   const getButtonVariant = (activeButtonId, button) => {
@@ -7,21 +8,11 @@ const ButtonGroupToggle = ({ buttons, color, activeId, onSelect, ...rest }) => {
     return activeButtonId === button.id ? `${color}` : `outline-${color}`;
   };
 
-  const renderTooltip = (props, message) => (
-    <Tooltip id="button-tooltip" {...props}>
-      {message}
-    </Tooltip>
-  );
-
   return (
     <div className="btn-group  m-1" role="group">
       {buttons.map((button) => {
         return (
-          <OverlayTrigger
-            placement="top"
-            delay={{ show: button.tooltip ? 700 : Infinity, hide: 300 }}
-            overlay={(props) => renderTooltip(props, button.tooltip)}
-          >
+          <CustomTooltip showTime={700} message={button.tooltip}>
             <Button
               variant={getButtonVariant(activeId, button)}
               onClick={() => onSelect(button.id)}
@@ -30,7 +21,7 @@ const ButtonGroupToggle = ({ buttons, color, activeId, onSelect, ...rest }) => {
             >
               {button.content}
             </Button>
-          </OverlayTrigger>
+          </CustomTooltip>
         );
       })}
     </div>

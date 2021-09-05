@@ -14,17 +14,12 @@ import {
 import DarkModeContext from "../hooks/useDarkMode";
 import { dispDur } from "../utils/displayValue";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import {
-  Card,
-  Table,
-  Button,
-  OverlayTrigger,
-  Tooltip as RBTooltip,
-} from "react-bootstrap";
+import { Card, Table, Button } from "react-bootstrap";
 import useModal from "../hooks/useModal";
 import deleteSession from "../utils/deleteSession";
 import { UserContext } from "../services/firebase";
 import { FaIcon } from "../fontAwesome";
+import CustomTooltip from "./common/customTooltip";
 
 export default function SessionsChart({ sessionGroup }) {
   const { xs } = useWindowDimensions();
@@ -80,12 +75,6 @@ export default function SessionsChart({ sessionGroup }) {
 
     bestsToDisplay = bestsToDisplay.filter((b) => sesh.bests[b.key]);
 
-    const renderTooltip = (props, message) => (
-      <RBTooltip id="button-RBTooltip" {...props}>
-        {message}
-      </RBTooltip>
-    );
-
     const rows = [
       { name: "Number of Solves", value: sesh.numSolves },
       { name: "Session Average", value: dispDur(sesh.sessionAverage) },
@@ -106,13 +95,9 @@ export default function SessionsChart({ sessionGroup }) {
             <span>
               {dispDur(sesh.bests[b.key])}{" "}
               {isGlobalBest && (
-                <OverlayTrigger
-                  placement="right"
-                  delay={{ show: 250, hide: 400 }}
-                  overlay={(props) => renderTooltip(props, `PB ${b.label}`)}
-                >
+                <CustomTooltip placement="right" message={`PB ${b.label}`}>
                   <FaIcon icon="star" color={color} />
-                </OverlayTrigger>
+                </CustomTooltip>
               )}
             </span>
           ),

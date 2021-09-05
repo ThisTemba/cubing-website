@@ -1,18 +1,13 @@
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { Table } from "react-bootstrap";
 import { dispDur } from "../utils/displayValue";
-import { Tooltip, OverlayTrigger, Popover } from "react-bootstrap";
+import CustomTooltip from "./common/customTooltip";
 
 const BestsTable = ({ bests }) => {
   const { xs } = useWindowDimensions();
   const getDate = (dateTime) => {
     return dateTime ? new Date(dateTime).toLocaleDateString() : "-";
   };
-  const renderTooltip = (props, message) => (
-    <Tooltip content id="button-tooltip" {...props}>
-      <span>{message}</span>
-    </Tooltip>
-  );
   const bestsToDisplay = [
     {
       label: "Ao100",
@@ -48,13 +43,9 @@ const BestsTable = ({ bests }) => {
           {bestsToDisplay.map((b) => {
             return (
               <th>
-                <OverlayTrigger
-                  placement="top"
-                  delay={{ show: 300, hide: 250 }}
-                  overlay={(props) => renderTooltip(props, b.tooltip)}
-                >
+                <CustomTooltip message={b.tooltip}>
                   <span>{b.label}</span>
-                </OverlayTrigger>
+                </CustomTooltip>
               </th>
             );
           })}
