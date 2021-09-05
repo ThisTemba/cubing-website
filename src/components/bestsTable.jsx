@@ -42,7 +42,7 @@ const BestsTable = ({ bests }) => {
         <tr>
           {bestsToDisplay.map((b) => {
             return (
-              <th>
+              <th key={b.key}>
                 <CustomTooltip message={b.tooltip}>
                   <span>{b.label}</span>
                 </CustomTooltip>
@@ -53,7 +53,7 @@ const BestsTable = ({ bests }) => {
         <tr>
           {bestsToDisplay.map((b) => {
             const time = dispDur(bests[b.key]?.dur);
-            return <td>{time}</td>;
+            return <td key={b.key}>{time}</td>;
           })}
         </tr>
         <tr>
@@ -61,7 +61,7 @@ const BestsTable = ({ bests }) => {
             const dateTime = bests[b.key]?.dateTime;
             const date = getDate(dateTime);
             return (
-              <td>
+              <td key={b.key}>
                 <small className="text-muted">{date}</small>
               </td>
             );
