@@ -66,7 +66,7 @@ export default function CaseSetCard(props) {
             <Col className="p-0 d-flex align-items-center justify-content-center">
               <Row>
                 <Col xs={12}>{renderTitle(title)}</Col>
-                <Col xs={12}>{details.subTitle}</Col>
+                <Col xs={12}>{subTitle}</Col>
                 <Col xs={12}>{renderStatuses(details)}</Col>
               </Row>
             </Col>
