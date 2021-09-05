@@ -11,14 +11,14 @@ import {
   Scatter,
   ErrorBar,
 } from "recharts";
-import DarkModeContext from "../hooks/useDarkMode";
-import { dispDur } from "../utils/displayValue";
-import useWindowDimensions from "../hooks/useWindowDimensions";
 import { Card, Table, Button } from "react-bootstrap";
+import { FaIcon } from "../fontAwesome";
+import DarkModeContext from "../hooks/useDarkMode";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 import useModal from "../hooks/useModal";
 import deleteSession from "../utils/deleteSession";
+import { dispDur } from "../utils/displayValue";
 import { UserContext } from "../services/firebase";
-import { FaIcon } from "../fontAwesome";
 import CustomTooltip from "./common/customTooltip";
 
 export default function SessionsChart({ sessionGroup }) {
