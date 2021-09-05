@@ -14,11 +14,7 @@ const StatsOverviewTable = ({ sessionGroup }) => {
       <Table className="m-0">
         <tr>
           {statsToDisplay.map((b) => {
-            return (
-              <th>
-                <span>{b.label}</span>
-              </th>
-            );
+            return <th>{b.label}</th>;
           })}
         </tr>
         <tr>
