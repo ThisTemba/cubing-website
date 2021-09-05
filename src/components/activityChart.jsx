@@ -6,6 +6,12 @@ import CalendarHeatmap from "react-calendar-heatmap";
 import "react-calendar-heatmap/dist/styles.css";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 
+CalendarHeatmap.prototype.getHeight = function () {
+  return (
+    this.getWeekWidth() + (this.getMonthLabelSize() - this.props.gutterSize)
+  );
+};
+
 Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
@@ -99,6 +105,7 @@ export default function ActivityChart({ sessions, numDays }) {
         values={values}
         classForValue={classForValue}
         transformDayElement={transformDayElement}
+        // showWeekdayLabels={true}
       />
     </div>
   );
