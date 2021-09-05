@@ -18,7 +18,7 @@ export default function StatsPage() {
   const loading = typeof sessionGroupDoc === "undefined";
   const { xs, md } = useWindowDimensions();
 
-  const _Jumbo = ({ title, body, buttons }) => {
+  const CustomJumbo = ({ title, body, buttons }) => {
     return (
       <Jumbotron>
         <h1>{title}</h1>
@@ -35,7 +35,7 @@ export default function StatsPage() {
   const renderJumbo = () => {
     if (user)
       return (
-        <_Jumbo
+        <CustomJumbo
           title="No Data Available"
           body="It seems like you haven't recorded any solves yet. Head over to the
     Time page and..."
@@ -44,7 +44,7 @@ export default function StatsPage() {
       );
     else
       return (
-        <_Jumbo
+        <CustomJumbo
           title="Account Required"
           body="You need to be logged in to your account to record and anaylze your solves"
           buttons={[
