@@ -8,7 +8,6 @@ const StatsOverviewTable = ({ sessionGroup }) => {
     { label: "Number of Sessions", key: "numSessions" },
   ];
 
-  console.log(sessionGroup);
   if (!xs)
     return (
       <Table className="m-0">
