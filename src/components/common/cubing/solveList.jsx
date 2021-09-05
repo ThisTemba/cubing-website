@@ -91,7 +91,21 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
       });
       document.activeElement.blur();
     };
+
+    const PlaceholderTable = () => (
+      <>
+        {(xs ? [3, 2, 1] : [6, 5, 4, 3, 2, 1]).map((n) => (
+          <tr style={{ userSelect: "none" }}>
+            <th className="align-middle">{n}.</th>
+            <td className="align-middle">-</td>
+            <td className="align-middle">-</td>
+          </tr>
+        ))}
+      </>
+    );
+
     const noSolves = solves.length === 0;
+
     return (
       <Table className={"m-0 " + (noSolves ? "text-muted" : "")} borderless>
         <colgroup>
@@ -119,17 +133,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
                 </td>
               </tr>
             ))}
-          {noSolves && (
-            <>
-              {(xs ? [3, 2, 1] : [6, 5, 4, 3, 2, 1]).map((n) => (
-                <tr style={{ userSelect: "none" }}>
-                  <th className="align-middle">{n}.</th>
-                  <td className="align-middle">-</td>
-                  <td className="align-middle">-</td>
-                </tr>
-              ))}
-            </>
-          )}
+          {noSolves && <PlaceholderTable />}
         </tbody>
       </Table>
     );
