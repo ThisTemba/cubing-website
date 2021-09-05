@@ -211,10 +211,10 @@ export default function SessionsChart({ sessionGroup }) {
     );
   };
 
-  const renderTooltip = ({ active, payload, label }) => {
+  const renderTooltip = ({ active, payload }) => {
     if (active) {
       const sesh = payload?.[0]?.payload;
-      const { sessionAverage, numSolves, dateTime, quartiles } = sesh;
+      const { sessionAverage, numSolves, dateTime } = sesh;
       const date = new Date(dateTime).toLocaleDateString();
       const cellStyle = {
         borderColor: darkMode ? "#495057" : "",
