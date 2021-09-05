@@ -12,8 +12,8 @@ CalendarHeatmap.prototype.getHeight = function () {
   );
 };
 
-Date.prototype.addDays = function (days) {
-  var date = new Date(this.valueOf());
+const addDays = (dateTime, days) => {
+  var date = new Date(dateTime);
   date.setDate(date.getDate() + days);
   return date;
 };
@@ -35,7 +35,7 @@ export default function ActivityChart({ sessions, numDays }) {
   const { darkMode } = useContext(DarkModeContext);
 
   const endDate = new Date();
-  const startDate = new Date().addDays(-numDays);
+  const startDate = addDays(new Date(), -numDays);
 
   const getHeatmapValues = (sessions) => {
     const groupedByDate = _.groupBy(sessions, "date");
@@ -54,7 +54,7 @@ export default function ActivityChart({ sessions, numDays }) {
     });
     let values = [];
     for (let i = 0; i < numDays; i++) {
-      const dateTime = new Date(startDate.getTime()).addDays(i + 1);
+      const dateTime = addDays(new Date(startDate), i + 1);
       const valueWithSolves = _.find(countsByDate, (item) => {
         const thisDate = dateTime.toDateString();
         const dataDate = new Date(item.date).toDateString();
