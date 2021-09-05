@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Button, Container, Row } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import _ from "lodash";
 import { UserContext } from "../../services/firebase";
-import { Link } from "react-router-dom";
-import SessionsChart from "../sessionsChart";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import ColCard from "../common/colCard";
+import SessionsChart from "../sessionsChart";
 import BestsTable from "../bestsTable";
 import StatsOverviewTable from "../statsOverviewTable";
 import ActivityChart from "../activityChart";
-import ColCard from "../common/colCard";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
