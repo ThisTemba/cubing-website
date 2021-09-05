@@ -12,33 +12,37 @@ const StatsOverviewTable = ({ sessionGroup }) => {
   if (!xs)
     return (
       <Table className="m-0">
-        <tr>
-          {statsToDisplay.map((b) => {
-            return <th key={b.key}>{b.label}</th>;
-          })}
-        </tr>
-        <tr>
-          {statsToDisplay.map((b) => {
-            return <td key={b.key}>{sessionGroup[b.key]}</td>;
-          })}
-        </tr>
-        <tr>
-          <td>-</td>
-          <td>-</td>
-        </tr>
+        <tbody>
+          <tr>
+            {statsToDisplay.map((b) => {
+              return <th key={b.key}>{b.label}</th>;
+            })}
+          </tr>
+          <tr>
+            {statsToDisplay.map((b) => {
+              return <td key={b.key}>{sessionGroup[b.key]}</td>;
+            })}
+          </tr>
+          <tr>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+        </tbody>
       </Table>
     );
   else
     return (
       <Table className="m-0">
-        {statsToDisplay.map((b) => {
-          return (
-            <tr>
-              <th>{b.label}</th>
-              <td>{sessionGroup[b.key]}</td>
-            </tr>
-          );
-        })}
+        <tbody>
+          {statsToDisplay.map((b) => {
+            return (
+              <tr>
+                <th>{b.label}</th>
+                <td>{sessionGroup[b.key]}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </Table>
     );
 };

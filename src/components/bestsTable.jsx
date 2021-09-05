@@ -39,53 +39,57 @@ const BestsTable = ({ bests }) => {
   if (!xs)
     return (
       <Table className="m-0">
-        <tr>
-          {bestsToDisplay.map((b) => {
-            return (
-              <th key={b.key}>
-                <CustomTooltip message={b.tooltip}>
-                  <span>{b.label}</span>
-                </CustomTooltip>
-              </th>
-            );
-          })}
-        </tr>
-        <tr>
-          {bestsToDisplay.map((b) => {
-            const time = dispDur(bests[b.key]?.dur);
-            return <td key={b.key}>{time}</td>;
-          })}
-        </tr>
-        <tr>
-          {bestsToDisplay.map((b) => {
-            const dateTime = bests[b.key]?.dateTime;
-            const date = getDate(dateTime);
-            return (
-              <td key={b.key}>
-                <small className="text-muted">{date}</small>
-              </td>
-            );
-          })}
-        </tr>
+        <tbody>
+          <tr>
+            {bestsToDisplay.map((b) => {
+              return (
+                <th key={b.key}>
+                  <CustomTooltip message={b.tooltip}>
+                    <span>{b.label}</span>
+                  </CustomTooltip>
+                </th>
+              );
+            })}
+          </tr>
+          <tr>
+            {bestsToDisplay.map((b) => {
+              const time = dispDur(bests[b.key]?.dur);
+              return <td key={b.key}>{time}</td>;
+            })}
+          </tr>
+          <tr>
+            {bestsToDisplay.map((b) => {
+              const dateTime = bests[b.key]?.dateTime;
+              const date = getDate(dateTime);
+              return (
+                <td key={b.key}>
+                  <small className="text-muted">{date}</small>
+                </td>
+              );
+            })}
+          </tr>
+        </tbody>
       </Table>
     );
   else
     return (
       <Table className="m-0">
-        {bestsToDisplay.map((b) => {
-          const time = dispDur(bests[b.key]?.dur);
-          const dateTime = bests[b.key]?.dateTime;
-          const date = getDate(dateTime);
-          return (
-            <tr>
-              <th>{b.label}</th>
-              <td>{time}</td>
-              <td>
-                <small className="text-muted">{date}</small>
-              </td>
-            </tr>
-          );
-        })}
+        <tbody>
+          {bestsToDisplay.map((b) => {
+            const time = dispDur(bests[b.key]?.dur);
+            const dateTime = bests[b.key]?.dateTime;
+            const date = getDate(dateTime);
+            return (
+              <tr>
+                <th>{b.label}</th>
+                <td>{time}</td>
+                <td>
+                  <small className="text-muted">{date}</small>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </Table>
     );
 };
