@@ -80,7 +80,7 @@ const BestsTable = ({ bests }) => {
             const dateTime = bests[b.key]?.dateTime;
             const date = getDate(dateTime);
             return (
-              <tr>
+              <tr key={b.key}>
                 <th>{b.label}</th>
                 <td>{time}</td>
                 <td>

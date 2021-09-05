@@ -36,7 +36,7 @@ const StatsOverviewTable = ({ sessionGroup }) => {
         <tbody>
           {statsToDisplay.map((b) => {
             return (
-              <tr>
+              <tr key={b.key}>
                 <th>{b.label}</th>
                 <td>{sessionGroup[b.key]}</td>
               </tr>
