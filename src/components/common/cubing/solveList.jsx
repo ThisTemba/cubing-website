@@ -94,6 +94,11 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     const noSolves = solves.length === 0;
     return (
       <Table className={"m-0 " + (noSolves ? "text-muted" : "")} borderless>
+        <colgroup>
+          <col span="1" style={{ width: "33%" }} />
+          <col span="1" style={{ width: "33%" }} />
+          <col span="1" style={{ width: "33%" }} />
+        </colgroup>
         <tbody>
           {!noSolves &&
             reversedSolves.map((s) => (
