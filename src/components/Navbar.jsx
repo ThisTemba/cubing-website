@@ -56,7 +56,12 @@ export default function Navbar() {
       <NavbarRB.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           {navLinks.map((item) => (
-            <Nav.Link as={NavLink} to={item.to} onClick={collapse}>
+            <Nav.Link
+              as={NavLink}
+              to={item.to}
+              onClick={collapse}
+              key={item.to}
+            >
               {item.label}
             </Nav.Link>
           ))}
