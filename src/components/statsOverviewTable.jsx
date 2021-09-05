@@ -14,12 +14,12 @@ const StatsOverviewTable = ({ sessionGroup }) => {
       <Table className="m-0">
         <tr>
           {statsToDisplay.map((b) => {
-            return <th>{b.label}</th>;
+            return <th key={b.key}>{b.label}</th>;
           })}
         </tr>
         <tr>
           {statsToDisplay.map((b) => {
-            return <td>{sessionGroup[b.key]}</td>;
+            return <td key={b.key}>{sessionGroup[b.key]}</td>;
           })}
         </tr>
         <tr>
