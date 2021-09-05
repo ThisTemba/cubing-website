@@ -20,14 +20,6 @@ export default function TrainSettings() {
   const { user, userDoc } = useContext(UserContext);
   const [showAlert, setShowAlert] = useState(false);
 
-  function dataToCriteria(data) {
-    const clc = defaultCaseLearnedCriteria;
-    const newclc = _.mapValues(data, (value, key) => {
-      return { threshold: value, symbol: clc[key].symbol };
-    });
-    return newclc;
-  }
-
   function criteriaToData(criteria) {
     const newData = _.mapValues(criteria, (value) => value.threshold);
     return newData;

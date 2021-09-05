@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Row } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import _ from "lodash";
 import { UserContext } from "../../services/firebase";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
