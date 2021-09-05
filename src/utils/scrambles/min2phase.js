@@ -327,6 +327,7 @@ var min2phase = (function () {
         (s.ea[ed] & 1);
     }
   };
+
   CubieCube.prototype.init = function (ca, ea) {
     this.ca = ca.slice();
     this.ea = ea.slice();
@@ -433,6 +434,7 @@ var min2phase = (function () {
     CubieCube.EdgeMult(CubieCube.urf2, this, temps);
     CubieCube.EdgeMult(temps, CubieCube.urf1, this);
   };
+
   var cornerFacelet = [
     [8, 9, 20],
     [6, 18, 38],
@@ -735,7 +737,6 @@ var min2phase = (function () {
     this.initSearch();
     return this.search();
   };
-
   Search.prototype.initSearch = function () {
     this.conjMask = (TRY_INVERSE ? 0 : 0x38) | (TRY_THREE_AXES ? 0 : 0x36);
     this.maxPreMoves = this.conjMask > 7 ? 0 : MAX_PRE_MOVES;
@@ -750,7 +751,6 @@ var min2phase = (function () {
       }
     }
   };
-
   Search.prototype.next = function (probeMax, probeMin, verbose) {
     this.probe = 0;
     this.probeMax = probeMax;
@@ -760,7 +760,6 @@ var min2phase = (function () {
     this.verbose = verbose;
     return this.search();
   };
-
   Search.prototype.verify = function (facelets) {
     if (this.cc.fromFacelet(facelets) === -1) {
       return -1;
@@ -798,7 +797,6 @@ var min2phase = (function () {
     }
     return 0; // cube ok
   };
-
   Search.prototype.phase1PreMoves = function (maxl, lm, cc) {
     this.preMoveLen = this.maxPreMoves - maxl;
     if (
@@ -851,7 +849,6 @@ var min2phase = (function () {
     }
     return 1;
   };
-
   Search.prototype.search = function () {
     const countThresh = 50;
     let count = 0;
@@ -886,7 +883,6 @@ var min2phase = (function () {
       ? "Error 7: could not find solution at this depth"
       : this.moveSol;
   };
-
   Search.prototype.initPhase2Pre = function () {
     this.isRec = false;
     if (this.probe >= (this.moveSol === null ? this.probeMax : this.probeMin)) {
