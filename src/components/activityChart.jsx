@@ -12,6 +12,15 @@ CalendarHeatmap.prototype.getHeight = function () {
   );
 };
 
+//Source: https://github.com/kevinsqi/react-calendar-heatmap/issues/146#issuecomment-913795816
+const WEEKDAYLABEL_LEFT = 5;
+CalendarHeatmap.prototype.getTransformForWeekdayLabels = function () {
+  if (this.props.horizontal) {
+    return `translate(${WEEKDAYLABEL_LEFT}, ${this.getMonthLabelSize()})`;
+  }
+  return null;
+};
+
 const addDays = (dateTime, days) => {
   var date = new Date(dateTime);
   date.setDate(date.getDate() + days);
@@ -95,7 +104,7 @@ export default function ActivityChart({ sessions, numDays }) {
         values={values}
         classForValue={classForValue}
         transformDayElement={transformDayElement}
-        // showWeekdayLabels={true}
+        showWeekdayLabels={true}
       />
     </div>
   );
