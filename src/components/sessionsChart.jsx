@@ -116,9 +116,9 @@ export default function SessionsChart({ sessionGroup }) {
     let start = sesh.bests.single;
     let end = sesh.worsts?.single;
     const range = end - start;
-    start -= (1 / 5) * range;
+    start -= (1 / 2) * start;
     end += (1 / 5) * range;
-    const xVals = _.range(_.floor(start), _.ceil(end), 0.5);
+    const xVals = _.range(_.floor(start), _.ceil(end), range / 100);
     const data = [];
 
     const lognormalpdf = (x, s0, m0) => {
