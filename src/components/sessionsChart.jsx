@@ -10,6 +10,8 @@ import {
   Line,
   Scatter,
   ErrorBar,
+  AreaChart,
+  Area,
 } from "recharts";
 import { Card, Table, Button } from "react-bootstrap";
 import { FaIcon } from "../fontAwesome";
@@ -105,21 +107,54 @@ export default function SessionsChart({ sessionGroup }) {
       }),
     ];
 
+    const data = [
+      { near: 16, count: 2 },
+      { near: 18, count: 5 },
+      { near: 20, count: 6 },
+      { near: 22, count: 9 },
+      { near: 24, count: 8 },
+      { near: 26, count: 2 },
+      { near: 28, count: 1 },
+    ];
+
     return (
-      <Table size={xs ? "sm" : ""}>
-        <colgroup>
-          <col span="1" style={{ width: "45%" }} />
-          <col span="1" style={{ width: "55%" }} />
-        </colgroup>
-        <tbody>
-          {rows.map((row) => (
-            <tr>
-              <td>{row.name}</td>
-              <td>{row.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <>
+        <Table size={xs ? "sm" : ""}>
+          <colgroup>
+            <col span="1" style={{ width: "45%" }} />
+            <col span="1" style={{ width: "55%" }} />
+          </colgroup>
+          <tbody>
+            {rows.map((row) => (
+              <tr>
+                <td>{row.name}</td>
+                <td>{row.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+        <div style={{ width: "100%", height: 200 }}>
+          <ResponsiveContainer>
+            <AreaChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+              <XAxis type="number" dataKey="near" stroke={axesColor} type />
+              <YAxis
+                // type="number"
+                // dataKey="near"
+                stroke={axesColor}
+                // label={{
+                //   value: "Count",
+                //   position: "insideLeft",
+                //   angle: -90,
+                //   style: { textAnchor: "middle" },
+                //   fill: axesColor,
+                // }}
+              />
+              <Area dataKey="count" type="step" dot={false} activeDot={false} />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </>
     );
   };
 
