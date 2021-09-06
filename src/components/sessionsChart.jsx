@@ -133,7 +133,7 @@ export default function SessionsChart({ sessionGroup }) {
             ))}
           </tbody>
         </Table>
-        <div style={{ width: "100%", height: 200 }}>
+        <div style={{ width: "100%", height: 160 }}>
           <ResponsiveContainer>
             <AreaChart data={data}>
               <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
