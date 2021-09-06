@@ -14,6 +14,7 @@ import {
   Area,
 } from "recharts";
 import { Card, Table, Button } from "react-bootstrap";
+import _ from "lodash";
 import { FaIcon } from "../fontAwesome";
 import DarkModeContext from "../hooks/useDarkMode";
 import useWindowDimensions from "../hooks/useWindowDimensions";
@@ -107,15 +108,33 @@ export default function SessionsChart({ sessionGroup }) {
       }),
     ];
 
-    const data = [
-      { near: 16, count: 2 },
-      { near: 18, count: 5 },
-      { near: 20, count: 6 },
-      { near: 22, count: 9 },
-      { near: 24, count: 8 },
-      { near: 26, count: 2 },
-      { near: 28, count: 1 },
-    ];
+    let start = sesh.bests.single;
+    let end = sesh.worsts?.single;
+    const range = end - start;
+    start -= (1 / 5) * range;
+    end += (1 / 5) * range;
+    const xVals = _.range(_.floor(start), _.ceil(end), 0.5);
+    const data = [];
+
+    const lognormalpdf = (x, s0, m0) => {
+      // GET LOGNORMAL MEAN & SD
+      const first = 2 * Math.log(m0);
+      const second = Math.log(Math.pow(s0, 2) + Math.pow(m0, 2));
+      const m = first - (1 / 2) * second;
+      const s = Math.sqrt(-first + second);
+
+      // GET LOGNORMAL PDF VALUE
+      const bottom1 = x * s * Math.sqrt(2 * Math.PI);
+      const left = 1 / bottom1;
+      const top2 = Math.log(x) - m;
+      const right = Math.exp((-1 / 2) * Math.pow(top2 / s, 2));
+      const ret = left * right;
+      return ret;
+    };
+    const s = sesh.sd;
+    const m = sesh.mean;
+    xVals.forEach((n) => data.push({ near: n, pdf: lognormalpdf(n, s, m) }));
+    const labelCommon = { style: { textAnchor: "middle" }, fill: axesColor };
 
     return (
       <>
@@ -135,22 +154,21 @@ export default function SessionsChart({ sessionGroup }) {
         </Table>
         <div style={{ width: "100%", height: 160 }}>
           <ResponsiveContainer>
-            <AreaChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
-              <XAxis type="number" dataKey="near" stroke={axesColor} type />
-              <YAxis
-                // type="number"
-                // dataKey="near"
-                stroke={axesColor}
-                // label={{
-                //   value: "Count",
-                //   position: "insideLeft",
-                //   angle: -90,
-                //   style: { textAnchor: "middle" },
-                //   fill: axesColor,
-                // }}
+            <AreaChart data={data} margin={{ top: 30 }}>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke={gridColor}
+                horizontal={false}
               />
-              <Area dataKey="count" type="step" dot={false} activeDot={false} />
+              <XAxis type="number" dataKey="near" stroke={axesColor} type />
+              <Area
+                dataKey="pdf"
+                type="monotone"
+                dot={false}
+                activeDot={false}
+                fill="#967bb6"
+                stroke="#967bb6"
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>
