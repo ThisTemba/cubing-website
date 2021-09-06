@@ -5,7 +5,7 @@ import CenterModalHeader from "../components/common/centerModalHeader";
 import DarkModeContext from "./useDarkMode";
 import _ from "lodash";
 
-export default function useModal() {
+export default function useModal(size) {
   const [show, setShow] = useState(false);
   const [animation, setAnimation] = useState(true);
   const { darkMode } = useContext(DarkModeContext);
@@ -35,7 +35,12 @@ export default function useModal() {
   const ModalComponent = () => {
     if (_.has(content, "title") && _.has(content, "body"))
       return (
-        <Modal show={show} onHide={hideModal} animation={animation}>
+        <Modal
+          show={show}
+          onHide={hideModal}
+          animation={animation}
+          size={size ? size : ""}
+        >
           <CenterModalHeader
             title={content.title}
             onClose={hideModal}
