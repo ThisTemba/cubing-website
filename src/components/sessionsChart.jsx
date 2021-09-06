@@ -28,7 +28,7 @@ export default function SessionsChart({ sessionGroup }) {
   const { xs } = useWindowDimensions();
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useContext(UserContext);
-  const [SessionModal, _showSessionModal, hideSessionModal] = useModal();
+  const [SessionModal, _showSessionModal, hideSessionModal] = useModal("lg");
   const [ConfirmModal, _showConfirmModal, hideConfirmModal] = useModal();
 
   sessionGroup.sessions = sessionGroup.sessions.filter(
