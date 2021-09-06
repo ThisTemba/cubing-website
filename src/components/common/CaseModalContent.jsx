@@ -17,8 +17,8 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
   const [editing, setEditing] = useState(false);
   const [caseDoc, setCaseDoc] = useState(null);
   const { user } = useContext(UserContext);
-  const customOption = { value: null, label: "Custom" };
   const { darkMode } = useContext(DarkModeContext);
+  const customOption = { value: null, label: "Custom" };
 
   useEffect(() => {
     const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
