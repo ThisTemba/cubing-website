@@ -130,7 +130,71 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
     },
   });
 
-  const caseModalContent = (
+  const Table1 = ({ cas, caseSetDetails }) => {
+    return (
+      <Table size={"sm"} className="mb-0">
+        <tbody>
+          <tr>
+            <th>{"Name"}</th>
+            <td>{cas.name}</td>
+          </tr>
+          {cas.group && (
+            <tr>
+              <th>{"Group"}</th>
+              <td>{cas.group}</td>
+            </tr>
+          )}
+          <tr>
+            <th>{"Case Set"}</th>
+            <td>{caseSetDetails.title}</td>
+          </tr>
+          <tr>
+            <th>{"Algorithm"}</th>
+            <td>
+              <Button onClick={edit} variant="link" size="md" className="p-0">
+                {cas.alg}
+              </Button>
+            </td>
+          </tr>
+        </tbody>
+      </Table>
+    );
+  };
+
+  const Table2 = ({ statCols, cas }) => {
+    return (
+      <Table size={"sm"} className="mb-0">
+        <tbody>
+          {statCols.map((col) => {
+            return (
+              <tr>
+                <th>{col.Header}</th>
+                <td>{col.Cell(cas[col.key])}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    );
+  };
+
+  const Footer = ({ editing, edit, hideModal, save }) => {
+    return (
+      <Modal.Footer>
+        {!editing && (
+          <>
+            <Button onClick={edit}>Edit</Button>
+            <Button variant="secondary" onClick={hideModal}>
+              Close
+            </Button>
+          </>
+        )}
+        {editing && <Button onClick={save}>Save</Button>}
+      </Modal.Footer>
+    );
+  };
+
+  return (
     <>
       <CenterModalHeader title={cas.name} onClose={hideModal} />
       <Modal.Body className="text-center">
@@ -148,37 +212,7 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="0">
-                <Table size={"sm"} className="mb-0">
-                  <tbody>
-                    <tr>
-                      <th>{"Name"}</th>
-                      <td>{cas.name}</td>
-                    </tr>
-                    {cas.group && (
-                      <tr>
-                        <th>{"Group"}</th>
-                        <td>{cas.group}</td>
-                      </tr>
-                    )}
-                    <tr>
-                      <th>{"Case Set"}</th>
-                      <td>{caseSetDetails.title}</td>
-                    </tr>
-                    <tr>
-                      <th>{"Algorithm"}</th>
-                      <td>
-                        <Button
-                          onClick={edit}
-                          variant="link"
-                          size="md"
-                          className="p-0"
-                        >
-                          {cas.alg}
-                        </Button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
+                <Table1 cas={cas} caseSetDetails={caseSetDetails} />
               </Accordion.Collapse>
             </Card>
             <Card>
@@ -193,18 +227,7 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
                 </Accordion.Toggle>
               </Card.Header>
               <Accordion.Collapse eventKey="1">
-                <Table size={"sm"} className="mb-0">
-                  <tbody>
-                    {statCols.map((c) => {
-                      return (
-                        <tr>
-                          <th>{c.Header}</th>
-                          <td>{c.Cell(cas[c.key])}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </Table>
+                <Table2 statCols={statCols} cas={cas} />
               </Accordion.Collapse>
             </Card>
           </Accordion>
@@ -230,19 +253,7 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
           </Table>
         )}
       </Modal.Body>
-      <Modal.Footer>
-        {!editing && (
-          <>
-            <Button onClick={edit}>Edit</Button>
-            <Button variant="secondary" onClick={hideModal}>
-              Close
-            </Button>
-          </>
-        )}
-        {editing && <Button onClick={save}>Save</Button>}
-      </Modal.Footer>
+      <Footer editing={editing} edit={edit} hideModal={hideModal} save={save} />
     </>
   );
-
-  return caseModalContent;
 }
