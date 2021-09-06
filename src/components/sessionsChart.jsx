@@ -165,7 +165,7 @@ export default function SessionsChart({ sessionGroup }) {
                 stroke={gridColor}
                 horizontal={false}
               />
-              <XAxis type="number" dataKey="near" stroke={axesColor} type />
+              <YAxis hide={true} domain={[0, 0.2]} />
               <Area
                 dataKey="pdf"
                 type="monotone"
