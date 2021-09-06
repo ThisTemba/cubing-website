@@ -47,10 +47,15 @@ export default function SessionsChart({ sessionGroup }) {
     return { ...sesh, iqrEB, msbEB, sessionNum };
   });
 
-  const gray = { 400: "#ced4da", 600: "#6c757d", 700: "#495057" };
+  const gray = {
+    400: "#ced4da",
+    500: "#adb5bd",
+    600: "#6c757d",
+    700: "#495057",
+  };
   const primaryColor = darkMode ? "#967bb6" : "#af94cf";
   const gridColor = darkMode ? gray[700] : gray[400];
-  const axesColor = darkMode ? gray[400] : gray[700];
+  const axesColor = darkMode ? gray[500] : gray[700];
   const iqrEBcolor = darkMode ? primaryColor + "80" : primaryColor + "60";
   const msbEBcolor = darkMode ? primaryColor + "80" : primaryColor + "60";
 
