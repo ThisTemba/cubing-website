@@ -12,6 +12,7 @@ import {
   ErrorBar,
   AreaChart,
   Area,
+  ReferenceLine,
 } from "recharts";
 import { Card, Table, Button } from "react-bootstrap";
 import _ from "lodash";
@@ -86,14 +87,14 @@ export default function SessionsChart({ sessionGroup }) {
     const rows = [
       { name: "Number of Solves", value: sesh.numSolves },
       { name: "Session Average", value: dispDur(sesh.sessionAverage) },
-      {
-        name: "50% of solves between",
-        value: `${dispDur(q1)} and ${dispDur(q3)}`,
-      },
-      {
-        name: "80% of solves between",
-        value: `${dispDur(p10)} and ${dispDur(p90)}`,
-      },
+      // {
+      //   name: "50% of solves between",
+      //   value: `${dispDur(q1)} and ${dispDur(q3)}`,
+      // },
+      // {
+      //   name: "80% of solves between",
+      //   value: `${dispDur(p10)} and ${dispDur(p90)}`,
+      // },
       ...bestsToDisplay.map((b) => {
         const isGlobalBest = sesh.id === sessionGroup.bests[b.key].sessionId;
         const color = darkMode ? "gold" : "orange";
@@ -157,15 +158,53 @@ export default function SessionsChart({ sessionGroup }) {
             ))}
           </tbody>
         </Table>
-        <div style={{ width: "100%", height: 160 }}>
+        <div style={{ width: "100%", height: xs ? 160 : 400 }}>
           <ResponsiveContainer>
-            <AreaChart data={data} margin={{ top: 30 }}>
+            <AreaChart data={data} margin={{ top: 20, left: 30, right: 30 }}>
               <CartesianGrid
                 strokeDasharray="3 3"
                 stroke={gridColor}
                 horizontal={false}
               />
-              <YAxis hide={true} domain={[0, 0.2]} />
+              <ReferenceLine
+                x={sesh.sessionAverage}
+                stroke="#0d6efd"
+                label={{
+                  value: "AoAll",
+                  position: "top",
+                  ...labelCommon,
+                }}
+              />
+              <ReferenceLine
+                x={sesh.bests.ao5}
+                stroke="#6610f2"
+                label={{
+                  value: "SB Ao5",
+                  position: "top",
+                  ...labelCommon,
+                }}
+              />
+              <ReferenceLine
+                x={sesh.bests.single}
+                stroke="#198754"
+                label={{
+                  value: "SB Single",
+                  position: "top",
+                  ...labelCommon,
+                }}
+              />
+              <XAxis
+                type="number"
+                dataKey="near"
+                stroke={axesColor}
+                interval="preserveStartEnd"
+                domain={[14, 30]}
+                tickCount={11}
+                allowDecimals={true}
+                allowDataOverflow={true}
+                tickFormatter={(value) => dispDur(value)}
+              />
+              <YAxis hide={true} domain={[0, 0.05]} />
               <Area
                 dataKey="pdf"
                 type="monotone"
