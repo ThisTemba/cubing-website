@@ -52,44 +52,52 @@ const getFtrick = (grip, move) => {
   return { code, hand, ftrick };
 };
 
-const attempAlgWithGrip = (initGrip, alg) => {
+const regriplessAttempt = (initGrip, alg) => {
   const moves = alg.split(" ");
   let grip = initGrip;
-  const ftricks = [];
+  const descs = [];
+  const codes = [];
   moves.forEach((move) => {
     const { code, hand, ftrick } = getFtrick(grip, move);
     if (code === null) {
-      ftricks.push(null);
+      descs.push(null);
       return;
     } else {
       const regrip = ftrick.regrip ? hand * 256 + ftrick.regrip : null;
       grip = changeGrip(grip, regrip);
       const { description0, description1 } = ftrick;
       const desc = hand === 0 ? description0 : description1 || description0;
-      ftricks.push((hand === 0 ? "right" : "left") + " " + desc);
+      descs.push((hand === 0 ? "right" : "left") + " " + desc);
+      codes.push(hand * 256 + code);
     }
   });
-  return ftricks;
+  return { codes, descs };
 };
 
 const attemptAlg = (alg, includeInvalid = false) => {
   const grips = ["home", "R", "R'"];
+  const regrips = [null, 0x060, 0x061];
   const solutions = [];
   grips.forEach((grip) => {
-    const ftricks = attempAlgWithGrip(grip, alg);
-    const isValid = !ftricks.includes(null) && !ftricks.includes(undefined);
+    let { codes, descs } = regriplessAttempt(grip, alg);
+    const isValid = !descs.includes(null) && !descs.includes(undefined);
     const include = isValid || includeInvalid;
-    if (include) solutions.push({ ftricks, grip });
+    if (include) solutions.push({ codes, descs, grip });
   });
   if (solutions.length > 0) return solutions;
   else return null;
 };
 
-const solutions = attemptAlg("R U' R U R U R U' R' U' R2", true);
-solutions?.forEach(({ ftricks, grip }) => {
+const algometer = (codes) => {
+  return codes.length;
+};
+
+const solutions = attemptAlg("R U' R", true);
+solutions?.forEach(({ codes, descs, grip }) => {
   console.log();
   console.log(`Basic solution with ${grip} grip:`);
-  ftricks.forEach((a) => console.log(a));
+  descs.forEach((a) => console.log(a));
+  console.log(algometer(codes));
 });
 
 if (!solutions) console.log("No solutions for given grips");
