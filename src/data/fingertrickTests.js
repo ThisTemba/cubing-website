@@ -68,3 +68,15 @@ const attemptMove = (grip, move) => {
   const ftrick = _.find(fingertricks, ["code", lefty ? code - 256 : code]);
   return code !== null ? hand + " " + ftrick?.description : null;
 };
+
+const attempAlgWithGrip = (initGrip, alg) => {
+  const moves = alg.split(" ");
+  let grip = initGrip;
+  const ftricks = [];
+  moves.forEach((move) => {
+    const attemptedMove = attemptMove(grip, move);
+    grip = changeGrip(grip, move);
+    ftricks.push(attemptedMove);
+  });
+  return ftricks;
+};
