@@ -245,7 +245,7 @@ module.exports.fingertricks = [
     notes: "",
   },
   {
-    code: 51,
+    code: 0x051,
     description: "pinky L'",
     group: "pinky",
     in: "",
