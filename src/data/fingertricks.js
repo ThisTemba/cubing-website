@@ -84,6 +84,20 @@ module.exports.fingertricks = [
     notes: "",
   },
   {
+    code: 0x012,
+    description: "thumb push",
+    group: "thumb",
+    in: "",
+    notes: "",
+  },
+  {
+    code: 0x018,
+    description: "thumb w push",
+    group: "thumb",
+    in: "",
+    notes: "",
+  },
+  {
     code: 0x020,
     description: "index pull",
     group: "index",
