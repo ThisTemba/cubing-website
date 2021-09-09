@@ -16,20 +16,13 @@ function parseMask(arr, length) {
 
 const parseFingertrick = (ftrick) => {
   const parsedCode = parseMask(ftrick.code, 3);
-  const index = parsedCode[0];
-  const groupNum = parsedCode[1];
-  const hand = parsedCode[2];
-
-  //   console.log("group", ftrick.group);
-  console.log("groupNum", groupNum);
-  console.log("index", index);
-  console.log("");
   return parsedCode;
 };
 
 const readFingertricks = (fingertricks) => {
   fingertricks.forEach((ftrick) => parseFingertrick(ftrick));
 };
+
 readFingertricks(fingertricks);
 
 const changeGrip = (grip, move) => {
