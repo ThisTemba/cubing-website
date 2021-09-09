@@ -1,4 +1,5 @@
-const { fingertricks } = require("./fingertricks");
+const { fingertricks, grips } = require("./fingertricks");
+const _ = require("lodash");
 
 function parseMask(arr, length) {
   if ("number" !== typeof arr) {
