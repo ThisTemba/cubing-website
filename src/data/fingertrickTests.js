@@ -51,3 +51,20 @@ const changeGrip = (grip, move) => {
   //   console.log("grip + move = newGrip,", grip, move, newGrip);
   return newGrip;
 };
+
+const attemptMove = (grip, move) => {
+  //   console.log(grip, move);
+  const code = grips[grip][move]?.[0];
+  if (typeof code === "undefined") {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `could not find ${move} move in ${grip} grip`
+    );
+    return code;
+  }
+  //   console.log(code?.toString(16));
+  const lefty = code > 0xff;
+  const hand = lefty ? "left" : "right";
+  const ftrick = _.find(fingertricks, ["code", lefty ? code - 256 : code]);
+  return code !== null ? hand + " " + ftrick?.description : null;
+};
