@@ -189,7 +189,7 @@ module.exports.fingertricks = [
     notes: "",
   },
   {
-    code: 40,
+    code: 0x040,
     description: "ring pull",
     group: "ring",
     in: "",
