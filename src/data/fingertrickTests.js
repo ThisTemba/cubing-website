@@ -30,3 +30,24 @@ const readFingertricks = (fingertricks) => {
   fingertricks.forEach((ftrick) => parseFingertrick(ftrick));
 };
 readFingertricks(fingertricks);
+
+const changeGrip = (grip, move) => {
+  let newGrip;
+  if (grip === "home" && move === "R") newGrip = "R";
+  if (grip === "home" && move === "R'") newGrip = "R'";
+  if (grip === "R" && move === "R'") newGrip = "home";
+  if (grip === "R'" && move === "R") newGrip = "home";
+  if (grip === "R" && move === "R2'") newGrip = "R'";
+  if (grip === "R" && move === "R2") newGrip = "R'";
+  if (grip === "R'" && move === "R2") newGrip = "R";
+  if (grip === "home" && move === "r") newGrip = "R";
+  if (grip === "home" && move === "r'") newGrip = "R'";
+  if (grip === "R" && move === "r'") newGrip = "home";
+  if (grip === "R'" && move === "r") newGrip = "home";
+  if (grip === "R" && move === "r2'") newGrip = "R'";
+  if (grip === "R" && move === "r2") newGrip = "R'";
+  if (grip === "R'" && move === "r2") newGrip = "R";
+  newGrip = newGrip || grip;
+  //   console.log("grip + move = newGrip,", grip, move, newGrip);
+  return newGrip;
+};
