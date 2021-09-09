@@ -80,3 +80,22 @@ const attempAlgWithGrip = (initGrip, alg) => {
   });
   return ftricks;
 };
+
+const attemptAlg = (alg) => {
+  const grips = ["home", "R", "R'"];
+  const solutions = [];
+  grips.forEach((grip) => {
+    const ftricks = attempAlgWithGrip(grip, alg);
+    if (!ftricks.includes(null) && !ftricks.includes(undefined)) {
+      solutions.push({ grip, ftricks });
+    }
+  });
+  solutions.forEach(({ ftricks, grip }) => {
+    console.log();
+    console.log(`Basic solution with ${grip} grip:`);
+    ftricks.forEach((a) => console.log(a));
+  });
+  if (solutions.length === 0) console.log("No basic solutions found");
+};
+
+const res = attemptAlg("F R U' R' U' R U R' F' R U R' U' R' F R F'");
