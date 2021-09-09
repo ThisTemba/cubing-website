@@ -5,6 +5,11 @@ class Fingering {
     this.descs = [];
   }
 
+  parseCode(code) {
+    const [hand, id] = [(code & 0xf00) / 256, code & 0x0ff];
+    return { hand, id };
+  }
+
   push(code) {
     this.codes.push(code);
   }
