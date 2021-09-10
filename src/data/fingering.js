@@ -75,8 +75,23 @@ class Fingering {
     const regrip = this.getRegrip(code);
     this.changeGrip(regrip);
   }
+
+  nextMove(move) {
+    const code = grips[this.grip][move]?.[0];
+    if (typeof code === "undefined") {
+      throw new Error(`No data for ${move} move in ${grip} grip`);
+    } else if (code === null) {
+      return { code: null, hand: null, ftrick: null };
+    }
+    this.push(code);
+  }
 }
 
 const jperm = new Fingering();
-jperm.push(0x060);
-console.log(jperm.codes);
+jperm.nextMove("R");
+jperm.nextMove("U");
+jperm.nextMove("R'");
+jperm.nextMove("U'");
+console.log(jperm.descs);
+
+module.exports = { Fingering };
