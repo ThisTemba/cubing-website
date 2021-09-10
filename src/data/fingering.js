@@ -115,26 +115,40 @@ class Fingering {
 module.exports = { Fingering };
 
 const fingerAlg = function (alg) {
-  const regrips = [null, 0x060, 0x061, 0x062, 0x063];
-  const fingerings = [];
+  const regrips = [0x060, 0x061, 0x062, 0x063];
+  const solutions = [];
   const moves = alg.split(" ");
   const algLen = moves.length;
+
+  const regriplessFing = new Fingering("R'");
+  const success = regriplessFing.fingerAlgRegripless(alg);
+  if (success)
+    solutions.push({
+      fingering: regriplessFing,
+      regrip: null,
+      position: null,
+    });
   regrips.forEach((regrip) => {
-    for (let i = 0; i < algLen + 1; i++) {
-      const fingering = new Fingering();
+    for (let i = 0; i < algLen; i++) {
+      const fingering = new Fingering("R'");
       const headAlg = moves.slice(0, i).join(" ");
       const tailAlg = moves.slice(i).join(" ");
 
       const success1 = fingering.fingerAlgRegripless(headAlg);
       if (!success1) continue;
-      const success2 = fingering.push(regrip);
-      if (!success2) continue;
+
+      if (regrip) {
+        const success2 = fingering.push(regrip);
+        if (!success2) continue;
+      }
+
       const success3 = fingering.fingerAlgRegripless(tailAlg);
       if (!success3) continue;
-      fingerings.push(fingering);
+
+      solutions.push({ fingering, regrip, position: i });
     }
   });
-  return fingerings;
+  return solutions;
 };
 
 const results = fingerAlg("R U' R U R U");
