@@ -3,7 +3,7 @@ const _ = require("lodash");
 
 class Fingering {
   constructor(grip) {
-    this.grip = typeof grip !== "undefined" ? grip : 0;
+    this.grip = typeof grip !== "undefined" ? grip : "home";
     this.codes = [];
     this.descs = [];
   }
