@@ -112,6 +112,15 @@ class Fingering {
       console.log(desc);
     });
   }
+
+  get score() {
+    let score = this.codes.length;
+    this.codes.forEach((code) => {
+      const { hand, finger } = this.parseCode(code);
+      console.log(hand, finger);
+    });
+    return score;
+  }
 }
 
 module.exports = { Fingering };
