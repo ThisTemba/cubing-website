@@ -25,6 +25,24 @@ class Fingering {
     return (hand ? "left" : "right") + " " + desc;
   }
 
+  changeGrip(regrip) {
+    let change = 0;
+    if (regrip === 0x060) change = 1;
+    if (regrip === 0x061) change = -1;
+    if (regrip === 0x062) change = 2;
+    if (regrip === 0x063) change = -2;
+
+    if (typeof this.grip !== "number") {
+      throw new Error("THIS GRIP SEEMS INVALID");
+    } else {
+      if (Math.abs(this.grip + change) > 1) {
+        throw new Error("THIS GRIP SEEMS INVALID");
+      } else {
+        this.grip = this.grip + change;
+      }
+    }
+  }
+
   push(code) {
     this.codes.push(code);
   }
