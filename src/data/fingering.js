@@ -18,6 +18,13 @@ class Fingering {
     return _.find(fingertricks, ["id", id]);
   }
 
+  getDesc(code) {
+    const { description0, description1 } = this.findFingertrick(code);
+    const { hand } = this.parseCode(code);
+    const desc = hand === 0 ? description0 : description1 || description0;
+    return (hand ? "left" : "right") + " " + desc;
+  }
+
   push(code) {
     this.codes.push(code);
   }
