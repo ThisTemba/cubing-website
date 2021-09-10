@@ -135,24 +135,33 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
       <Table size={"sm"} className="mb-0">
         <tbody>
           <tr>
-            <th>{"Name"}</th>
-            <td>{cas.name}</td>
+            <th className="align-middle">{"Name"}</th>
+            <td className="align-middle">{cas.name}</td>
           </tr>
           {cas.group && (
             <tr>
-              <th>{"Group"}</th>
-              <td>{cas.group}</td>
+              <th className="align-middle">{"Group"}</th>
+              <td className="align-middle">{cas.group}</td>
             </tr>
           )}
           <tr>
-            <th>{"Case Set"}</th>
-            <td>{caseSetDetails.title}</td>
+            <th className="align-middle">{"Case Set"}</th>
+            <td className="align-middle">{caseSetDetails.title}</td>
           </tr>
           <tr>
-            <th>{"Algorithm"}</th>
-            <td>
+            <th className="align-middle">{"Algorithm"}</th>
+            <td className="align-middle">
               <Button onClick={edit} variant="link" size="md" className="p-0">
                 {cas.alg}
+              </Button>{" "}
+              <Button
+                onClick={() =>
+                  console.log(navigator.clipboard.writeText(cas.alg))
+                }
+                size="sm"
+                variant={darkMode ? "dark" : "light"}
+              >
+                <FaIcon icon="copy"></FaIcon>
               </Button>
             </td>
           </tr>
