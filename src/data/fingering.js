@@ -151,10 +151,11 @@ const fingerAlg = function (alg) {
   return solutions;
 };
 
-const results = fingerAlg("R U' R U R U");
-console.log(
-  results.map((fing) => {
-    console.log("");
-    fing.print();
-  })
-);
+const solutions = fingerAlg("F R U' R' U' R U R' F' R U R' U' R' F R F'");
+solutions.forEach(({ fingering, regrip, position }) => {
+  console.log();
+  console.log(
+    `Regrip: ${regrip?.toString(16) || "none"} at ${position || "nowhere"}`
+  );
+  console.log(fingering.descs);
+});
