@@ -44,6 +44,14 @@ class Fingering {
     return map[num];
   }
 
+  getRegrip = (code) => {
+    const ftrick = this.findFingertrick(code);
+    const { hand } = this.parseCode(code);
+    const hasRegrip = typeof ftrick.regrip !== "undefined";
+    if (hasRegrip) return hand * 256 + ftrick.regrip;
+    else return null;
+  };
+
   changeGrip(regrip) {
     const gripNum = this.gripToNum(this.grip);
     let change = 0;
