@@ -89,7 +89,7 @@ class Fingering {
     }
   }
 
-  fingerAlg(alg) {
+  fingerAlgRegripless(alg) {
     const moves = alg.split(" ");
     moves.forEach((move) => {
       this.nextMove(move);
