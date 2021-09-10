@@ -45,20 +45,19 @@ class Fingering {
   }
 
   changeGrip(regrip) {
+    const gripNum = this.gripToNum(this.grip);
     let change = 0;
     if (regrip === 0x060) change = 1;
     if (regrip === 0x061) change = -1;
     if (regrip === 0x062) change = 2;
     if (regrip === 0x063) change = -2;
 
-    if (typeof this.grip !== "number") {
+    if (Math.abs(gripNum + change) > 1) {
       throw new Error("THIS GRIP SEEMS INVALID");
     } else {
-      if (Math.abs(this.grip + change) > 1) {
-        throw new Error("THIS GRIP SEEMS INVALID");
-      } else {
-        this.grip = this.grip + change;
-      }
+      const num = gripNum + change;
+      console.log(change);
+      this.grip = this.NumtoGrip(num);
     }
   }
 
