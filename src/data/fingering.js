@@ -89,7 +89,7 @@ class Fingering {
   nextMove(move) {
     const code = grips[this.grip][move]?.[0];
     if (typeof code === "undefined") {
-      throw new Error(`No data for ${move} move in ${grip} grip`);
+      throw new Error(`No data for ${move} move in ${this.grip} grip`);
     } else {
       this.push(code);
     }
