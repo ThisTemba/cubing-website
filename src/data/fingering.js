@@ -81,6 +81,20 @@ class Fingering {
       throw new Error(`No data for ${move} move in ${grip} grip`);
     } else {
       this.push(code);
+    }
+  }
+
+  fingerAlg(alg) {
+    const moves = alg.split(" ");
+    moves.forEach((move) => {
+      this.nextMove(move);
+    });
+  }
+
+  print() {
+    this.descs.forEach((desc) => {
+      console.log(desc);
+    });
   }
 }
 
