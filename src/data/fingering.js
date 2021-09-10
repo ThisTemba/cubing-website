@@ -163,12 +163,15 @@ const fingerAlg = function (alg) {
   return solutions;
 };
 
-const solutions = fingerAlg("R U R U R");
-solutions.forEach(({ fingering, regrip: regrp, position: pos }) => {
-  const position = typeof pos === "number" ? pos : "nowhere";
-  const regrip = regrp?.toString(16) || "none";
-  console.log();
-  console.log(`Regrip: ${regrip} at ${position}`);
-  console.log("Score:", fingering.score);
-  console.log(fingering.descs);
-});
+const solutions = fingerAlg("R U R' U R U2 R'");
+const bestSolution = _.minBy(solutions, (solution) => solution.fingering.score);
+console.log(bestSolution.fingering.descs);
+
+// solutions.forEach(({ fingering, regrip: regrp, position: pos }) => {
+//   const position = typeof pos === "number" ? pos : "nowhere";
+//   const regrip = regrp?.toString(16) || "none";
+//   console.log();
+//   console.log(`Regrip: ${regrip} at ${position}`);
+//   console.log("Score:", fingering.score);
+//   console.log(fingering.descs);
+// });
