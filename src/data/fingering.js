@@ -112,11 +112,35 @@ class Fingering {
   }
 }
 
-const jperm = new Fingering();
-jperm.nextMove("R");
-jperm.nextMove("U");
-jperm.nextMove("R'");
-jperm.nextMove("U'");
-console.log(jperm.descs);
-
 module.exports = { Fingering };
+
+const fingerAlg = function (alg) {
+  const regrips = [null, 0x060, 0x061, 0x062, 0x063];
+  const fingerings = [];
+  const moves = alg.split(" ");
+  const algLen = moves.length;
+  regrips.forEach((regrip) => {
+    for (let i = 0; i < algLen + 1; i++) {
+      const fingering = new Fingering();
+      const headAlg = moves.slice(0, i).join(" ");
+      const tailAlg = moves.slice(i).join(" ");
+
+      const success1 = fingering.fingerAlgRegripless(headAlg);
+      if (!success1) continue;
+      const success2 = fingering.push(regrip);
+      if (!success2) continue;
+      const success3 = fingering.fingerAlgRegripless(tailAlg);
+      if (!success3) continue;
+      fingerings.push(fingering);
+    }
+  });
+  return fingerings;
+};
+
+const results = fingerAlg("R U' R U R U");
+console.log(
+  results.map((fing) => {
+    console.log("");
+    fing.print();
+  })
+);
