@@ -72,15 +72,18 @@ class Fingering {
   }
 
   push(code) {
+    let success;
     if (code !== null) {
       this.codes.push(code);
       this.descs.push(this.getDesc(code));
       const regrip = this.getRegrip(code);
-      this.changeGrip(regrip);
+      success = this.changeGrip(regrip);
     } else {
       this.codes.push(null);
       this.descs.push(null);
+      success = true;
     }
+    return success;
   }
 
   nextMove(move) {
