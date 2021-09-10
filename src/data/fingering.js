@@ -6,6 +6,7 @@ class Fingering {
     this.grip = typeof grip !== "undefined" ? grip : "home";
     this.codes = [];
     this.descs = [];
+    this.moves = [];
   }
 
   parseCode(code) {
