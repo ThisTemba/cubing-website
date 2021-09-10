@@ -131,7 +131,7 @@ const fingerAlg = function (alg) {
   const moves = alg.split(" ");
   const algLen = moves.length;
 
-  const regriplessFing = new Fingering("R'");
+  const regriplessFing = new Fingering();
   const success = regriplessFing.fingerAlgRegripless(alg);
   if (success)
     solutions.push({
@@ -141,7 +141,7 @@ const fingerAlg = function (alg) {
     });
   regrips.forEach((regrip) => {
     for (let i = 0; i < algLen; i++) {
-      const fingering = new Fingering("R'");
+      const fingering = new Fingering();
       const headAlg = moves.slice(0, i).join(" ");
       const tailAlg = moves.slice(i).join(" ");
 
