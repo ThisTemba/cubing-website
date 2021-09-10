@@ -69,10 +69,15 @@ class Fingering {
   }
 
   push(code) {
-    this.codes.push(code);
-    this.descs.push(this.getDesc(code));
-    const regrip = this.getRegrip(code);
-    this.changeGrip(regrip);
+    if (code !== null) {
+      this.codes.push(code);
+      this.descs.push(this.getDesc(code));
+      const regrip = this.getRegrip(code);
+      this.changeGrip(regrip);
+    } else {
+      this.codes.push(null);
+      this.descs.push(null);
+    }
   }
 
   nextMove(move) {
