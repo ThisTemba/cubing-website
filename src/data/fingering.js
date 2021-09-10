@@ -89,8 +89,14 @@ class Fingering {
     return success;
   }
 
-  nextMove(move) {
-    const code = grips[this.grip][move]?.[0];
+  nextMove(move, { prevFinger, prevPrevFinger }) {
+    let code = grips[this.grip][move]?.[0];
+    const { finger, id } = this.parseCode(code);
+    if (finger === prevFinger || finger === prevPrevFinger) {
+      if (id === 0x020) {
+        code = 0x030;
+      }
+    }
     if (typeof code === "undefined") {
       throw new Error(`No data for ${move} move in ${this.grip} grip`);
     } else {
@@ -101,8 +107,11 @@ class Fingering {
   fingerAlgRegripless(alg) {
     if (alg.length === 0) return true;
     const moves = alg.split(" ");
-    moves.forEach((move) => {
-      this.nextMove(move);
+    moves.forEach((move, i) => {
+      const { finger: prevFinger } = this.parseCode(this.codes[i - 1]);
+      const { finger: prevPrevFinger } = this.parseCode(this.codes[i - 2]);
+      const prevData = { prevFinger, prevPrevFinger };
+      this.nextMove(move, prevData);
     });
     if (this.codes.includes(null)) return false;
     else return true;
@@ -116,9 +125,13 @@ class Fingering {
 
   get score() {
     let score = this.codes.length;
-    this.codes.forEach((code) => {
-      const { hand, finger } = this.parseCode(code);
-      console.log(hand, finger);
+    this.codes.forEach((code, i) => {
+      const { hand, group } = this.parseCode(code);
+      if (group == 6) {
+        const { hand: prevHand } = this.parseCode(this.codes[i - 1]);
+        const { hand: nextHand } = this.parseCode(this.codes[i + 1]);
+        if (prevHand === hand && hand === nextHand) score += 1;
+      }
     });
     return score;
   }
