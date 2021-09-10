@@ -11,9 +11,10 @@ class Fingering {
 
   parseCode(code) {
     const hand = (code & 0xf00) / 256;
-    const finger = (code & 0x0f0) / 16;
+    const group = (code & 0x0f0) / 16;
+    const finger = (code & 0xff0) / 16;
     const id = code & 0x0ff;
-    return { hand, finger, id };
+    return { hand, finger, id, group };
   }
 
   findFingertrick(code) {
