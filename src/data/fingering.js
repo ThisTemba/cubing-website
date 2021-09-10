@@ -71,6 +71,9 @@ class Fingering {
 
   push(code) {
     this.codes.push(code);
+    this.descs.push(this.getDesc(code));
+    const regrip = this.getRegrip(code);
+    this.changeGrip(regrip);
   }
 }
 
