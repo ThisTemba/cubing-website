@@ -79,10 +79,8 @@ class Fingering {
     const code = grips[this.grip][move]?.[0];
     if (typeof code === "undefined") {
       throw new Error(`No data for ${move} move in ${grip} grip`);
-    } else if (code === null) {
-      return { code: null, hand: null, ftrick: null };
-    }
-    this.push(code);
+    } else {
+      this.push(code);
   }
 }
 
