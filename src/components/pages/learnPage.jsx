@@ -106,7 +106,7 @@ export default function LearnPage(props) {
                 frameBorder="0"
                 width="250"
                 height="290"
-                src={`https://ruwix.com/widget/3d/?alg=${currentCase.algs[0]}&speed=1000&colors=F:b%20L:o%20B:g%20R:r`}
+                src={`https://ruwix.com/widget/3d/?alg=${currentCase.alg}&speed=1000&colors=F:b%20L:o%20B:g%20R:r`}
                 scrolling="no"
               ></iframe>
             </Card.Body>
@@ -124,7 +124,7 @@ export default function LearnPage(props) {
         {"Algorithm "}
         {renderVisibilityButton(algVisible)}
       </div>
-      {algVisible && <ScrambleDisplay scramble={currentCase.algs[0]} />}
+      {algVisible && <ScrambleDisplay scramble={currentCase.alg} />}
     </div>
   );
 }

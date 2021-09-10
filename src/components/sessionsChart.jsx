@@ -29,7 +29,7 @@ export default function SessionsChart({ sessionGroup }) {
   const { xs } = useWindowDimensions();
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useContext(UserContext);
-  const [SessionModal, _showSessionModal, hideSessionModal] = useModal("lg");
+  const [SessionModal, _showSessionModal, hideSessionModal] = useModal();
   const [ConfirmModal, _showConfirmModal, hideConfirmModal] = useModal();
 
   sessionGroup.sessions = sessionGroup.sessions.filter(
@@ -115,9 +115,9 @@ export default function SessionsChart({ sessionGroup }) {
     ];
 
     let start = sesh.bests.single;
-    let end = sesh.worsts?.single;
+    let end = sesh.worsts?.nonDNFSingle;
     const range = end - start;
-    start -= (1 / 2) * start;
+    start -= (1 / 4) * start;
     end += (1 / 5) * range;
     const xVals = _.range(_.floor(start), _.ceil(end), range / 100);
     const data = [];
@@ -158,7 +158,7 @@ export default function SessionsChart({ sessionGroup }) {
             ))}
           </tbody>
         </Table>
-        <div style={{ width: "100%", height: xs ? 160 : 400 }}>
+        {/* <div style={{ width: "100%", height: xs ? 160 : 400 }}>
           <ResponsiveContainer>
             <AreaChart data={data} margin={{ top: 20, left: 30, right: 30 }}>
               <CartesianGrid
@@ -198,7 +198,7 @@ export default function SessionsChart({ sessionGroup }) {
                 dataKey="near"
                 stroke={axesColor}
                 interval="preserveStartEnd"
-                domain={[14, 30]}
+                domain={["auto", "auto"]}
                 tickCount={11}
                 allowDecimals={true}
                 allowDataOverflow={true}
@@ -215,7 +215,7 @@ export default function SessionsChart({ sessionGroup }) {
               />
             </AreaChart>
           </ResponsiveContainer>
-        </div>
+        </div> */}
       </>
     );
   };
