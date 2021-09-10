@@ -64,7 +64,6 @@ class Fingering {
       throw new Error("THIS GRIP SEEMS INVALID");
     } else {
       const num = gripNum + change;
-      console.log(change);
       this.grip = this.NumtoGrip(num);
     }
   }
