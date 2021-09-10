@@ -115,7 +115,7 @@ export default function SessionsChart({ sessionGroup }) {
     ];
 
     let start = sesh.bests.single;
-    let end = sesh.worsts?.single;
+    let end = sesh.worsts?.nonDNFSingle;
     const range = end - start;
     start -= (1 / 2) * start;
     end += (1 / 5) * range;
