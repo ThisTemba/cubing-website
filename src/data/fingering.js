@@ -96,10 +96,13 @@ class Fingering {
   }
 
   fingerAlgRegripless(alg) {
+    if (alg.length === 0) return false;
     const moves = alg.split(" ");
     moves.forEach((move) => {
       this.nextMove(move);
     });
+    if (this.codes.includes(null)) return false;
+    else return true;
   }
 
   print() {
