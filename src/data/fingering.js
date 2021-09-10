@@ -25,6 +25,24 @@ class Fingering {
     return (hand ? "left" : "right") + " " + desc;
   }
 
+  gripToNum(grip) {
+    const map = {
+      home: 0,
+      R: 1,
+      "R'": -1,
+    };
+    return map[grip];
+  }
+
+  NumtoGrip(num) {
+    const map = {
+      0: "home",
+      1: "R",
+      "-1": "R'",
+    };
+    return map[num];
+  }
+
   changeGrip(regrip) {
     let change = 0;
     if (regrip === 0x060) change = 1;
