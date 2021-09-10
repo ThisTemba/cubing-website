@@ -156,7 +156,7 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
               </Button>{" "}
               <Button
                 onClick={() =>
-                  console.log(navigator.clipboard.writeText(cas.alg))
+                  console.log(navigator.clipboard?.writeText(cas.alg))
                 }
                 size="sm"
                 variant={darkMode ? "dark" : "light"}
