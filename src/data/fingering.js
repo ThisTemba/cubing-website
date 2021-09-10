@@ -162,11 +162,12 @@ const fingerAlg = function (alg) {
   return solutions;
 };
 
-const solutions = fingerAlg("F R U' R' U' R U R' F' R U R' U' R' F R F'");
-solutions.forEach(({ fingering, regrip, position }) => {
+const solutions = fingerAlg("R U R U R");
+solutions.forEach(({ fingering, regrip: regrp, position: pos }) => {
+  const position = typeof pos === "number" ? pos : "nowhere";
+  const regrip = regrp?.toString(16) || "none";
   console.log();
-  console.log(
-    `Regrip: ${regrip?.toString(16) || "none"} at ${position || "nowhere"}`
-  );
+  console.log(`Regrip: ${regrip} at ${position}`);
+  console.log("Score:", fingering.score);
   console.log(fingering.descs);
 });
