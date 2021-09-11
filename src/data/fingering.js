@@ -87,13 +87,17 @@ class Fingering {
     return success;
   }
 
-  nextMove(move, { prevFinger, prevPrevFinger }) {
+  nextMove(move, { prevFinger, prevPrevFinger, prevHand }) {
     let code = grips[this.grip][move]?.[0];
     const { finger, id } = this.parseCode(code);
     if (finger === prevFinger || finger === prevPrevFinger) {
       if (id === 0x020) {
         code = 0x030;
       }
+    }
+    if (id === 0x22 && this.grip === "home") {
+      if (prevHand === 0) code = 0x122;
+      if (prevHand === 1) code = 0x022;
     }
     if (typeof code === "undefined") {
       throw new Error(`No data for ${move} move in ${this.grip} grip`);
