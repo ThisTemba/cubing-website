@@ -30,21 +30,15 @@ class Fingering {
   }
 
   gripToNum(grip) {
-    const map = {
-      home: 0,
-      R: 1,
-      "R'": -1,
-    };
-    return map[grip];
+    const num =
+      grip === "home" ? 0 : grip === "R" ? 1 : grip === "R'" ? -1 : null;
+    return num;
   }
 
   NumtoGrip(num) {
-    const map = {
-      0: "home",
-      1: "R",
-      "-1": "R'",
-    };
-    return map[num];
+    const grip =
+      num === 0 ? "home" : num === 1 ? "R" : num === -1 ? "R'" : null;
+    return grip;
   }
 
   getRegrip = (code) => {
