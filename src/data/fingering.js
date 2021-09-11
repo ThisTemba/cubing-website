@@ -107,8 +107,9 @@ class Fingering {
     const moves = alg.split(" ");
     moves.forEach((move, i) => {
       const { finger: prevFinger } = this.parseCode(this.codes[i - 1]);
+      const { hand: prevHand } = this.parseCode(this.codes[i - 1]);
       const { finger: prevPrevFinger } = this.parseCode(this.codes[i - 2]);
-      const prevData = { prevFinger, prevPrevFinger };
+      const prevData = { prevFinger, prevPrevFinger, prevHand };
       this.nextMove(move, prevData);
     });
     if (this.codes.includes(null)) return false;
