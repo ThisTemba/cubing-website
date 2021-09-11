@@ -57,6 +57,10 @@ class Fingering {
     if (regrip === 0x061) change = -1;
     if (regrip === 0x062) change = 2;
     if (regrip === 0x063) change = -2;
+    if (regrip === 0x068) change = 1;
+    if (regrip === 0x069) change = -1;
+    if (regrip === 0x06a) change = 2;
+    if (regrip === 0x06b) change = -2;
 
     if (Math.abs(gripNum + change) > 1) {
       success = false;
