@@ -99,6 +99,10 @@ class Fingering {
       if (prevHand === 0) code = 0x122;
       if (prevHand === 1) code = 0x022;
     }
+    if (id === 0x48 && this.grip === "home") {
+      if (prevHand === 0) code = 0x148;
+      if (prevHand === 1) code = 0x048;
+    }
     if (typeof code === "undefined") {
       throw new Error(`No data for ${move} move in ${this.grip} grip`);
     } else {
