@@ -100,11 +100,14 @@ class Fingering {
 
   nextMove(move, { prevFinger, prevPrevFinger, prevHand }) {
     let code = grips[this.grip][move]?.[0];
-    const { finger, id } = this.parseCode(code);
-    if (finger === prevFinger || finger === prevPrevFinger) {
-      if (id === 0x020) {
+
+    const { finger, id, hand } = this.parseCode(code);
+    if (id === 0x20) {
+      const prevPrevMove = this.codes[i - 2];
+      if ((prevPrevMove === 0x020 || prevPrevMove === 0x023) && hand === 0)
         code = 0x030;
-      }
+      if ((prevPrevMove === 0x120 || prevPrevMove === 0x123) && hand === 1)
+        code = 0x130;
     }
     if (id === 0x22 && this.grip === "home") {
       if (prevHand === 0) code = 0x122;
