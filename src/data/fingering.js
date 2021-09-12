@@ -72,13 +72,24 @@ class Fingering {
     return success;
   }
 
-  push(code) {
+  push(code, debug = false, move = null) {
     let success;
+    const oldGrip = this.grip;
     if (code !== null) {
       this.codes.push(code);
-      this.descs.push(this.getDesc(code));
+      const desc = this.getDesc(code);
+      this.descs.push(desc);
+      // console.log(desc, " : ", this.grip);
       const regrip = this.getRegrip(code);
       success = this.changeGrip(regrip);
+      if (debug) {
+        const m = move.padEnd(3, " ");
+        const c = decimalToHex(code).padEnd(6, " ");
+        const d = this.getDesc(code).padEnd(20, " ");
+        const g = oldGrip.padEnd(4, " ");
+        const r = this.grip.padEnd(5, " ");
+        console.log(`M: ${m} C: ${c} G: ${g} => ${r} D: ${d}`);
+      }
     } else {
       this.codes.push(null);
       this.descs.push(null);
