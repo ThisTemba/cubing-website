@@ -98,7 +98,7 @@ class Fingering {
     return success;
   }
 
-  nextMove(move, { prevFinger, prevPrevFinger, prevHand }) {
+  nextMove(move, i, { prevHand }, debug = false) {
     let code = grips[this.grip][move]?.[0];
 
     const { finger, id, hand } = this.parseCode(code);
