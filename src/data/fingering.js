@@ -207,3 +207,11 @@ console.log(bestSolution.fingering.descs);
 //   console.log("Score:", fingering.score);
 //   console.log(fingering.descs);
 // });
+
+function decimalToHex(decimal, chars = 3) {
+  const hex = (decimal + Math.pow(16, chars))
+    .toString(16)
+    .slice(-chars)
+    .toUpperCase();
+  return "0x" + hex;
+}
