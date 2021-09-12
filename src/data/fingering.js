@@ -195,9 +195,17 @@ const fingerAlg = function (alg) {
   return solutions;
 };
 
-const solutions = fingerAlg("R U R' U R U2 R'");
+const alg = "F R U R' U' F'";
+
+const fing = new Fingering();
+fing.fingerAlgRegripless(alg, true);
+console.log("Regripless");
+fing.print();
+
+const solutions = fingerAlg(alg);
 const bestSolution = _.minBy(solutions, (solution) => solution.fingering.score);
 console.log(bestSolution.fingering.descs);
+console.log(solutions.map((sol) => sol.fingering.descs));
 
 // solutions.forEach(({ fingering, regrip: regrp, position: pos }) => {
 //   const position = typeof pos === "number" ? pos : "nowhere";
