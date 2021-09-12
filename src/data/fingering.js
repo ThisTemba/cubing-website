@@ -120,19 +120,17 @@ class Fingering {
     if (typeof code === "undefined") {
       throw new Error(`No data for ${move} move in ${this.grip} grip`);
     } else {
-      this.push(code);
+      this.push(code, debug, move);
     }
   }
 
-  fingerAlgRegripless(alg) {
+  fingerAlgRegripless(alg, debug = false) {
     if (alg.length === 0) return true;
     const moves = alg.split(" ");
     moves.forEach((move, i) => {
-      const { finger: prevFinger } = this.parseCode(this.codes[i - 1]);
       const { hand: prevHand } = this.parseCode(this.codes[i - 1]);
-      const { finger: prevPrevFinger } = this.parseCode(this.codes[i - 2]);
-      const prevData = { prevFinger, prevPrevFinger, prevHand };
-      this.nextMove(move, prevData);
+      const prevData = { prevHand };
+      this.nextMove(move, i, prevData, debug);
     });
     if (this.codes.includes(null)) return false;
     else return true;
