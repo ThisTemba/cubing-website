@@ -61,6 +61,7 @@ class Fingering {
     if (regrip === 0x069) change = -1;
     if (regrip === 0x06a) change = 2;
     if (regrip === 0x06b) change = -2;
+    // TODO: add all left hand grips which are NOT THE SAME AS THE RIGHT HAND GRIPS
 
     if (Math.abs(gripNum + change) > 1) {
       success = false;
