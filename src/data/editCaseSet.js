@@ -1,12 +1,10 @@
 const fs = require("fs");
 const _ = require("lodash");
 
-const caseSetName = "pll";
+const caseSetName = "f2l1";
 function editData(caseSet) {
   const newCases = caseSet.cases.map((c) => {
-    c.algs = _.union([c.alg], c.otherAlgs);
-    delete c.alg;
-    delete c.otherAlgs;
+    c.id = uuidv4();
     return c;
   });
   return { ...caseSet, cases: newCases };
