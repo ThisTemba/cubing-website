@@ -65,8 +65,9 @@ export default function TestPage(props) {
     const index = balancedRandomIndex(counts);
     const nextCase = selectedCases[index];
 
-    const caseSet = caseSetDetails.name;
-    const doNotRotate = caseSet === "ttll" || caseSet === "tsle";
+    const caseSet = caseSetDetails.id;
+    const doNotRotate =
+      caseSet === "ttll" || caseSet === "tsle" || caseSet === "f2l1";
     const nextScramble = doNotRotate
       ? _.sample(nextCase.scrambles)
       : randomYRot(_.sample(nextCase.scrambles));
