@@ -12,7 +12,7 @@ const f2l1CaseSet = {
       id: "d1a91710-6247-4591-a405-f16bec6e3b15",
       name: "F2L 1",
       algs: ["R U R'"],
-      group: "Unpaired",
+      group: "Unpaired A",
       scrambles: [
         "U' R U B U B' U' R' U2",
         "R2 B2 F2 L' D' L B2 F2 R2",
@@ -24,7 +24,7 @@ const f2l1CaseSet = {
       id: "16cdd2ef-e700-40b2-9858-291b2e3e6b7c",
       name: "F2L 2",
       algs: ["U' R U R' U R U R'"],
-      group: "Unpaired",
+      group: "Unpaired A",
       scrambles: [
         "R2 U2 R2 F R F' R U2 R2",
         "U' F2 R2 L' U' L U R2 F2",
@@ -36,7 +36,7 @@ const f2l1CaseSet = {
       id: "96ea4e41-448a-456d-8244-23dd3fc4bb6a",
       name: "F2L 3",
       algs: ["U' R U R' U2 R U' R'"],
-      group: "Unpaired",
+      group: "Unpaired A",
       scrambles: [
         "U' F' B' R' U' R U F B",
         "U F' B' R' U' R U F B",
@@ -48,7 +48,7 @@ const f2l1CaseSet = {
       id: "830121be-73b5-444f-ba1b-1d289d43347c",
       name: "F2L 4",
       algs: ["U' R U2 R' U2 R U' R'"],
-      group: "Unpaired",
+      group: "Unpaired A",
       scrambles: [
         "R F R U R' U' F' R' U'",
         "U2 R U2 B U2 B' U' R' U'",
@@ -60,7 +60,7 @@ const f2l1CaseSet = {
       id: "1d1a4d5f-ebc5-4085-8883-8c6ed4d96fc1",
       name: "F2L 5",
       algs: ["U R U2 R' U R U' R'"],
-      group: "Unpaired",
+      group: "Unpaired A",
       scrambles: [
         "F' U2 L' U' B L' B' L2 F",
         "U' R U2 R' U2 R U2 R' U'",
@@ -72,7 +72,7 @@ const f2l1CaseSet = {
       id: "39c24301-9dc0-4f5a-876e-5c237681460d",
       name: "F2L 6",
       algs: ["U2 R U R' U R U' R'"],
-      group: "Unpaired",
+      group: "Unpaired A",
       scrambles: [
         "B2 R D' B U2 B' D R' B2",
         "U F2 L F L2 U2 L F U2",
@@ -84,7 +84,7 @@ const f2l1CaseSet = {
       id: "9672d638-4a49-40d5-bc5d-b093160d639e",
       name: "F2L 7",
       algs: ["y L' U' L y'"],
-      group: "Unpaired",
+      group: "Unpaired B",
       scrambles: [
         "F2 D' F U2 F' D F U' F",
         "B' F' U2 F U F' U2 B F",
@@ -96,7 +96,7 @@ const f2l1CaseSet = {
       id: "9edbf49b-6d49-42c0-9a46-c3934a02faf3",
       name: "F2L 8",
       algs: ["y U L' U' L U' L' U' L y'"],
-      group: "Unpaired",
+      group: "Unpaired B",
       scrambles: [
         "F2 U2 F2 R' F' R F' U2 F2",
         "F' U F R' F R F2 U F",
@@ -108,7 +108,7 @@ const f2l1CaseSet = {
       id: "cdb2144d-ebf0-47eb-8430-c3048372f753",
       name: "F2L 9",
       algs: ["y U L' U' L U2 L' U L y'"],
-      group: "Unpaired",
+      group: "Unpaired B",
       scrambles: [
         "R' F' U' F2 R F' R' U R",
         "R B' F R B R' F' U' R'",
@@ -120,7 +120,7 @@ const f2l1CaseSet = {
       id: "dbf97ea5-561f-4f25-9e43-2d689b49365a",
       name: "F2L 10",
       algs: ["y U L' U2 L U2 L' U L y'"],
-      group: "Unpaired",
+      group: "Unpaired B",
       scrambles: [
         "L2 B2 R' F D' F' R B2 L2 U'",
         "R' B' R2 B R U R2 B' R2 B",
@@ -132,7 +132,7 @@ const f2l1CaseSet = {
       id: "ec0a8259-e92b-44f4-90c5-5b007d1b154f",
       name: "F2L 11",
       algs: ["y U' L' U2 L U' L' U L y'"],
-      group: "Unpaired",
+      group: "Unpaired B",
       scrambles: [
         "R' F2 R U' F' U R' F2 R",
         "F R2 B' D2 B' D2 B2 R2 F' U",
@@ -144,7 +144,7 @@ const f2l1CaseSet = {
       id: "3d82365b-7c80-4009-bba2-6569558c4151",
       name: "F2L 12",
       algs: ["y U2 L' U' L U' L' U L y'"],
-      group: "Unpaired",
+      group: "Unpaired B",
       scrambles: [
         "R U2 B U L U' L' B' R'",
         "F U2 F' U2 F' U2 L F L'",
@@ -156,7 +156,7 @@ const f2l1CaseSet = {
       id: "07902ef1-eb28-4532-8b22-06fe2e7db4cc",
       name: "F2L 13",
       algs: ["U R U' R'"],
-      group: "Paired",
+      group: "Paired A",
       scrambles: [
         "R2 F2 R' U R' U' R2 F2 R2",
         "R2 F2 R' U2 R' U2 R2 F2 R2",
@@ -168,7 +168,7 @@ const f2l1CaseSet = {
       id: "fbab28d2-be84-4e21-8b2a-3c521d8c5982",
       name: "F2L 14",
       algs: ["U' R U' R' U R U R'"],
-      group: "Paired",
+      group: "Paired A",
       scrambles: [
         "R2 U B' U' R' U B U2 R'",
         "B2 R' B R' B' R2 B R' B",
@@ -180,7 +180,7 @@ const f2l1CaseSet = {
       id: "2587ebd5-2f83-40c2-874c-ee784c7423b9",
       name: "F2L 15",
       algs: ["R U2 R' U' R U R'"],
-      group: "Paired",
+      group: "Paired A",
       scrambles: [
         "U' R2 L' B' R' B L U2 R'",
         "F' U2 R U B U' B' R' F",
@@ -192,7 +192,7 @@ const f2l1CaseSet = {
       id: "6631788d-e217-4669-b579-10ea10233379",
       name: "F2L 16",
       algs: ["U R U' R' U' R U' R' U R U' R'"],
-      group: "Paired",
+      group: "Paired A",
       scrambles: [
         "U F2 L F L2 U L F U2",
         "F2 L' U' L U F U F U2",
@@ -204,7 +204,7 @@ const f2l1CaseSet = {
       id: "7b12c1e6-bafb-42c4-b0c4-438515b28b53",
       name: "F2L 17",
       algs: ["U R' F R F' U R U R'"],
-      group: "Paired",
+      group: "Paired A",
       scrambles: [
         "F' U2 F U' F' L F' L' F2",
         "R B U2 B' R' F' U F U2",
@@ -216,7 +216,7 @@ const f2l1CaseSet = {
       id: "bf519ca8-e409-4ce9-a255-db6ff2b853d0",
       name: "F2L 18",
       algs: ["R' U2 R2 U R2' U R"],
-      group: "Paired",
+      group: "Paired A",
       scrambles: [
         "R' U2 R U R U' R2 U2 R",
         "F2 D2 B2 L' B2 D2 F2 U' R'",
@@ -228,7 +228,7 @@ const f2l1CaseSet = {
       id: "713c2ce7-3ed6-404c-9800-c86f897cae3d",
       name: "F2L 19",
       algs: ["y U' L' U L y'"],
-      group: "Paired",
+      group: "Paired B",
       scrambles: [
         "R B2 L' B' L U' B' R' U",
         "R2 U R B' R' B U' R2 U'",
@@ -240,7 +240,7 @@ const f2l1CaseSet = {
       id: "8fb6b096-c9a8-4cd4-8ef7-e1cf01f89dcc",
       name: "F2L 20",
       algs: ["y U L' U L U' L' U' L y'"],
-      group: "Paired",
+      group: "Paired B",
       scrambles: [
         "U2 F2 L F2 U F' U' L' F",
         "R' B2 U2 B' R' B U2 B2 R",
@@ -252,7 +252,7 @@ const f2l1CaseSet = {
       id: "17ba5e50-182b-4905-99e7-62c9e2313bcd",
       name: "F2L 21",
       algs: ["y L' U2 L U L' U' L y'"],
-      group: "Paired",
+      group: "Paired B",
       scrambles: [
         "B2 R2 B R' U2 R B' R2 B2",
         "U' F2 B L F L' B' U2 F",
@@ -264,7 +264,7 @@ const f2l1CaseSet = {
       id: "f7a84d90-527a-4263-b158-b5b094f6ce6e",
       name: "F2L 22",
       algs: ["y U' L' U L U L' U L U' L' U L y'"],
-      group: "Paired",
+      group: "Paired B",
       scrambles: [
         "U2 F2 U' F U' F' U2 F2 U2",
         "U' F2 U' F U' F' U2 F2 U2",
@@ -276,7 +276,7 @@ const f2l1CaseSet = {
       id: "4b78d498-490d-4c23-8191-a93657b80e93",
       name: "F2L 23",
       algs: ["R U' R' U2 y L' U' L y'"],
-      group: "Paired",
+      group: "Paired B",
       scrambles: [
         "U F' B' U' R' U R F B",
         "R U2 R' U R B' R B R2",
@@ -288,7 +288,7 @@ const f2l1CaseSet = {
       id: "9d8d8563-b7f4-4a34-95da-25e1f69b9671",
       name: "F2L 24",
       algs: ["U' R U2 R' U y L' U' L y'"],
-      group: "Paired",
+      group: "Paired B",
       scrambles: [
         "D' L D R' D' F' L' D R",
         "F' U2 F U' F' U L' U L F",
