@@ -149,6 +149,10 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
             <td className="align-middle">{caseSetDetails.title}</td>
           </tr>
           <tr>
+            <th className="align-middle">{"Scramble"}</th>
+            <td className="align-middle">{_.sample(cas.scrambles)}</td>
+          </tr>
+          <tr>
             <th className="align-middle">{"Algorithm"}</th>
             <td className="align-middle">
               <Button onClick={edit} variant="link" size="md" className="p-0">
