@@ -7,6 +7,7 @@ import eollCaseSet from "../data/eollCaseSet";
 import ocllCaseSet from "../data/ocllCaseSet";
 import epllCaseSet from "../data/epllCaseSet";
 import cpllCaseSet from "../data/cpllCaseSet";
+import f2l1CaseSet from "../data/f2l1CaseSet";
 import { aggregateStatus, getStatus } from "../utils/learnedStatus";
 
 const CaseSetsContext = createContext(null);
@@ -19,6 +20,7 @@ const localCaseSets = [
   epllCaseSet,
   pllCaseSet,
   ollCaseSet,
+  f2l1CaseSet,
 ];
 
 const mergeCase = (localCase, remoteCase) => {
