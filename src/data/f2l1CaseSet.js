@@ -2,8 +2,8 @@ const f2l1CaseSet = {
   details: {
     id: "f2l1",
     title: "F2L 1",
-    subTitle: "",
-    mask: "f2l_sm",
+    subTitle: "Last Slot",
+    mask: "f2l",
     view: "",
     numCases: 41,
   },
