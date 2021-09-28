@@ -11,6 +11,7 @@ function getWindowDimensions() {
     md: width < 992,
     lg: width < 1200,
     xl: width >= 1200,
+    isWide: width >= 576
   };
 }
 
