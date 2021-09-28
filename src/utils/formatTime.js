@@ -8,7 +8,7 @@ export const getTimeString = (timeMilliseconds) => {
   let timeString;
   if (m === 0) {
     timeString = `${s}.${cs}`;
-  }else {
+  } else {
     s = s < 10 ? "0" + s : s;
     timeString = `${m}:${s}.${cs}`;
   }

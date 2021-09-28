@@ -13,4 +13,9 @@ describe("getTimeString", () => {
   it("resets on the hour", () => {
     expect(getTimeString(3600000)).toMatch("0.00");
   });
+  it("returns '-' if not passed a number", () => {
+    expect(getTimeString(NaN)).toBe("-");
+    expect(getTimeString(undefined)).toBe("-");
+    expect(getTimeString("some string")).toBe("-");
+  })
 });
