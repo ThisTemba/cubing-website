@@ -9,13 +9,15 @@ import ReactTable from "../common/reactTable";
 import CaseImage from "../common/cubing/cubeImage";
 import BackButton from "../common/backButton";
 import FeedbackCard from "../feedbackCard";
-import { dispDur } from "../../utils/displayValue";
+import { dispDur, dispOverline } from "../../utils/displayValue"
 import { writeCasesToFirebase } from "../../utils/writeCases";
 import { getSTM, randomYRot } from "../../utils/algTools";
 import balancedRandomIndex from "../../utils/balancedRandom";
 import DarkModeContext from "../../hooks/useDarkMode";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import useModal from "../../hooks/useModal";
+import CaseSetsContext from '../../hooks/useCaseSets'
+import { isFaster, isSlower } from '../../utils/isFaster'
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails } = props;
@@ -30,6 +32,9 @@ export default function TestPage(props) {
   const { user } = useContext(UserContext);
   const { xs, isWide } = useWindowDimensions();
   const [ModalComponent, showModal] = useModal();
+
+  const allCaseSets = useContext(CaseSetsContext);
+  const caseSet = allCaseSets.find(set => set.details.id === props.caseSetDetails.id);
 
   useEffect(() => {
     nextCaseAndScramble();
@@ -113,6 +118,24 @@ export default function TestPage(props) {
       {
         Header: "TPS",
         accessor: "tps",
+        show: isWide,
+        Cell: ({value, row}) => {
+          const caseData = caseSet.cases.find(caseData => caseData.id === row.values.caseId);
+          if(!caseData) {
+            return '-';
+          }
+          const avg = caseData.avgTPS;
+          const className = isFaster(value, avg) ? 'text-success' : isSlower(value, avg) ? 'text-danger' : '';
+          return <div className={className}>{dispDur(value)}</div>;
+        }
+      },
+      {
+        Header: dispOverline("TPS"),
+        id: "avgTps",
+        accessor: row => {
+          const caseData = caseSet.cases.find(caseData => caseData.id === row.caseId);
+          return caseData.avgTPS;
+        },
         show: isWide,
         Cell: ({value}) => dispDur(value)
       },
