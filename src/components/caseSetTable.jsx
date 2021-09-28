@@ -31,7 +31,7 @@ export default function CaseSetTable(props) {
   const [CaseModal, showCaseModal, , setCaseModalContent, showing] =
     useCaseModal();
   const [caseModalId, setCaseModalId] = useState(null);
-  const { width } = useWindowDimensions();
+  const { isWide: windowIsWide } = useWindowDimensions();
 
   const userTrainSettings = userDoc?.data()?.settings?.trainSettings;
 
@@ -78,8 +78,6 @@ export default function CaseSetTable(props) {
     if (definedValues.length > 0) return _.mean(definedValues);
     else return undefined;
   };
-
-  const windowIsWide = width >= 576;
 
   const defaultColumn = useMemo(
     () => ({
