@@ -28,7 +28,7 @@ export default function TestPage(props) {
   const userRef = useRef();
   const { darkMode } = useContext(DarkModeContext);
   const { user } = useContext(UserContext);
-  const { xs } = useWindowDimensions();
+  const { xs, isWide } = useWindowDimensions();
   const [ModalComponent, showModal] = useModal();
 
   useEffect(() => {
@@ -111,6 +111,12 @@ export default function TestPage(props) {
         Cell: ({ value }) => dispDur(value),
       },
       {
+        Header: "TPS",
+        accessor: "tps",
+        show: isWide,
+        Cell: ({value}) => dispDur(value)
+      },
+      {
         Header: <FaIcon icon="spinner" />,
         accessor: "hesitated",
         aggregate: (bools) => bools.filter(Boolean).length / bools.length,
@@ -141,7 +147,7 @@ export default function TestPage(props) {
         Cell: ({ value }) => (value === 2 ? <FaIcon icon="times" /> : ""),
         Aggregated: ({ value }) => _.round(value, 2),
       },
-    ],
+    ].filter(column => column.show !== false),
     [solves, xs]
   );
   // const data = useMemo(() => solves, []);
