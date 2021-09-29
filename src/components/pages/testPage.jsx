@@ -119,15 +119,7 @@ export default function TestPage(props) {
         Header: "TPS",
         accessor: "tps",
         show: isWide,
-        Cell: ({value, row}) => {
-          const caseData = caseSet.cases.find(caseData => caseData.id === row.values.caseId);
-          if(!caseData) {
-            return '-';
-          }
-          const avg = caseData.avgTPS;
-          const className = isFaster(value, avg) ? 'text-success' : isSlower(value, avg) ? 'text-danger' : '';
-          return <div className={className}>{dispDur(value)}</div>;
-        }
+        Cell: ({value}) => dispDur(value)
       },
       {
         Header: dispOverline("TPS"),
