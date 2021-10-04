@@ -46,7 +46,7 @@ export default function StatsPage() {
       return (
         <CustomJumbo
           title="Account Required"
-          body="You need to be logged in to your account to record and anaylze your solves"
+          body="You need to be logged in to your account to record and analyze your solves"
           buttons={[
             { text: "Sign Up", to: "/signup", variant: "primary" },
             { text: "Log In", to: "/login", variant: "secondary" },
