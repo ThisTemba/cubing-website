@@ -67,7 +67,7 @@ export default function ReactTable({
               <th
                 {...column.getHeaderProps(
                   column.getSortByToggleProps
-                    ? column.getSortByToggleProps()
+                    ? column.getSortByToggleProps({ title: undefined })
                     : {}
                 )}
                 className="align-middle"
