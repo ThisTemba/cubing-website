@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import DarkModeContext from "../../hooks/useDarkMode";
 import { FaIcon } from "../../fontAwesome";
+import CustomTooltip from "./customTooltip";
 
 // Source: https://react-table.tanstack.com/docs/examples/data-driven-classes-and-styles
 const defaultPropGetter = () => ({});
@@ -72,7 +73,13 @@ export default function ReactTable({
                 )}
                 className="align-middle"
               >
-                {renderHeader(column)}
+                <CustomTooltip
+                  message={column.tooltip}
+                  showTime={500}
+                  hideTime={200}
+                >
+                  {renderHeader(column)}
+                </CustomTooltip>
               </th>
             ))}
           </tr>
