@@ -1,15 +1,21 @@
 // stolen completely from this source
 // Source: https://usehooks.com/useLocalStorage/
 import { useState } from "react";
-export default function useLocalStorage(key, initialValue) {
+export default function useLocalStorage(key, initialValue, customParse = null) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
     try {
       // Get from local storage by key
       const item = window.localStorage.getItem(key);
-      // Parse stored json or if none return initialValue
-      return item ? JSON.parse(item) : initialValue;
+      // Parse stored json with customParse or JSON.parse if item exists
+      if (item) {
+        if (customParse) return customParse(item);
+        else return JSON.parse(item);
+      } else {
+        // else just return initialValue
+        return initialValue;
+      }
     } catch (error) {
       // If error also return initialValue
       console.log(error);
