@@ -25,14 +25,23 @@ import ColCard from "../common/colCard";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export default function TimePage() {
-  const [session, setSession] = useLocalStorage("session", {
-    name: null,
-    solves: [],
-  });
+  const [session, setSession] = useLocalStorage(
+    "session",
+    { name: null, solves: [] },
+    customLocalStorageParser
+  );
   const [scramble, nextScramble] = useRandomScrambles();
   const { user } = useContext(UserContext);
   const { xs, md, lg } = useWindowDimensions();
 
+  function customLocalStorageParser(localStorageItem) {
+    let data = JSON.parse(localStorageItem);
+    data.solves = data.solves.map((s) => ({
+      ...s,
+      dur: s.dur === null ? Infinity : s.dur,
+    }));
+    return data;
+  }
   useEffect(() => {
     if (session.name === null) handleNewSession();
   }, []);
