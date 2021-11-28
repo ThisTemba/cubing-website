@@ -81,7 +81,7 @@ export default function TimePage() {
         " " +
         dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timeStamp: firebase.firestore.Timestamp.now(),
       dateTime: dateTime.toString(),
       solves: solves,
     };
