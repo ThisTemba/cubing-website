@@ -23,6 +23,7 @@ import SessionBestsTable from "../sessionBestsTable";
 import RainbowProgressBar from "../rainbowProgressBar";
 import ColCard from "../common/colCard";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import useModal from "../../hooks/useModal";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage(
@@ -33,6 +34,12 @@ export default function TimePage() {
   const [scramble, nextScramble] = useRandomScrambles();
   const { user } = useContext(UserContext);
   const { xs, md, lg } = useWindowDimensions();
+  const [
+    ConfirmModal,
+    showConfirmModal,
+    hideConfirmModal,
+    setConfirmModalContent,
+  ] = useModal();
 
   function customLocalStorageParser(localStorageItem) {
     let data = JSON.parse(localStorageItem);
@@ -170,7 +177,28 @@ export default function TimePage() {
           <h3>
             <Button
               size="sm"
-              onClick={handleNewSession}
+              onClick={() => {
+                setConfirmModalContent({
+                  title: "Are you sure?",
+                  body: (
+                    <div className="text-center">
+                      This will end your current session and start a new one.
+                    </div>
+                  ),
+                  footer: (
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        handleNewSession();
+                        hideConfirmModal();
+                      }}
+                    >
+                      End Session
+                    </Button>
+                  ),
+                });
+                showConfirmModal();
+              }}
               disabled={session.solves.length === 0}
             >
               End Session
@@ -202,6 +230,7 @@ export default function TimePage() {
             </ColCard>
           )}
         </Row>
+        <ConfirmModal />
       </Container>
     </>
   );
