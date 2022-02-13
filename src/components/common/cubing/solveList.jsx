@@ -23,58 +23,12 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
     if (solve) {
       const content = {
         title: `Solve ${solve?.solveNumber}`,
-        body: renderModalBody(solve),
+        body: renderModalBody(solve, onPenalty),
       };
       setModalContent(content);
     }
-  }, [solves]);
-
-  const renderPenaltyButtons = (s) => {
-    const penaltyButtons = [
-      { content: "None", id: "", color: "success" },
-      { content: "+2", id: "+2", color: "warning" },
-      { content: "DNF", id: "DNF", color: "danger" },
-    ];
-    return (
-      <ButtonGroupToggle
-        buttons={penaltyButtons}
-        activeId={s.penalty}
-        onSelect={(id) => {
-          onPenalty(s.dateTime, id);
-        }}
-      ></ButtonGroupToggle>
-    );
-  };
-
-  const renderModalBody = (s) => {
-    const timeOptions = { hour: "2-digit", minute: "2-digit" };
-    const time = new Date(s.dateTime).toLocaleTimeString([], timeOptions);
-    const rows = [
-      { label: "Scramble", value: s.scramble },
-      { label: "Time", value: time },
-      { label: "Penalty", value: renderPenaltyButtons(s) },
-    ];
-    return (
-      <>
-        <TimeDisplay
-          formattedTime={dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
-          fontSize={100}
-        ></TimeDisplay>
-        <Table className="text-center m-0">
-          <colgroup>
-            <col span="1" style={{ width: "30%" }} />
-            <col span="1" style={{ width: "70%" }} />
-          </colgroup>
-          {rows.map((row) => (
-            <tr>
-              <th className="align-middle">{row.label}</th>
-              <td className="align-middle">{row.value}</td>
-            </tr>
-          ))}
-        </Table>
-      </>
-    );
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [solves, renderModalBody, onPenalty, selectedSolveDateTime]);
 
   const renderSolveListTable = (solves) => {
     const reversedSolves = [...solves].reverse();
@@ -84,7 +38,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
       setSelectedSolveDateTime(s.dateTime);
       showModal({
         title: `Solve ${s.solveNumber}`,
-        body: renderModalBody(s),
+        body: renderModalBody(s, onPenalty),
       });
       document.activeElement.blur();
     };
@@ -154,6 +108,52 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
         {renderSolveListTable(solves)}
       </SimpleBar>
       <ModalComponent />
+    </>
+  );
+}
+function renderPenaltyButtons(s, onPenalty) {
+  const penaltyButtons = [
+    { content: "None", id: "", color: "success" },
+    { content: "+2", id: "+2", color: "warning" },
+    { content: "DNF", id: "DNF", color: "danger" },
+  ];
+  return (
+    <ButtonGroupToggle
+      buttons={penaltyButtons}
+      activeId={s.penalty}
+      onSelect={(id) => {
+        onPenalty(s.dateTime, id);
+      }}
+    ></ButtonGroupToggle>
+  );
+}
+
+function renderModalBody(s, onPenalty) {
+  const timeOptions = { hour: "2-digit", minute: "2-digit" };
+  const time = new Date(s.dateTime).toLocaleTimeString([], timeOptions);
+  const rows = [
+    { label: "Scramble", value: s.scramble },
+    { label: "Time", value: time },
+    { label: "Penalty", value: renderPenaltyButtons(s, onPenalty) },
+  ];
+  return (
+    <>
+      <TimeDisplay
+        formattedTime={dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
+        fontSize={100}
+      ></TimeDisplay>
+      <Table className="text-center m-0">
+        <colgroup>
+          <col span="1" style={{ width: "30%" }} />
+          <col span="1" style={{ width: "70%" }} />
+        </colgroup>
+        {rows.map((row) => (
+          <tr>
+            <th className="align-middle">{row.label}</th>
+            <td className="align-middle">{row.value}</td>
+          </tr>
+        ))}
+      </Table>
     </>
   );
 }
