@@ -24,7 +24,7 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
     const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
     setOptions([customOption, ...initialOptions]);
     setSelectedOption(newOption(cas.alg));
-  }, []);
+  }, [cas.alg, cas.algs]);
 
   const newOption = (alg, deletable = false) => ({
     label: alg,
