@@ -18,7 +18,7 @@ import useWindowDimensions from "../../hooks/useWindowDimensions";
 import useModal from "../../hooks/useModal";
 
 export default function TestPage(props) {
-  const { selectedCases, caseSetDetails } = props;
+  const { selectedCases, caseSetDetails, onDashboard } = props;
   const [currentCase, setCurrentCase] = useState(selectedCases[0]);
   const [currentScramble, setCurrentScramble] = useState(
     selectedCases[0].scrambles[0]
@@ -32,8 +32,14 @@ export default function TestPage(props) {
   const [ModalComponent, showModal] = useModal();
 
   useEffect(() => {
-    nextCaseAndScramble();
-  }, [selectedCases, solves.length]);
+    nextCaseAndScramble(
+      selectedCases,
+      caseSetDetails,
+      solves,
+      setCurrentCase,
+      setCurrentScramble
+    );
+  }, [selectedCases, solves.length, caseSetDetails, solves]);
 
   useEffect(() => {
     solvesRef.current = solves;
@@ -41,39 +47,18 @@ export default function TestPage(props) {
   }, [solves, user]);
 
   useEffect(() => {
+    const saveData = (solvesWithScrambles, user) => {
+      const solves = solvesWithScrambles.map((s) => _.omit(s, "scramble"));
+      const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
+      if (user) {
+        writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
+      }
+    };
     return () => {
-      props.onDashboard();
+      onDashboard();
       saveData(solvesRef.current, userRef.current);
     };
-  }, []);
-
-  const saveData = (solvesWithScrambles, user) => {
-    const solves = solvesWithScrambles.map((s) => _.omit(s, "scramble"));
-    const caseIds = _.uniqBy(solves, "caseId").map((c) => c.caseId);
-    if (user) {
-      writeCasesToFirebase(solves, caseIds, caseSetDetails, user);
-    }
-  };
-
-  const nextCaseAndScramble = () => {
-    const counts = selectedCases.map((c) => {
-      if (solves.length) {
-        const count = _.countBy(solves, "caseId")[c.id];
-        return typeof count !== "undefined" ? count : 0;
-      } else return 0;
-    });
-    const index = balancedRandomIndex(counts);
-    const nextCase = selectedCases[index];
-
-    const caseSet = caseSetDetails.id;
-    const doNotRotate =
-      caseSet === "ttll" || caseSet === "tsle" || caseSet === "f2l1";
-    const nextScramble = doNotRotate
-      ? _.sample(nextCase.scrambles)
-      : randomYRot(_.sample(nextCase.scrambles));
-    setCurrentCase(nextCase);
-    setCurrentScramble(nextScramble);
-  };
+  }, [onDashboard, caseSetDetails]);
 
   const columns = useMemo(
     () => [
@@ -142,7 +127,7 @@ export default function TestPage(props) {
         Aggregated: ({ value }) => _.round(value, 2),
       },
     ],
-    [solves, xs]
+    [solves, xs, caseSetDetails, selectedCases]
   );
   // const data = useMemo(() => solves, []);
   const data = solves;
@@ -206,7 +191,13 @@ export default function TestPage(props) {
   const getCellProps = (cell) => getClickForModalProps(cell);
 
   const handleNext = () => {
-    nextCaseAndScramble();
+    nextCaseAndScramble(
+      selectedCases,
+      caseSetDetails,
+      solves,
+      setCurrentCase,
+      setCurrentScramble
+    );
     document.activeElement.blur();
   };
 
@@ -255,4 +246,30 @@ export default function TestPage(props) {
       <ModalComponent />
     </>
   );
+}
+
+function nextCaseAndScramble(
+  selectedCases,
+  caseSetDetails,
+  solves,
+  setCurrentCase,
+  setCurrentScramble
+) {
+  const counts = selectedCases.map((c) => {
+    if (solves.length) {
+      const count = _.countBy(solves, "caseId")[c.id];
+      return typeof count !== "undefined" ? count : 0;
+    } else return 0;
+  });
+  const index = balancedRandomIndex(counts);
+  const nextCase = selectedCases[index];
+
+  const caseSet = caseSetDetails.id;
+  const doNotRotate =
+    caseSet === "ttll" || caseSet === "tsle" || caseSet === "f2l1";
+  const nextScramble = doNotRotate
+    ? _.sample(nextCase.scrambles)
+    : randomYRot(_.sample(nextCase.scrambles));
+  setCurrentCase(nextCase);
+  setCurrentScramble(nextScramble);
 }
