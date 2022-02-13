@@ -227,9 +227,9 @@ export default function CaseSetTable(props) {
   const initialState = {
     groupBy: hasUniqueGroups ? ["group"] : [],
     sortBy: [{ id: "status", desc: true }],
-    hiddenColumns: columns.map((column) => {
-      if (column.show === false) return column.accessor || column.id;
-    }),
+    hiddenColumns: columns
+      .filter((c) => c.show === false)
+      .map((c) => c.accessor || c.id),
   };
 
   const table = useTable(
