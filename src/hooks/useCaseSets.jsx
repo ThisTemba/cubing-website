@@ -79,10 +79,10 @@ const getMergedCaseSets = (localCaseSets, snapshot, userDoc) => {
 export function useCaseSets(user, userDoc) {
   const [caseSets, setCaseSets] = useState();
 
-  const loadingUser = typeof user === "undefined";
-  const loadingUserDoc = typeof userDoc === "undefined";
   useEffect(() => {
     let unsubscribe = () => {};
+    const loadingUser = typeof user === "undefined";
+    const loadingUserDoc = typeof userDoc === "undefined";
     if (!loadingUser && !loadingUserDoc) {
       if (user) {
         unsubscribe = getUserDocRef(user)
