@@ -61,61 +61,64 @@ export default function Timer(props) {
     return solve;
   };
 
-  const handleTouchEnd = (e) => {
-    const timerState = timerStateRef.current;
-    const cancelling = timerState === "armed";
-    const coolingDown = timerState === "cooldown";
-    if (cancelling || coolingDown) {
-      e.key = " ";
-      e.preventDefault();
-      handleKeyUp(e);
-    }
-  };
-
-  const handleKeyUp = (e) => {
-    if (disabledRef.current) return;
-    const timerState = timerStateRef.current;
-    if (e.key === " ") {
-      const timerStateMap = { armed: "on", cooldown: "ready", arming: "ready" };
-      setTimerState(timerStateMap[timerState]);
-      if (timerState === "arming") {
-        clearTimeout(timeoutRef.current);
-        setTime(0);
-      }
-    }
-  };
-
-  const handleTouchStart = (e) => {
-    const isTouchingTimer = timerRef.current.contains(e.target);
-    const timerOn = timerStateRef.current === "on";
-    if (isTouchingTimer || timerOn) {
-      e.key = " ";
-      e.preventDefault();
-      handleKeyDown(e);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (disabledRef.current) return;
-    const timerState = timerStateRef.current;
-    const onNewSolve = onNewSolveRef.current;
-    if (timerState === "on") {
-      setTimerState("cooldown");
-      onNewSolve(getNewSolve());
-    }
-    if (e.key === " ") {
-      e.preventDefault(); // no scroll
-      if (timerState === "ready") {
-        setTimerState("arming");
-        timeoutRef.current = setTimeout(() => {
-          setTimerState("armed");
-          setTime(0);
-        }, armingTime);
-      }
-    }
-  };
-
   useEffect(() => {
+    const handleTouchEnd = (e) => {
+      const timerState = timerStateRef.current;
+      const cancelling = timerState === "armed";
+      const coolingDown = timerState === "cooldown";
+      if (cancelling || coolingDown) {
+        e.key = " ";
+        e.preventDefault();
+        handleKeyUp(e);
+      }
+    };
+
+    const handleKeyUp = (e) => {
+      if (disabledRef.current) return;
+      const timerState = timerStateRef.current;
+      if (e.key === " ") {
+        const timerStateMap = {
+          armed: "on",
+          cooldown: "ready",
+          arming: "ready",
+        };
+        setTimerState(timerStateMap[timerState]);
+        if (timerState === "arming") {
+          clearTimeout(timeoutRef.current);
+          setTime(0);
+        }
+      }
+    };
+
+    const handleTouchStart = (e) => {
+      const isTouchingTimer = timerRef.current.contains(e.target);
+      const timerOn = timerStateRef.current === "on";
+      if (isTouchingTimer || timerOn) {
+        e.key = " ";
+        e.preventDefault();
+        handleKeyDown(e);
+      }
+    };
+
+    const handleKeyDown = (e) => {
+      if (disabledRef.current) return;
+      const timerState = timerStateRef.current;
+      const onNewSolve = onNewSolveRef.current;
+      if (timerState === "on") {
+        setTimerState("cooldown");
+        onNewSolve(getNewSolve());
+      }
+      if (e.key === " ") {
+        e.preventDefault(); // no scroll
+        if (timerState === "ready") {
+          setTimerState("arming");
+          timeoutRef.current = setTimeout(() => {
+            setTimerState("armed");
+            setTime(0);
+          }, armingTime);
+        }
+      }
+    };
     const listeners = [
       { type: "touchstart", listener: handleTouchStart },
       { type: "touchend", listener: handleTouchEnd },
@@ -130,7 +133,7 @@ export default function Timer(props) {
     return () => {
       listeners.forEach((l) => removeListener(l.type, l.listener));
     };
-  }, []);
+  }, [armingTime]);
 
   // Source: https://stackoverflow.com/questions/826782/how-to-disable-text-selection-highlighting
   return (
