@@ -7,6 +7,7 @@ import _ from "lodash";
 const CubeImageInternal = (props) => {
   const imageRef = useRef(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => cubeSVG(imageRef.current, { ...props, colorScheme }), []);
 
   return <div ref={imageRef}></div>;
