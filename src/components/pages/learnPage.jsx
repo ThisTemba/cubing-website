@@ -103,6 +103,7 @@ export default function LearnPage(props) {
           <Card>
             <Card.Body>
               <iframe
+                title="alg"
                 frameBorder="0"
                 width="250"
                 height="290"
