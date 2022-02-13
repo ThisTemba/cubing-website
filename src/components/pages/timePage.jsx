@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import firebase, {
   UserContext,
@@ -49,9 +49,6 @@ export default function TimePage() {
     }));
     return data;
   }
-  useEffect(() => {
-    if (session.name === null) handleNewSession();
-  }, []);
 
   const saveCurrentSession = (session) => {
     getUserDocRef(user)
@@ -153,6 +150,8 @@ export default function TimePage() {
     { end: 50, color: "#d63384" },
     { end: 100, color: "#dc3545" },
   ];
+
+  if (session.name === null) handleNewSession();
 
   return (
     <>
