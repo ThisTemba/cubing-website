@@ -3,10 +3,10 @@ import { getMainSessionGroupDocRef } from "../services/firebase";
 
 export default function useMainSessionGroup(user) {
   const [sessionGroupDoc, setSessionGroupDoc] = useState();
-  const loadingUser = typeof user === "undefined";
 
   useEffect(() => {
     let unsubscribe = () => {};
+    const loadingUser = typeof user === "undefined";
     if (!loadingUser) {
       if (user) {
         const sessionGroupDocRef = getMainSessionGroupDocRef(user);

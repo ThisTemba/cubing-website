@@ -3,9 +3,9 @@ import { usersRef } from "../services/firebase";
 
 export default function useUserDoc(user) {
   const [userDoc, setUserDoc] = useState();
-  const loadingUser = typeof user === "undefined";
 
   useEffect(() => {
+    const loadingUser = typeof user === "undefined";
     let unsubscribe = () => {};
     if (!loadingUser) {
       if (user) {

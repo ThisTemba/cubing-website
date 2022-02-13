@@ -18,13 +18,13 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
   const [caseDoc, setCaseDoc] = useState(null);
   const { user } = useContext(UserContext);
   const { darkMode } = useContext(DarkModeContext);
-  const customOption = { value: null, label: "Custom" };
 
   useEffect(() => {
+    const customOption = { value: null, label: "Custom" };
     const initialOptions = cas.algs.map((a) => ({ value: a, label: a }));
     setOptions([customOption, ...initialOptions]);
     setSelectedOption(newOption(cas.alg));
-  }, []);
+  }, [cas.alg, cas.algs]);
 
   const newOption = (alg, deletable = false) => ({
     label: alg,

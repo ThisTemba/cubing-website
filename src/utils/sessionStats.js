@@ -109,7 +109,7 @@ export const getSessionGroupBests = (sessions) => {
 
 export const getSessionGroupStats = (sessions) => {
   const numSolves = _.sumBy(sessions, "numSolves");
-  const numNonDNFSolves = _.sumBy(sessions, "numNonDNFSolves");
+  // const numNonDNFSolves = _.sumBy(sessions, "numNonDNFSolves");
   const numSessions = sessions.length;
 
   const bests = getSessionGroupBests(sessions);

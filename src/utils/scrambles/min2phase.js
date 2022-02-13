@@ -1522,7 +1522,7 @@ var min2phase = (function () {
       depth++;
       InitPrunProgress++;
       var xorVal = depth ^ 0xf;
-      var done = 0;
+      // var done = 0;
       var val = 0;
       for (let i = 0; i < N_SIZE; i++, val >>= 4) {
         if ((i & 7) === 0) {
@@ -1567,7 +1567,7 @@ var min2phase = (function () {
             }
             continue;
           }
-          done++;
+          // done++;
           if (inv) {
             setPruning(PrunTable, i, xorVal);
             break;
@@ -1589,7 +1589,7 @@ var min2phase = (function () {
             }
             if (getPruning(PrunTable, idxx) === check) {
               setPruning(PrunTable, idxx, xorVal);
-              done++;
+              // done++;
             }
           }
         }
