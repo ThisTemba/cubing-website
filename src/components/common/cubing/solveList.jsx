@@ -78,10 +78,7 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
 
   const renderSolveListTable = (solves) => {
     const reversedSolves = [...solves].reverse();
-    const btnProps = {
-      href: "javascript:;",
-      style: { color: buttonsColor },
-    };
+    const btnProps = { href: "#", style: { color: buttonsColor } };
 
     const onClickTime = (s) => {
       setSelectedSolveDateTime(s.dateTime);
@@ -122,12 +119,24 @@ export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
               >
                 <th className="align-middle">{s.solveNumber + "."}</th>
                 <td className="align-middle">
-                  <a {...btnProps} onClick={() => onClickTime(s)}>
+                  <a
+                    {...btnProps}
+                    onClick={(e) => {
+                      e.preventDefault(); // hack to prevent href from being followed
+                      onClickTime(s);
+                    }}
+                  >
                     {dispDur(s.dur) + (s.penalty === "+2" ? "+" : "")}
                   </a>
                 </td>
                 <td className="align-middle">
-                  <a {...btnProps} onClick={() => onDeleteSolve(s.dateTime)}>
+                  <a
+                    {...btnProps}
+                    onClick={(e) => {
+                      e.preventDefault(); // hack to prevent href from being followed
+                      onDeleteSolve(s.dateTime);
+                    }}
+                  >
                     <FaIcon icon="trash" size="sm" />
                   </a>
                 </td>
