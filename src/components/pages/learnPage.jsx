@@ -8,6 +8,7 @@ import BackButton from "../common/backButton";
 import DarkModeContext from "../../hooks/useDarkMode";
 
 export default function LearnPage(props) {
+  const { selectedCases } = props;
   const [algVisible, setAlgVisible] = useState(true);
   const [currentCase, setCurrentCase] = useState(props.selectedCases[0]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,8 +29,8 @@ export default function LearnPage(props) {
   };
 
   useEffect(() => {
-    setCurrentCase(props.selectedCases[currentIndex]);
-  }, [currentIndex]);
+    setCurrentCase(selectedCases[currentIndex]);
+  }, [currentIndex, selectedCases]);
 
   const handleBackButton = () => {
     props.history.push("/train");
