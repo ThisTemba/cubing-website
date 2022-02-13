@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+      - name: Install React-Scripts
+        run: npm i react-scripts
       - name: Build Production Files (npm build)
         run: npm run build
       - name: Deploy to Firebase Hosting
