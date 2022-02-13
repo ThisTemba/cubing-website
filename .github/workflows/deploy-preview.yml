@@ -22,5 +22,5 @@ jobs:
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CUBING_WEBSITE }}"
-          expires: 30d
+          expires: 7d
           projectId: cubing-website
