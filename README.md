@@ -1,6 +1,6 @@
 # Cubing Website
 
-Cubing website is a website for cubing
+Cubing website is a website for cubing [![Deploy to Live Channel](https://github.com/ThisTemba/cubing-website/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/ThisTemba/cubing-website/actions/workflows/deploy-prod.yml)
 
 # Overview
 
