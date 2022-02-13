@@ -44,7 +44,9 @@ function CornMult(a, b, prod) {
     ori = oriA;
     ori += oriA < 3 ? oriB : 6 - oriB;
     ori %= 3;
-    oriA >= 3 !== oriB >= 3 && (ori += 3);
+    const cond1 = oriA >= 3;
+    const cond2 = oriB >= 3;
+    cond1 !== cond2 && (ori += 3);
     prod.co[corn] = ori;
   }
 }
@@ -70,7 +72,6 @@ function EdgeMult(a, b, prod) {
 }
 
 function initMove() {
-  initMove = Function.prototype;
   var a, p;
   moveCube[0] = new CubieCube1(15120, 0, 119750400, 0);
   moveCube[3] = new CubieCube1(21021, 1494, 323403417, 0);
@@ -258,14 +259,14 @@ export function getAnyScramble(_ep, _eo, _cp, _co, maxDepth, _rndapp, _rndpre) {
     for (let i = 0; i < rndpre.length; i++) {
       CornMult(moveCube[rndpre[i]], cc, cc2);
       EdgeMult(moveCube[rndpre[i]], cc, cc2);
-      var tmp = cc2;
+      let tmp = cc2;
       cc2 = cc;
       cc = tmp;
     }
     for (let i = 0; i < rndapp.length; i++) {
       CornMult(cc, moveCube[rndapp[i]], cc2);
       EdgeMult(cc, moveCube[rndapp[i]], cc2);
-      var tmp = cc2;
+      let tmp = cc2;
       cc2 = cc;
       cc = tmp;
     }
