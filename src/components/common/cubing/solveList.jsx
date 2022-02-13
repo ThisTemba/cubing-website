@@ -12,7 +12,7 @@ import ButtonGroupToggle from "../buttonGroupToggle";
 import TimeDisplay from "./timeDisplay";
 
 export default function SolveList({ solves, onPenalty, onDeleteSolve }) {
-  const [ModalComponent, showModal, unused, setModalContent] = useModal();
+  const [ModalComponent, showModal, , setModalContent] = useModal();
   const [selectedSolveDateTime, setSelectedSolveDateTime] = useState(null);
   const { darkMode } = useContext(DarkModeContext);
   const { xs } = useWindowDimensions();

@@ -87,7 +87,7 @@ function initMove() {
   }
 }
 
-var _ = (CubieCube1.prototype = CubieCube.prototype);
+// var _ = (CubieCube1.prototype = CubieCube.prototype);
 var moveCube = [];
 var cornerFacelet = [
   [8, 9, 20],

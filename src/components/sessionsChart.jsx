@@ -10,9 +10,9 @@ import {
   Line,
   Scatter,
   ErrorBar,
-  AreaChart,
-  Area,
-  ReferenceLine,
+  // AreaChart,
+  // Area,
+  // ReferenceLine,
 } from "recharts";
 import { Card, Table, Button } from "react-bootstrap";
 import _ from "lodash";
@@ -69,10 +69,10 @@ export default function SessionsChart({ sessionGroup }) {
   };
 
   const renderSessionModalBody = (sesh) => {
-    const p10 = sesh.percentiles?.p10;
-    const p90 = sesh.percentiles?.p90;
-    const q1 = sesh.quartiles?.q1;
-    const q3 = sesh.quartiles?.q3;
+    // const p10 = sesh.percentiles?.p10;
+    // const p90 = sesh.percentiles?.p90;
+    // const q1 = sesh.quartiles?.q1;
+    // const q3 = sesh.quartiles?.q3;
 
     let bestsToDisplay = [
       { label: "Ao100", key: "ao100" },
@@ -140,7 +140,7 @@ export default function SessionsChart({ sessionGroup }) {
     const s = sesh.sd;
     const m = sesh.mean;
     xVals.forEach((n) => data.push({ near: n, pdf: lognormalpdf(n, s, m) }));
-    const labelCommon = { style: { textAnchor: "middle" }, fill: axesColor };
+    // const labelCommon = { style: { textAnchor: "middle" }, fill: axesColor };
 
     return (
       <>
