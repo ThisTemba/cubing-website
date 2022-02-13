@@ -24,7 +24,7 @@ import {
 } from "../utils/learnedStatus";
 
 export default function CaseSetTable(props) {
-  const { caseSet } = props;
+  const { caseSet, setSelectedCases } = props;
   const [data, setData] = useState(caseSet.cases || {});
   const { userDoc } = useContext(UserContext);
   const { darkMode } = useContext(DarkModeContext);
@@ -33,13 +33,17 @@ export default function CaseSetTable(props) {
   const [caseModalId, setCaseModalId] = useState(null);
   const { width } = useWindowDimensions();
 
-  const userTrainSettings = userDoc?.data()?.settings?.trainSettings;
+  const userTrainSettings = useMemo(
+    () => userDoc?.data()?.settings?.trainSettings,
+    [userDoc]
+  );
+  const currentCase = _.find(data, ["id", caseModalId]);
 
   useEffect(() => {
     setCaseModalContent();
-    const cas = _.find(data, ["id", caseModalId]);
-    setCaseModalContent(cas, caseSet.details);
-  }, [showing, _.find(data, ["id", caseModalId])]);
+    setCaseModalContent(currentCase, caseSet.details);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showing, currentCase, caseSet.details]);
 
   useEffect(() => {
     setData(caseSet.cases);
@@ -179,7 +183,7 @@ export default function CaseSetTable(props) {
         sortType: sortStatus,
       },
     ],
-    [windowIsWide]
+    [windowIsWide, caseSet.details, hasUniqueGroups, userTrainSettings]
   );
 
   const getPropNotLearnedProps = ({ column, row, isAggregated, value }) => {
@@ -240,8 +244,8 @@ export default function CaseSetTable(props) {
   useEffect(() => {
     const selectedRowIds = table.state.selectedRowIds;
     const selectedCases = data.filter((unused, i) => selectedRowIds[i]);
-    props.setSelectedCases(selectedCases);
-  }, [table.state.selectedRowIds]);
+    setSelectedCases(selectedCases);
+  }, [table.state.selectedRowIds, setSelectedCases, data]);
 
   return (
     <>
