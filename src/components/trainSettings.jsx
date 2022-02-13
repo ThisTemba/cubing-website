@@ -25,11 +25,14 @@ export default function TrainSettings() {
     return newData;
   }
 
-  useEffect(async () => {
-    if (userDoc) {
-      const trainSettings = userDoc.data()?.settings?.trainSettings;
-      if (trainSettings) setData(trainSettings);
+  useEffect(() => {
+    async function makeDoName() {
+      if (userDoc) {
+        const trainSettings = userDoc.data()?.settings?.trainSettings;
+        if (trainSettings) setData(trainSettings);
+      }
     }
+    makeDoName();
   }, [userDoc]);
 
   const schema = {
