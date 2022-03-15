@@ -6,6 +6,7 @@ import useInterval from "../../../hooks/useInterval";
 export default function Timer(props) {
   const { scramble, armingTime, onNewSolve, disabled, initTime } = props;
   const [time, _setTime] = useState(0);
+  const [startTime, setStartTime] = useState(0);
   const [timerState, _setTimerState] = useState("ready");
   const timerRef = useRef();
   const timeoutRef = useRef();
@@ -15,7 +16,10 @@ export default function Timer(props) {
   const disabledRef = useRef(disabled);
   const scrambleRef = useRef(scramble);
 
-  useInterval(() => setTime(time + 10), timerState === "on" ? 10 : null);
+  useInterval(
+    () => setTime(Date.now() - startTime),
+    timerState === "on" ? 10 : null
+  );
 
   useEffect(() => setTime(initTime * 1000 || 0), [initTime]);
 
@@ -43,6 +47,7 @@ export default function Timer(props) {
   const setTimerState = (state) => {
     timerStateRef.current = state;
     _setTimerState(state);
+    setStartTime(state === "on" ? Date.now() : 0);
   };
 
   const setTime = (time) => {
