@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { auth } from "../services/firebase";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+
+import { auth, UserContext } from "../services/firebase";
 import CenterCard from "./common/centerCard";
 import Input from "./common/input";
 
@@ -11,6 +12,7 @@ export default function PasswordReset() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const { user } = useContext(UserContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +61,7 @@ export default function PasswordReset() {
       title="Reset your password"
       content={content}
       error={error}
-      textBelowCard={forgotPasswordComp}
+      textBelowCard={user ? "" : forgotPasswordComp}
     />
   );
 }
