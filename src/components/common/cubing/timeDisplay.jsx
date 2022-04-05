@@ -8,7 +8,7 @@ const TimeDisplay = (props) => {
     fontFamily: "Monospace",
     textAlign: "center",
     paddingTop: xs ? "30px" : "",
-    fontSize: fontSize ? fontSize : xs ? "16vw" : 130,
+    fontSize: fontSize ? fontSize : xs ? "21vw" : 130,
   };
   const className =
     props.timerState === "arming"
