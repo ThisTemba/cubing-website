@@ -3,7 +3,7 @@ import { getP10, getP90, getQ1, getQ2, getQ3 } from "../utils/quantiles";
 import _ from "lodash";
 import standardDeviation from "./standardDeviation";
 
-export const getSessionStats = ({ solves }) => {
+export const getSessionStatsOld = ({ solves }) => {
   if (!solves.length) throw new Error("session has no solves");
   if (solves[0].dur === undefined)
     throw new Error("some solves don't have durs");
@@ -26,7 +26,7 @@ export const getSessionStats = ({ solves }) => {
   return stats;
 };
 
-export const newGetSessionStats = ({ solves }) => {
+export const getSessionStats = ({ solves }) => {
   if (!solves.length) throw new Error("session has no solves");
   if (solves[0].dur === undefined)
     throw new Error("some solves don't have durs");

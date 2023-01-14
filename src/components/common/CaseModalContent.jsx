@@ -2,8 +2,9 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { Button, Table, Modal, Accordion, Card } from "react-bootstrap";
 import CreatableSelect from "react-select/creatable";
+import { setDoc, getDoc, doc } from "@firebase/firestore";
 import _ from "lodash";
-import { UserContext, getCaseSetDocRef, setDoc } from "../../services/firebase";
+import { UserContext, getCaseSetDocRef } from "../../services/firebase";
 import { FaIcon } from "../../fontAwesome";
 import CaseImage from "./cubing/cubeImage";
 import DeletableOption from "./deletableOption";
@@ -34,7 +35,8 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
 
   const edit = async () => {
     const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
-    const _caseDoc = await caseSetDocRef.collection("cases").doc(cas.id).get();
+    const _caseDoc = await getDoc(doc(caseSetDocRef, "cases", cas.id));
+
     setCaseDoc(_caseDoc);
     const userCase = _caseDoc.data();
 
@@ -58,7 +60,7 @@ export default function CaseModalContent({ cas, caseSetDetails, hideModal }) {
     setDoc(caseDoc.ref, newCaseDoc);
 
     const caseSetDocRef = getCaseSetDocRef(user, caseSetDetails);
-    const caseSetDoc = await caseSetDocRef.get();
+    const caseSetDoc = await getDoc(caseSetDocRef);
     if (caseSetDoc.exists) {
       const oldCaseSet = caseSetDoc.data();
       const oldCases = oldCaseSet?.cases;

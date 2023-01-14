@@ -22,7 +22,7 @@ const TimeDisplay = (props) => {
   const valueToDisplay =
     typeof timeMilliseconds !== "undefined"
       ? getTimeString(timeMilliseconds)
-      : typeof formattedTime !== undefined
+      : typeof formattedTime !== "undefined"
       ? formattedTime
       : "";
 

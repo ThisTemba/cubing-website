@@ -1,17 +1,15 @@
-import { getMainSessionGroupDocRef, setDoc } from "../services/firebase";
-import { getSessionGroupStats } from "./sessionStats";
+import { setDoc, getDoc, doc, deleteDoc } from "@firebase/firestore";
 import _ from "lodash";
+import { getMainSessionGroupDocRef } from "../services/firebase";
+import { getSessionGroupStats } from "./sessionStats";
 
 const deleteSessionDoc = (sessionGroupDocRef, sessionId) => {
-  sessionGroupDocRef
-    .collection("sessions")
-    .doc(sessionId)
-    .delete()
-    .then(console.log("Deleted session doc!"));
+  const sessionDocRef = doc(sessionGroupDocRef, "sessions", sessionId);
+  deleteDoc(sessionDocRef).then(console.log("Deleted session doc!"));
 };
 
 const deleteSessionFromGroupDoc = async (sessionGroupDocRef, sessionId) => {
-  let sessionGroup = (await sessionGroupDocRef.get()).data() || {};
+  let sessionGroup = (await getDoc(sessionGroupDocRef)).data() || {};
   console.log("sessionGroup before", sessionGroup);
 
   // Prepare Data
@@ -24,7 +22,7 @@ const deleteSessionFromGroupDoc = async (sessionGroupDocRef, sessionId) => {
   console.log("sessionGroup after", sessionGroup);
 
   // Write to sessionGroupDoc
-  setDoc(sessionGroupDocRef, sessionGroup, "Session Group");
+  setDoc(sessionGroupDocRef, sessionGroup);
 };
 
 export default function deleteSession(sessionId, user) {

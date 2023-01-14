@@ -1,17 +1,23 @@
 import React, { useContext } from "react";
 import { Button, Container, Row } from "react-bootstrap";
-import firebase, {
+import {
+  getDoc,
+  setDoc,
+  addDoc,
+  collection,
+  serverTimestamp,
+} from "@firebase/firestore";
+import {
   UserContext,
   getUserDocRef,
   getMainSessionGroupDocRef,
-  setDoc,
 } from "../../services/firebase";
 
 import _ from "lodash";
 
 import {
+  getSessionStatsOld,
   getSessionStats,
-  newGetSessionStats,
   getSessionGroupStats,
 } from "../../utils/sessionStats";
 import useLocalStorage from "../../hooks/useLocalStorage";
@@ -50,10 +56,9 @@ export default function TimePage() {
     return data;
   }
 
-  const saveCurrentSession = (session) => {
-    getUserDocRef(user)
-      .collection("sessions")
-      .add(session)
+  const saveCurrentSessionOld = (session) => {
+    const sessionsRef = collection(getUserDocRef(user), "sessions");
+    addDoc(sessionsRef, session)
       .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
       })
@@ -62,16 +67,17 @@ export default function TimePage() {
       });
   };
 
-  const newSaveCurrentSession = async (session) => {
+  const saveCurrentSession = async (session) => {
     const sessionGroupDocRef = getMainSessionGroupDocRef(user);
 
     // Save to sessionDoc
-    const sessionDocRef = await sessionGroupDocRef
-      .collection("sessions")
-      .add(session);
+    const sessionDocRef = await addDoc(
+      collection(sessionGroupDocRef, "sessions"),
+      session
+    );
 
     // Read sessionGroupDoc
-    let sessionGroup = (await sessionGroupDocRef.get()).data() || {};
+    let sessionGroup = (await getDoc(sessionGroupDocRef)).data() || {};
 
     // Prepare Data
     const newSession = _.omit(session, "solves", "timeStamp");
@@ -83,7 +89,7 @@ export default function TimePage() {
     sessionGroup = _.merge(sessionGroup, sessionGroupStats);
 
     // Write to sessionGroupDoc
-    setDoc(sessionGroupDocRef, sessionGroup, "Session Group");
+    setDoc(sessionGroupDocRef, sessionGroup);
   };
 
   const getNewSession = (solves = []) => {
@@ -94,7 +100,7 @@ export default function TimePage() {
         " " +
         dateTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       date: dateTime.toLocaleDateString(),
-      timeStamp: firebase.firestore.Timestamp.now(),
+      timeStamp: serverTimestamp(),
       dateTime: dateTime.toString(),
       solves: solves,
     };
@@ -109,11 +115,11 @@ export default function TimePage() {
   const handleNewSession = () => {
     const hasSolves = session.solves.length > 0;
     if (hasSolves) {
+      const statsOld = getSessionStatsOld(session);
       const stats = getSessionStats(session);
-      const newStats = newGetSessionStats(session);
-      saveCurrentSession({ ...session, stats }); // This guy is a backup
-      // delete once you're comfortable with the new method
-      newSaveCurrentSession({ ...session, ...newStats });
+      saveCurrentSessionOld({ ...session, stats: statsOld }); // This guy is a backup
+      // TODO: delete once you're comfortable with the new method
+      saveCurrentSession({ ...session, ...stats });
     }
     setSession(getNewSession());
     document.activeElement.blur(); // remove focus from new session button

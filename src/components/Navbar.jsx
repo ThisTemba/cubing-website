@@ -5,6 +5,7 @@ import { FaIcon } from "../fontAwesome";
 import { auth, UserContext } from "../services/firebase";
 import DarkModeContext from "../hooks/useDarkMode";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import { signOut } from "@firebase/auth";
 
 export default function Navbar() {
   const [expanded, setExpanded] = useState(false);
@@ -80,7 +81,7 @@ export default function Navbar() {
                 to="/login"
                 onClick={() => {
                   collapse();
-                  auth.signOut();
+                  signOut(auth);
                 }}
               >
                 Sign Out

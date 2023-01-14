@@ -2,9 +2,10 @@ import React, { useEffect, useContext } from "react";
 import Joi from "joi-browser";
 import _ from "lodash";
 import InputMosh from "./common/inputMosh";
-import { UserContext, getUserDocRef, setDoc } from "../services/firebase";
+import { UserContext, getUserDocRef } from "../services/firebase";
 import { useState } from "react";
 import { Alert } from "react-bootstrap";
+import { setDoc } from "@firebase/firestore";
 
 export default function TrainSettings() {
   const defaultCaseLearnedCriteria = {
@@ -109,7 +110,7 @@ export default function TrainSettings() {
     let userData = userDoc.data();
     let settings = userData.settings;
     userData.settings = { ...settings, trainSettings: dataToWrite };
-    setDoc(getUserDocRef(user), userData, "user doc with train settings");
+    setDoc(getUserDocRef(user), userData);
     setShowAlert(true);
   };
 

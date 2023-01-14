@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Feedback from "feeder-react-feedback"; // import Feedback component
-import "feeder-react-feedback/dist/feeder-react-feedback.css";
+// import Feedback from "feeder-react-feedback"; // import Feedback component
+// import "feeder-react-feedback/dist/feeder-react-feedback.css";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.min.css";
 import "./App.css";
@@ -61,7 +61,7 @@ function App() {
                     <Route path="/password_reset" component={PasswordReset} />
                     <Redirect path="/" to="/train" />
                   </Switch>
-                  {!xs && (
+                  {/* {!xs && (
                     <Feedback
                       projectId="61258e09ac9cf500049e116b"
                       feedbackTypes={["bug", "idea", "other"]}
@@ -71,7 +71,7 @@ function App() {
                       hoverBorderColor={darkMode ? "#343a40" : "#dee2e6"}
                       textColor={darkMode ? "#dee2e6" : "#212529"}
                     />
-                  )}
+                  )} */}
                 </>
               )}
             </div>

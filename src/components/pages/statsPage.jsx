@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Row } from "react-bootstrap";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import { UserContext } from "../../services/firebase";
 import useMainSessionGroup from "../../hooks/useMainSessionGroup";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
@@ -9,26 +8,32 @@ import ColCard from "../common/colCard";
 import SessionsChart from "../sessionsChart";
 import BestsTable from "../bestsTable";
 import StatsOverviewTable from "../statsOverviewTable";
+import DarkModeContext from "../../hooks/useDarkMode";
 import ActivityChart from "../activityChart";
 
 export default function StatsPage() {
   const { user } = useContext(UserContext);
+  const { darkMode } = useContext(DarkModeContext);
   const sessionGroupDoc = useMainSessionGroup(user);
   const sessionGroup = sessionGroupDoc?.data();
   const loading = typeof sessionGroupDoc === "undefined";
   const { xs, md } = useWindowDimensions();
 
   const CustomJumbo = ({ title, body, buttons }) => {
+    let className = "p-5 mb-4 rounded-3";
+    className += darkMode ? " bg-dark" : " bg-light";
     return (
-      <Jumbotron>
-        <h1>{title}</h1>
-        <p>{body}</p>
-        {buttons.map((b) => (
-          <Button as={Link} to={b.to} variant={b.variant} className="m-1">
-            {b.text}
-          </Button>
-        ))}
-      </Jumbotron>
+      <div className={className}>
+        <div className="container-fluid py-3">
+          <h1>{title}</h1>
+          <p>{body}</p>
+          {buttons.map((b) => (
+            <Button as={Link} to={b.to} variant={b.variant} className="m-1">
+              {b.text}
+            </Button>
+          ))}
+        </div>
+      </div>
     );
   };
 
