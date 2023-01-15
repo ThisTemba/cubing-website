@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
+import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
@@ -7,14 +7,13 @@ import { BrowserRouter } from "react-router-dom";
 import "font-awesome/css/font-awesome.css";
 import "./fontAwesome";
 
-const root = createRoot(document.getElementById("root"));
-root.render(
-  // TODO: figure out why strict mode is such a bitch
-  // <React.StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-  // </React.StrictMode>
+ReactDOM.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
