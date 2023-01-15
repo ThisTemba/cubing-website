@@ -1,7 +1,7 @@
 import { useState, createContext } from "react";
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+import { initializeApp } from "@firebase/app";
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
+import { collection, doc, getFirestore } from "@firebase/firestore";
 
 var firebaseConfig = {
   apiKey: "AIzaSyD3KDYppKymwXOQcffJdWI_3bZzLsaiUGE",
@@ -13,46 +13,33 @@ var firebaseConfig = {
   measurementId: "G-BYLSDMPCQ0",
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
 // EXPORTS (mostly)
-export default firebase;
 
-const db = firebase.firestore();
-export const auth = firebase.auth();
+const db = getFirestore(firebaseApp);
+export const auth = getAuth(firebaseApp);
 
-export const usersRef = db.collection("users");
+export const usersRef = collection(db, "users");
 
 export const UserContext = createContext(null);
 
 export const getUserDocRef = (user) => {
-  return db.collection("users").doc(user?.uid);
+  return doc(db, "users", user?.uid);
 };
 
 export const getCaseSetDocRef = (user, caseSetDetails) => {
-  return getUserDocRef(user).collection("caseSets").doc(caseSetDetails.id);
+  return doc(getUserDocRef(user), "caseSets", caseSetDetails.id);
 };
 
 export const getMainSessionGroupDocRef = (user) => {
-  return getUserDocRef(user)
-    .collection("puzzles")
-    .doc("3x3")
-    .collection("sessionGroups")
-    .doc("main");
-};
-
-export const setDoc = (docRef, data, logName = "Placeholder") => {
-  const successMsg = `${logName} document successfully written!`;
-  const errorMsg = `Error writing ${logName} document: `;
-  docRef
-    .set(data)
-    .then(() => console.log(successMsg))
-    .catch((error) => console.error(errorMsg, error));
+  return doc(getUserDocRef(user), "puzzles", "3x3", "sessionGroups", "main");
 };
 
 export const useAuthState = () => {
   const [user, setUser] = useState();
-  firebase.auth().onAuthStateChanged((user) => {
+  const auth = getAuth(firebaseApp);
+  onAuthStateChanged(auth, (user) => {
     setUser(user ? user : null);
   });
   return user;

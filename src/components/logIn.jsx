@@ -1,3 +1,4 @@
+import { signInWithEmailAndPassword } from "@firebase/auth";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../services/firebase";
@@ -7,8 +8,7 @@ export default function LogIn({ history }) {
   const [error, setError] = useState(null);
 
   const handleSubmit = (email, password) => {
-    auth
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then(() => history.goBack())
       .catch((error) => setError(error));
   };

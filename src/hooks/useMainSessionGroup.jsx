@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { onSnapshot } from "@firebase/firestore";
 import { getMainSessionGroupDocRef } from "../services/firebase";
 
 export default function useMainSessionGroup(user) {
@@ -10,7 +11,7 @@ export default function useMainSessionGroup(user) {
     if (!loadingUser) {
       if (user) {
         const sessionGroupDocRef = getMainSessionGroupDocRef(user);
-        unsubscribe = sessionGroupDocRef?.onSnapshot((sessionGroupDoc) =>
+        unsubscribe = onSnapshot(sessionGroupDocRef, (sessionGroupDoc) =>
           setSessionGroupDoc(sessionGroupDoc)
         );
       } else setSessionGroupDoc(null);

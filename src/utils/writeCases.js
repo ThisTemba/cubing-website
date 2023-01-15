@@ -1,15 +1,16 @@
+import { setDoc, getDoc, doc } from "@firebase/firestore";
 import _ from "lodash";
-import { getCaseSetDocRef, setDoc } from "../services/firebase";
+import { getCaseSetDocRef } from "../services/firebase";
 import { prepareCaseData } from "./caseStats";
 
 const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
   const caseStatData = Promise.all(
     caseIds.map(async (caseId) => {
-      const caseDocRef = caseSetDocRef.collection("cases").doc(caseId);
-      const oldDoc = await caseDocRef.get();
+      const caseDocRef = doc(caseSetDocRef, "cases", caseId);
+      const oldDoc = await getDoc(caseDocRef);
       const newSolves = _.filter(solves, ["caseId", caseId]);
       const data = prepareCaseData(newSolves, oldDoc);
-      setDoc(caseDocRef, data, "CaseDoc");
+      setDoc(caseDocRef, data);
       return { id: caseId, caseStats: data.caseStats };
     })
   );
@@ -17,7 +18,7 @@ const writeCasesToCaseDocs = (solves, caseIds, caseSetDocRef) => {
 };
 
 const writeCasesToCaseSetDoc = async (newCases, caseSetDocRef) => {
-  const caseSetDoc = await caseSetDocRef.get();
+  const caseSetDoc = await getDoc(caseSetDocRef);
   let cases = [...newCases];
   if (caseSetDoc.exists && caseSetDoc.data()) {
     const oldCases = caseSetDoc.data().cases;
@@ -37,7 +38,7 @@ const writeCasesToCaseSetDoc = async (newCases, caseSetDocRef) => {
       cases = newCases;
     }
   }
-  setDoc(caseSetDocRef, { cases }, "CaseSetDoc");
+  setDoc(caseSetDocRef, { cases });
 };
 
 export const writeCasesToFirebase = (solves, caseIds, caseSetDetails, user) => {

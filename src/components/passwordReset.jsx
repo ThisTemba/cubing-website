@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 
+import { sendPasswordResetEmail } from "@firebase/auth";
 import { auth, UserContext } from "../services/firebase";
 import CenterCard from "./common/centerCard";
 import Input from "./common/input";
@@ -16,8 +17,7 @@ export default function PasswordReset() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    auth
-      .sendPasswordResetEmail(email)
+    sendPasswordResetEmail(auth, email)
       .then(() => {
         setError(null);
         setMessage(`Email sent to: ${email.slice()}!`);

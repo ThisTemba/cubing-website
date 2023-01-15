@@ -1,4 +1,5 @@
 import { useEffect, useState, createContext } from "react";
+import { collection, onSnapshot } from "@firebase/firestore";
 import _ from "lodash";
 import { getUserDocRef } from "../services/firebase";
 import ollCaseSet from "../data/ollCaseSet";
@@ -85,12 +86,11 @@ export function useCaseSets(user, userDoc) {
     const loadingUserDoc = typeof userDoc === "undefined";
     if (!loadingUser && !loadingUserDoc) {
       if (user) {
-        unsubscribe = getUserDocRef(user)
-          .collection("caseSets")
-          .onSnapshot((snapshot) => {
-            const merged = getMergedCaseSets(localCaseSets, snapshot, userDoc);
-            setCaseSets(merged);
-          });
+        const caseSetsRef = collection(getUserDocRef(user), "caseSets");
+        unsubscribe = onSnapshot(caseSetsRef, (snapshot) => {
+          const merged = getMergedCaseSets(localCaseSets, snapshot, userDoc);
+          setCaseSets(merged);
+        });
       } else {
         const merged = getMergedCaseSets(localCaseSets, undefined, userDoc);
         setCaseSets(merged);
