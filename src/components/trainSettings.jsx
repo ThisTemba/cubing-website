@@ -44,7 +44,7 @@ export default function TrainSettings() {
       }
     }
     makeDoName();
-  }, [userDoc]);
+  }, [user, userDoc]);
 
   const schema = {
     hRate: Joi.number().required().min(0).max(1).label("Max hRate"),
