@@ -16,6 +16,7 @@ import balancedRandomIndex from "../../utils/balancedRandom";
 import DarkModeContext from "../../hooks/useDarkMode";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import useModal from "../../hooks/useModal";
+import ManualTimer from "../common/cubing/manualTimer";
 
 export default function TestPage(props) {
   const { selectedCases, caseSetDetails, onDashboard } = props;
@@ -27,9 +28,12 @@ export default function TestPage(props) {
   const solvesRef = useRef();
   const userRef = useRef();
   const { darkMode } = useContext(DarkModeContext);
-  const { user } = useContext(UserContext);
+  const { user, userDoc } = useContext(UserContext);
   const { xs } = useWindowDimensions();
   const [ModalComponent, showModal] = useModal();
+
+  const manualTimer =
+    userDoc?.data()?.settings?.trainSettings?.manualTimer || false;
 
   useEffect(() => {
     nextCaseAndScramble(
@@ -223,12 +227,20 @@ export default function TestPage(props) {
           </Button>
         </Col>
       </Row>
-      <Timer
-        onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
-        scramble={currentScramble}
-        armingTime={100}
-        initTime={solves.length ? solves[0].dur : 0}
-      />
+      {manualTimer && (
+        <ManualTimer
+          onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
+          scramble={currentScramble}
+        />
+      )}
+      {!manualTimer && (
+        <Timer
+          onNewSolve={(solve) => handleNewCaseSolve(solve, currentCase)}
+          scramble={currentScramble}
+          armingTime={100}
+          initTime={solves.length ? solves[0].dur : 0}
+        />
+      )}
       <FeedbackCard
         currentSolve={solves[0]}
         solves={solves}

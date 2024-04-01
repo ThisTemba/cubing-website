@@ -30,6 +30,7 @@ import RainbowProgressBar from "../rainbowProgressBar";
 import ColCard from "../common/colCard";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import useModal from "../../hooks/useModal";
+import ManualTimer from "../common/cubing/manualTimer";
 
 export default function TimePage() {
   const [session, setSession] = useLocalStorage(
@@ -38,7 +39,7 @@ export default function TimePage() {
     customLocalStorageParser
   );
   const [scramble, nextScramble] = useRandomScrambles();
-  const { user } = useContext(UserContext);
+  const { user, userDoc } = useContext(UserContext);
   const { xs, md, lg } = useWindowDimensions();
   const [
     ConfirmModal,
@@ -46,6 +47,9 @@ export default function TimePage() {
     hideConfirmModal,
     setConfirmModalContent,
   ] = useModal();
+
+  const manualTimer =
+    userDoc?.data()?.settings?.trainSettings?.manualTimer || false;
 
   function customLocalStorageParser(localStorageItem) {
     let data = JSON.parse(localStorageItem);
@@ -162,11 +166,12 @@ export default function TimePage() {
   return (
     <>
       <Container className="text-center">
-        <Timer
-          onNewSolve={handleNewSolve}
-          armingTime={250}
-          scramble={scramble}
-        />
+        {manualTimer && (
+          <ManualTimer onNewSolve={handleNewSolve} scramble={scramble} />
+        )}
+        {!manualTimer && (
+          <Timer onNewSolve={handleNewSolve} scramble={scramble} />
+        )}
       </Container>
       <Container
         className="text-center"
