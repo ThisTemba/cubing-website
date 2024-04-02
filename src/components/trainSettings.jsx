@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import { setDoc } from "@firebase/firestore";
 import Joi from "joi-browser";
 import _ from "lodash";
-import InputMosh from "./common/inputMosh";
-import { UserContext, getUserDocRef } from "../services/firebase";
-import { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
-import { setDoc } from "@firebase/firestore";
+import Form from "react-bootstrap/Form";
+import { UserContext, getUserDocRef } from "../services/firebase";
+import InputMosh from "./common/inputMosh";
 
 export default function TrainSettings() {
   const defaultCaseLearnedCriteria = {
@@ -31,10 +31,20 @@ export default function TrainSettings() {
       if (userDoc) {
         const trainSettings = userDoc.data()?.settings?.trainSettings;
         if (trainSettings) setData(trainSettings);
+        // if manualTimer is not defined, set it to false
+        if (trainSettings?.manualTimer === undefined) {
+          let userData = userDoc.data();
+          let settings = userData.settings;
+          userData.settings = {
+            ...settings,
+            trainSettings: { ...trainSettings, manualTimer: false },
+          };
+          setDoc(getUserDocRef(user), userData);
+        }
       }
     }
     makeDoName();
-  }, [userDoc]);
+  }, [user, userDoc]);
 
   const schema = {
     hRate: Joi.number().required().min(0).max(1).label("Max hRate"),
@@ -42,6 +52,7 @@ export default function TrainSettings() {
     cmRate: Joi.number().required().min(0).max(1).label("Max cmRate"),
     numSolves: Joi.number().required().min(1).label("Min numSolves"),
     avgTPS: Joi.number().required().min(0.1).label("Min avgTPS"),
+    manualTimer: Joi.boolean().label("Manual Timer"),
   };
 
   const validate = () => {
@@ -78,7 +89,11 @@ export default function TrainSettings() {
     else delete newErrors[input.name];
 
     const newData = { ...data };
-    newData[input.name] = input.value;
+    if (input.name === "manualTimer") {
+      newData[input.name] = input.checked;
+    } else {
+      newData[input.name] = input.value;
+    }
 
     setErrors(newErrors);
     setData(newData);
@@ -107,6 +122,7 @@ export default function TrainSettings() {
 
   const doSubmit = async () => {
     const dataToWrite = _.mapValues(data, (v) => parseFloat(v));
+    dataToWrite.manualTimer = data.manualTimer; // keep manualTimer as boolean
     let userData = userDoc.data();
     let settings = userData.settings;
     userData.settings = { ...settings, trainSettings: dataToWrite };
@@ -131,6 +147,15 @@ export default function TrainSettings() {
         {renderInput("cmRate", "Max critical mistake rate")}
         {renderInput("numSolves", "Min number of solves")}
         {renderInput("avgTPS", "Min average TPS")}
+        <Form.Check
+          type="switch"
+          name="manualTimer"
+          id="manualTimer"
+          label="Enter times manually"
+          checked={data["manualTimer"]}
+          onChange={handleChange}
+          style={{ marginTop: "1rem", marginBottom: "1rem" }}
+        />
         {renderButton("Save")}
       </form>
     </div>

@@ -26,7 +26,7 @@ const SettingsPage = () => {
       content: (
         <Form.Check
           type="switch"
-          id="custom-switch"
+          id="dark-mode-switch"
           label="Dark Mode"
           checked={darkMode}
           onChange={handleChange}
