@@ -12,11 +12,10 @@ const ButtonGroupToggle = ({ buttons, color, activeId, onSelect, ...rest }) => {
     <div className="btn-group  m-1" role="group">
       {buttons.map((button) => {
         return (
-          <CustomTooltip showTime={700} message={button.tooltip}>
+          <CustomTooltip key={button.id} showTime={700} message={button.tooltip}>
             <Button
               variant={getButtonVariant(activeId, button)}
               onClick={() => onSelect(button.id)}
-              key={button.id}
               {...rest}
             >
               {button.content}
